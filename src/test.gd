@@ -15,7 +15,7 @@ var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 func _physics_process(_delta: float) -> void:
 	var mouse = get_viewport().get_mouse_position()
 	
-	$Sprite.position = get_hex_center(mouse)
+	$Entities/Sprite.position = get_hex_center(mouse)
 
 
 # get the hexagon center position of the hexagon that pos is inside of
