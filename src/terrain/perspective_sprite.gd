@@ -17,22 +17,43 @@ func _physics_process(delta: float) -> void:
 	screen_pos.x /= tilemap.get_viewport_rect().size.x
 	screen_pos.y = 1.0 - (screen_pos.y / tilemap.get_viewport_rect().size.y)
 	
-	print(screen_pos)
-
-	var p = (a * h) / (a - b)
-
-	var yy = screen_pos.y * a * h
-	yy = yy / (b * h + screen_pos.y * (a - b))
-
-	var xx = (screen_pos.x / p) * (p - yy)
-
-	var d = (a * yy) / (2.0 * p)
-
-	screen_pos.x = d + xx
+	#print(screen_pos)
+	
+#	var p = (a * h) / (a - b)
+#
+#	var yy = screen_pos.y * a * h
+#	yy = yy / (b * h + screen_pos.y * (a - b))
+#
+#	var xx = (screen_pos.x / p) * (p - yy)
+#
+#	var d = (a * yy) / (2.0 * p)
+#
+#	screen_pos.x = d + xx
+#	screen_pos.y = yy
+	
+	#print(screen_pos)
+	#print("---")
+	
+	var bb = 1.0 / b
+	var q = (bb - a) / 2.0
+	#var w = screen_pos.x + q
+	
+	var p = (bb * h) / (bb - a)
+	
+	var yy = screen_pos.y * bb * h
+	yy = yy / (a * h + screen_pos.y * (bb - a))
+	
+	#var ww = (w * (p - yy)) / p
+	var w = (screen_pos.x * (p - yy)) / (p - h)
+	
+	var d = (q * (h - yy)) / h
+	
+	#screen_pos.x = ww - d
+	screen_pos.x = w - d
 	screen_pos.y = yy
 	
 	print(screen_pos)
-	print("---")
+	#print("---")
 	
 	screen_pos.x *= tilemap.get_viewport_rect().size.x
 	screen_pos.y = (1.0 - screen_pos.y) * tilemap.get_viewport_rect().size.y
