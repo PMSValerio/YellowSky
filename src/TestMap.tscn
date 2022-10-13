@@ -153,6 +153,7 @@ texture = ExtResource( 2 )
 script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="Entities/Sprite"]
+position = Vector2( 0, -128 )
 current = true
 
 [node name="Mountain" parent="Entities" instance=ExtResource( 4 )]

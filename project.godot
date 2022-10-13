@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "PerspectiveSprite",
+"language": "GDScript",
+"path": "res://src/terrain/perspective_sprite.gd"
+} ]
+_global_script_class_icons={
+"PerspectiveSprite": ""
+}
+
 [application]
 
 config/name="YellowSky"
