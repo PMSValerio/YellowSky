@@ -1,7 +1,7 @@
 extends Node
 
 
-const CELL_WID = 55.0
+const CELL_WID = 56.0
 const CELL_HEI = 48.0
 
 var mid_wid = CELL_WID / 2.0
@@ -12,10 +12,16 @@ var edge_right = Vector2(mid_wid, 0.0) - Vector2(CELL_WID, quarter_hei)
 var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
 
+func _ready() -> void:
+	Global.set_cam($Entities/Sprite/Camera2D)
+	Global.set_ref_tilemap($TileMap)
+
+
 func _physics_process(_delta: float) -> void:
-	var mouse = get_viewport().get_mouse_position()
+	pass
+	#var mouse = get_viewport().get_mouse_position()
 	
-	$Entities/Sprite.position = get_hex_center(mouse)
+	#$Entities/Sprite.position = get_hex_center(mouse)
 
 
 # get the hexagon center position of the hexagon that pos is inside of

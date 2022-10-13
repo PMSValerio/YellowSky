@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hex_tile.png-09704d34b1ed8ecb5ddb0030b1962b63.stex"
+path="res://.import/mountain.png-56c7736b5abcaa68452db3012280c71f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/terrain/hex_tile.png"
-dest_files=[ "res://.import/hex_tile.png-09704d34b1ed8ecb5ddb0030b1962b63.stex" ]
+source_file="res://assets/gfx/terrain/mountain.png"
+dest_files=[ "res://.import/mountain.png-56c7736b5abcaa68452db3012280c71f.stex" ]
 
 [params]
 
