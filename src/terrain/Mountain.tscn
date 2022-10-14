@@ -1,7 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/gfx/terrain/mountain.png" type="Texture" id=1]
 [ext_resource path="res://src/terrain/perspective_sprite.gd" type="Script" id=2]
+[ext_resource path="res://assets/shaders/dim_fade.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/dim_lowlim = 0.55
+shader_param/dim_highlim = 0.6
+shader_param/dim_colour = Color( 0.34902, 0.2, 0.25098, 1 )
+shader_param/alpha_lowlim = 0.675
+shader_param/alpha_highlim = 0.7
+shader_param/enable = true
+shader_param/height = 0.0
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 8 )
@@ -9,8 +21,10 @@ extents = Vector2( 24, 8 )
 [node name="Mountain" type="StaticBody2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+BASE_SCALE = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 8 )

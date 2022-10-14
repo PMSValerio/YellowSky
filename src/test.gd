@@ -13,15 +13,17 @@ var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
 
 func _ready() -> void:
-	Global.set_cam($Entities/Sprite/Camera2D)
+	Global.set_cam($Entities/Node2D/Camera2D)
 	Global.set_ref_tilemap($TileMap)
 
 
 func _physics_process(_delta: float) -> void:
-	pass
-	#var mouse = get_viewport().get_mouse_position()
+	var mouse = get_viewport().get_mouse_position()
+	var hex_center = get_hex_center($Entities/Node2D.global_position)
+	#print("%s -> %s" % [mouse, hex_center])
+	$Cursor.global_position = hex_center
 	
-	#$Entities/Sprite.position = get_hex_center(mouse)
+	$Cursor.position = get_hex_center(mouse)
 
 
 # get the hexagon center position of the hexagon that pos is inside of
