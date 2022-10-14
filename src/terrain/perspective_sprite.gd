@@ -1,28 +1,31 @@
 extends Sprite
 class_name PerspectiveSprite
 
-export var HORIZON_Y = 0.7
-export var STRETCH_FACTOR = 0.4
-
 export var BASE_SCALE = 1.0
 
 export (NodePath) var PROXY
 
 var a = 1.0
-var b = STRETCH_FACTOR
-var h = HORIZON_Y
+var b = 0.7
+var h = 0.4
 
 var _yy = 0.0
 
 
+func _ready() -> void:
+	b = MapUtils.STRETCH_FACTOR
+	h = MapUtils.HORIZON_Y
+
+
 func _physics_process(_delta: float) -> void:
-	_perspective_poise()
-	_perspective_colour()
+	if MapUtils.is_enabled():
+		_perspective_poise()
+		_perspective_colour()
 
 
 # warp position and scale in accordance with perspective parameters
 func _perspective_poise():
-	var tilemap = Global.get_ref_tilemap()
+	var tilemap = MapUtils.get_ref_tilemap()
 	var screen_pos = tilemap.get_viewport_transform() * (tilemap.get_global_transform() * get_parent().global_position)
 	screen_pos.x /= tilemap.get_viewport_rect().size.x
 	screen_pos.y = 1.0 - (screen_pos.y / tilemap.get_viewport_rect().size.y)
