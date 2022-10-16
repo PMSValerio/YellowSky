@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Sprite",
 "class": "PerspectiveSprite",
 "language": "GDScript",
-"path": "res://src/terrain/perspective_sprite.gd"
+"path": "res://src/map/perspective_sprite.gd"
 } ]
 _global_script_class_icons={
 "PerspectiveSprite": ""
@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="YellowSky"
-run/main_scene="res://src/TestMap.tscn"
+run/main_scene="res://src/scenes/World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
