@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if MapUtils.is_enabled():
+	if MapUtils.is_enabled() == true:		
 		_perspective_poise()
 		_perspective_colour()
 

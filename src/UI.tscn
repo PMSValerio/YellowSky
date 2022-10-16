@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/ui_script.gd" type="Script" id=1]
+
+[node name="UI" type="CanvasLayer"]
+layer = 10
+visible = false
+script = ExtResource( 1 )
+
+[node name="MyPanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 0.95, 0.95 )
+rect_pivot_offset = Vector2( 512, 300 )
+
+[node name="Button" type="Button" parent="MyPanel"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Press"
+
+[connection signal="pressed" from="MyPanel/Button" to="." method="_on_Button_pressed"]

@@ -19,6 +19,7 @@ shader_param/height = 0.0
 extents = Vector2( 24, 8 )
 
 [node name="Mountain" type="StaticBody2D"]
+collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 3 )
