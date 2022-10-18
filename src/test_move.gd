@@ -17,15 +17,13 @@ func _process(_delta):
 func _on_Area2D_body_entered(body:Node):
 	print("bodyentered:" + body.name)
 
-func _on_TestMap_tile_entered(id: int):
+func _on_World_tile_entered(id: int):
+
+	print('entered')
+
 	if id == 1:
 		$Sprite/InteractPrompt.visible = true
 		can_interact = true
 	else:
 		$Sprite/InteractPrompt.visible = false
 		can_interact = false
-
-
-
-
-

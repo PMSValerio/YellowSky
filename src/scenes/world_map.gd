@@ -1,5 +1,6 @@
 extends Node2D
 
+signal tile_entered(id)
 
 export (PackedScene) var MOUNTAIN_SCENE
 
@@ -9,6 +10,8 @@ onready var entities = $Entities
 
 onready var tilemap = $TileMap
 onready var cursor = $Cursor
+var cache_hex_center = Vector2.ZERO
+var hex_center = Vector2.ZERO
 
 onready var mountains = $Entities/Mountains
 
@@ -22,6 +25,9 @@ func _ready() -> void:
 	
 	_rng.randomize()
 	_generate_map(_rng.randi())
+
+	hex_center = MapUtils.get_hex_center(_get_cursor_position())
+	cache_hex_center = MapUtils.get_hex_center(_get_cursor_position())
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
@@ -32,8 +38,14 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var hex_center = MapUtils.get_hex_center(_get_cursor_position())
-	cursor.global_position = hex_center
+	hex_center = MapUtils.get_hex_center(_get_cursor_position())
+
+	if hex_center != cache_hex_center:
+		cursor.global_position = hex_center
+		cache_hex_center = hex_center
+		emit_signal("tile_entered", MapUtils.get_hex_id(hex_center))
+
+	
 
 
 func _get_cursor_position():
