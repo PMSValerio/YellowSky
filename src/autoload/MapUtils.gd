@@ -1,6 +1,5 @@
 extends Node
 
-
 const HORIZON_Y = 0.7
 const STRETCH_FACTOR = 0.4
 
@@ -43,7 +42,7 @@ func is_enabled() -> bool:
 	return ENABLED
 
 # get the hexagon center position of the hexagon that pos (a global position) is inside of
-func get_hex_center(pos : Vector2):
+func get_hex_center(pos : Vector2) -> Vector2:
 	pos.x = round(pos.x)
 	pos.y = round(pos.y)
 	var cell = _ref_tilemap.world_to_map(_ref_tilemap.to_local(pos))
@@ -80,3 +79,10 @@ func get_hex_center(pos : Vector2):
 	var hex_center = Vector2(offset + cell.x * cell_wid + cell_wid / 2, cell.y * cell_hei + cell_hei * (2.0/3.0))
 	
 	return hex_center
+
+
+func get_hex_id(pos : Vector2) -> int:
+	pos.x = round(pos.x)
+	pos.y = round(pos.y)
+	var cell = _ref_tilemap.world_to_map(_ref_tilemap.to_local(pos))
+	return _ref_tilemap.get_cell(cell.x, cell.y)
