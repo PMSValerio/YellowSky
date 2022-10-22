@@ -45,8 +45,6 @@ func _physics_process(_delta: float) -> void:
 		cache_hex_center = hex_center
 		emit_signal("tile_entered", MapUtils.get_hex_id(hex_center))
 
-	
-
 
 func _get_cursor_position():
 	return $Entities/Node2D.global_position
