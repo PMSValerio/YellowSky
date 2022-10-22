@@ -172,6 +172,8 @@ position = Vector2( 0, -192 )
 scale = Vector2( 0.5, 0.5 )
 current = true
 
+[node name="Tween" type="Tween" parent="Entities/Node2D/Camera2D"]
+
 [node name="Mountains" type="Node2D" parent="Entities"]
 
 [connection signal="tile_entered" from="." to="Entities/Node2D" method="_on_World_tile_entered"]
