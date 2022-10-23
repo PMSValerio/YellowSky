@@ -72,7 +72,7 @@ func _process(_delta):
 func _reset_cam_pos():
 	tween_ref.interpolate_property(cam_ref, "position", cam_ref.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	tween_ref.start()
-	yield(tween_ref, "tween_all_completed")
+	#yield(tween_ref, "tween_all_completed")
 
 func started_moving():
 	if cam_ref.position != init_cam_pos:

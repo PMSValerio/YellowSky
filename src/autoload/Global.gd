@@ -15,5 +15,6 @@ func set_cam(cam : Camera2D):
 func get_cam() -> Camera2D:
 	return _cam
 
+
 func get_screen_size() -> Vector2:
 	return _screen_size

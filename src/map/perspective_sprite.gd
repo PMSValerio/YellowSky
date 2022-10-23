@@ -2,6 +2,7 @@ extends Sprite
 class_name PerspectiveSprite
 
 export var BASE_SCALE = 1.0
+export var UPDATE_Z = false
 
 var a = 1.0
 var b = 0.7
