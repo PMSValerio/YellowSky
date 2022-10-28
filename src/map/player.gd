@@ -51,7 +51,7 @@ func _physics_process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
-		emit_signal("interact")
+		emit_signal("interact", global_position)
 
 
 func _update_cam():

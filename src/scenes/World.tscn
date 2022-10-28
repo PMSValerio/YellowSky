@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
 [ext_resource path="res://assets/tileset/hex_tile.tres" type="TileSet" id=3]
+[ext_resource path="res://src/map/feature/Feature.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/gfx/terrain/hex_tile.png" type="Texture" id=5]
 [ext_resource path="res://src/map/Player.tscn" type="PackedScene" id=8]
 
@@ -117,6 +118,9 @@ anchor_bottom = 1.0
 layer = 3
 follow_viewport_enable = true
 
+[node name="Feature" parent="Entities" instance=ExtResource( 4 )]
+position = Vector2( 616, 464 )
+
 [node name="Player" parent="Entities" instance=ExtResource( 8 )]
 position = Vector2( 560, 464 )
 
@@ -126,3 +130,4 @@ __meta__ = {
 }
 
 [connection signal="tile_entered" from="." to="Entities/Player" method="_on_World_tile_entered"]
+[connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]

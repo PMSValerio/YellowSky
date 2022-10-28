@@ -37,6 +37,9 @@ func _ready() -> void:
 	else:
 		sky.visible = false
 		map_perspective.visible = false
+	
+	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
+	map_grid[cell.x][cell.y] = $Entities/Feature
 
 
 func _physics_process(_delta: float) -> void:
@@ -83,3 +86,11 @@ func _noise_map_process_cell(cell : Vector2, noise_value : float):
 			mountain.global_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 			mountains.add_child(mountain)
 			map_grid[cell.x][cell.y] = mountain
+
+
+func _on_Player_interact(position):
+	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(position))
+	
+	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
+	if tile_entity is Object and tile_entity.has_method("interact"):
+		tile_entity.interact()

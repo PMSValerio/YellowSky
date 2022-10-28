@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Feature",
+"language": "GDScript",
+"path": "res://src/map/feature/feature.gd"
+}, {
 "base": "Sprite",
 "class": "PerspectiveSprite",
 "language": "GDScript",
 "path": "res://src/map/perspective_sprite.gd"
 } ]
 _global_script_class_icons={
+"Feature": "",
 "PerspectiveSprite": ""
 }
 
@@ -22,6 +28,7 @@ _global_script_class_icons={
 
 config/name="YellowSky"
 run/main_scene="res://src/scenes/World.tscn"
+run/low_processor_mode=true
 config/icon="res://icon.png"
 
 [autoload]
