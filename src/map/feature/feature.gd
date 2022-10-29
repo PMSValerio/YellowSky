@@ -3,4 +3,4 @@ class_name Feature
 
 
 func interact() -> void:
-	print("I am a %s, at position %s, tile %s" % [name, global_position, MapUtils.get_ref_tilemap().world_to_map(global_position)])
+	EventManager.emit_signal("push_menu", Global.Menus.TEST)

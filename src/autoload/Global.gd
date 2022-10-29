@@ -1,8 +1,16 @@
 extends Node
 
+
+enum Menus {
+	TEST,
+	SUBTEST,
+}
+
+
 var _cam = null
 var _ref_tilemap = null
 var _screen_size = Vector2.ZERO
+
 
 func _ready():
 	_screen_size = get_viewport().get_visible_rect().size 

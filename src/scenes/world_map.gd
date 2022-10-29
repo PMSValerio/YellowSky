@@ -1,6 +1,6 @@
 extends Node2D
 
-signal tile_entered(id)
+signal tile_entered(tile)
 
 export (PackedScene) var MOUNTAIN_SCENE
 
@@ -38,17 +38,20 @@ func _ready() -> void:
 		sky.visible = false
 		map_perspective.visible = false
 	
+	# TODO: remove
 	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Feature
 
 
 func _physics_process(_delta: float) -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())
-
+	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(hex_center))
+	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
+	
 	if hex_center != cache_hex_center:
 		cursor.global_position = hex_center
 		cache_hex_center = hex_center
-		emit_signal("tile_entered", MapUtils.get_hex_id(hex_center))
+		emit_signal("tile_entered", tile_entity)
 
 
 func _get_player_position():
@@ -88,6 +91,7 @@ func _noise_map_process_cell(cell : Vector2, noise_value : float):
 			map_grid[cell.x][cell.y] = mountain
 
 
+# callback function when player presses interact button
 func _on_Player_interact(position):
 	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(position))
 	
