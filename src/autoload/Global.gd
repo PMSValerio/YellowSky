@@ -6,6 +6,10 @@ enum Menus {
 	SUBTEST,
 }
 
+enum Disasters {
+	TEST,
+}
+
 
 var _cam = null
 var _ref_tilemap = null

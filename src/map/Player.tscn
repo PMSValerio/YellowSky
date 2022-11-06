@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
 [ext_resource path="res://src/map/player.gd" type="Script" id=3]
 [ext_resource path="res://assets/gfx/iconE.png" type="Texture" id=4]
+[ext_resource path="res://src/map/ext_camera.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -32,9 +33,12 @@ rect_scale = Vector2( 0.2, 0.2 )
 rect_pivot_offset = Vector2( -100, -100 )
 texture = ExtResource( 4 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="CameraAnchor" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="CameraAnchor"]
 position = Vector2( 0, -192 )
 scale = Vector2( 0.5, 0.5 )
 current = true
+script = ExtResource( 5 )
 
-[node name="Tween" type="Tween" parent="Camera2D"]
+[node name="Tween" type="Tween" parent="CameraAnchor"]

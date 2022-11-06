@@ -7,13 +7,14 @@ const SPEED := 64.0
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
 
-onready var _cam = $Camera2D
-onready var _cam_tween = $Camera2D/Tween
+onready var _cam_anchor = $CameraAnchor
+onready var _cam = $CameraAnchor/Camera2D
+onready var _cam_tween = $CameraAnchor/Tween
 onready var _prompt = $Sprite/Node2D/InteractPrompt
 
 onready var screen_size_pan_margins = Global.get_screen_size().x / PAN_MARGIN_DIVISION_RATE
 onready var screen_size = Global.get_screen_size()
-onready var init_cam_pos = _cam.position
+onready var init_cam_pos = _cam_anchor.position
 
 var is_moving = false
 var is_moving_cache = false
@@ -45,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 	
 	_update_cam()
 	
-	if is_moving and not is_moving_cache and _cam.position != init_cam_pos:
+	if is_moving and not is_moving_cache and _cam_anchor.position != init_cam_pos:
 		_reset_cam_pos()
 
 
@@ -69,11 +70,11 @@ func _update_cam():
 		cam_move_direction.y -= 1
 	
 	if mouse_is_on_window && not is_moving:
-		_cam.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
 
 
 func _reset_cam_pos():
-	_cam_tween.interpolate_property(_cam, "position", _cam.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	_cam_tween.start()
 
 
