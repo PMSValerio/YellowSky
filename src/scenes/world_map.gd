@@ -11,16 +11,13 @@ onready var entities = $Entities
 onready var tilemap = $TileMap
 onready var cursor = $Cursor
 onready var player = $Entities/Player
-
-var cache_hex_center = Vector2.ZERO
-var hex_center = Vector2.ZERO
-
 onready var mountains = $Entities/Mountains
 
+var hex_center = Vector2.ZERO
+var cache_hex_center = Vector2.ZERO
+
 var _rng = RandomNumberGenerator.new()
-
 var map_grid = []
-
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)

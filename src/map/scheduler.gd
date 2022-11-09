@@ -1,28 +1,20 @@
 extends Node
 
-
+# shouldnt this be made in the Global script itself?
 var _disaster_scenes = {
 	Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 }
 
+# setting reference to canvas layer for disaster
 export (NodePath) var disaster_layer_path
-
 onready var disaster_layer = get_node(disaster_layer_path)
 
 var total_elapsed_time = 0
-
 var _elapsed = 0
-var _next_interval
-var _next_disaster = null
+var _next_interval = 60
+var _next_disaster = Global.Disasters.TEST
 
 var disaster_node = null
-
-
-func _ready() -> void:
-	# TODO: remove
-	_next_interval = 5
-	_next_disaster = Global.Disasters.TEST
-
 
 func _process(delta: float) -> void:
 	total_elapsed_time += delta
@@ -42,8 +34,7 @@ func _process_disaster(disaster_id):
 		disaster_layer.add_child(disaster_node)
 	print("Disaster %s started" % disaster_id)
 
-
 func _schedule_new_disaster():
 	# TODO: calculate based on total progression
-	_next_interval = 10
+	#_next_interval = 10
 	_next_disaster = Global.Disasters.TEST

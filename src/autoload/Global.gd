@@ -1,6 +1,5 @@
 extends Node
 
-
 enum Menus {
 	TEST,
 	SUBTEST,
@@ -10,9 +9,7 @@ enum Disasters {
 	TEST,
 }
 
-
 var _cam = null
-var _ref_tilemap = null
 var _screen_size = Vector2.ZERO
 
 
