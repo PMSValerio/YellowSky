@@ -50,10 +50,8 @@ func _physics_process(_delta: float) -> void:
 		cache_hex_center = hex_center
 		emit_signal("tile_entered", tile_entity)
 
-
 func _get_player_position():
 	return player.global_position
-
 
 # generate procedurally generated map
 func _generate_map(map_seed):
