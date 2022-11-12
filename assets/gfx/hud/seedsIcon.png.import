@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/seedsIcon.png-e4e1a93ac73731e7cdf49c0885faaf11.stex"
+path="res://.import/seedsIcon.png-2973b87528096cccac848573c3dc7181.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/hud/seedsIcon.png"
-dest_files=[ "res://.import/seedsIcon.png-e4e1a93ac73731e7cdf49c0885faaf11.stex" ]
+source_file="res://assets/gfx/HUD/seedsIcon.png"
+dest_files=[ "res://.import/seedsIcon.png-2973b87528096cccac848573c3dc7181.stex" ]
 
 [params]
 

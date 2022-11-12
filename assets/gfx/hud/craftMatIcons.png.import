@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/craftMatIcons.png-89be6f27454b63a0faf80efa3b18331a.stex"
+path="res://.import/craftMatIcons.png-4caa1168241ac4dfe3cc819359d35353.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/hud/craftMatIcons.png"
-dest_files=[ "res://.import/craftMatIcons.png-89be6f27454b63a0faf80efa3b18331a.stex" ]
+source_file="res://assets/gfx/HUD/craftMatIcons.png"
+dest_files=[ "res://.import/craftMatIcons.png-4caa1168241ac4dfe3cc819359d35353.stex" ]
 
 [params]
 

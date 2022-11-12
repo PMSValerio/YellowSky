@@ -1,6 +1,6 @@
 extends Node2D
 
-signal tile_entered(tile)
+#signal tile_entered(tile)
 
 export (PackedScene) var MOUNTAIN_SCENE
 
@@ -38,6 +38,9 @@ func _ready() -> void:
 	# TODO: remove
 	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Feature
+	
+	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/EnergyPlant.global_position))
+	map_grid[cell.x][cell.y] = $Entities/EnergyPlant
 
 
 func _physics_process(_delta: float) -> void:
@@ -48,10 +51,21 @@ func _physics_process(_delta: float) -> void:
 	if hex_center != cache_hex_center:
 		cursor.global_position = hex_center
 		cache_hex_center = hex_center
-		emit_signal("tile_entered", tile_entity)
+		var interactable = _is_feature(tile_entity)
+		player._on_World_tile_entered(interactable)
+
 
 func _get_player_position():
 	return player.global_position
+
+
+# return whether a tile entity is a feature tile
+func _is_feature(tile_entity):
+	if tile_entity != null:
+		if tile_entity is Feature:
+			return true
+	return false
+
 
 # generate procedurally generated map
 func _generate_map(map_seed):

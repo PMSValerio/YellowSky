@@ -135,10 +135,5 @@ func _reset_cam_pos():
 	_cam_tween.start()
 
 # others
-func _on_World_tile_entered(tile):
-	
-	var vis = false
-	if tile != null:
-		if tile is Object and tile.has_method("interact"):
-			vis = true
-	_prompt.visible = vis
+func _on_World_tile_entered(interactable):
+	_prompt.visible = interactable

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/map/scheduler.gd" type="Script" id=7]
 [ext_resource path="res://src/map/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/gui/hud/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/map/feature/facilities/EnergyPlant.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -125,6 +126,9 @@ color = Color( 1, 0.875, 0.5, 1 )
 layer = 3
 follow_viewport_enable = true
 
+[node name="EnergyPlant" parent="Entities" instance=ExtResource( 10 )]
+position = Vector2( 448, 464 )
+
 [node name="Feature" parent="Entities" instance=ExtResource( 4 )]
 position = Vector2( 714, 434 )
 
@@ -146,7 +150,6 @@ script = ExtResource( 6 )
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 
-[connection signal="tile_entered" from="." to="Entities/Player" method="_on_World_tile_entered"]
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
 [connection signal="stamina_changed" from="Entities/Player" to="HUD" method="_on_Player_stamina_changed"]

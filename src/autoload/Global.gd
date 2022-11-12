@@ -1,5 +1,6 @@
 extends Node
 
+
 enum Menus {
 	TEST,
 	SUBTEST,
@@ -8,6 +9,8 @@ enum Menus {
 enum Disasters {
 	TEST,
 }
+
+const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
 
 var _cam = null
 var _screen_size = Vector2.ZERO
