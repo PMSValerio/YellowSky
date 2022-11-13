@@ -42,3 +42,16 @@ func set_seeds(new_val):
 	_seeds = new_val
 	emit_signal("seeds_changed", _seeds)
 
+
+func add_to_resource(rec_id : int, amount : float):
+	match rec_id:
+		Global.Resources.WATER:
+			set_water(_water + amount)
+		Global.Resources.MATERIALS:
+			set_craft_mat(_craft_mat + amount)
+		Global.Resources.ENERGY:
+			set_energy(_energy + amount)
+		Global.Resources.SEEDS:
+			set_seeds(_seeds + amount)
+		
+

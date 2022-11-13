@@ -37,6 +37,7 @@ var out_of_stamina_timer = Timer.new()
 
 func _ready() -> void:
 	Global.set_cam(_cam)
+	Global.set_player(self)
 
 	# set out_of_stamina_timer 
 	out_of_stamina_timer.connect("timeout", self, "change_health", [-HEALTH_LOSS_RATE])

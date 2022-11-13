@@ -67,6 +67,9 @@ func _is_feature(tile_entity):
 	return false
 
 
+# || --- MAP GENERATION --- ||
+
+
 # generate procedurally generated map
 func _generate_map(map_seed):
 	var simplex_noise = OpenSimplexNoise.new()
@@ -98,6 +101,9 @@ func _noise_map_process_cell(cell : Vector2, noise_value : float):
 			mountain.global_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 			mountains.add_child(mountain)
 			map_grid[cell.x][cell.y] = mountain
+
+
+# || --- SIGNALS --- ||
 
 
 # callback function when player presses interact button

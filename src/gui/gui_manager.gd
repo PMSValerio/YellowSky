@@ -4,7 +4,9 @@ extends CanvasLayer
 # preloaded menu scenes
 var _menus = {
 	Global.Menus.TEST: preload("res://src/gui/menus/TestUI.tscn"),
-	Global.Menus.SUBTEST: preload("res://src/gui/menus/SubTestUI.tscn")
+	Global.Menus.SUBTEST: preload("res://src/gui/menus/SubTestUI.tscn"),
+	Global.Menus.CHOOSE_FACILITY: preload("res://src/gui/menus/facility_type/FacilityType.tscn"),
+	Global.Menus.FACILITY_SCREEN: preload("res://src/gui/menus/facility_screen/FacilityScreen.tscn")
 }
 
 # the stack of loaded menus, when empty, game should process normally
@@ -20,7 +22,7 @@ func _get_menu_scene(menu):
 	return _menus[menu].instance()
 
 
-func _on_push_menu(menu):
+func _on_push_menu(menu, context):
 	if menu in _menus:
 		var new_menu = _get_menu_scene(menu)
 		menu_stack.push_back(menu)
@@ -28,6 +30,8 @@ func _on_push_menu(menu):
 		# TODO: refactor if menus down the stack are still visible, even if inactive
 		for child in get_children():
 			child.queue_free()
+		if new_menu.has_method("set_context"): # if menu has a function to accept context, call it
+			new_menu.set_context(context)
 		call_deferred("add_child", new_menu)
 		# ----------
 		
