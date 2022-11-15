@@ -9,7 +9,7 @@
 [ext_resource path="res://src/map/scheduler.gd" type="Script" id=7]
 [ext_resource path="res://src/map/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/gui/hud/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/map/feature/facilities/EnergyPlant.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/map/feature/facilities/Facility.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -126,7 +126,7 @@ color = Color( 1, 0.875, 0.5, 1 )
 layer = 3
 follow_viewport_enable = true
 
-[node name="EnergyPlant" parent="Entities" instance=ExtResource( 10 )]
+[node name="Facility" parent="Entities" instance=ExtResource( 10 )]
 position = Vector2( 448, 464 )
 
 [node name="Feature" parent="Entities" instance=ExtResource( 4 )]

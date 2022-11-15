@@ -39,8 +39,8 @@ func _ready() -> void:
 	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Feature
 	
-	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/EnergyPlant.global_position))
-	map_grid[cell.x][cell.y] = $Entities/EnergyPlant
+	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Facility.global_position))
+	map_grid[cell.x][cell.y] = $Entities/Facility
 
 
 func _physics_process(_delta: float) -> void:

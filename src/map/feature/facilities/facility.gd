@@ -3,6 +3,7 @@ extends Feature
 
 onready var tooltip = $Tooltip
 onready var sprite = $PerspectiveSprite
+onready var anim = $AnimationPlayer
 
 # stats (might be modified by upgrades)
 var production_rate = 5.0
@@ -114,6 +115,9 @@ func set_type(p_type):
 		Global.Resources.ENERGY:
 			product_type = p_type
 			fuels = {}
+			
+			# TODO: account for upgrades
+			anim.play("coal_plant_start")
 
 
 # facility can only be 
