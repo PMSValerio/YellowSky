@@ -50,8 +50,8 @@ func _perspective_poise():
 	
 	var pos = tilemap.get_global_transform().affine_inverse() * (tilemap.get_viewport_transform().affine_inverse() * screen_pos)
 	
-	global_position = pos
 	var scl = (1.0 - yy) * BASE_SCALE
+	global_position = pos
 	global_scale = Vector2(scl, scl)
 	
 	if yy <= h:

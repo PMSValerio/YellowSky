@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/gfx/entities/player.png" type="Texture" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
@@ -13,7 +13,7 @@ extents = Vector2( 8, 8 )
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -22,22 +22,42 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Rect2( 0, 0, 64, 64 ) ]
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "idle"
+resource_name = "idle_front"
+length = 1.2
+loop = true
+step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Rect2( 0, 0, 64, 64 ), Rect2( 320, 0, 64, 64 ) ]
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 5, 0 ), Vector2( 5, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "run_front"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ), Vector2( 7, 2 ), Vector2( 7, 2 ) ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -49,17 +69,18 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 64, 64 )
+hframes = 8
+vframes = 3
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
 UPDATE_Z = true
 
-[node name="Node2D" type="Node2D" parent="Sprite"]
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
 z_index = -1
 z_as_relative = false
 
-[node name="InteractPrompt" type="TextureRect" parent="Sprite/Node2D"]
+[node name="InteractPrompt" type="TextureRect" parent="Node2D"]
 visible = false
 margin_right = 256.0
 margin_bottom = 256.0
@@ -81,5 +102,7 @@ script = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_front"
 anims/RESET = SubResource( 2 )
-anims/idle = SubResource( 3 )
+anims/idle_front = SubResource( 3 )
+anims/run_front = SubResource( 4 )

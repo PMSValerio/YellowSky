@@ -2,7 +2,7 @@ extends Feature
 
 
 onready var tooltip = $Tooltip
-onready var sprite = $PerspectiveSprite
+onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
 
 # stats (might be modified by upgrades)

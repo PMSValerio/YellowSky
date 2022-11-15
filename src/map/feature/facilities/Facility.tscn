@@ -19,7 +19,7 @@ shader_param/height = 0.0
 [sub_resource type="Animation" id=1]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("PerspectiveSprite:region_rect")
+tracks/0/path = NodePath("Sprite:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -34,7 +34,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=2]
 resource_name = "coal_plant_start"
 tracks/0/type = "value"
-tracks/0/path = NodePath("PerspectiveSprite:region_rect")
+tracks/0/path = NodePath("Sprite:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -49,7 +49,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "wrecked"
 tracks/0/type = "value"
-tracks/0/path = NodePath("PerspectiveSprite:region_rect")
+tracks/0/path = NodePath("Sprite:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -63,16 +63,16 @@ tracks/0/keys = {
 
 [node name="Facility" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="PerspectiveSprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 4 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 BASE_SCALE = 3.0
 
 [node name="Tooltip" parent="." instance=ExtResource( 4 )]

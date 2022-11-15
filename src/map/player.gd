@@ -4,7 +4,7 @@ signal interact(position)
 signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
-const SPEED := 64.0
+const SPEED := 96.0
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
 const TOTAL_HEALTH = 100
@@ -16,7 +16,11 @@ const STAMINA_LOSS_RATE = 10
 onready var _cam_anchor = $CameraAnchor
 onready var _cam = $CameraAnchor/Camera2D
 onready var _cam_tween = $CameraAnchor/Tween
-onready var _prompt = $Sprite/Node2D/InteractPrompt
+onready var _prompt_anchor = $Node2D
+onready var _prompt = $Node2D/InteractPrompt
+
+onready var sprite = $Sprite
+onready var anim = $AnimationPlayer
 
 onready var screen_size_pan_margins = Global.get_screen_size().x / PAN_MARGIN_DIVISION_RATE
 onready var screen_size = Global.get_screen_size()
@@ -53,6 +57,9 @@ func _notification(what):
 			mouse_is_on_window = true
 
 func _physics_process(_delta: float) -> void:
+	# so that the prompt isn't affected by the scale warping, but only by the position warping
+	_prompt_anchor.global_position = sprite.global_position
+	
 	var direction = Vector2(
 		Input.get_action_strength("mov_right") - Input.get_action_strength("mov_left"),
 		Input.get_action_strength("mov_down") - Input.get_action_strength("mov_up")
@@ -61,6 +68,14 @@ func _physics_process(_delta: float) -> void:
 	
 	is_moving_cache = is_moving
 	is_moving = not direction.is_equal_approx(Vector2.ZERO)
+	
+	# TODO: state machinise this (with direction and shit)
+	if is_moving != is_moving_cache:
+		if is_moving:
+			anim.play("run_front")
+		else:
+			anim.play("idle_front")
+	# -----
 
 	_update_cam()
 
