@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/gfx/hud/waterIcon.png" type="Texture" id=1]
+[ext_resource path="res://assets/gfx/HUD/waterIcon.png" type="Texture" id=1]
 
 [node name="Counter" type="Control"]
 margin_right = 100.0

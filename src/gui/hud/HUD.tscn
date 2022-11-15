@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/hud/barBg.png" type="Texture" id=2]
-[ext_resource path="res://assets/gfx/hud/barFill.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/HUD/barBg.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/HUD/barFill.png" type="Texture" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/gfx/hud/energyIcon.png" type="Texture" id=5]
-[ext_resource path="res://assets/gfx/hud/craftMatIcons.png" type="Texture" id=6]
-[ext_resource path="res://assets/gfx/hud/seedsIcon.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=6]
+[ext_resource path="res://assets/gfx/HUD/seedsIcon.png" type="Texture" id=7]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
