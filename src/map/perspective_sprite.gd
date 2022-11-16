@@ -25,9 +25,11 @@ func _physics_process(_delta: float) -> void:
 # warp position and scale in accordance with perspective parameters
 func _perspective_poise():
 	var tilemap = MapUtils.get_ref_tilemap()
+	var screen_size = get_viewport_transform() * tilemap.get_viewport_rect().size # transforms the real port size with the current viewport transform
+	
 	var screen_pos = tilemap.get_viewport_transform() * (tilemap.get_global_transform() * get_parent().global_position)
-	screen_pos.x /= tilemap.get_viewport_rect().size.x
-	screen_pos.y = 1.0 - (screen_pos.y / tilemap.get_viewport_rect().size.y)
+	screen_pos.x /= screen_size.x
+	screen_pos.y = 1.0 - (screen_pos.y / screen_size.y)
 	
 	var bb = 1.0 / b
 	var q = (bb - a) / 2.0
@@ -45,8 +47,8 @@ func _perspective_poise():
 	screen_pos.y = yy
 	_yy = yy
 	
-	screen_pos.x *= tilemap.get_viewport_rect().size.x
-	screen_pos.y = (1.0 - screen_pos.y) * tilemap.get_viewport_rect().size.y
+	screen_pos.x *= screen_size.x
+	screen_pos.y = (1.0 - screen_pos.y) * screen_size.y
 	
 	var pos = tilemap.get_global_transform().affine_inverse() * (tilemap.get_viewport_transform().affine_inverse() * screen_pos)
 	

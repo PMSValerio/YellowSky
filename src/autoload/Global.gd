@@ -6,6 +6,7 @@ enum Menus {
 	SUBTEST,
 	CHOOSE_FACILITY,
 	FACILITY_SCREEN,
+	INVENTORY_SCREEN,
 }
 
 enum Disasters {

@@ -4,3 +4,5 @@ extends Node
 
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed
 signal pop_menu
+
+signal update_item_count(item_id, new_count)
