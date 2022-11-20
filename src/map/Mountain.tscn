@@ -30,6 +30,7 @@ material = SubResource( 3 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
+UPDATE_Z = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 4 )

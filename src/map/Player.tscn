@@ -8,7 +8,7 @@
 [ext_resource path="res://src/map/resource_manager.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 16, 14 )
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -169,6 +169,7 @@ tracks/0/keys = {
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

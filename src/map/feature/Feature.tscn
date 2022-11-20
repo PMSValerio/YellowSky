@@ -11,3 +11,4 @@ script = ExtResource( 3 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 BASE_SCALE = 2.0
+UPDATE_Z = true

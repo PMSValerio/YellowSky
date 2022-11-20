@@ -74,6 +74,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
+UPDATE_Z = true
 
 [node name="Tooltip" parent="." instance=ExtResource( 4 )]
 visible = false

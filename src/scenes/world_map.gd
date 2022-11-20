@@ -86,14 +86,15 @@ func _generate_map(map_seed):
 		if not xx or xx != cell.y:
 			xx = cell.x
 			map_grid.append([])
+		# cells MUST form a rectangle and cells MUST start at (0,0), otherwise, it would be a pain in the ass
+		map_grid[cell.x].append(0)
 		_noise_map_process_cell(cell, simplex_noise.get_noise_2dv(cell))
+	
+	#MapUtils.set_dimensions(map_grid.size(), )
 
 
 # fill map cell according to simplex noise value
 func _noise_map_process_cell(cell : Vector2, noise_value : float):
-	# cells MUST form a rectangle and cells MUST start at (0,0), otherwise, it would be a pain in the ass
-	map_grid[cell.x].append(0)
-	
 	if noise_value > 0.0 or noise_value < -0.5:
 		if MOUNTAIN_SCENE:
 			var world_pos = tilemap.map_to_world(cell)

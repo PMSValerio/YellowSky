@@ -4,6 +4,8 @@ class_name PerspectiveSprite
 export var BASE_SCALE = 1.0
 export var UPDATE_Z = false
 
+onready var _last_true_pos = Vector2(-1, -1)
+
 var a = 1.0
 var b = 0.7
 var h = 0.4
@@ -14,12 +16,19 @@ var _yy = 0.0
 func _ready() -> void:
 	b = MapUtils.STRETCH_FACTOR
 	h = MapUtils.HORIZON_Y
+	if UPDATE_Z:
+		z_as_relative = false
 
 
 func _physics_process(_delta: float) -> void:
-	if MapUtils.is_enabled() == true:		
+	if MapUtils.is_enabled() == true:
 		_perspective_poise()
 		_perspective_colour()
+	if UPDATE_Z:
+		if get_parent().global_position != _last_true_pos:
+			var hex_cell = MapUtils.get_ref_tilemap().world_to_map(MapUtils.get_hex_center(get_parent().global_position))
+			z_index = -(MapUtils.row_count - hex_cell.y)
+	_last_true_pos = get_parent().global_position
 
 
 # warp position and scale in accordance with perspective parameters

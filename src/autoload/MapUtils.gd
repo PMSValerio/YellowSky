@@ -16,6 +16,9 @@ var quarter_hei = cell_hei / 4.0
 var edge_right = Vector2(cell_wid, quarter_hei) - Vector2(mid_wid, 0.0)
 var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
+var row_count = 20
+var col_count = 20
+
 # enables perpective warps
 const ENABLED = true
 
@@ -31,6 +34,12 @@ func set_ref_tilemap(ref_tilemap : TileMap) -> void:
 	quarter_hei = cell_hei / 4.0
 	edge_right = Vector2(cell_wid, quarter_hei) - Vector2(mid_wid, 0.0)
 	edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
+
+
+# set the number of rows and cells to be used
+func set_dimensions(rows, columns):
+	row_count = rows
+	col_count = columns
 
 
 # return reference tilemap
