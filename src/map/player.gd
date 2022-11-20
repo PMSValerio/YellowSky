@@ -26,6 +26,8 @@ onready var screen_size_pan_margins = Global.get_screen_size().x / PAN_MARGIN_DI
 onready var screen_size = Global.get_screen_size()
 onready var init_cam_pos = _cam_anchor.position
 
+var direction = Vector2.DOWN # direction player is facing
+
 var is_moving = false
 var is_moving_cache = false
 var total_walked_distance = 0
@@ -60,23 +62,19 @@ func _physics_process(_delta: float) -> void:
 	# so that the prompt isn't affected by the scale warping, but only by the position warping
 	_prompt_anchor.global_position = sprite.global_position
 	
-	var direction = Vector2(
+	var move_direction = Vector2(
 		Input.get_action_strength("mov_right") - Input.get_action_strength("mov_left"),
 		Input.get_action_strength("mov_down") - Input.get_action_strength("mov_up")
 	).normalized()
-	var _v = move_and_slide(SPEED * direction)
+	var _v = move_and_slide(SPEED * move_direction)
+	if move_direction.length() != 0: # only update direction if moving
+		direction = move_direction
 	
 	is_moving_cache = is_moving
-	is_moving = not direction.is_equal_approx(Vector2.ZERO)
+	is_moving = not move_direction.is_equal_approx(Vector2.ZERO)
 	
-	# TODO: state machinise this (with direction and shit)
-	if is_moving != is_moving_cache:
-		if is_moving:
-			anim.play("run_front")
-		else:
-			anim.play("idle_front")
-	# -----
-
+	_update_visuals()
+	
 	_update_cam()
 
 	if is_moving and not is_moving_cache and _cam_anchor.position != init_cam_pos:
@@ -129,6 +127,27 @@ func die():
 	if is_alive:
 		is_alive = false
 		print("You Died!")
+
+
+# TODO: move to state machine
+# update animation
+func _update_visuals():
+	var movement = "run" if is_moving else "idle"
+	var dir = "front"
+	# TODO: possibly include 45º animations
+	if direction.y > 0:
+		dir = "front"
+	elif direction.y < 0:
+		dir = "back"
+	elif direction.x > 0:
+		dir = "right"
+	elif direction.x < 0:
+		dir = "left"
+	
+	var animation = movement + "_" + dir
+	if animation != anim.current_animation:
+		anim.play(animation)
+
 
 # cam funcs
 func _update_cam():

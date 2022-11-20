@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/gfx/entities/player.png" type="Texture" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
@@ -25,6 +25,24 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "idle_back"
+length = 1.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ), Vector2( 5, 3 ), Vector2( 5, 3 ) ]
+}
+
 [sub_resource type="Animation" id=3]
 resource_name = "idle_front"
 length = 1.2
@@ -43,6 +61,59 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 5, 0 ), Vector2( 5, 0 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "idle_left"
+length = 1.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ), Vector2( 5, 2 ), Vector2( 5, 2 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle_right"
+length = 1.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 5, 1 ), Vector2( 5, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "run_back"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 7 ), Vector2( 7, 7 ), Vector2( 7, 7 ) ]
+}
+
 [sub_resource type="Animation" id=4]
 resource_name = "run_front"
 length = 0.9
@@ -57,7 +128,41 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 2 ), Vector2( 7, 2 ), Vector2( 7, 2 ) ]
+"values": [ Vector2( 0, 4 ), Vector2( 7, 4 ), Vector2( 7, 4 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "run_left"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ), Vector2( 7, 6 ), Vector2( 7, 6 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "run_right"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 5 ), Vector2( 7, 5 ), Vector2( 7, 5 ) ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -70,7 +175,7 @@ shape = SubResource( 1 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 8
-vframes = 3
+vframes = 8
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
 UPDATE_Z = true
@@ -104,5 +209,11 @@ script = ExtResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle_front"
 anims/RESET = SubResource( 2 )
+anims/idle_back = SubResource( 9 )
 anims/idle_front = SubResource( 3 )
+anims/idle_left = SubResource( 7 )
+anims/idle_right = SubResource( 5 )
+anims/run_back = SubResource( 10 )
 anims/run_front = SubResource( 4 )
+anims/run_left = SubResource( 8 )
+anims/run_right = SubResource( 6 )
