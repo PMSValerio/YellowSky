@@ -42,6 +42,9 @@ func _ready() -> void:
 	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Facility.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Facility
 
+	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Settlement.global_position))
+	map_grid[cell.x][cell.y] = $Entities/Settlement
+
 
 func _physics_process(_delta: float) -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())

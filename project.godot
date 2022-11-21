@@ -55,6 +55,7 @@ window/stretch/aspect="keep"
 display=false
 window=false
 size=false
+input=false
 
 [gui]
 
