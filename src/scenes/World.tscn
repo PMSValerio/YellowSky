@@ -11,6 +11,7 @@
 [ext_resource path="res://src/gui/hud/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/map/feature/facilities/Facility.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/shaders/sky_perspective.gdshader" type="Shader" id=11]
+[ext_resource path="res://assets/gfx/terrain/sky.png" type="Texture" id=12]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -59,33 +60,13 @@ shader_param/stretch_factor = 0.4
 [sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 11 )
 shader_param/horizon_colour = Color( 0.35, 0.2, 0.25, 1 )
+shader_param/dim_amount = 0.3
 shader_param/horizon_y = 0.7
 
-[sub_resource type="Shader" id=6]
-code = "shader_type canvas_item;
-
-uniform vec4 horizon_colour : hint_color = vec4(0.35, 0.2, 0.25, 1.0);
-
-uniform float horizon_y : hint_range(0.0, 1.0, 0.1) = 0.7;
-
-void fragment() {
-	float above_horizon = SCREEN_UV.y - horizon_y;
-	float halfway = (1.0 - horizon_y) / 2.0;
-	
-	float mix_value = (SCREEN_UV.y) * (-1.0) / (halfway);
-	
-	vec4 color = texture(TEXTURE, UV);
-	//color.rgb = mix(color.rgb, horizon_colour.rgb, mix_value);
-	//COLOR.rgb = color.rgb;
-	
-	if (SCREEN_UV.y < horizon_y) {
-		COLOR.a = 0.0;
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 11 )
 shader_param/horizon_colour = Color( 0.35, 0.2, 0.25, 1 )
+shader_param/dim_amount = 0.3
 shader_param/horizon_y = 0.7
 
 [node name="World" type="Node2D"]
@@ -127,13 +108,13 @@ material = SubResource( 8 )
 
 [node name="Sky" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Sky"]
-material = SubResource( 7 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.960784, 0.792157, 0.478431, 1 )
+[node name="TextureRect" type="TextureRect" parent="Sky"]
+material = SubResource( 9 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 12 )
+expand = true
 
 [node name="Entities" type="CanvasLayer" parent="."]
 layer = 3
