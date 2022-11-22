@@ -7,6 +7,7 @@ enum Menus {
 	CHOOSE_FACILITY,
 	FACILITY_SCREEN,
 	INVENTORY_SCREEN,
+	SETTLEMENT_SCREEN,
 }
 
 enum Disasters {

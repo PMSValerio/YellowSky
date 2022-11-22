@@ -8,6 +8,7 @@ var _menus = {
 	Global.Menus.CHOOSE_FACILITY: preload("res://src/gui/menus/facility_type/FacilityType.tscn"),
 	Global.Menus.FACILITY_SCREEN: preload("res://src/gui/menus/facility_screen/FacilityScreen.tscn"),
 	Global.Menus.INVENTORY_SCREEN: preload("res://src/gui/menus/inventory_screen/InventoryMenu.tscn"),
+	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement_screen/SettlementScreen.tscn"),
 }
 
 # the stack of loaded menus, when empty, game should process normally
