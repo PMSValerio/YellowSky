@@ -66,6 +66,7 @@ color = Color( 0.28, 0.14, 0.35, 0 )
 polygon = PoolVector2Array( 0, 0, 0, 600, 1024, 600, 1024, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "play"
 anims/RESET = SubResource( 1 )
 anims/play = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

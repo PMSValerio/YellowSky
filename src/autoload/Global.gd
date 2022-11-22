@@ -12,6 +12,7 @@ enum Menus {
 
 enum Disasters {
 	TEST,
+	AMOGEDDON,
 }
 
 # all facility types

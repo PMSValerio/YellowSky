@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "Disaster",
+"language": "GDScript",
+"path": "res://src/disasters/disaster.gd"
+}, {
+"base": "Node2D",
 "class": "Feature",
 "language": "GDScript",
 "path": "res://src/map/feature/feature.gd"
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://src/map/perspective_sprite.gd"
 } ]
 _global_script_class_icons={
+"Disaster": "",
 "Feature": "",
 "GridSlot": "",
 "Item": "",
