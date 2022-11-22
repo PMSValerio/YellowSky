@@ -1,9 +1,7 @@
 extends Node
 
 
-enum Items {
-	TEST,
-}
+var ItemIds = [] # alternative to Items enum, still testing
 
 var item_stats = {}
 
@@ -11,14 +9,67 @@ var inventory = {}
 
 
 func _ready():
-	var test_item = Item.new()
-	test_item.init(Items.TEST, load("res://icon.png"), 5, 10)
+	for t in Global.Items.values(): # have a dictionary for each item type
+		inventory[t] = {}
 	
-	item_stats[Items.TEST] = test_item
+	# TODO: load item data from config files
+	var type = Global.Items.FOOD
+	var id = 0
+	var item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/keg_o_water.png"), 5, 10, true)
+	item_stats[id] = item
+	inventory[type][id] = 3
+	id += 1
+	item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/gallon_of_water.png"), 10, 15, true)
+	item_stats[id] = item
+	inventory[type][id] = 5
+	id += 1
+	item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/water_bottle.png"), 15, 20, true)
+	item_stats[id] = item
+	inventory[type][id] = 1
 	
-	inventory[Items.TEST] = 0
+	type = Global.Items.LUXURY
+	id += 1
+	item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/gallon_of_water.png"), 30, 0, true)
+	item_stats[id] = item
+	inventory[type][id] = 4
+	
+	type = Global.Items.QUEST
+	id += 1
+	item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/water_bottle.png"), 0, 0, false)
+	item_stats[id] = item
+	inventory[type][id] = 1
+	id += 1
+	item = Item.new()
+	item.init(id, type, preload("res://assets/gfx/items/keg_o_water.png"), 0, 0, false)
+	item_stats[id] = item
+	inventory[type][id] = 1
 
 
-func update_item_count(item_id, added_value):
-	inventory[item_id] += added_value
-	EventManager.emit_signal("update_item_count", item_id, inventory[item_id])
+#func get_all_ids() -> Array:
+#	return inventory.keys()
+
+
+func get_all_ids_of_type(type) -> Array:
+	return inventory[type].keys() if type in inventory else []
+
+
+func get_item_amount(type, id) -> int:
+	if type in inventory.keys() and id in inventory[type].keys():
+		return inventory[type][id]
+	return -1
+
+
+func update_item_count(type, item_id, added_value):
+	inventory[type][item_id] += added_value
+	EventManager.emit_signal("update_item_count", item_id, inventory[type][item_id])
+
+
+func use_item(type, item_id):
+	if type in inventory and item_id in inventory[type] and inventory[type][item_id] > 0 and item_stats[item_id].usable:
+		inventory[type][item_id] -= 1
+		# send item use signal

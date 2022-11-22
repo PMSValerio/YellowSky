@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/gui/menus/inventory_screen/grid_slot.gd" type="Script" id=2]
+
+[node name="GridSlot" type="MarginContainer"]
+anchor_right = 0.0625
+anchor_bottom = 0.106667
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 78.0
+margin_bottom = 78.0
+
+[node name="Button" type="Button" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 71.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/Button"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="PanelContainer/Button"]
+margin_top = 50.0
+margin_right = 64.0
+margin_bottom = 64.0
+size_flags_vertical = 8
+align = 2
