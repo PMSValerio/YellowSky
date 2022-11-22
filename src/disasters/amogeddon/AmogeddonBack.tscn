@@ -36,6 +36,6 @@ polygon = PoolVector2Array( 0, 0, 0, 613.333, 1024, 600, 1024, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 3 )
-position = Vector2( 512, 100 )
+position = Vector2( 512, 120 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
