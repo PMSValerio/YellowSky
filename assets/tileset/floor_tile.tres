@@ -5,13 +5,13 @@
 [resource]
 0/name = "floor_tile"
 0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
+0/tex_offset = Vector2( -4, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 4, 0, 184, 64 )
+0/region = Rect2( 0, 0, 192, 64 )
 0/tile_mode = 2
 0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 56, 64 )
-0/autotile/spacing = 8
+0/autotile/tile_size = Vector2( 64, 64 )
+0/autotile/spacing = 0
 0/autotile/occluder_map = [  ]
 0/autotile/navpoly_map = [  ]
 0/autotile/priority_map = [ Vector3( 2, 0, 4 ) ]

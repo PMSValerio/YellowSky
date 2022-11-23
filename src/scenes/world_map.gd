@@ -83,9 +83,17 @@ func _is_feature(tile_entity):
 
 # map generation pipeline
 func _generate_map():
+	# generate provisional map with perlin noise
 	var used_cells = tilemap.get_used_cells()
 	var noise = _noise_generation(_rng.randi(), used_cells)
+	
+	# balance blocked/empty ratio
 	_balance_mountain_ratio(used_cells, noise)
+	
+	# force open area around player
+	var radius = 4 # x tile radius
+	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+	_force_open_area(center, radius)
 	
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
@@ -103,13 +111,12 @@ func _noise_generation(map_seed, used_cells):
 	
 #	var image = simplex_noise.get_image(320, 320)
 #	image.save_png("user://map.png")
-	var xx = null
 	for cell in used_cells:
-		if not xx or xx != cell.y:
-			xx = cell.x
+		if map_grid.size() <= cell.x:
 			map_grid.append([])
 		# cells MUST form a rectangle and cells MUST start at (0,0), otherwise, it would be a pain in the ass
-		map_grid[cell.x].append(0)
+		if map_grid[cell.x].size() <= cell.y:
+			map_grid[cell.x].append(0)
 	return simplex_noise
 
 
@@ -151,6 +158,20 @@ func _balance_mountain_ratio(used_cells, simplex_noise):
 		mountain_ratio = float(mountain_count) / float(used_cells.size())
 		tries += 1
 		print(mountain_ratio)
+
+
+# force an open area around the center of the map
+func _force_open_area(center : Vector2, radius : int):
+	
+	var square_rad = pow(radius, 2)
+	var index = Vector2(center.x - radius + 1, center.y - radius + 1)
+	while index.x <= center.x + radius - 1:
+		index.y = center.y - radius + 1
+		while index.y <= center.y + radius - 1:
+			if index.distance_squared_to(center) <= square_rad:
+				map_grid[index.x][index.y] = TileType.EMPTY
+			index.y += 1
+		index.x += 1
 
 
 # populate with the actual scene instances
