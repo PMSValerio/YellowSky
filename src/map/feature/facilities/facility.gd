@@ -106,7 +106,6 @@ func _operate_cost():
 
 # almost a type-object pattern
 func set_type(p_type):
-	print("setType")
 	match p_type:
 		Global.Resources.MATERIALS:
 			product_type = p_type

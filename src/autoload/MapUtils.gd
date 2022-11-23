@@ -16,8 +16,8 @@ var quarter_hei = cell_hei / 4.0
 var edge_right = Vector2(cell_wid, quarter_hei) - Vector2(mid_wid, 0.0)
 var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
-var row_count = 20
-var col_count = 20
+var row_count = -1
+var col_count = -1
 
 # enables perpective warps
 const ENABLED = true
