@@ -57,6 +57,8 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())
 	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(hex_center))
+	if 0 > hex_tile.x or hex_tile.x >= map_grid.size() or 0 > hex_tile.y or hex_tile.y >= map_grid[0].size():
+		return
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	
 	if hex_center != cache_hex_center:
@@ -150,14 +152,14 @@ func _balance_mountain_ratio(used_cells, simplex_noise):
 			empty_thresh -= threshold_step
 		mountain_count = 0
 		
-		print("new rebalance with threshold %s" % [empty_thresh])
+		print("new rebalance with threshold: %s" % empty_thresh)
 		
 		for cell in used_cells:
 			if _noise_map_process_cell(cell, simplex_noise.get_noise_2dv(cell), empty_thresh) == TileType.MOUNTAIN:
 				mountain_count += 1
 		mountain_ratio = float(mountain_count) / float(used_cells.size())
 		tries += 1
-		print(mountain_ratio)
+		print("mountain to empty ratio: %s" % mountain_ratio)
 
 
 # force an open area around the center of the map
