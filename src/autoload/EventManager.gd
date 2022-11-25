@@ -2,7 +2,9 @@ extends Node
 
 # warning-ignore-all:unused_signal
 
+# Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed
 signal pop_menu
 
-signal update_item_count(item_id, new_count)
+# Inventory
+signal item_used(item_data)

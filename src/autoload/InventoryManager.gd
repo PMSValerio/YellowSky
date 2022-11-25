@@ -50,10 +50,6 @@ func _ready():
 	inventory[type][id] = 1
 
 
-#func get_all_ids() -> Array:
-#	return inventory.keys()
-
-
 func get_all_ids_of_type(type) -> Array:
 	return inventory[type].keys() if type in inventory else []
 
@@ -64,12 +60,7 @@ func get_item_amount(type, id) -> int:
 	return -1
 
 
-func update_item_count(type, item_id, added_value):
-	inventory[type][item_id] += added_value
-	EventManager.emit_signal("update_item_count", item_id, inventory[type][item_id])
-
-
 func use_item(type, item_id):
 	if type in inventory and item_id in inventory[type] and inventory[type][item_id] > 0 and item_stats[item_id].usable:
 		inventory[type][item_id] -= 1
-		# send item use signal
+		EventManager.emit_signal("item_used", item_stats[item_id])

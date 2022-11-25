@@ -50,6 +50,8 @@ func _ready() -> void:
 	out_of_stamina_timer.wait_time = 0.2
 	out_of_stamina_timer.one_shot = false
 	add_child(out_of_stamina_timer)
+	
+	var _v = EventManager.connect("item_used", self, "_on_item_used")
 
 func _notification(what):
 	match what:
@@ -174,3 +176,8 @@ func _reset_cam_pos():
 # others
 func _on_World_tile_entered(interactable):
 	_prompt.visible = interactable
+
+
+func _on_item_used(item_data : Item) -> void:
+	if item_data.type == Global.Items.FOOD: # all food items restore stamina by an amount equal to their stat
+		change_stamina(item_data.stat)
