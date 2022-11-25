@@ -17,7 +17,7 @@ onready var background_layer = get_node(background_layer_path)
 
 var total_elapsed_time = 0
 var _elapsed = 0
-var _next_interval = 5
+var _next_interval = -1
 var _next_disaster = Global.Disasters.AMOGEDDON
 
 var disaster_node = null
@@ -25,11 +25,11 @@ var disaster_node = null
 var disaster_running = false
 
 func _process(delta: float) -> void:
-	if not disaster_running:
+	if not disaster_running and _next_interval > 0:
 		total_elapsed_time += delta
 		
 		_elapsed += delta
-		if _next_interval > 0 and _elapsed >= _next_interval:
+		if _elapsed >= _next_interval:
 			_elapsed = 0
 			_process_disaster(_next_disaster)
 
