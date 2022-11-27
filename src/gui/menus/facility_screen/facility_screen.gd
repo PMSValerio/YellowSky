@@ -46,13 +46,13 @@ func set_context(context):
 		# set facility health details
 		health_details.init(null, facility_entity.health, facility_entity.max_health, "Repair")
 		health_details.populate_data()
-		var _v = (health_details.action_button as Button).connect("pressed", self, "_on_Repair_pressed") # doing this manually just cuz
+		var _v = health_details.connect("action_pressed", self, "_on_Repair_pressed") # doing this manually just cuz
 		
 		# set fuels
 		for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 			var fuel_details = stat_panel_scene.instance()
 			fuel_details.init(-1, facility_entity.fuels[f], facility_entity.tank, "Refuel")
-			fuel_details.init_button_signal(self, "_on_Refuel_pressed", [f])
+			fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
 			fuel_list.get_node("VBoxContainer").add_child(fuel_details)
 			fuel_stats_dict[f] = fuel_details
 		
@@ -60,7 +60,7 @@ func set_context(context):
 		var p = facility_entity.product_type
 		var prod_details = stat_panel_scene.instance()
 		prod_details.init(-1, facility_entity.stored, facility_entity.capacity, "Collect")
-		prod_details.init_button_signal(self, "_on_Collect_pressed", [p])
+		prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
 		prod_list.get_node("VBoxContainer").add_child(prod_details)
 		prod_stats_dict[p] = prod_details
 

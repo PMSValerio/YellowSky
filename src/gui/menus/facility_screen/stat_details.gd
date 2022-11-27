@@ -1,16 +1,14 @@
 extends VBoxContainer
 class_name StatDetails
 
+signal action_pressed
+
 onready var action_button = $HBoxContainer2/Button
 
 var tex = -1
 var current = 0
 var maximum = 0
 var action = "Action"
-
-var _target = null
-var _func_name = ""
-var _binds = []
 
 
 func _ready() -> void:
@@ -24,19 +22,10 @@ func init(texture, current_amount, max_amount, action_name) -> void:
 	action = action_name
 
 
-func init_button_signal(target, func_name, binds) -> void:
-	_target = target
-	_func_name = func_name
-	_binds = binds
-
-
 func populate_data() -> void:
 	set_icon(tex)
 	set_x_out_of_y(current, maximum)
 	set_action(action)
-	
-	if _target != null:
-		action_button.connect("pressed", _target, _func_name, _binds)
 
 
 func set_icon(texture) -> void:
@@ -53,3 +42,7 @@ func set_x_out_of_y(current_amount, max_amount) -> void:
 
 func set_action(action_name) -> void:
 	action_button.text = action_name
+
+
+func _on_Button_pressed() -> void:
+	emit_signal("action_pressed")
