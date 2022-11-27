@@ -1,5 +1,5 @@
 extends Feature
-
+class_name Facility
 
 onready var tooltip = $Tooltip
 onready var sprite = $Sprite
@@ -76,14 +76,6 @@ func toggle_facility(on_off) -> void:
 	# TODO: graphics update, signals?
 
 
-func add_to_health(delta : float) -> void:
-	health = clamp(health + delta, 0.0, max_health)
-	if health >= max_health:
-		_is_destroyed = false
-	elif health <= 0.0:
-		_is_destroyed = true
-
-
 # can only operate if it wasn't destroyed and if it has fuel
 func _can_operate():
 	if _is_destroyed or not product_type in Global.Resources.values():
@@ -120,9 +112,21 @@ func set_type(p_type):
 			anim.play("coal_plant_start")
 
 
-# facility can only be 
+func add_to_health(delta : float) -> void:
+	health = clamp(health + delta, 0.0, max_health)
+	if health >= max_health:
+		_is_destroyed = false
+	elif health <= 0.0:
+		_is_destroyed = true
+
+
 func repair(amount):
 	add_to_health(amount) # will clamp and fill health
+
+
+func refuel(amount, resource):
+	if resource in fuels.keys():
+		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, tank)
 
 
 func collect():

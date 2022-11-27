@@ -169,12 +169,12 @@ __meta__ = {
 [node name="Foreground" type="CanvasLayer" parent="."]
 layer = 5
 
+[node name="HUD" parent="." instance=ExtResource( 9 )]
+
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2
 layer = 6
 script = ExtResource( 6 )
-
-[node name="HUD" parent="." instance=ExtResource( 9 )]
 
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
