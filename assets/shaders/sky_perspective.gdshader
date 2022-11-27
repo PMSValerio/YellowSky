@@ -11,9 +11,8 @@ void fragment() {
 	
 	float mix_value = clamp(1.0 + (-1.0)/(halfway-horizon_y) * (SCREEN_UV.y - horizon_y), 0.0, 1.0);
 	
-	vec4 color = texture(TEXTURE, UV);
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0);
 	color.rgb = mix(color.rgb, horizon_colour.rgb, mix_value);
-	//COLOR.rgb = color.rgb;
 	
 	if (SCREEN_UV.y < horizon_y) {
 		color.a = 0.0;

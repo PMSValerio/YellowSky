@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
@@ -11,61 +11,51 @@
 [ext_resource path="res://src/gui/hud/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/map/feature/facilities/Facility.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/shaders/sky_perspective.gdshader" type="Shader" id=11]
-[ext_resource path="res://assets/gfx/terrain/sky.png" type="Texture" id=12]
+[ext_resource path="res://src/scenes/normal_sky.gd" type="Script" id=12]
 [ext_resource path="res://src/map/feature/settlements/Settlement.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/gfx/entities/settlement.png" type="Texture" id=14]
-
-[sub_resource type="Shader" id=4]
-code = "shader_type canvas_item;
-
-uniform vec4 horizon_colour : hint_color = vec4(0.35, 0.2, 0.25, 1.0);
-
-uniform float horizon_y : hint_range(0.0, 1.0, 0.1) = 0.7;
-uniform float stretch_factor = 0.4;
-
-void fragment() {
-	vec2 screen_uv = SCREEN_UV;
-	
-	float p, yy, xx, d;
-	
-	float a = 1.0;
-	float b = stretch_factor;
-	float h = horizon_y;
-	
-	p = (a * horizon_y) / (a - b);
-	
-	yy = screen_uv.y * b * horizon_y;
-	yy = yy / (a * horizon_y + screen_uv.y * (b - a));
-	
-	//xx = (screen_uv.x / p) * (p - yy);
-	xx = (screen_uv.x / p) * (p - (h - yy));
-	
-	//d = (a * yy) / (2.0 * p);
-	d = (a * (h - yy)) / (2.0 * p);
-	
-	screen_uv = vec2(d + xx, yy);
-	
-	COLOR = textureLod(SCREEN_TEXTURE, screen_uv, 0.0);
-	
-	float mix_value = (SCREEN_UV.y - horizon_y / 2.0) * (1.0) / (horizon_y - horizon_y / 2.0);
-	vec4 color = COLOR;
-	color.rgb = mix(color.rgb, horizon_colour.rgb, mix_value);
-	COLOR.rgb = color.rgb;
-}"
+[ext_resource path="res://assets/shaders/map_perspective.gdshader" type="Shader" id=15]
+[ext_resource path="res://assets/gfx/terrain/sky_layered.png" type="Texture" id=16]
 
 [sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+shader = ExtResource( 15 )
 shader_param/horizon_colour = Color( 0.34902, 0.2, 0.25098, 1 )
 shader_param/horizon_y = 0.7
 shader_param/stretch_factor = 0.4
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = ExtResource( 11 )
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+
+uniform vec4 horizon_colour : hint_color = vec4(0.35, 0.2, 0.25, 1.0);
+uniform float dim_amount : hint_range(0.0, 1.0, 0.1) = 0.3;
+uniform float horizon_y : hint_range(0.0, 1.0, 0.1) = 0.7;
+
+void fragment() {
+	float above_horizon = SCREEN_UV.y - horizon_y;
+	float halfway = (1.0 - horizon_y) * dim_amount + horizon_y;
+	float full_dimmed = horizon_y / 3.0;
+	
+	float mix_value = clamp(1.0 + (-1.0)/(halfway-horizon_y) * (SCREEN_UV.y - horizon_y), 0.0, 1.0);
+	
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0);
+	color.rgb = mix(color.rgb, horizon_colour.rgb, mix_value);
+	
+	if (SCREEN_UV.y < horizon_y) {
+		color.a = 0.0;
+	}
+	else {
+		color.a = color.a;
+	}
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
 shader_param/horizon_colour = Color( 0.35, 0.2, 0.25, 1 )
 shader_param/dim_amount = 0.3
 shader_param/horizon_y = 0.7
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 11 )
 shader_param/horizon_colour = Color( 0.35, 0.2, 0.25, 1 )
 shader_param/dim_amount = 0.3
@@ -102,26 +92,54 @@ material = SubResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 2
-visible = false
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-material = SubResource( 8 )
-
 [node name="Sky" type="CanvasLayer" parent="."]
-layer = 2
+layer = 3
 visible = false
 
-[node name="TextureRect" type="TextureRect" parent="Sky"]
-material = SubResource( 9 )
-margin_right = 1024.0
-margin_bottom = 600.0
-texture = ExtResource( 12 )
-expand = true
+[node name="ColorRect" type="ColorRect" parent="Sky"]
+material = SubResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ParallaxSky" type="ParallaxBackground" parent="."]
+layer = 2
+visible = false
+script = ExtResource( 12 )
+
+[node name="SolidColour" type="ParallaxLayer" parent="ParallaxSky"]
+material = SubResource( 8 )
+motion_scale = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxSky/SolidColour"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 16 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 600, 300 )
+
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxSky"]
+motion_scale = Vector2( 0.1, 0 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxSky/Mountains"]
+position = Vector2( 600, 0 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 16 )
+region_enabled = true
+region_rect = Rect2( 0, 300, 1200, 300 )
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxSky"]
+motion_scale = Vector2( 0.5, 0 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxSky/Clouds"]
+position = Vector2( 600, 0 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 16 )
+region_enabled = true
+region_rect = Rect2( 0, 600, 1200, 300 )
 
 [node name="Entities" type="CanvasLayer" parent="."]
-layer = 3
+layer = 4
 follow_viewport_enable = true
 
 [node name="Facility" parent="Entities" instance=ExtResource( 10 )]
@@ -149,11 +167,11 @@ __meta__ = {
 }
 
 [node name="Foreground" type="CanvasLayer" parent="."]
-layer = 4
+layer = 5
 
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2
-layer = 5
+layer = 6
 script = ExtResource( 6 )
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]

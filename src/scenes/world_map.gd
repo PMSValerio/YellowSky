@@ -14,6 +14,7 @@ export (PackedScene) var MOUNTAIN_SCENE
 
 onready var map_perspective = $MapEffect
 onready var sky = $Sky
+onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
 
 onready var tilemap = $TileMap
@@ -38,9 +39,11 @@ func _ready() -> void:
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
+		parallax_sky.visible = true
 		map_perspective.visible = true
 	else:
 		sky.visible = false
+		parallax_sky.visible = false
 		map_perspective.visible = false
 	
 	# TODO: remove
