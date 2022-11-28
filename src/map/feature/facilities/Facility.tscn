@@ -47,7 +47,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "wrecked"
+resource_name = "wrecked_start"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:region_rect")
 tracks/0/interp = 1
@@ -82,4 +82,4 @@ visible = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
 anims/coal_plant_start = SubResource( 2 )
-anims/wrecked = SubResource( 3 )
+anims/wrecked_start = SubResource( 3 )

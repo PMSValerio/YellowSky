@@ -17,8 +17,8 @@ onready var background_layer = get_node(background_layer_path)
 
 var total_elapsed_time = 0
 var _elapsed = 0
-var _next_interval = -1
-var _next_disaster = Global.Disasters.AMOGEDDON
+var _next_interval = 15
+var _next_disaster = Global.Disasters.TEST
 
 var disaster_node = null
 

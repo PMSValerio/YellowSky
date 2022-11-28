@@ -5,17 +5,16 @@ onready var tooltip = $Tooltip
 onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
 
+var facility_type : FacilityType = null
+
 # stats (might be modified by upgrades)
-var production_rate = 5.0
-var consumption_rate = 2.0
-var capacity = 100.0 # max storage capacity
-var tank = 100.0 # max fuel capacity
 var max_health = 100.0 # (% for now)
+var max_fuel = 100.0 # max fuel capacity for all fuels
+var max_prod = 100.0 # max storage capacity
 
 var health = 0.0
 var fuels = {}
 var stored = 0.0
-var product_type = -1
 
 var running = false
 
@@ -23,11 +22,8 @@ var _update_step = 0 # timer counter for update
 var _is_destroyed = true # if destroyed, health must be replenished fully before it can operate again
 
 
-# TODO: remove
-#func _ready() -> void:
-#	set_type(Global.Resources.MATERIALS)
-#	fuels[Global.Resources.ENERGY] = 100.0
-#	_is_destroyed = false
+func _ready() -> void:
+	set_type(Global.facility_types.keys()[0])
 
 
 func _process(delta: float) -> void:
@@ -51,9 +47,9 @@ func _tick() -> void:
 		_operate_cost()
 		
 		# update stored resource
-		if stored < capacity:
-			stored = min(capacity, stored + production_rate)
-			if stored == capacity:
+		if stored < max_prod:
+			stored = min(max_prod, stored + facility_type.production_rate)
+			if stored == max_prod:
 				print("Facility full")
 				pass # alert facility full
 	
@@ -78,7 +74,7 @@ func toggle_facility(on_off) -> void:
 
 # can only operate if it wasn't destroyed and if it has fuel
 func _can_operate():
-	if _is_destroyed or not product_type in Global.Resources.values():
+	if _is_destroyed or not facility_type.product_type in Global.Resources.values():
 		return false
 	for f in fuels.keys():
 		if fuels[f] <= 0:
@@ -89,27 +85,22 @@ func _can_operate():
 # update state according to operation costs
 func _operate_cost():
 	for f in fuels.keys():
-		fuels[f] = max(0, fuels[f] - consumption_rate)
+		fuels[f] = max(0, fuels[f] - facility_type.consumption_rate)
 		if fuels[f] == 0:
 			# alert facility power off
 			print("Facility switching off")
 			toggle_facility(false)
 
 
-# almost a type-object pattern
-func set_type(p_type):
-	match p_type:
-		Global.Resources.MATERIALS:
-			product_type = p_type
-			fuels = {
-				Global.Resources.ENERGY: 0
-			}
-		Global.Resources.ENERGY:
-			product_type = p_type
-			fuels = {}
-			
-			# TODO: account for upgrades
-			anim.play("coal_plant_start")
+func set_type(type):
+	if type in Global.facility_types.keys():
+		facility_type = Global.facility_types[type]
+		
+		fuels.clear()
+		for f in facility_type.fuel_types:
+			fuels[f] = 0
+		
+		anim.play(str(facility_type.base_animation) + "_start")
 
 
 func add_to_health(delta : float) -> void:
@@ -126,7 +117,7 @@ func repair(amount):
 
 func refuel(amount, resource):
 	if resource in fuels.keys():
-		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, tank)
+		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, max_fuel)
 
 
 func collect():
@@ -134,7 +125,7 @@ func collect():
 
 
 func interact() -> void:
-	if not product_type in Global.Resources.values(): # type not set
+	if facility_type.type_id == Global.FacilityTypes.WRECKED:
 		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
 	else:
 		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_SCREEN, self)

@@ -41,7 +41,9 @@ func set_context(context):
 		return
 	facility_entity = context
 	if _readied:
-		name_label.text = Global.Resources.keys()[facility_entity.product_type]
+		name_label.text = facility_entity.facility_type.type_name
+		art_rect.texture = facility_entity.facility_type.portrait_texture
+		flavour_label.text = facility_entity.facility_type.flavour_text
 		
 		# set facility health details
 		health_details.init(null, facility_entity.health, facility_entity.max_health, "Repair")
@@ -51,15 +53,15 @@ func set_context(context):
 		# set fuels
 		for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 			var fuel_details = stat_panel_scene.instance()
-			fuel_details.init(-1, facility_entity.fuels[f], facility_entity.tank, "Refuel")
+			fuel_details.init(-1, facility_entity.fuels[f], facility_entity.max_fuel, "Refuel")
 			fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
 			fuel_list.get_node("VBoxContainer").add_child(fuel_details)
 			fuel_stats_dict[f] = fuel_details
 		
 		# set products
-		var p = facility_entity.product_type
+		var p = facility_entity.facility_type.product_type
 		var prod_details = stat_panel_scene.instance()
-		prod_details.init(-1, facility_entity.stored, facility_entity.capacity, "Collect")
+		prod_details.init(-1, facility_entity.stored, facility_entity.max_prod, "Collect")
 		prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
 		prod_list.get_node("VBoxContainer").add_child(prod_details)
 		prod_stats_dict[p] = prod_details
@@ -78,7 +80,7 @@ func _deposit_fuel(amount, resource):
 	if facility_entity != null:
 		ResourceManager.add_to_resource(resource, -amount)
 		facility_entity.refuel(amount, resource)
-		fuel_stats_dict[resource].set_x_out_of_y(facility_entity.fuels[resource], facility_entity.tank)
+		fuel_stats_dict[resource].set_x_out_of_y(facility_entity.fuels[resource], facility_entity.max_fuel)
 
 
 # update both facility and player resources
@@ -86,7 +88,7 @@ func _collect_products(resource):
 	if facility_entity != null:
 		ResourceManager.add_to_resource(resource, facility_entity.stored)
 		facility_entity.collect()
-		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.capacity)
+		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.max_prod)
 
 
 func _on_ExitButton_pressed() -> void:

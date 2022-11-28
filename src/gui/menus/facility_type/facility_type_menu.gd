@@ -9,15 +9,15 @@ func set_context(context):
 		facility_entity = context
 
 
-func _facility_selected(product_type):
+func _facility_selected(type):
 	if facility_entity != null:
-		facility_entity.set_type(product_type)
+		facility_entity.set_type(type)
 	EventManager.emit_signal("pop_menu")
 
 
 func _on_Materials_pressed() -> void:
-	_facility_selected(Global.Resources.MATERIALS)
+	_facility_selected(Global.FacilityTypes.PARTS_WORKSHOP)
 
 
 func _on_Energy_pressed() -> void:
-	_facility_selected(Global.Resources.ENERGY)
+	_facility_selected(Global.FacilityTypes.COAL_PLANT)
