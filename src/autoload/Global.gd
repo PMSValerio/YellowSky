@@ -93,7 +93,7 @@ func get_player():
 
 func _init_facility_types():
 	var placeholder_text = "This is a placeholder text that is currently set to all facilities. Later on, it will give a nice little piece of background for each type. Now won't that be nice."
-	var placeholder_art = preload("res://assets/gfx/menus/facility_portrait.png")
+	var placeholder_art = preload("res://assets/gfx/menus/facility_portrait_tmp.png")
 	
 	var facility = FacilityType.new() # wrecked facility
 	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, FacilityResources.NONE, [], "wrecked", placeholder_art, 0.0, 0.0)
