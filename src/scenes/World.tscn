@@ -156,7 +156,6 @@ frame = 4
 
 [node name="Settlement" parent="Entities" instance=ExtResource( 13 )]
 position = Vector2( 590, 319 )
-scale = Vector2( 0.2, 0.2 )
 
 [node name="Player" parent="Entities" instance=ExtResource( 8 )]
 position = Vector2( 560, 464 )

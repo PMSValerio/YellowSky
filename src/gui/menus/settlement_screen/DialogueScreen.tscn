@@ -1,12 +1,22 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/gfx/menus/settlement_portrait_art.png" type="Texture" id=1]
-[ext_resource path="res://src/gui/menus/settlement_screen/settlement_script.gd" type="Script" id=2]
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
 
-[node name="SettlementScreen" type="Control"]
+
+func _on_LeaveButton_pressed():
+	EventManager.emit_signal(\"pop_menu\")
+
+
+"
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/character_portrait.jpg-c4dcec21711129c383a2b7a9323b636f.stex"
+
+[node name="SettlementDialogueScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+script = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -26,13 +36,13 @@ margin_right = -28.0
 margin_bottom = -30.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
-margin_right = 618.0
+margin_right = 317.0
 margin_bottom = 442.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 0.68
 
 [node name="PanelContainer" type="PanelContainer" parent="ColorRect/HBoxContainer/VBoxContainer"]
-margin_right = 618.0
+margin_right = 317.0
 margin_bottom = 313.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
@@ -40,43 +50,42 @@ size_flags_stretch_ratio = 3.0
 [node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/VBoxContainer/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 611.0
+margin_right = 310.0
 margin_bottom = 306.0
-texture = ExtResource( 1 )
+texture = SubResource( 2 )
 expand = true
 
 [node name="Control" type="Control" parent="ColorRect/HBoxContainer/VBoxContainer"]
 margin_top = 317.0
-margin_right = 618.0
+margin_right = 317.0
 margin_bottom = 333.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.15
 
 [node name="PanelContainer2" type="PanelContainer" parent="ColorRect/HBoxContainer/VBoxContainer"]
 margin_top = 337.0
-margin_right = 618.0
+margin_right = 317.0
 margin_bottom = 442.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer/PanelContainer2"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 611.0
+margin_right = 310.0
 margin_bottom = 98.0
 size_flags_vertical = 1
-text = "As there are very few humans left and resources are scarce, conflict is largely inevitable. However, reason mostly prevails and there is a tentative peace between settlements. Clans and tribes formed out of a sense of unity in this dying world, and relationships between them tend to be purely transactional.
-"
+text = "Template character description. Should be replaced later by proper text parsed from jason file."
 autowrap = true
 
 [node name="Padding" type="Control" parent="ColorRect/HBoxContainer"]
-margin_left = 622.0
-margin_right = 652.0
+margin_left = 321.0
+margin_right = 391.0
 margin_bottom = 442.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 
 [node name="PanelContainer2" type="PanelContainer" parent="ColorRect/HBoxContainer"]
-margin_left = 656.0
+margin_left = 395.0
 margin_right = 863.0
 margin_bottom = 442.0
 size_flags_horizontal = 3
@@ -84,36 +93,43 @@ size_flags_horizontal = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/PanelContainer2"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 200.0
+margin_right = 461.0
 margin_bottom = 435.0
 
 [node name="TalkButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_right = 193.0
-margin_bottom = 36.0
+margin_right = 454.0
+margin_bottom = 34.0
 size_flags_vertical = 3
 text = "Talk"
 clip_text = true
 
+[node name="TestLabel" type="Label" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
+margin_top = 38.0
+margin_right = 454.0
+margin_bottom = 52.0
+text = "texto"
+
 [node name="TradeButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 40.0
-margin_right = 193.0
-margin_bottom = 76.0
+margin_top = 56.0
+margin_right = 454.0
+margin_bottom = 91.0
 size_flags_vertical = 3
 text = "Trade"
 
 [node name="LeaveButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 80.0
-margin_right = 193.0
-margin_bottom = 116.0
+margin_top = 95.0
+margin_right = 454.0
+margin_bottom = 129.0
 size_flags_vertical = 3
 text = "Leave"
 
 [node name="Padding" type="Control" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 120.0
-margin_right = 193.0
+margin_top = 133.0
+margin_right = 454.0
 margin_bottom = 428.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.5
 
-[connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/TalkButton" to="." method="_on_TalkButton_pressed"]
+[connection signal="gui_input" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/TestLabel" to="." method="_on_TestLabel_gui_input"]
+[connection signal="button_down" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/LeaveButton" to="." method="_on_LeaveButton_button_down"]
 [connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/LeaveButton" to="." method="_on_LeaveButton_pressed"]
