@@ -115,4 +115,5 @@ margin_bottom = 428.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.5
 
+[connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/TalkButton" to="." method="_on_TalkButton_pressed"]
 [connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/LeaveButton" to="." method="_on_LeaveButton_pressed"]
