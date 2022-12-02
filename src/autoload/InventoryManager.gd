@@ -5,9 +5,8 @@ var ItemIds = [] # alternative to Items enum, still testing
 
 var item_stats = {}
 
-var _compact_resource_items = {} # ids of all compact resource items organised by value
-								# {<resource type>: {
-								#	<stat>: <id> } }
+var compact_resource_items = {} # ids of all compact resource items organised by value
+								# {<resource type>: [item_id] }
 
 var inventory = {}
 
@@ -18,9 +17,9 @@ func _ready():
 	
 	for t in Global.Items.values(): # have a dictionary for each item type
 		inventory[t] = {}
-	_compact_resource_items[Global.FacilityResources.WATER] = {}
-	_compact_resource_items[Global.FacilityResources.ENERGY] = {}
-	_compact_resource_items[Global.FacilityResources.MATERIALS] = {}
+	compact_resource_items[Global.FacilityResources.WATER] = []
+	compact_resource_items[Global.FacilityResources.ENERGY] = []
+	compact_resource_items[Global.FacilityResources.MATERIALS] = []
 	
 	# TODO: load item data from config files
 	var type = Global.Items.FOOD
@@ -74,8 +73,8 @@ func _ready():
 	item.init_flavour("Water Bottle", tmp_flavour)
 	item.subtype = Global.FacilityResources.WATER
 	item_stats[id] = item
-	_compact_resource_items[item.subtype][item.stat] = id
-	inventory[type][id] = 1
+	compact_resource_items[item.subtype].append(id)
+	inventory[type][id] = 0
 
 
 # populate inventory data from config files
@@ -86,6 +85,10 @@ func _build_items():
 # returns all item_ids of a certain category present in inventory
 func get_all_ids_of_type(type) -> Array:
 	return inventory[type].keys() if type in inventory else []
+
+
+func get_all_compact_ids(resource_type) -> Array:
+	return compact_resource_items[resource_type] if resource_type in compact_resource_items else []
 
 
 func get_item_amount(type, id) -> int:
