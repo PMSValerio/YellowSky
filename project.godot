@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/map/perspective_sprite.gd"
 }, {
+"base": "PanelContainer",
+"class": "ResourceButton",
+"language": "GDScript",
+"path": "res://src/gui/menus/inventory_screen/resoure_button.gd"
+}, {
 "base": "VBoxContainer",
 "class": "StatDetails",
 "language": "GDScript",
@@ -57,6 +62,7 @@ _global_script_class_icons={
 "GridSlot": "",
 "Item": "",
 "PerspectiveSprite": "",
+"ResourceButton": "",
 "StatDetails": ""
 }
 

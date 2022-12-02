@@ -34,16 +34,18 @@ enum FacilityTypes {
 	# RECYLING CENTER,
 }
 
-# all facility product types
+# all product types that can be produced by facilities
 enum FacilityResources {
 	NONE, # just for wrecked probably
 	FOOD,
 	WATER,
 	MATERIALS,
 	ENERGY,
-	SEEDS,
+	SEEDS, # this should be removed
 }
 
+# THIS NEEDS TO DISAPPEAR
+# USE FacilityResources INSTEAD
 enum Resources {
 	WATER,
 	MATERIALS,
@@ -52,6 +54,7 @@ enum Resources {
 }
 
 enum Items {
+	RESOURCES,
 	FOOD,
 	LUXURY,
 	QUEST,

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/gui/menus/inventory_screen/inventory_menu.gd" type="Script" id=1]
 [ext_resource path="res://src/gui/menus/inventory_screen/GridSlot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/gui/menus/inventory_screen/ResourceButton.tscn" type="PackedScene" id=3]
 
 [node name="InventoryMenu" type="Control"]
 anchor_right = 1.0
@@ -33,25 +34,49 @@ margin_right = 488.0
 margin_bottom = 472.0
 alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GridManager"]
+[node name="ResourcesPanel" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GridManager"]
+margin_top = 92.0
+margin_right = 488.0
+margin_bottom = 202.0
+alignment = 1
+
+[node name="WaterButton" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel" instance=ExtResource( 3 )]
+margin_left = 75.0
+margin_right = 185.0
+
+[node name="EnergyButton" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel" instance=ExtResource( 3 )]
+margin_left = 189.0
+margin_right = 299.0
+
+[node name="MaterialsButton" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel" instance=ExtResource( 3 )]
+margin_left = 303.0
+margin_right = 413.0
+
+[node name="CategoryTabs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GridManager"]
 margin_top = 206.0
 margin_right = 488.0
 margin_bottom = 226.0
 
-[node name="FoodTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/HBoxContainer"]
-margin_right = 43.0
+[node name="ResourcesTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/CategoryTabs"]
+margin_right = 78.0
+margin_bottom = 20.0
+text = "Resources"
+
+[node name="FoodTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/CategoryTabs"]
+margin_left = 82.0
+margin_right = 125.0
 margin_bottom = 20.0
 text = "Food"
 
-[node name="LuxuryTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/HBoxContainer"]
-margin_left = 47.0
-margin_right = 101.0
+[node name="LuxuryTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/CategoryTabs"]
+margin_left = 129.0
+margin_right = 183.0
 margin_bottom = 20.0
 text = "Luxury"
 
-[node name="QuestTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/HBoxContainer"]
-margin_left = 105.0
-margin_right = 156.0
+[node name="QuestTab" type="Button" parent="MarginContainer/HBoxContainer/GridManager/CategoryTabs"]
+margin_left = 187.0
+margin_right = 238.0
 margin_bottom = 20.0
 text = "Quest"
 

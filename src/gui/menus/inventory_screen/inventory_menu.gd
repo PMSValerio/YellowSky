@@ -3,14 +3,20 @@ extends Control
 
 # Item Grid Nodes
 onready var item_grid = $MarginContainer/HBoxContainer/GridManager/ItemGrid
-onready var food_tab = $MarginContainer/HBoxContainer/GridManager/HBoxContainer/FoodTab
-onready var luxury_tab = $MarginContainer/HBoxContainer/GridManager/HBoxContainer/LuxuryTab
-onready var quest_tab = $MarginContainer/HBoxContainer/GridManager/HBoxContainer/QuestTab
+onready var resources_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/ResourcesTab
+onready var food_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/FoodTab
+onready var luxury_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/LuxuryTab
+onready var quest_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/QuestTab
+
+onready var water_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton
+onready var energy_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/EnergyButton
+onready var materials_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/MaterialsButton
 
 # Item Details Nodes
 onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
 onready var item_display = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer/ItemDisplay
 onready var item_description = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/ItemDescription
+onready var _use_btn_margin = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer
 onready var use_button = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton
 
 onready var items_per_page = item_grid.get_child_count() # item_grid should already be populated with item slots
@@ -19,13 +25,20 @@ onready var rows = items_per_page / item_grid.columns
 var _page_first_ix = 0 # the array index of the first item being shown in the current page
 var _page_last_ix = -1 # the array index of the last item being shown in the current page
 
-var grid_category = Global.Items.FOOD # category being examined by the grid
+var grid_category = Global.Items.RESOURCES # category being examined by the grid
 var inspected_slot : GridSlot = null # item currently highlighted in details panel
 
 var _readied = false # so as to not populate a yet unexistent grid
 
+onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
+
 
 func _ready() -> void:
+	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
+	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY])
+	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS])
+	
+	resources_tab.connect("pressed", self, "_on_select_category", [Global.Items.RESOURCES])
 	food_tab.connect("pressed", self, "_on_select_category", [Global.Items.FOOD])
 	luxury_tab.connect("pressed", self, "_on_select_category", [Global.Items.LUXURY])
 	quest_tab.connect("pressed", self, "_on_select_category", [Global.Items.QUEST])
@@ -37,13 +50,20 @@ func _ready() -> void:
 
 func set_context(_context):
 	if _readied:
-		_populate_item_grid(Global.Items.FOOD, 0)
+		_populate_item_grid(Global.Items.RESOURCES, 0)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ctrl_main_menu"):
 		EventManager.emit_signal("pop_menu")
 		get_tree().set_input_as_handled()
+
+
+# set resources
+func _set_resources():
+	water_button.set_value(ResourceManager.get_resource(Global.FacilityResources.WATER))
+	energy_button.set_value(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
+	materials_button.set_value(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards
@@ -87,8 +107,9 @@ func _update_item_details(slot : GridSlot):
 		return
 	details_panel.visible = true
 	item_display.texture = slot.data.texture
-	item_description.text = "Hello, this is a placeholder text. This item's id is " + str(slot.data.id) + ". It is of type " + str(Global.Items.keys()[slot.data.type]) + ". I realise this text isn't very helpful, but such is life. That's why it's called placeholder, you doofus."
+	item_description.text = slot.data.flavour_text
 	use_button.disabled = not slot.data.usable
+	_use_btn_margin.visible = slot.data.usable
 
 
 func _clean_up():
@@ -104,6 +125,10 @@ func _on_UseButton_pressed() -> void:
 	if inspected_slot.amount <= 0: # if item was used up completely
 		# repopulate item grid with the same page
 		_populate_item_grid(grid_category, _page_first_ix)
+
+
+func _on_resource_pressed(rec_id) -> void:
+	print("compact " + str(Global.FacilityResources.keys()[rec_id]))
 
 
 func _on_select_category(type) -> void:

@@ -18,6 +18,9 @@ func _ready():
 	my_timer.one_shot = false
 	add_child(my_timer)
 	my_timer.start()
+	
+	var _v = EventManager.connect("item_used", self, "_on_item_used")
+
 
 func increase_all():
 	set_water(_water + 1)
@@ -43,15 +46,32 @@ func set_seeds(new_val):
 	emit_signal("seeds_changed", _seeds)
 
 
-func add_to_resource(rec_id : int, amount : float):
+func add_to_resource(rec_id : int, amount : int):
 	match rec_id:
-		Global.Resources.WATER:
+		Global.FacilityResources.WATER:
 			set_water(_water + amount)
-		Global.Resources.MATERIALS:
+		Global.FacilityResources.MATERIALS:
 			set_craft_mat(_craft_mat + amount)
-		Global.Resources.ENERGY:
+		Global.FacilityResources.ENERGY:
 			set_energy(_energy + amount)
-		Global.Resources.SEEDS:
+		Global.FacilityResources.SEEDS:
 			set_seeds(_seeds + amount)
-		
 
+
+func get_resource(rec_id) -> int:
+	match rec_id:
+		Global.FacilityResources.WATER:
+			return _water
+		Global.FacilityResources.MATERIALS:
+			return _craft_mat
+		Global.FacilityResources.ENERGY:
+			return _energy
+		Global.FacilityResources.SEEDS:
+			return _seeds
+	return -1
+
+
+# used only for decompacting resource items
+func _on_item_used(item_data : Item):
+	if item_data.type == Global.Items.RESOURCES:
+		add_to_resource(item_data.subtype, item_data.stat) # TODO: apply penalty
