@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/gui/menus/facility_screen/facility_screen.gd" type="Script" id=1]
+[ext_resource path="res://src/gui/menus/facility_screen/ResourceSlider.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/gui/menus/facility_screen/StatDetails.tscn" type="PackedScene" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
@@ -202,6 +203,18 @@ margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Leave"
 
+[node name="ResourceSlider" parent="." instance=ExtResource( 2 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -144.0
+margin_top = -113.0
+margin_right = 144.0
+margin_bottom = 113.0
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/LeaveButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="value_chosen" from="ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]
 
 [editable path="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2/HealthDetails"]

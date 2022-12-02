@@ -15,6 +15,10 @@ func set_state(item_data : Item, is_disabled : bool, _cost : int) -> void:
 	$HBoxContainer/VBoxContainer/Value.text = str(item_data.value)
 	
 	$HBoxContainer/Cost.text = str(cost)
+	if is_disabled:
+		$HBoxContainer/Cost.add_color_override("font_color", Color("#a32c2c"))
+	else:
+		$HBoxContainer/Cost.remove_color_override("font_color")
 	
 	disabled = is_disabled
 

@@ -60,6 +60,13 @@ enum Items {
 	QUEST,
 }
 
+var resource_icons = {
+	FacilityResources.FOOD: preload("res://assets/gfx/HUD/waterIcon.png"),
+	FacilityResources.WATER: preload("res://assets/gfx/HUD/waterIcon.png"),
+	FacilityResources.ENERGY: preload("res://assets/gfx/HUD/energyIcon.png"),
+	FacilityResources.MATERIALS: preload("res://assets/gfx/HUD/craftMatIcons.png")
+}
+
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
 
 var facility_types = {} # this file is a horrible place to be doing this

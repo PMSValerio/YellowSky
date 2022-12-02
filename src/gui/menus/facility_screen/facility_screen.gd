@@ -21,6 +21,8 @@ onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScree
 onready var type_btn = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/TypeButton
 onready var upgd_btn = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/UpgradesButton
 
+onready var resource_slider = $ResourceSlider
+
 
 var facility_entity : Facility = null # the actual facility node
 var fuel_stats_dict = {}
@@ -29,6 +31,8 @@ var prod_stats_dict = {}
 onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
 
 var _readied = false
+var slider_mode = 0 # 0: nothing; 1: repair; 2: refuel
+var slider_resource = Global.FacilityResources.NONE
 
 
 func _ready() -> void:
@@ -101,14 +105,22 @@ func _on_ExitButton_pressed() -> void:
 func _on_Repair_pressed() -> void:
 	var amount = facility_entity.max_health - facility_entity.health
 	if amount > 0:
-		_repair_by_amount(amount)
-	else:
-		print("already repaired")
+		var _min = facility_entity.health
+		var _max = _min + ResourceManager.get_resource(Global.FacilityResources.MATERIALS)
+		resource_slider.set_state(0, facility_entity.max_health, _min, _max, Global.resource_icons[Global.FacilityResources.MATERIALS])
+		resource_slider.visible = true
+		slider_mode = 1
+		slider_resource = Global.FacilityResources.MATERIALS
 
 
 func _on_Refuel_pressed(resource) -> void:
 	if facility_entity.health > 0:
-		_deposit_fuel(50, resource)
+		var _min = facility_entity.fuels[resource]
+		var _max = _min + ResourceManager.get_resource(resource)
+		resource_slider.set_state(0, facility_entity.max_fuel, _min, _max, Global.resource_icons[resource])
+		resource_slider.visible = true
+		slider_mode = 2
+		slider_resource = resource
 	else:
 		print("facility must first be repaired")
 
@@ -118,3 +130,12 @@ func _on_Collect_pressed(resource) -> void:
 		_collect_products(resource)
 	else:
 		print("facility must first be repaired")
+
+
+func _on_ResourceSlider_value_chosen(delta_value) -> void:
+	match slider_mode:
+		1:
+			_repair_by_amount(delta_value)
+		2:
+			_deposit_fuel(delta_value, slider_resource)
+	slider_mode = 0
