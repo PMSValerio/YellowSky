@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/gui/menus/facility/FacilityManageScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/gui/menus/resusable_submenus/BaseOuterMenu.tscn" type="PackedScene" id=2]
+
+[node name="BaseOuterMenu" instance=ExtResource( 2 )]
+
+[node name="Manage" parent="MarginContainer/PanelContainer/TabContainer" index="0" instance=ExtResource( 1 )]
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Upgrades" type="Control" parent="MarginContainer/PanelContainer/TabContainer" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/TabContainer/Upgrades" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -41.5
+margin_top = -7.0
+margin_right = 41.5
+margin_bottom = 7.0
+text = "Coming Soon"

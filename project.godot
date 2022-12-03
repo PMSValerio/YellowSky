@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Button",
 "class": "CompactTransactionSlot",
 "language": "GDScript",
-"path": "res://src/gui/menus/inventory_screen/compact_transaction_slot.gd"
+"path": "res://src/gui/menus/main/compact_transaction_slot.gd"
 }, {
 "base": "Node2D",
 "class": "Disaster",
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "MarginContainer",
 "class": "GridSlot",
 "language": "GDScript",
-"path": "res://src/gui/menus/inventory_screen/grid_slot.gd"
+"path": "res://src/gui/menus/main/grid_slot.gd"
 }, {
 "base": "Reference",
 "class": "Item",
@@ -52,12 +52,12 @@ _global_script_classes=[ {
 "base": "PanelContainer",
 "class": "ResourceButton",
 "language": "GDScript",
-"path": "res://src/gui/menus/inventory_screen/resoure_button.gd"
+"path": "res://src/gui/menus/main/resoure_button.gd"
 }, {
 "base": "VBoxContainer",
 "class": "StatDetails",
 "language": "GDScript",
-"path": "res://src/gui/menus/facility_screen/stat_details.gd"
+"path": "res://src/gui/menus/facility/stat_details.gd"
 } ]
 _global_script_class_icons={
 "CompactTransactionSlot": "",

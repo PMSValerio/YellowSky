@@ -7,7 +7,7 @@ onready var action_button = $HBoxContainer2/Button
 
 var tex = -1
 var current = 0
-var maximum = 0
+var maximum = 100
 var action = "Action"
 
 
@@ -29,15 +29,15 @@ func populate_data() -> void:
 
 
 func set_icon(texture) -> void:
-	if texture != -1:
+	if texture == null or texture is Texture:
 		$HBoxContainer/Icon.texture = texture
 
 
 func set_x_out_of_y(current_amount, max_amount) -> void:
 	$HBoxContainer2/Numerical.text = str(current_amount) + " / " + str(max_amount)
 	
-	$HBoxContainer/ProgressBar.value = current_amount
 	$HBoxContainer/ProgressBar.max_value = max_amount
+	$HBoxContainer/ProgressBar.value = current_amount
 
 
 func set_action(action_name) -> void:

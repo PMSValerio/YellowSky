@@ -95,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		emit_signal("interact", global_position)
 	if event.is_action_pressed("ctrl_main_menu"):
-		EventManager.emit_signal("push_menu", Global.Menus.INVENTORY_SCREEN, null)
+		EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, null)
 
 # CUSTOM FUNCTIONS::::::::::::::::::::::::::::::::::::::::::::
 # stats

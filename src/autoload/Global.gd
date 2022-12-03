@@ -5,8 +5,8 @@ enum Menus {
 	TEST,
 	SUBTEST,
 	CHOOSE_FACILITY,
-	FACILITY_SCREEN,
-	INVENTORY_SCREEN,
+	FACILITY_MENU,
+	MAIN_MENU,
 	SETTLEMENT_SCREEN,
 	SETTLEMENT_DIALOGUE_SCREEN,
 }
@@ -46,12 +46,12 @@ enum FacilityResources {
 
 # THIS NEEDS TO DISAPPEAR
 # USE FacilityResources INSTEAD
-enum Resources {
-	WATER,
-	MATERIALS,
-	ENERGY,
-	SEEDS,
-}
+#enum Resources {
+#	WATER,
+#	MATERIALS,
+#	ENERGY,
+#	SEEDS,
+#}
 
 enum Items {
 	RESOURCES,

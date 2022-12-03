@@ -128,4 +128,4 @@ func interact() -> void:
 	if facility_type.type_id == Global.FacilityTypes.WRECKED:
 		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
 	else:
-		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_SCREEN, self)
+		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)

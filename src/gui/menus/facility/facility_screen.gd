@@ -1,7 +1,7 @@
 extends Control
 
 
-var stat_panel_scene = preload("res://src/gui/menus/facility_screen/StatDetails.tscn")
+var stat_panel_scene = preload("res://src/gui/menus/facility/StatDetails.tscn")
 
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
@@ -19,7 +19,6 @@ onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScree
 
 # Control Elements
 onready var type_btn = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/TypeButton
-onready var upgd_btn = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/UpgradesButton
 
 onready var resource_slider = $ResourceSlider
 
@@ -57,7 +56,7 @@ func set_context(context):
 		# set fuels
 		for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 			var fuel_details = stat_panel_scene.instance()
-			fuel_details.init(-1, facility_entity.fuels[f], facility_entity.max_fuel, "Refuel")
+			fuel_details.init(Global.resource_icons[f], facility_entity.fuels[f], facility_entity.max_fuel, "Refuel")
 			fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
 			fuel_list.get_node("VBoxContainer").add_child(fuel_details)
 			fuel_stats_dict[f] = fuel_details
@@ -65,7 +64,7 @@ func set_context(context):
 		# set products
 		var p = facility_entity.facility_type.product_type
 		var prod_details = stat_panel_scene.instance()
-		prod_details.init(-1, facility_entity.stored, facility_entity.max_prod, "Collect")
+		prod_details.init(Global.resource_icons[p], facility_entity.stored, facility_entity.max_prod, "Collect")
 		prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
 		prod_list.get_node("VBoxContainer").add_child(prod_details)
 		prod_stats_dict[p] = prod_details
@@ -74,7 +73,7 @@ func set_context(context):
 # this already assumes the player has enough resources for the operation
 func _repair_by_amount(amount):
 	if facility_entity != null:
-		ResourceManager.add_to_resource(Global.Resources.MATERIALS, - amount)
+		ResourceManager.add_to_resource(Global.FacilityResources.MATERIALS, -amount)
 		facility_entity.repair(amount)
 		health_details.set_x_out_of_y(facility_entity.health, facility_entity.max_health)
 
@@ -93,10 +92,6 @@ func _collect_products(resource):
 		ResourceManager.add_to_resource(resource, facility_entity.stored)
 		facility_entity.collect()
 		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.max_prod)
-
-
-func _on_ExitButton_pressed() -> void:
-	EventManager.emit_signal("pop_menu")
 
 
 # || --- TEMPORARY --- ||
