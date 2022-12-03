@@ -22,6 +22,8 @@ onready var use_button = $MarginContainer/HBoxContainer/ItemDetails/MarginContai
 onready var items_per_page = item_grid.get_child_count() # item_grid should already be populated with item slots
 onready var rows = items_per_page / item_grid.columns
 
+onready var compact_submenu = $CompactSubmenu
+
 var _page_first_ix = 0 # the array index of the first item being shown in the current page
 var _page_last_ix = -1 # the array index of the last item being shown in the current page
 
@@ -34,9 +36,9 @@ onready var ResourceManager = Global.get_player().get_node("ResourceManager") # 
 
 
 func _ready() -> void:
-	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
-	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY])
-	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS])
+	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER, water_button.get_resource_icon()])
+	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY, energy_button.get_resource_icon()])
+	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS, materials_button.get_resource_icon()])
 	
 	resources_tab.connect("pressed", self, "_on_select_category", [Global.Items.RESOURCES])
 	food_tab.connect("pressed", self, "_on_select_category", [Global.Items.FOOD])
@@ -127,8 +129,9 @@ func _on_UseButton_pressed() -> void:
 		_populate_item_grid(grid_category, _page_first_ix)
 
 
-func _on_resource_pressed(rec_id) -> void:
-	print("compact " + str(Global.FacilityResources.keys()[rec_id]))
+func _on_resource_pressed(rec_id, icon) -> void:
+	compact_submenu.toggle_on(rec_id, icon)
+	
 
 
 func _on_select_category(type) -> void:
@@ -138,3 +141,7 @@ func _on_select_category(type) -> void:
 
 func _on_select_slot(slot) -> void:
 	_update_item_details(slot)
+
+
+func _on_CompactSubmenu_update_items() -> void:
+	_populate_item_grid(Global.Items.RESOURCES, _page_first_ix)

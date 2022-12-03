@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/gui/menus/inventory_screen/inventory_menu.gd" type="Script" id=1]
 [ext_resource path="res://src/gui/menus/inventory_screen/GridSlot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/gui/menus/inventory_screen/ResourceButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/gui/menus/inventory_screen/CompactSubmenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/HUD/waterIcon.png" type="Texture" id=6]
 
 [node name="InventoryMenu" type="Control"]
 anchor_right = 1.0
@@ -44,6 +47,9 @@ alignment = 1
 margin_left = 75.0
 margin_right = 185.0
 
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton/Button/VBoxContainer" index="0"]
+texture = ExtResource( 6 )
+
 [node name="EnergyButton" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel" instance=ExtResource( 3 )]
 margin_left = 189.0
 margin_right = 299.0
@@ -51,6 +57,9 @@ margin_right = 299.0
 [node name="MaterialsButton" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel" instance=ExtResource( 3 )]
 margin_left = 303.0
 margin_right = 413.0
+
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/GridManager/ResourcesPanel/MaterialsButton/Button/VBoxContainer" index="0"]
+texture = ExtResource( 5 )
 
 [node name="CategoryTabs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/GridManager"]
 margin_top = 206.0
@@ -273,4 +282,11 @@ margin_right = 388.0
 margin_bottom = 36.0
 text = "Use"
 
+[node name="CompactSubmenu" parent="." instance=ExtResource( 4 )]
+visible = false
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton" to="." method="_on_UseButton_pressed"]
+[connection signal="update_items" from="CompactSubmenu" to="." method="_on_CompactSubmenu_update_items"]
+
+[editable path="MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton"]
+[editable path="MarginContainer/HBoxContainer/GridManager/ResourcesPanel/MaterialsButton"]

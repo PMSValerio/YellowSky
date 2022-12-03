@@ -15,5 +15,9 @@ func set_value(value : int) -> void:
 	_label.text = value
 
 
+func get_resource_icon() -> Texture:
+	return _texture_rect.texture
+
+
 func _on_Button_pressed() -> void:
 	emit_signal("action_pressed")

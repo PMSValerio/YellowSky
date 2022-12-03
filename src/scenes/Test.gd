@@ -1,15 +1,26 @@
-extends Node2D
+extends Control
 
 
-func _physics_process(delta: float) -> void:
-	var speed = 160
-	if Input.get_action_strength("mov_left"):
-		$Sprite.position.x -= delta * speed
-	if Input.get_action_strength("mov_right"):
-		$Sprite.position.x += delta * speed
-	if Input.get_action_strength("mov_up"):
-		$Sprite.position.y -= delta * speed
-	if Input.get_action_strength("mov_down"):
-		$Sprite.position.y += delta * speed
-	
-	$ParallaxBackground/ParallaxLayer3.motion_offset.x -= 10 * delta
+var sub_active = false
+
+
+func _on_Main1_pressed() -> void:
+	if not sub_active:
+		sub_active = true
+		$Sub.visible = true
+		$Sub.mouse_filter = Control.MOUSE_FILTER_STOP
+		$Main.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+func _on_Main2_pressed() -> void:
+	print("Main 2 pressed")
+
+
+func _on_Button_pressed() -> void:
+	if sub_active:
+		sub_active = false
+		$Sub.visible = false
+		$Sub.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		$Main.mouse_filter = Control.MOUSE_FILTER_STOP
+	else:
+		print("Sub pressed")
