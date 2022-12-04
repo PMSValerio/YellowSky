@@ -5,7 +5,6 @@ extends CanvasLayer
 var _menus = {
 	Global.Menus.TEST: preload("res://src/gui/menus/TestUI.tscn"),
 	Global.Menus.SUBTEST: preload("res://src/gui/menus/SubTestUI.tscn"),
-	Global.Menus.CHOOSE_FACILITY: preload("res://src/gui/menus/facility_type/FacilityType.tscn"),
 	Global.Menus.FACILITY_MENU: preload("res://src/gui/menus/facility/FacilityMenu.tscn"),
 	Global.Menus.MAIN_MENU: preload("res://src/gui/menus/main/MainMenu.tscn"),
 	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement_screen/SettlementScreen.tscn"),

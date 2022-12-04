@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/gui/menus/resusable_submenus/BaseOuterMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/gui/menus/resusable/BaseOuterMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/InventoryScreen.tscn" type="PackedScene" id=2]
 
 [node name="BaseOuterMenu" instance=ExtResource( 1 )]

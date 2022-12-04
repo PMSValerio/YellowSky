@@ -17,9 +17,6 @@ onready var status_marker = $MarginContainer/HBoxContainer/StatsContainer/StatsS
 onready var fuel_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer
 onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer
 
-# Control Elements
-onready var type_btn = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow/TypeButton
-
 onready var resource_slider = $ResourceSlider
 
 
@@ -29,21 +26,18 @@ var prod_stats_dict = {}
 
 onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
 
-var _readied = false
 var slider_mode = 0 # 0: nothing; 1: repair; 2: refuel
 var slider_resource = Global.FacilityResources.NONE
 
 
 func _ready() -> void:
-	_readied = true
-	set_context(facility_entity)
+	var _v = health_details.connect("action_pressed", self, "_on_Repair_pressed") # doing this manually just cuz
 
 
 func set_context(context):
-	if not context is Facility:
-		return
-	facility_entity = context
-	if _readied:
+	if context is Facility:
+		facility_entity = context
+		
 		name_label.text = facility_entity.facility_type.type_name
 		art_rect.texture = facility_entity.facility_type.portrait_texture
 		flavour_label.text = facility_entity.facility_type.flavour_text
@@ -51,9 +45,11 @@ func set_context(context):
 		# set facility health details
 		health_details.init(null, facility_entity.health, facility_entity.max_health, "Repair")
 		health_details.populate_data()
-		var _v = health_details.connect("action_pressed", self, "_on_Repair_pressed") # doing this manually just cuz
 		
 		# set fuels
+		fuel_stats_dict.clear()
+		for child in fuel_list.get_node("VBoxContainer").get_children():
+			child.queue_free()
 		for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 			var fuel_details = stat_panel_scene.instance()
 			fuel_details.init(Global.resource_icons[f], facility_entity.fuels[f], facility_entity.max_fuel, "Refuel")
@@ -62,6 +58,9 @@ func set_context(context):
 			fuel_stats_dict[f] = fuel_details
 		
 		# set products
+		prod_stats_dict.clear()
+		for child in prod_list.get_node("VBoxContainer").get_children():
+			child.queue_free()
 		var p = facility_entity.facility_type.product_type
 		var prod_details = stat_panel_scene.instance()
 		prod_details.init(Global.resource_icons[p], facility_entity.stored, facility_entity.max_prod, "Collect")

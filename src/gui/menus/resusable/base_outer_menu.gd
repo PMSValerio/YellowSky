@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func set_context(context) -> void:
 	_context = context
-	if _readied and context != null:
+	if _readied:
 		for tab in tabs.get_children():
 			if tab.has_method("set_context"):
 				tab.set_context(_context)

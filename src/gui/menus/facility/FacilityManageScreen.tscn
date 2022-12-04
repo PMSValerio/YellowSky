@@ -110,62 +110,50 @@ align = 1
 [node name="ResourcesRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen"]
 margin_top = 146.0
 margin_right = 656.0
-margin_bottom = 550.0
+margin_bottom = 570.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="FuelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
 margin_right = 328.0
-margin_bottom = 404.0
+margin_bottom = 424.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
-margin_bottom = 397.0
+margin_bottom = 417.0
 rect_clip_content = true
 alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
-margin_top = 188.0
+margin_top = 198.0
 margin_right = 314.0
-margin_bottom = 202.0
+margin_bottom = 212.0
 text = "Fuel"
 align = 1
 
 [node name="ProductContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
 margin_left = 328.0
 margin_right = 656.0
-margin_bottom = 404.0
+margin_bottom = 424.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
-margin_bottom = 397.0
+margin_bottom = 417.0
 rect_clip_content = true
 alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
-margin_top = 188.0
+margin_top = 198.0
 margin_right = 314.0
-margin_bottom = 202.0
+margin_bottom = 212.0
 text = "Product"
 align = 1
-
-[node name="ButtonsRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen"]
-margin_top = 550.0
-margin_right = 656.0
-margin_bottom = 570.0
-alignment = 1
-
-[node name="TypeButton" type="Button" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ButtonsRow"]
-margin_left = 284.0
-margin_right = 371.0
-margin_bottom = 20.0
-text = "Switch Type"
 
 [node name="ResourceSlider" parent="." instance=ExtResource( 2 )]
 visible = false

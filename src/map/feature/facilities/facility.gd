@@ -93,6 +93,7 @@ func _operate_cost():
 
 
 func set_type(type):
+	stored = 0
 	if type in Global.facility_types.keys():
 		facility_type = Global.facility_types[type]
 		
@@ -125,7 +126,8 @@ func collect():
 
 
 func interact() -> void:
-	if facility_type.type_id == Global.FacilityTypes.WRECKED:
-		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
-	else:
-		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+#	if facility_type.type_id == Global.FacilityTypes.WRECKED:
+#		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
+#	else:
+#		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)

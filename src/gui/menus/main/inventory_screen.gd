@@ -30,8 +30,6 @@ var _page_last_ix = -1 # the array index of the last item being shown in the cur
 var grid_category = Global.Items.RESOURCES # category being examined by the grid
 var inspected_slot : GridSlot = null # item currently highlighted in details panel
 
-var _readied = false # so as to not populate a yet unexistent grid
-
 onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
 
 
@@ -46,13 +44,10 @@ func _ready() -> void:
 	quest_tab.connect("pressed", self, "_on_select_category", [Global.Items.QUEST])
 	for child in item_grid.get_children():
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
-	_readied = true
-	set_context(null)
 
 
 func set_context(_context):
-	if _readied:
-		_populate_item_grid(Global.Items.RESOURCES, 0)
+	_populate_item_grid(Global.Items.RESOURCES, 0)
 
 
 func _input(event: InputEvent) -> void:
