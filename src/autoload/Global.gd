@@ -4,9 +4,9 @@ extends Node
 enum Menus {
 	TEST,
 	SUBTEST,
-	CHOOSE_FACILITY,
-	FACILITY_SCREEN,
-	INVENTORY_SCREEN,
+	PAUSE_SCREEN,
+	FACILITY_MENU,
+	MAIN_MENU,
 	SETTLEMENT_SCREEN,
 	SETTLEMENT_DIALOGUE_SCREEN,
 }
@@ -46,18 +46,26 @@ enum FacilityResources {
 
 # THIS NEEDS TO DISAPPEAR
 # USE FacilityResources INSTEAD
-enum Resources {
-	WATER,
-	MATERIALS,
-	ENERGY,
-	SEEDS,
-}
+#enum Resources {
+#	WATER,
+#	MATERIALS,
+#	ENERGY,
+#	SEEDS,
+#}
 
 enum Items {
 	RESOURCES,
 	FOOD,
 	LUXURY,
 	QUEST,
+}
+
+var resource_icons = {
+	FacilityResources.NONE: null,
+	FacilityResources.FOOD: preload("res://assets/gfx/HUD/waterIcon.png"),
+	FacilityResources.WATER: preload("res://assets/gfx/HUD/waterIcon.png"),
+	FacilityResources.ENERGY: preload("res://assets/gfx/HUD/energyIcon.png"),
+	FacilityResources.MATERIALS: preload("res://assets/gfx/HUD/craftMatIcons.png")
 }
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
@@ -99,7 +107,7 @@ func _init_facility_types():
 	var placeholder_art = preload("res://assets/gfx/menus/facility_portrait_tmp.png")
 	
 	var facility = FacilityType.new() # wrecked facility
-	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, FacilityResources.NONE, [], "wrecked", placeholder_art, 0.0, 0.0)
+	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, FacilityResources.NONE, [], "wrecked", preload("res://assets/gfx/menus/fac_wrecked.png"), 0.0, 0.0)
 	facility_types[FacilityTypes.WRECKED] = facility
 	
 	facility = FacilityType.new() # coal plant

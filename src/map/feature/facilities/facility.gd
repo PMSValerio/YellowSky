@@ -74,7 +74,7 @@ func toggle_facility(on_off) -> void:
 
 # can only operate if it wasn't destroyed and if it has fuel
 func _can_operate():
-	if _is_destroyed or not facility_type.product_type in Global.Resources.values():
+	if _is_destroyed or not facility_type.product_type in Global.FacilityResources.values():
 		return false
 	for f in fuels.keys():
 		if fuels[f] <= 0:
@@ -93,6 +93,7 @@ func _operate_cost():
 
 
 func set_type(type):
+	stored = 0
 	if type in Global.facility_types.keys():
 		facility_type = Global.facility_types[type]
 		
@@ -125,7 +126,8 @@ func collect():
 
 
 func interact() -> void:
-	if facility_type.type_id == Global.FacilityTypes.WRECKED:
-		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
-	else:
-		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_SCREEN, self)
+#	if facility_type.type_id == Global.FacilityTypes.WRECKED:
+#		EventManager.emit_signal("push_menu", Global.Menus.CHOOSE_FACILITY, self)
+#	else:
+#		EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
