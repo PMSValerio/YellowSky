@@ -50,12 +50,6 @@ func set_context(_context):
 	_populate_item_grid(Global.Items.RESOURCES, 0)
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ctrl_main_menu"):
-		EventManager.emit_signal("pop_menu")
-		get_tree().set_input_as_handled()
-
-
 # set resources
 func _set_resources():
 	water_button.set_value(ResourceManager.get_resource(Global.FacilityResources.WATER))

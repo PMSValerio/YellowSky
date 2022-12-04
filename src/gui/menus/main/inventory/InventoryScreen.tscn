@@ -2,10 +2,10 @@
 
 [ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=1]
 [ext_resource path="res://assets/gfx/HUD/waterIcon.png" type="Texture" id=2]
-[ext_resource path="res://src/gui/menus/main/CompactSubmenu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/gui/menus/main/GridSlot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/gui/menus/main/ResourceButton.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/gui/menus/main/inventory_screen.gd" type="Script" id=6]
+[ext_resource path="res://src/gui/menus/main/inventory/CompactSubmenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/gui/menus/main/inventory/GridSlot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/gui/menus/main/inventory/ResourceButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/gui/menus/main/inventory/inventory_screen.gd" type="Script" id=6]
 
 [node name="InventoryMenu" type="Control"]
 anchor_right = 1.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=1]
-[ext_resource path="res://src/gui/menus/main/resoure_button.gd" type="Script" id=2]
+[ext_resource path="res://src/gui/menus/main/inventory/resoure_button.gd" type="Script" id=2]
 
 [node name="ResourceButton" type="PanelContainer"]
 margin_right = 110.0

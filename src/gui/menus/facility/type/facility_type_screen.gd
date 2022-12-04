@@ -1,11 +1,12 @@
 extends Control
 
 
-var list_item_scene = preload("res://src/gui/menus/facility_type/FacilityListItem.tscn")
+var list_item_scene = preload("res://src/gui/menus/facility/type/FacilityListItem.tscn")
 const TMP_COST = 100
 
 signal type_chosen
 
+onready var confirm_button = $MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/ConfirmButton
 onready var type_list = $MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/ScrollContainer/TypeList
 onready var type_name = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/Name
 onready var type_art = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/Art
@@ -30,7 +31,7 @@ func _ready() -> void:
 func set_context(context):
 	if context is Feature: # close enough
 		facility_entity = context
-		
+		confirm_button.disabled = true
 		_set_type_details(null)
 
 
@@ -45,6 +46,7 @@ func _set_type_details(type : FacilityType):
 
 func _on_type_select(type) -> void:
 	selected_type = type
+	confirm_button.disabled = false
 	_set_type_details(type)
 
 

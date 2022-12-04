@@ -3,7 +3,7 @@ extends Control
 
 signal want_rebuild
 
-var stat_panel_scene = preload("res://src/gui/menus/facility/StatDetails.tscn")
+var stat_panel_scene = preload("res://src/gui/menus/facility/manage/StatDetails.tscn")
 
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
