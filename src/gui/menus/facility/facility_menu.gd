@@ -28,3 +28,7 @@ func _on_Type_type_chosen() -> void:
 	tabs.current_tab = 0
 	if _upgrades_removed:
 		tabs.add_child(upgrades_tab)
+
+
+func _on_Manage_want_rebuild() -> void:
+	tabs.current_tab = 1

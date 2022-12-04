@@ -37,4 +37,5 @@ margin_right = 41.5
 margin_bottom = 7.0
 text = "Coming Soon"
 
+[connection signal="want_rebuild" from="MarginContainer/PanelContainer/TabContainer/Manage" to="." method="_on_Manage_want_rebuild"]
 [connection signal="type_chosen" from="MarginContainer/PanelContainer/TabContainer/Type" to="." method="_on_Type_type_chosen"]

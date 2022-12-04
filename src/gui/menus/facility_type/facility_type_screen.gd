@@ -11,7 +11,7 @@ onready var type_name = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail
 onready var type_art = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/Art
 # onready var type_stats = ...
 
-var facility_entity = null # the actual facility node
+var facility_entity : Facility = null # the actual facility node
 
 var selected_type = -1
 
@@ -51,4 +51,5 @@ func _on_type_select(type) -> void:
 func _on_type_confirm():
 	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values():
 		facility_entity.set_type(selected_type.type_id)
+		facility_entity.repair(facility_entity.max_health)
 	emit_signal("type_chosen")

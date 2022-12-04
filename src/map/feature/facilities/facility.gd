@@ -74,7 +74,7 @@ func toggle_facility(on_off) -> void:
 
 # can only operate if it wasn't destroyed and if it has fuel
 func _can_operate():
-	if _is_destroyed or not facility_type.product_type in Global.Resources.values():
+	if _is_destroyed or not facility_type.product_type in Global.FacilityResources.values():
 		return false
 	for f in fuels.keys():
 		if fuels[f] <= 0:
