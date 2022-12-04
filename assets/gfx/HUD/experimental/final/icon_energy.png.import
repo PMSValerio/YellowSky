@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/health.png-0dfef00faf9c81a0c8214e57d190c463.stex"
+path="res://.import/icon_energy.png-52076e29b64ae17af5d3bfd9e7578d20.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/HUD/experimental/health.png"
-dest_files=[ "res://.import/health.png-0dfef00faf9c81a0c8214e57d190c463.stex" ]
+source_file="res://assets/gfx/HUD/experimental/final/icon_energy.png"
+dest_files=[ "res://.import/icon_energy.png-52076e29b64ae17af5d3bfd9e7578d20.stex" ]
 
 [params]
 

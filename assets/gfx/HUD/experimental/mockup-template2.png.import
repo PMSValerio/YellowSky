@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/health2.png-a9ca9b438027a06dd9cf5f074e4fe793.stex"
+path="res://.import/mockup-template2.png-68829f4ec46a264ea522d67b86f8987f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/HUD/experimental/health2.png"
-dest_files=[ "res://.import/health2.png-a9ca9b438027a06dd9cf5f074e4fe793.stex" ]
+source_file="res://assets/gfx/HUD/experimental/mockup-template2.png"
+dest_files=[ "res://.import/mockup-template2.png-68829f4ec46a264ea522d67b86f8987f.stex" ]
 
 [params]
 
