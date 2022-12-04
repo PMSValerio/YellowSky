@@ -14,8 +14,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ctrl_main_menu"):
-		EventManager.emit_signal("pop_menu")
 		get_tree().set_input_as_handled()
+		EventManager.emit_signal("pop_menu")
 
 
 func set_context(context) -> void:

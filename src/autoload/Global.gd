@@ -4,6 +4,7 @@ extends Node
 enum Menus {
 	TEST,
 	SUBTEST,
+	PAUSE_SCREEN,
 	FACILITY_MENU,
 	MAIN_MENU,
 	SETTLEMENT_SCREEN,
