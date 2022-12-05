@@ -1,7 +1,124 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/gfx/menus/settlement_portrait_art_tmp.png" type="Texture" id=1]
+[ext_resource path="res://assets/gfx/menus/settlement0_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_script.gd" type="Script" id=2]
+[ext_resource path="res://assets/gfx/menus/dialogue_triangle.png" type="Texture" id=3]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform sampler2D target_texture;
+uniform float fade_weight: hint_range(0, 1);
+
+void fragment()
+{
+    vec4 color_a = texture(TEXTURE, UV);
+    vec4 color_b = texture(target_texture, UV);
+    COLOR = mix(color_a, color_b, fade_weight);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/fade_weight = 0.0
+shader_param/target_texture = ExtResource( 1 )
+
+[sub_resource type="StreamTexture" id=7]
+load_path = "res://.import/settlement0.png-56d8df6f10bf789c993018fbe41d47db.stex"
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fade_weight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "show_npc"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fade_weight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Active"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 75, 85.0, 75 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 75 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "ScaleAnim"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1.7411, 0.901251 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
 
 [node name="SettlementScreen" type="Control"]
 anchor_right = 1.0
@@ -24,96 +141,154 @@ margin_left = 27.0
 margin_top = 25.0
 margin_right = -28.0
 margin_bottom = -30.0
+custom_constants/separation = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
-margin_right = 618.0
+[node name="SettlementContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+margin_right = 624.0
 margin_bottom = 442.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
+custom_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="ColorRect/HBoxContainer/VBoxContainer"]
-margin_right = 618.0
-margin_bottom = 313.0
+[node name="SettlementImageContainer" type="PanelContainer" parent="ColorRect/HBoxContainer/SettlementContainer"]
+margin_right = 624.0
+margin_bottom = 324.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/VBoxContainer/PanelContainer"]
+[node name="SettlementImage" type="TextureRect" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementImageContainer"]
+material = SubResource( 6 )
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 611.0
-margin_bottom = 306.0
-texture = ExtResource( 1 )
+margin_right = 617.0
+margin_bottom = 317.0
+texture = SubResource( 7 )
 expand = true
 
-[node name="Control" type="Control" parent="ColorRect/HBoxContainer/VBoxContainer"]
-margin_top = 317.0
-margin_right = 618.0
-margin_bottom = 333.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.15
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage"]
+anims/RESET = SubResource( 8 )
+anims/show_npc = SubResource( 9 )
 
-[node name="PanelContainer2" type="PanelContainer" parent="ColorRect/HBoxContainer/VBoxContainer"]
-margin_top = 337.0
-margin_right = 618.0
+[node name="SettlementDescriptionContainer" type="PanelContainer" parent="ColorRect/HBoxContainer/SettlementContainer"]
+margin_top = 334.0
+margin_right = 624.0
 margin_bottom = 442.0
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 611.0
-margin_bottom = 98.0
+margin_right = 617.0
+margin_bottom = 101.0
+custom_constants/separation = 13
+
+[node name="SettlementName" type="Label" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer"]
+margin_right = 610.0
+margin_bottom = 14.0
 size_flags_vertical = 1
-text = "As there are very few humans left and resources are scarce, conflict is largely inevitable. However, reason mostly prevails and there is a tentative peace between settlements. Clans and tribes formed out of a sense of unity in this dying world, and relationships between them tend to be purely transactional.
-"
+text = "Settlement Name Template:"
+
+[node name="SettlementDescription" type="Label" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 610.0
+margin_bottom = 94.0
+size_flags_vertical = 3
+text = "Settlement description template."
 autowrap = true
 
-[node name="Padding" type="Control" parent="ColorRect/HBoxContainer"]
-margin_left = 622.0
-margin_right = 652.0
-margin_bottom = 442.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.15
+[node name="Timer" type="Timer" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription"]
 
-[node name="PanelContainer2" type="PanelContainer" parent="ColorRect/HBoxContainer"]
-margin_left = 656.0
+[node name="DialoguePointer" type="TextureRect" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer"]
+visible = false
+margin_left = 601.0
+margin_top = 75.0
+margin_right = 617.0
+margin_bottom = 101.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer"]
+anims/Active = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="OptionsContainer" type="PanelContainer" parent="ColorRect/HBoxContainer"]
+margin_left = 654.0
 margin_right = 863.0
 margin_bottom = 442.0
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/PanelContainer2"]
+[node name="Options" type="VBoxContainer" parent="ColorRect/HBoxContainer/OptionsContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 200.0
+margin_right = 202.0
 margin_bottom = 435.0
 
-[node name="TalkButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_right = 193.0
-margin_bottom = 36.0
+[node name="ContinueButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+visible = false
+margin_right = 195.0
+margin_bottom = 37.0
+size_flags_vertical = 3
+text = "*continue*"
+
+[node name="AcceptButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+visible = false
+margin_right = 195.0
+margin_bottom = 42.0
+size_flags_vertical = 3
+text = "*accept*"
+
+[node name="DeclineButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+visible = false
+margin_right = 195.0
+margin_bottom = 47.0
+size_flags_vertical = 3
+text = "*decline*"
+
+[node name="GoodbyeButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+visible = false
+margin_right = 195.0
+margin_bottom = 53.0
+size_flags_vertical = 3
+text = "*say goodbye*"
+
+[node name="TalkButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+margin_right = 195.0
+margin_bottom = 42.0
 size_flags_vertical = 3
 text = "Talk"
 clip_text = true
 
-[node name="TradeButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 40.0
-margin_right = 193.0
-margin_bottom = 76.0
+[node name="TradeButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+margin_top = 46.0
+margin_right = 195.0
+margin_bottom = 88.0
 size_flags_vertical = 3
 text = "Trade"
 
-[node name="LeaveButton" type="Button" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 80.0
-margin_right = 193.0
-margin_bottom = 116.0
+[node name="LeaveButton" type="Button" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+margin_top = 92.0
+margin_right = 195.0
+margin_bottom = 134.0
 size_flags_vertical = 3
 text = "Leave"
 
-[node name="Padding" type="Control" parent="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer"]
-margin_top = 120.0
-margin_right = 193.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/HBoxContainer/OptionsContainer/Options/LeaveButton"]
+anims/RESET = SubResource( 3 )
+anims/ScaleAnim = SubResource( 4 )
+
+[node name="Padding" type="Control" parent="ColorRect/HBoxContainer/OptionsContainer/Options"]
+margin_top = 138.0
+margin_right = 195.0
 margin_bottom = 428.0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.5
+size_flags_stretch_ratio = 6.88
 
-[connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/TalkButton" to="." method="_on_TalkButton_pressed"]
-[connection signal="pressed" from="ColorRect/HBoxContainer/PanelContainer2/VBoxContainer/LeaveButton" to="." method="_on_LeaveButton_pressed"]
+[connection signal="gui_input" from="ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer" to="." method="_on_DialoguePointer_gui_input"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/AcceptButton" to="." method="_on_AcceptButton_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/DeclineButton" to="." method="_on_DeclineButton_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/GoodbyeButton" to="." method="_on_GoodbyeButton_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/TalkButton" to="." method="_on_TalkButton_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/OptionsContainer/Options/LeaveButton" to="." method="_on_LeaveButton_pressed"]

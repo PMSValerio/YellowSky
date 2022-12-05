@@ -85,6 +85,7 @@ Global="*res://src/autoload/Global.gd"
 EventManager="*res://src/autoload/EventManager.gd"
 MapUtils="*res://src/autoload/MapUtils.gd"
 InventoryManager="*res://src/autoload/InventoryManager.gd"
+TextManager="*res://src/autoload/TextManager.gd"
 
 [display]
 

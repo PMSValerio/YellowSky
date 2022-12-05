@@ -1,7 +1,7 @@
 extends Control
 
-onready var npc_name_box = $ColorRect/HBoxContainer/NpcContainer/NpcTextContainer/NpcName
-onready var npc_dialogue_box = $ColorRect/HBoxContainer/NpcContainer/NpcTextContainer/NpcDialogue
+onready var npc_name_box = $ColorRect/HBoxContainer/NpcContainer/NpcTextContainer/VBoxContainer/NpcName
+onready var npc_dialogue_box = $ColorRect/HBoxContainer/NpcContainer/NpcTextContainer/VBoxContainer/NpcDialogue
 
 onready var player_choice_1_box = $ColorRect/HBoxContainer/PlayerDialogueContainer/PlayerDialogueVBox/Choice1
 onready var player_choice_2_box = $ColorRect/HBoxContainer/PlayerDialogueContainer/PlayerDialogueVBox/Choice2
@@ -9,30 +9,15 @@ onready var player_choice_3_box = $ColorRect/HBoxContainer/PlayerDialogueContain
 onready var player_choice_4_box = $ColorRect/HBoxContainer/PlayerDialogueContainer/PlayerDialogueVBox/Choice4
 onready var player_choice_boxes = [player_choice_1_box, player_choice_2_box, player_choice_3_box, player_choice_4_box]
 
-export (String, FILE, "*json") var text_file_ref
-
-var all_text = {}
-var settlement_text = {}
 var player_current_text = []
 var in_progress = false
-var current_branch = 0
+var current_branch = 0 
 
 
 func _ready() -> void:
 
-	all_text = load_scene_text()
-
-	# TODO: Serialize the settlement name
-	settlement_text = all_text["settlement1"]
 
 	process_new_dialogue()
-
-func load_scene_text():
-	var temp_file = File.new()
-	if temp_file.file_exists(text_file_ref):
-		temp_file.open(text_file_ref, File.READ)
-		return parse_json(temp_file.get_as_text())
-
 
 # Every time a dialogue action is taken, this function is called
 func process_new_dialogue():
@@ -45,13 +30,15 @@ func process_new_dialogue():
 	else:
 		
 		in_progress = true
-		npc_name_box.text = settlement_text["NPC"]["Name"] 
+		npc_name_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", "Name"])
 		update_dialogue()
 	
 			
 func update_dialogue():
-	npc_dialogue_box.text = settlement_text["NPC"]["Branches"][str(current_branch)]
-	player_current_text = settlement_text["Player"]["Branches"][str(current_branch)]
+	npc_dialogue_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", 
+		"Branches", str(current_branch)])
+	player_current_text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "Player", 
+		"Branches", str(current_branch)])
 
 	var  i = 0
 	for box in player_choice_boxes:

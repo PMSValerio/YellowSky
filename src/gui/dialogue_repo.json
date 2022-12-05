@@ -1,12 +1,26 @@
 {
     "settlement1" : {
+        "Settlement" : {
+            "Name" : "Low End Creek", 
+            "Description" : "As there are very few humans left and resources are scarce, conflict is largely inevitable. However, reason mostly prevails and there is a tentative peace between settlements. Clans and tribes formed out of a sense of unity in this dying world, and relationships between them tend to be purely transactional." 
+        },
         "NPC" : {
             "Name" : "Dead Guy:", 
             "Branches" : {
-                "0" : "Hello!",
-                "1" : "Im good.",
-                "2" : "I need food!",
-                "3" : "Screw you too!."
+                "0" : [
+                    "Hello there mate, pleasure to meet ya!", 
+                    "Feelin a wee bit adventurous, are we?", 
+                    "How about a lil quest to spice up yer life ay?", 
+                    "Quest"
+                ],
+                "1" : [
+                    "Good, good. Off ya go then!", 
+                    "End"
+                ],
+                "2" : [
+                    "Well that's a real shame aint it. Guess we'll see each other around then. Take care!", 
+                    "End"
+                ]
             } 
         },
         "Player" : {
@@ -26,6 +40,10 @@
         }
     },
     "settlement2" : {
+        "Settlement" : {
+            "Name" : "High End Creek", 
+            "Description" : "Settlement description template2" 
+        },
         "NPC" : {
             "Name" : "Live Guy:", 
             "Branches" : {
