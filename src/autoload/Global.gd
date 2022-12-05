@@ -60,6 +60,14 @@ enum Items {
 	QUEST,
 }
 
+# used to sort out different types of text, as in, item description, settlement descriptions, etc
+enum Text {
+	ITEMS,
+	FACILITIES ,
+	SETTLEMENTS,
+	NPCS
+}
+
 var resource_icons = {
 	FacilityResources.NONE: null,
 	FacilityResources.FOOD: preload("res://assets/gfx/HUD/waterIcon.png"),
