@@ -52,10 +52,17 @@ stretch_mode = 1
 [node name="FlavourText" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_top = 222.0
 margin_right = 320.0
-margin_bottom = 570.0
+margin_bottom = 394.0
 size_flags_vertical = 7
 autowrap = true
 clip_text = true
+
+[node name="Status" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
+margin_top = 477.0
+margin_right = 320.0
+margin_bottom = 491.0
+size_flags_vertical = 6
+align = 1
 
 [node name="AbandonedPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 margin_left = 338.0
@@ -185,4 +192,5 @@ margin_right = 144.0
 margin_bottom = 113.0
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/AbandonedPanel/Rebuild" to="." method="_on_Rebuild_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer/OnOffButton" to="." method="_on_OnOffButton_pressed"]
 [connection signal="value_chosen" from="ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]

@@ -3,7 +3,7 @@ class_name StatDetails
 
 signal action_pressed
 
-onready var action_button = $HBoxContainer2/Button
+onready var action_button = $HBoxContainer/VBoxContainer/HBoxContainer2/Button
 
 var tex = -1
 var current = 0
@@ -34,10 +34,10 @@ func set_icon(texture) -> void:
 
 
 func set_x_out_of_y(current_amount, max_amount) -> void:
-	$HBoxContainer2/Numerical.text = str(current_amount) + " / " + str(max_amount)
+	$HBoxContainer/VBoxContainer/HBoxContainer2/Numerical.text = str(current_amount) + " / " + str(max_amount)
 	
-	$HBoxContainer/ProgressBar.max_value = max_amount
-	$HBoxContainer/ProgressBar.value = current_amount
+	$HBoxContainer/VBoxContainer/ProgressBar.max_value = max_amount
+	$HBoxContainer/VBoxContainer/ProgressBar.value = current_amount
 
 
 func set_action(action_name) -> void:

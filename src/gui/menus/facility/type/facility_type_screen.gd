@@ -2,7 +2,7 @@ extends Control
 
 
 var list_item_scene = preload("res://src/gui/menus/facility/type/FacilityListItem.tscn")
-const TMP_COST = 100
+const TMP_COST = 100 # TODO
 
 signal type_chosen
 
@@ -53,5 +53,5 @@ func _on_type_select(type) -> void:
 func _on_type_confirm():
 	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values():
 		facility_entity.set_type(selected_type.type_id)
-		facility_entity.repair(facility_entity.max_health)
+		facility_entity.repair(facility_entity.get_max_health())
 	emit_signal("type_chosen")

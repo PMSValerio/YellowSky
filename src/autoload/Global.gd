@@ -44,15 +44,6 @@ enum FacilityResources {
 	SEEDS, # this should be removed
 }
 
-# THIS NEEDS TO DISAPPEAR
-# USE FacilityResources INSTEAD
-#enum Resources {
-#	WATER,
-#	MATERIALS,
-#	ENERGY,
-#	SEEDS,
-#}
-
 enum Items {
 	RESOURCES,
 	FOOD,

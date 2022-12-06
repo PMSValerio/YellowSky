@@ -29,6 +29,7 @@ func _on_Type_type_chosen() -> void:
 	type_tab.set_context(type_tab.facility_entity) # reset state
 	if _upgrades_removed:
 		tabs.add_child(upgrades_tab)
+		_upgrades_removed = false
 
 
 func _on_Manage_want_rebuild() -> void:

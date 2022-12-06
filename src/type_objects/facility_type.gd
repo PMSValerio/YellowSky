@@ -11,12 +11,13 @@ var portrait_texture = null
 
 # later on
 # var environmental = false
-# var max_health
-# var max_fuel
-# var max_prod
+var max_health = 100.0
+var max_fuel = 100.0
+var max_prod = 100.0
 
 var production_rate = 5.0 # TODO: change according to balancing
 var consumption_rate = 2.0 # TODO: ditto
+
 
 func init(_type_id, _name, _flavour_text, _product_type, _fuel_types, _base_animation, _portrait_texture, _production_rate, _consumption_rate) -> void:
 	type_id = _type_id
@@ -26,5 +27,13 @@ func init(_type_id, _name, _flavour_text, _product_type, _fuel_types, _base_anim
 	fuel_types = _fuel_types
 	base_animation = _base_animation
 	portrait_texture = _portrait_texture
+	production_rate = _production_rate
+	consumption_rate = _consumption_rate
+
+
+func init_stats(_max_health, _max_fuel, _max_prod, _production_rate, _consumption_rate) -> void:
+	max_health = _max_health
+	max_fuel = _max_fuel
+	max_prod = _max_prod
 	production_rate = _production_rate
 	consumption_rate = _consumption_rate

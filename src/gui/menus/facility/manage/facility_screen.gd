@@ -10,6 +10,8 @@ onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourD
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
 onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/FlavourText
 
+onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Status
+
 # --- || Stat Screen Elements || ---
 onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel
 onready var stats_container = $MarginContainer/HBoxContainer/StatsContainer
@@ -55,7 +57,7 @@ func set_context(context):
 			stats_container.visible = true
 			
 			# set facility health details
-			health_details.init(null, facility_entity.health, facility_entity.max_health, "Repair")
+			health_details.init(null, facility_entity.health, facility_entity.get_max_health(), "Repair")
 			health_details.populate_data()
 			
 			# set fuels
@@ -64,7 +66,7 @@ func set_context(context):
 				child.queue_free()
 			for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 				var fuel_details = stat_panel_scene.instance()
-				fuel_details.init(Global.resource_icons[f], facility_entity.fuels[f], facility_entity.max_fuel, "Refuel")
+				fuel_details.init(Global.resource_icons[f], facility_entity.fuels[f], facility_entity.get_max_fuel(), "Refuel")
 				fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
 				fuel_list.get_node("VBoxContainer").add_child(fuel_details)
 				fuel_stats_dict[f] = fuel_details
@@ -75,10 +77,22 @@ func set_context(context):
 				child.queue_free()
 			var p = facility_entity.facility_type.product_type
 			var prod_details = stat_panel_scene.instance()
-			prod_details.init(Global.resource_icons[p], facility_entity.stored, facility_entity.max_prod, "Collect")
+			prod_details.init(Global.resource_icons[p], facility_entity.stored, facility_entity.get_max_prod(), "Collect")
 			prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
 			prod_list.get_node("VBoxContainer").add_child(prod_details)
 			prod_stats_dict[p] = prod_details
+		
+		_update_status()
+
+
+# set facility status
+func _update_status():
+	var status = facility_entity.get_status()
+	
+	status_indicator.text = Facility.Status.keys()[status]
+	status_marker.text = "ON" if facility_entity.running else "OFF"
+	
+	# TODO: set appropriate colours and warnings
 
 
 # this already assumes the player has enough resources for the operation
@@ -86,7 +100,8 @@ func _repair_by_amount(amount):
 	if facility_entity != null:
 		ResourceManager.add_to_resource(Global.FacilityResources.MATERIALS, -amount)
 		facility_entity.repair(amount)
-		health_details.set_x_out_of_y(facility_entity.health, facility_entity.max_health)
+		health_details.set_x_out_of_y(facility_entity.health, facility_entity.get_max_health())
+		_update_status()
 
 
 # deposit amount of fuel; NOTE: this supports only one fuel type
@@ -94,7 +109,8 @@ func _deposit_fuel(amount, resource):
 	if facility_entity != null:
 		ResourceManager.add_to_resource(resource, -amount)
 		facility_entity.refuel(amount, resource)
-		fuel_stats_dict[resource].set_x_out_of_y(facility_entity.fuels[resource], facility_entity.max_fuel)
+		fuel_stats_dict[resource].set_x_out_of_y(facility_entity.fuels[resource], facility_entity.get_max_fuel())
+		_update_status()
 
 
 # update both facility and player resources
@@ -102,18 +118,24 @@ func _collect_products(resource):
 	if facility_entity != null:
 		ResourceManager.add_to_resource(resource, facility_entity.stored)
 		facility_entity.collect()
-		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.max_prod)
+		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.get_max_prod())
+		_update_status()
 
 
-# || --- TEMPORARY --- ||
-# these methods should change to either bring up the appropriate sub menu or display other messages
+# toggle facility on or off
+func _toggle_on_off(onoff):
+	facility_entity.toggle_facility(onoff)
+	_update_status()
+
+
+# || --- Callbacks --- ||
 
 func _on_Repair_pressed() -> void:
-	var amount = facility_entity.max_health - facility_entity.health
+	var amount = facility_entity.get_max_health() - facility_entity.health
 	if amount > 0:
 		var _min = facility_entity.health
 		var _max = _min + ResourceManager.get_resource(Global.FacilityResources.MATERIALS)
-		resource_slider.set_state(0, facility_entity.max_health, _min, _max, Global.resource_icons[Global.FacilityResources.MATERIALS])
+		resource_slider.set_state(0, facility_entity.get_max_health(), _min, _max, Global.resource_icons[Global.FacilityResources.MATERIALS])
 		resource_slider.visible = true
 		slider_mode = 1
 		slider_resource = Global.FacilityResources.MATERIALS
@@ -123,7 +145,7 @@ func _on_Refuel_pressed(resource) -> void:
 	if facility_entity.health > 0:
 		var _min = facility_entity.fuels[resource]
 		var _max = _min + ResourceManager.get_resource(resource)
-		resource_slider.set_state(0, facility_entity.max_fuel, _min, _max, Global.resource_icons[resource])
+		resource_slider.set_state(0, facility_entity.get_max_fuel(), _min, _max, Global.resource_icons[resource])
 		resource_slider.visible = true
 		slider_mode = 2
 		slider_resource = resource
@@ -149,3 +171,7 @@ func _on_ResourceSlider_value_chosen(delta_value) -> void:
 		2:
 			_deposit_fuel(delta_value, slider_resource)
 	slider_mode = 0
+
+
+func _on_OnOffButton_pressed() -> void:
+	_toggle_on_off(not facility_entity.running)
