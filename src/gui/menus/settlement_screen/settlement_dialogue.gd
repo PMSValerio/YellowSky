@@ -30,14 +30,14 @@ func process_new_dialogue():
 	else:
 		
 		in_progress = true
-		npc_name_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", "Name"])
+		npc_name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", "Name"])
 		update_dialogue()
 	
 			
 func update_dialogue():
-	npc_dialogue_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", 
+	npc_dialogue_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", 
 		"Branches", str(current_branch)])
-	player_current_text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "Player", 
+	player_current_text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "Player", 
 		"Branches", str(current_branch)])
 
 	var  i = 0

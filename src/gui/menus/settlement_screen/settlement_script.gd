@@ -37,7 +37,7 @@ func toggle_text_mode(to_npc):
 
 	if to_npc:
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
-		name_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", "Name"])
+		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", "Name"])
 
 		update_branch_text()
 		next_line()
@@ -49,8 +49,8 @@ func toggle_text_mode(to_npc):
 		if npc_text.size() != 0:
 			settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
 		
-		name_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "Settlement", "Name"])
-		description_box.text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "Settlement", "Description"])
+		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "Settlement", "Name"])
+		description_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "Settlement", "Description"])
 		description_box.visible_characters = description_box.text.length()
 
 
@@ -84,7 +84,7 @@ func next_line():
 
 
 func update_branch_text():
-	npc_text = TextManager.get_text(Global.Text.SETTLEMENTS, ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
+	npc_text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
 
 
 func quest_update(show):

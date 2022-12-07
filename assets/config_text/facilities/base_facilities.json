@@ -1,0 +1,47 @@
+{
+  "wrecked": {
+    "type_id": "WRECKED",
+    "type_name": "wrecked",
+    "flavour_text": "[abandoned facility]",
+    "fuel_types": [],
+    "product_types": [],
+    "base_animation": "wrecked",
+    "portrait_texture": "res://assets/gfx/menus/fac_wrecked.png",
+    "icon_texture": "res://assets/gfx/menus/facility_icon/wrecked_icon.png",
+    "max_health": 0.0,
+    "max_fuel": 0.0,
+    "max_product": 0.0,
+    "consumption_rate": 0.0,
+    "production_rate": 0.0
+  },
+  "coal_plant": {
+    "type_id": "COAL_PLANT",
+    "type_name": "Coal Plant",
+    "flavour_text": "[coal energy plant]",
+    "fuel_types": [],
+    "product_types": ["ENERGY"],
+    "base_animation": "coal_plant",
+    "portrait_texture": "res://assets/gfx/menus/facility_portrait_tmp.png",
+    "icon_texture": "res://assets/gfx/menus/facility_icon/coal_plant_icon.png",
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  },
+  "parts_workshop": {
+    "type_id": "PARTS_WORKSHOP",
+    "type_name": "Parts Workshop",
+    "flavour_text": "[construction parts workshop]",
+    "fuel_types": ["ENERGY"],
+    "product_types": ["MATERIALS"],
+    "base_animation": "coal_plant",
+    "portrait_texture": "res://assets/gfx/menus/facility_portrait_tmp.png",
+    "icon_texture": "res://assets/gfx/menus/facility_icon/coal_plant_icon.png",
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  }
+}

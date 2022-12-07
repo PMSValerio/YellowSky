@@ -85,10 +85,12 @@ var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
 var _player = null setget set_player, get_player
 
-var _custom_tooltip = null
+var _config_parser : TextManager
 
 
 func _ready():
+	_config_parser = TextManager.new()
+	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
 
@@ -118,23 +120,27 @@ func get_tooltip():
 	return tooltip.instance()
 
 
+func get_text_from_file(text_type, file_name, key_array):
+	return _config_parser.get_text_from_file(text_type, file_name, key_array)
+
+
+func _build_single_facility(data):
+	var facility = FacilityType.new()
+	var type = FacilityTypes[data["type_id"]]
+	var fuel_types = []
+	for str_f in data["fuel_types"]:
+		fuel_types.append(FacilityResources[str_f])
+	var prod_types = []
+	for str_p in data["product_types"]:
+		prod_types.append(FacilityResources[str_p])
+	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], data["portrait_texture"], data["icon_texture"])
+	facility.init_stats(data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
+	return facility
+
+
 func _init_facility_types():
-	var placeholder_text = "This is a placeholder text that is currently set to all facilities. Later on, it will give a nice little piece of background for each type. Now won't that be nice."
-	var placeholder_art = preload("res://assets/gfx/menus/facility_portrait_tmp.png")
-	
-	var facility = FacilityType.new() # wrecked facility
-	var tex = preload("res://assets/gfx/menus/facility_icon/wrecked_icon.png")
-	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, [], [], "wrecked", preload("res://assets/gfx/menus/fac_wrecked.png"), tex)
-	facility.init_stats(0.0, 0.0, 0.0, 0.0, 0.0)
-	facility_types[FacilityTypes.WRECKED] = facility
-	
-	facility = FacilityType.new() # coal plant
-	tex = preload("res://assets/gfx/menus/facility_icon/coal_plant_icon.png")
-	facility.init(FacilityTypes.COAL_PLANT, "Coal Plant", placeholder_text, [], [FacilityResources.ENERGY], "coal_plant", placeholder_art, tex)
-	facility.init_stats(100.0, 100.0, 100.0, 2.0, 5.0)
-	facility_types[FacilityTypes.COAL_PLANT] = facility
-	
-	facility = FacilityType.new() # parts workshop
-	facility.init(FacilityTypes.PARTS_WORKSHOP, "Parts Workshop", placeholder_text, [FacilityResources.ENERGY], [FacilityResources.MATERIALS], "coal_plant", placeholder_art, tex)
-	facility.init_stats(100.0, 100.0, 100.0, 2.0, 5.0)
-	facility_types[FacilityTypes.PARTS_WORKSHOP] = facility
+	var config_file = "base_facilities.json"
+	var file_data = _config_parser.get_text_from_file(Text.FACILITIES, config_file, [])
+	for fac_type in file_data.keys():
+		var facility = _build_single_facility(file_data[fac_type])
+		facility_types[facility.type_id] = facility

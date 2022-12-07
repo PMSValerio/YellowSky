@@ -20,15 +20,15 @@ var production_rate = 5.0 # TODO: change according to balancing
 var consumption_rate = 2.0 # TODO: ditto
 
 
-func init(_type_id, _name, _flavour_text, _fuel_types, _product_types, _base_animation, _portrait_texture, _icon_texture) -> void:
+func init(_type_id, _name, _flavour_text, _fuel_types, _product_types, _base_animation, _portrait_texture_path, _icon_texture_path) -> void:
 	type_id = _type_id
 	type_name = _name
 	flavour_text = _flavour_text
 	product_types = _product_types
 	fuel_types = _fuel_types
 	base_animation = _base_animation
-	portrait_texture = _portrait_texture
-	icon_texture = _icon_texture
+	portrait_texture = load(_portrait_texture_path)
+	icon_texture = load(_icon_texture_path)
 
 
 func init_stats(_max_health, _max_fuel, _max_prod, _consumption_rate, _production_rate) -> void:
