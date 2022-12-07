@@ -41,7 +41,7 @@ func set_context(context):
 	if context is Feature: # close enough
 		facility_entity = context
 		confirm_button.disabled = true
-		_set_type_details(null)
+		_set_type_details(facility_entity.facility_type if facility_entity.facility_type.type_id != Global.FacilityTypes.WRECKED else null)
 
 
 func _set_type_details(type : FacilityType):
@@ -91,7 +91,7 @@ func _set_type_details(type : FacilityType):
 
 func _on_type_select(type) -> void:
 	selected_type = type
-	confirm_button.disabled = false
+	confirm_button.disabled = facility_entity.facility_type.type_id == type.type_id
 	_set_type_details(type)
 
 
