@@ -176,9 +176,6 @@ pause_mode = 2
 layer = 7
 script = ExtResource( 6 )
 
-[node name="MenuTooltip" type="CanvasLayer" parent="."]
-layer = 8
-
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
 [connection signal="stamina_changed" from="Entities/Player" to="HUD" method="_on_Player_stamina_changed"]

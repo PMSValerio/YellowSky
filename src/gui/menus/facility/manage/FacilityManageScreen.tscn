@@ -111,7 +111,7 @@ text = "Integrity"
 [node name="HealthDetails" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2" instance=ExtResource( 2 )]
 margin_top = 18.0
 margin_right = 524.0
-margin_bottom = 82.0
+margin_bottom = 58.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow"]
 margin_left = 528.0
@@ -158,7 +158,7 @@ margin_bottom = 14.0
 margin_right = 155.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Fuels"
+text = "Fuel"
 align = 1
 
 [node name="ConsumptionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer"]
@@ -171,8 +171,9 @@ align = 1
 [node name="FuelList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 314.0
-margin_bottom = 18.0
+margin_bottom = 410.0
 rect_clip_content = true
+size_flags_vertical = 3
 alignment = 1
 
 [node name="ProductContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
@@ -195,7 +196,7 @@ margin_bottom = 14.0
 margin_right = 155.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Product"
+text = "Production"
 align = 1
 
 [node name="ProductionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer"]
@@ -208,8 +209,9 @@ align = 1
 [node name="ProdList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 314.0
-margin_bottom = 18.0
+margin_bottom = 410.0
 rect_clip_content = true
+size_flags_vertical = 3
 alignment = 1
 
 [node name="ResourceSlider" parent="." instance=ExtResource( 1 )]

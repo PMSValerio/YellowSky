@@ -68,7 +68,7 @@ func set_context(context):
 				child.queue_free()
 			for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 				var fuel_details = stat_panel_scene.instance()
-				fuel_details.init_resource(f, facility_entity.fuels[f], facility_entity.get_max_fuel(), "Refuel", 32)
+				fuel_details.init_resource(f, facility_entity.fuels[f], facility_entity.get_max_fuel(), "Refuel")
 				fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
 				fuel_list.add_child(fuel_details)
 				fuel_stats_dict[f] = fuel_details
@@ -79,7 +79,7 @@ func set_context(context):
 				child.queue_free()
 			var p = facility_entity.facility_type.product_type
 			var prod_details = stat_panel_scene.instance()
-			prod_details.init_resource(p, facility_entity.stored, facility_entity.get_max_prod(), "Collect", 32)
+			prod_details.init_resource(p, facility_entity.stored, facility_entity.get_max_prod(), "Collect")
 			prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
 			prod_list.add_child(prod_details)
 			prod_stats_dict[p] = prod_details

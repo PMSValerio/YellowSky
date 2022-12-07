@@ -7,9 +7,10 @@ var data : FacilityType
 
 func set_state(type_data, cost):
 	data = type_data
-	$HBoxContainer/ProductIcon.texture = Global.resource_icons[data.product_type]
+	$HBoxContainer/ProductIcon.texture = data.icon_texture
 	$HBoxContainer/Name.text = data.type_name
 	$HBoxContainer/HBoxContainer/Cost.text = str(cost)
+	$HBoxContainer/HBoxContainer/ResourceIcon.init(Global.FacilityResources.MATERIALS, 32)
 
 
 func _on_Button_pressed() -> void:
