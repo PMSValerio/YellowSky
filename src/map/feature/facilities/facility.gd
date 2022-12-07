@@ -16,14 +16,9 @@ onready var anim = $AnimationPlayer
 
 var facility_type : FacilityType = null
 
-# stats (might be modified by upgrades)
-var max_health = 100.0 # (% for now)
-var max_fuel = 100.0 # max fuel capacity for all fuels
-var max_prod = 100.0 # max storage capacity
-
 var health = 0.0
 var fuels = {}
-var stored = 0.0
+var products = {}
 
 var running = true
 
@@ -55,16 +50,17 @@ func _tick() -> void:
 		# consume fuel per update
 		_operate_cost()
 		# update stored resource
-		if stored < max_prod:
-			stored = min(max_prod, stored + facility_type.production_rate)
-			if stored == max_prod:
-				print("Facility full")
-				pass # alert facility full
+		for p in products.keys():
+			if products[p] < get_max_prod():
+				products[p] = min(get_max_prod(), products[p] + facility_type.production_rate)
+				if products[p] == get_max_prod():
+					print("Facility full")
+					pass # alert facility full
 	
-	var dict = fuels.duplicate()
-	dict["stored"] = stored
-	dict["health"] = health
-	tooltip.update_items(dict)
+		var dict = fuels.duplicate()
+		dict["stored"] = products[products.keys()[0]] if products.size() > 0 else ""
+		dict["health"] = health
+		tooltip.update_items(dict)
 	
 	# TODO: remove
 	tooltip.visible = true
@@ -77,7 +73,6 @@ func _operate_cost():
 		if fuels[f] == 0:
 			# alert facility power off
 			print("Facility switching off")
-			toggle_facility(false)
 
 
 # can only operate if it wasn't destroyed and if it has fuel
@@ -90,15 +85,16 @@ func toggle_tooltip(toggle: bool) -> void:
 
 
 func get_status():
-	if _is_destroyed or not facility_type.product_type in Global.FacilityResources.values():
+	if _is_destroyed or facility_type.type_id == Global.FacilityTypes.WRECKED:
 		return Status.WRECKED
 	for f in fuels.keys():
 		if fuels[f] <= 0:
 			return Status.NO_FUEL
 	if not running:
 		return Status.OFF
-	if stored >= max_prod:
-		return Status.FULL
+	for p in products.keys():
+		if products[p] >= get_max_prod():
+			return Status.FULL
 	return Status.OK
 
 
@@ -135,20 +131,23 @@ func toggle_facility(on_off) -> void:
 
 
 func set_type(type):
-	stored = 0
 	if type in Global.facility_types.keys():
 		facility_type = Global.facility_types[type]
 		
 		fuels.clear()
 		for f in facility_type.fuel_types:
-			fuels[f] = 0
+			fuels[f] = 0.0
+		
+		products.clear()
+		for p in facility_type.product_types:
+			products[p] = 0.0
 		
 		anim.play(str(facility_type.base_animation) + "_start")
 
 
 func repair(amount):
-	health = clamp(health + amount, 0.0, max_health)
-	if health >= max_health:
+	health = clamp(health + amount, 0.0, get_max_health())
+	if health >= get_max_health():
 		_is_destroyed = false
 	elif health <= 0.0:
 		_is_destroyed = true
@@ -156,11 +155,12 @@ func repair(amount):
 
 func refuel(amount, resource):
 	if resource in fuels.keys():
-		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, max_fuel)
+		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, get_max_fuel())
 
 
-func collect():
-	stored = 0
+func collect(resource):
+	if resource in products.keys():
+		products[resource] = 0.0 
 
 
 func interact() -> void:

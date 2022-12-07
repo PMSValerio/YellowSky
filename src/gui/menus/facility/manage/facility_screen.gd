@@ -77,12 +77,13 @@ func set_context(context):
 			prod_stats_dict.clear()
 			for child in prod_list.get_children():
 				child.queue_free()
-			var p = facility_entity.facility_type.product_type
-			var prod_details = stat_panel_scene.instance()
-			prod_details.init_resource(p, facility_entity.stored, facility_entity.get_max_prod(), "Collect")
-			prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
-			prod_list.add_child(prod_details)
-			prod_stats_dict[p] = prod_details
+			#var p = facility_entity.facility_type.product_type
+			for p in facility_entity.products.keys():
+				var prod_details = stat_panel_scene.instance()
+				prod_details.init_resource(p, facility_entity.products[p], facility_entity.get_max_prod(), "Collect")
+				prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
+				prod_list.add_child(prod_details)
+				prod_stats_dict[p] = prod_details
 			
 			# set rates
 			cons_rate_label.text = "-" + str(facility_entity.get_consumption_rate()) + str(" / sec")
@@ -122,9 +123,9 @@ func _deposit_fuel(amount, resource):
 # update both facility and player resources
 func _collect_products(resource):
 	if facility_entity != null:
-		ResourceManager.add_to_resource(resource, facility_entity.stored)
-		facility_entity.collect()
-		prod_stats_dict[resource].set_x_out_of_y(facility_entity.stored, facility_entity.get_max_prod())
+		ResourceManager.add_to_resource(resource, facility_entity.products[resource])
+		facility_entity.collect(resource)
+		prod_stats_dict[resource].set_x_out_of_y(facility_entity.products[resource], facility_entity.get_max_prod())
 		_update_status()
 
 

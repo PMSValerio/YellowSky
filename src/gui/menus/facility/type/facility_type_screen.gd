@@ -76,17 +76,17 @@ func _set_type_details(type : FacilityType):
 		var p_ix = 0
 		for c in prod_list.get_children():
 			var rec = -1
-			if p_ix < 0:
-				pass
+			if p_ix < type.product_types.size():
+				rec = type.product_types[p_ix]
 			if rec != -1:
 				c.visible = true
 				c.init(rec, 32)
 			else:
 				c.visible = false
 			p_ix += 1
-		# TODO: change
-		prod_list.get_child(0).visible = true
-		prod_list.get_child(0).init(type.product_type, 32)
+#		# TODO: change
+#		prod_list.get_child(0).visible = true
+#		prod_list.get_child(0).init(type.product_type, 32)
 
 
 func _on_type_select(type) -> void:

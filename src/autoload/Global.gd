@@ -124,17 +124,17 @@ func _init_facility_types():
 	
 	var facility = FacilityType.new() # wrecked facility
 	var tex = preload("res://assets/gfx/menus/facility_icon/wrecked_icon.png")
-	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, FacilityResources.NONE, [], "wrecked", preload("res://assets/gfx/menus/fac_wrecked.png"), tex)
+	facility.init(FacilityTypes.WRECKED, "Abandoned Facility", placeholder_text, [], [], "wrecked", preload("res://assets/gfx/menus/fac_wrecked.png"), tex)
 	facility.init_stats(0.0, 0.0, 0.0, 0.0, 0.0)
 	facility_types[FacilityTypes.WRECKED] = facility
 	
 	facility = FacilityType.new() # coal plant
 	tex = preload("res://assets/gfx/menus/facility_icon/coal_plant_icon.png")
-	facility.init(FacilityTypes.COAL_PLANT, "Coal Plant", placeholder_text, FacilityResources.ENERGY, [], "coal_plant", placeholder_art, tex)
+	facility.init(FacilityTypes.COAL_PLANT, "Coal Plant", placeholder_text, [], [FacilityResources.ENERGY], "coal_plant", placeholder_art, tex)
 	facility.init_stats(100.0, 100.0, 100.0, 2.0, 5.0)
 	facility_types[FacilityTypes.COAL_PLANT] = facility
 	
 	facility = FacilityType.new() # parts workshop
-	facility.init(FacilityTypes.PARTS_WORKSHOP, "Parts Workshop", placeholder_text, FacilityResources.MATERIALS, [FacilityResources.ENERGY], "coal_plant", placeholder_art, tex)
+	facility.init(FacilityTypes.PARTS_WORKSHOP, "Parts Workshop", placeholder_text, [FacilityResources.ENERGY], [FacilityResources.MATERIALS], "coal_plant", placeholder_art, tex)
 	facility.init_stats(100.0, 100.0, 100.0, 2.0, 5.0)
 	facility_types[FacilityTypes.PARTS_WORKSHOP] = facility
