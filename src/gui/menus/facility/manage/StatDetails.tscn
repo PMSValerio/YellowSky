@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=1]
+[ext_resource path="res://src/gui/menus/resusable/ResourceIcon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/facility/manage/stat_details.gd" type="Script" id=2]
 
 [node name="VBoxContainer" type="VBoxContainer"]
@@ -10,47 +10,42 @@ script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 373.0
-margin_bottom = 64.0
+margin_bottom = 40.0
 
-[node name="Icon" type="TextureRect" parent="HBoxContainer"]
-margin_right = 64.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
-texture = ExtResource( 1 )
-expand = true
-stretch_mode = 1
+[node name="Icon" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 32.0
+rect_min_size = Vector2( 32, 32 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 68.0
+margin_left = 36.0
 margin_right = 373.0
-margin_bottom = 64.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer"]
-margin_top = 12.0
-margin_right = 305.0
-margin_bottom = 28.0
+margin_right = 337.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 percent_visible = false
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
-margin_top = 32.0
-margin_right = 305.0
-margin_bottom = 52.0
+margin_top = 20.0
+margin_right = 337.0
+margin_bottom = 40.0
 
 [node name="Numerical" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_top = 3.0
-margin_right = 150.0
+margin_right = 166.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "0 / 100"
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 154.0
-margin_right = 305.0
+margin_left = 170.0
+margin_right = 337.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Action"

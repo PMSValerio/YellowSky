@@ -1,6 +1,8 @@
 extends Node
 
 
+var tooltip = preload("res://src/gui/menus/resusable/MenuTooltip.tscn")
+
 enum Menus {
 	TEST,
 	SUBTEST,
@@ -67,6 +69,14 @@ var resource_icons = {
 	FacilityResources.MATERIALS: preload("res://assets/gfx/HUD/craftMatIcons.png")
 }
 
+var resource_names = {
+	FacilityResources.NONE: "<NONE>",
+	FacilityResources.FOOD: "Food",
+	FacilityResources.WATER: "Water",
+	FacilityResources.ENERGY: "Energy",
+	FacilityResources.MATERIALS: "Materials",
+}
+
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
 
 var facility_types = {} # this file is a horrible place to be doing this
@@ -74,6 +84,8 @@ var facility_types = {} # this file is a horrible place to be doing this
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
 var _player = null setget set_player, get_player
+
+var _custom_tooltip = null
 
 
 func _ready():
@@ -99,6 +111,10 @@ func set_player(player):
 
 func get_player():
 	return _player
+
+
+func get_tooltip():
+	return tooltip.instance()
 
 
 func _init_facility_types():
