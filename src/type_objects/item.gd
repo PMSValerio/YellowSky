@@ -14,10 +14,10 @@ var name
 var flavour_text
 
 
-func init(_id : int, _type: int, _texture, _value : float, _stat : float, _usable : bool):
+func init(_id, _type: int, _texture_path, _value : float, _stat : float, _usable : bool):
 	id = _id
 	type = _type
-	texture = _texture
+	texture = load(_texture_path)
 	value = _value
 	stat = _stat
 	usable = _usable

@@ -13,7 +13,7 @@ var inventory = {}
 
 func _ready():
 	# TMP flavour text
-	var tmp_flavour = "Hello, this is a placeholder text. I realise this text isn't very helpful, but such is life. That's why it's called placeholder, you doofus."
+	var _tmp_flavour = "Hello, this is a placeholder text. I realise this text isn't very helpful, but such is life. That's why it's called placeholder, you doofus."
 	
 	for t in Global.Items.values(): # have a dictionary for each item type
 		inventory[t] = {}
@@ -21,65 +21,41 @@ func _ready():
 	compact_resource_items[Global.FacilityResources.ENERGY] = []
 	compact_resource_items[Global.FacilityResources.MATERIALS] = []
 	
-	# TODO: load item data from config files
-	var type = Global.Items.FOOD
-	var id = 0
+	_build_items()
+
+
+# build a single item from data
+func _build_single_item(data):
 	var item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/keg_o_water.png"), 5, 10, true)
-	item.init_flavour("Test0", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 3
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/gallon_of_water.png"), 10, 15, true)
-	item.init_flavour("Test1", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 5
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/water_bottle.png"), 15, 20, true)
-	item.init_flavour("Test2", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 1
-	
-	type = Global.Items.LUXURY
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/gallon_of_water.png"), 30, 0, true)
-	item.init_flavour("Test3", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 4
-	
-	type = Global.Items.QUEST
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/water_bottle.png"), 0, 0, false)
-	item.init_flavour("Test4", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 1
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/keg_o_water.png"), 0, 0, false)
-	item.init_flavour("Test5", tmp_flavour)
-	item_stats[id] = item
-	inventory[type][id] = 1
-	
-	# ---
-	
-	type = Global.Items.RESOURCES
-	id += 1
-	item = Item.new()
-	item.init(id, type, preload("res://assets/gfx/items/water_bottle.png"), 5, 10, true)
-	item.init_flavour("Water Bottle", tmp_flavour)
-	item.subtype = Global.FacilityResources.WATER
-	item_stats[id] = item
-	compact_resource_items[item.subtype].append(id)
-	inventory[type][id] = 0
+	var type = Global.Items[data["type"]]
+	item.init(data["item_id"], type, data["texture"], data["value"], data["stat"], data["usable"])
+	item.init_flavour(data["name"], data["flavour_text"])
+	if type == Global.Items.RESOURCES:
+		item.subtype = Global.FacilityResources[data["subtype"]]
+	return item
+
+
+# build a category of items
+func _build_item_category(file, resources = false):
+	var file_data = Global.get_text_from_file(Global.Text.ITEMS, file, [])
+	for i in file_data.keys():
+		var item : Item = _build_single_item(file_data[i])
+		item_stats[item.id] = item
+		if resources:
+			compact_resource_items[item.subtype].append(item.id)
+		inventory[item.type][item.id] = 0
 
 
 # populate inventory data from config files
 func _build_items():
-	pass
+	var config_file = "resources.json"
+	_build_item_category(config_file, true)
+	config_file = "food.json"
+	_build_item_category(config_file)
+	
+	# TODO: remove
+	for k in inventory[Global.Items.FOOD].keys():
+		inventory[Global.Items.FOOD][k] = 5
 
 
 # returns all item_ids of a certain category present in inventory

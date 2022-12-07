@@ -1,0 +1,46 @@
+{
+  "water_bottle": {
+    "item_id": "water_bottle",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "res://assets/gfx/items/resources/water/water_bottle.png",
+    "value": 10,
+    "stat": 5,
+    "usable": true,
+    "name": "Water Bottle",
+    "flavour_text": "[water_bottle]"
+  },
+  "water_gallon": {
+    "item_id": "water_gallon",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "res://assets/gfx/items/resources/water/gallon_of_water.png",
+    "value": 15,
+    "stat": 10,
+    "usable": true,
+    "name": "Gallon of Water",
+    "flavour_text": "[water_gallon]"
+  },
+  "water_keg": {
+    "item_id": "water_keg",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "res://assets/gfx/items/resources/water/keg_o_water.png",
+    "value": 20,
+    "stat": 15,
+    "usable": true,
+    "name": "Keg o' Water",
+    "flavour_text": "[water_keg]"
+  },
+  "water_drum": {
+    "item_id": "water_drum",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "res://assets/gfx/items/resources/water/water_drum.png",
+    "value": 25,
+    "stat": 20,
+    "usable": true,
+    "name": "Water Drum",
+    "flavour_text": "[water_drum]"
+  }
+}

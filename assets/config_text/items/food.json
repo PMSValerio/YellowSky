@@ -1,0 +1,35 @@
+{
+  "food1": {
+    "item_id": "food1",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "res://assets/gfx/items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 20,
+    "usable": true,
+    "name": "Food Placeholder 1",
+    "flavour_text": "[food1]"
+  },
+  "food2": {
+    "item_id": "food2",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "res://assets/gfx/items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 20,
+    "usable": true,
+    "name": "Food Placeholder 2",
+    "flavour_text": "[food2]"
+  },
+  "food3": {
+    "item_id": "food3",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "res://assets/gfx/items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 20,
+    "usable": true,
+    "name": "Food Placeholder 3",
+    "flavour_text": "[food3]"
+  }
+}

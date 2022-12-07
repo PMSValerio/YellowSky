@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/keg_o_water.png-b4dd8b6c9deef16c2c8b76db7ef0ddc4.stex"
+path="res://.import/gallon_of_water.png-712f672790ae09cf894628951456a791.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/items/keg_o_water.png"
-dest_files=[ "res://.import/keg_o_water.png-b4dd8b6c9deef16c2c8b76db7ef0ddc4.stex" ]
+source_file="res://assets/gfx/items/resources/water/gallon_of_water.png"
+dest_files=[ "res://.import/gallon_of_water.png-712f672790ae09cf894628951456a791.stex" ]
 
 [params]
 
