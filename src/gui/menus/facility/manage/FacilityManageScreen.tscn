@@ -65,15 +65,16 @@ size_flags_vertical = 6
 align = 1
 
 [node name="AbandonedPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+visible = false
 margin_left = 338.0
-margin_right = 1008.0
+margin_right = 671.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="Rebuild" type="Button" parent="MarginContainer/HBoxContainer/AbandonedPanel"]
-margin_left = 271.0
+margin_left = 102.0
 margin_top = 244.0
-margin_right = 399.0
+margin_right = 230.0
 margin_bottom = 340.0
 rect_min_size = Vector2( 128, 96 )
 size_flags_horizontal = 4
@@ -81,7 +82,6 @@ size_flags_vertical = 4
 text = "Rebuild"
 
 [node name="StatsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
-visible = false
 margin_left = 338.0
 margin_right = 1008.0
 margin_bottom = 584.0
@@ -111,7 +111,7 @@ text = "Integrity"
 [node name="HealthDetails" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2" instance=ExtResource( 2 )]
 margin_top = 18.0
 margin_right = 524.0
-margin_bottom = 106.0
+margin_bottom = 82.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow"]
 margin_left = 528.0
@@ -149,15 +149,31 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
 margin_bottom = 417.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 155.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Fuels"
+align = 1
+
+[node name="ConsumptionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 159.0
+margin_right = 314.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+align = 1
+
+[node name="FuelList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 18.0
 rect_clip_content = true
 alignment = 1
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
-margin_top = 198.0
-margin_right = 314.0
-margin_bottom = 212.0
-text = "Fuel"
-align = 1
 
 [node name="ProductContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
 margin_left = 328.0
@@ -170,15 +186,31 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
 margin_bottom = 417.0
-rect_clip_content = true
-alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
-margin_top = 198.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
 margin_right = 314.0
-margin_bottom = 212.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer"]
+margin_right = 155.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
 text = "Product"
 align = 1
+
+[node name="ProductionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer"]
+margin_left = 159.0
+margin_right = 314.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+align = 1
+
+[node name="ProdList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 18.0
+rect_clip_content = true
+alignment = 1
 
 [node name="ResourceSlider" parent="." instance=ExtResource( 1 )]
 visible = false

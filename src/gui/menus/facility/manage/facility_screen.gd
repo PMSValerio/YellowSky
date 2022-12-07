@@ -21,8 +21,10 @@ onready var health_details = $MarginContainer/HBoxContainer/StatsContainer/Stats
 onready var status_marker = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer/StatusMarker
 
 # Resources Elements
-onready var fuel_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer
-onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer
+onready var fuel_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
+onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ProdList
+onready var cons_rate_label = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer/ConsumptionRate
+onready var prod_rate_label = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer/ProductionRate
 
 onready var resource_slider = $ResourceSlider
 
@@ -62,25 +64,29 @@ func set_context(context):
 			
 			# set fuels
 			fuel_stats_dict.clear()
-			for child in fuel_list.get_node("VBoxContainer").get_children():
+			for child in fuel_list.get_children():
 				child.queue_free()
 			for f in facility_entity.fuels.keys(): # in case a facility requires more than one fuel resource
 				var fuel_details = stat_panel_scene.instance()
 				fuel_details.init(Global.resource_icons[f], facility_entity.fuels[f], facility_entity.get_max_fuel(), "Refuel")
 				fuel_details.connect("action_pressed", self, "_on_Refuel_pressed", [f])
-				fuel_list.get_node("VBoxContainer").add_child(fuel_details)
+				fuel_list.add_child(fuel_details)
 				fuel_stats_dict[f] = fuel_details
 			
 			# set products
 			prod_stats_dict.clear()
-			for child in prod_list.get_node("VBoxContainer").get_children():
+			for child in prod_list.get_children():
 				child.queue_free()
 			var p = facility_entity.facility_type.product_type
 			var prod_details = stat_panel_scene.instance()
 			prod_details.init(Global.resource_icons[p], facility_entity.stored, facility_entity.get_max_prod(), "Collect")
 			prod_details.connect("action_pressed", self, "_on_Collect_pressed", [p])
-			prod_list.get_node("VBoxContainer").add_child(prod_details)
+			prod_list.add_child(prod_details)
 			prod_stats_dict[p] = prod_details
+			
+			# set rates
+			cons_rate_label.text = "-" + str(facility_entity.get_consumption_rate()) + str(" / sec")
+			prod_rate_label.text = "+" + str(facility_entity.get_production_rate()) + str(" / sec")
 		
 		_update_status()
 
