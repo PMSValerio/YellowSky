@@ -3,10 +3,7 @@ extends Control
 
 # Item Grid Nodes
 onready var item_grid = $MarginContainer/HBoxContainer/GridManager/ItemGrid
-onready var resources_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/ResourcesTab
-onready var food_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/FoodTab
-onready var luxury_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/LuxuryTab
-onready var quest_tab = $MarginContainer/HBoxContainer/GridManager/CategoryTabs/QuestTab
+onready var category_tabs = $MarginContainer/HBoxContainer/GridManager/Tabs
 
 onready var water_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton
 onready var energy_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/EnergyButton
@@ -41,10 +38,11 @@ func _ready() -> void:
 	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY, energy_button.get_resource_icon()])
 	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS, materials_button.get_resource_icon()])
 	
-	resources_tab.connect("pressed", self, "_on_select_category", [Global.Items.RESOURCES])
-	food_tab.connect("pressed", self, "_on_select_category", [Global.Items.FOOD])
-	luxury_tab.connect("pressed", self, "_on_select_category", [Global.Items.LUXURY])
-	quest_tab.connect("pressed", self, "_on_select_category", [Global.Items.QUEST])
+	category_tabs.add_tab("Resources")
+	category_tabs.add_tab("Food")
+	category_tabs.add_tab("Luxury")
+	category_tabs.add_tab("Quest")
+	
 	for child in item_grid.get_children():
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
 
@@ -92,6 +90,7 @@ func _populate_item_grid(type, first_ix, keep_inspected_slot = false):
 	
 	var slot = inspected_slot if keep_inspected_slot else null
 	_update_item_details(slot)
+	_on_Tabs_tab_changed(category_tabs.current_tab)
 
 
 func _update_item_details(slot : GridSlot):
@@ -140,3 +139,15 @@ func _on_select_slot(slot) -> void:
 
 func _on_CompactSubmenu_update_items() -> void:
 	_populate_item_grid(Global.Items.RESOURCES, _page_first_ix)
+
+
+func _on_Tabs_tab_changed(tab: int) -> void:
+	match tab:
+		0:
+			_on_select_category(Global.Items.RESOURCES)
+		1:
+			_on_select_category(Global.Items.FOOD)
+		2:
+			_on_select_category(Global.Items.LUXURY)
+		3:
+			_on_select_category(Global.Items.QUEST)

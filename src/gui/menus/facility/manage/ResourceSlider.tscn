@@ -12,42 +12,56 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 281.0
 margin_bottom = 219.0
-custom_constants/separation = 30
+custom_constants/separation = 20
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 274.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 text = "Select how much to use"
+align = 1
 
-[node name="ResourceIcon" type="TextureRect" parent="VBoxContainer"]
-margin_top = 44.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 32.0
 margin_right = 274.0
-margin_bottom = 108.0
+margin_bottom = 96.0
+alignment = 1
+
+[node name="ResourceIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 135.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 3
 expand = true
 stretch_mode = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 138.0
+[node name="PlayerBalance" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 139.0
+margin_top = 26.0
 margin_right = 274.0
-margin_bottom = 162.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 116.0
+margin_right = 274.0
+margin_bottom = 138.0
 
 [node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
-margin_right = 196.0
+margin_right = 172.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 value = 50.0
 
 [node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
-margin_left = 200.0
+margin_left = 176.0
 margin_right = 274.0
-margin_bottom = 24.0
+margin_bottom = 22.0
 value = 50.0
 
 [node name="ConfirmButton" type="Button" parent="VBoxContainer"]
-margin_top = 192.0
+margin_top = 158.0
 margin_right = 274.0
-margin_bottom = 212.0
+margin_bottom = 176.0
 text = "Confirm"
 
 [node name="Debouncer" type="Timer" parent="."]

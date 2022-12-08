@@ -15,40 +15,16 @@ anchor_bottom = 1.0
 margin_right = 1024.0
 margin_bottom = 600.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+[node name="Tabs" type="Tabs" parent="Main"]
 margin_right = 1024.0
-margin_bottom = 600.0
-alignment = 1
-
-[node name="Main1" type="Button" parent="Main/HBoxContainer"]
-margin_left = 459.0
-margin_right = 510.0
-margin_bottom = 20.0
+margin_bottom = 22.0
+size_flags_horizontal = 5
 size_flags_vertical = 0
-text = "Main1"
 
-[node name="Main2" type="Button" parent="Main/HBoxContainer"]
-margin_left = 514.0
-margin_right = 565.0
-margin_bottom = 20.0
-size_flags_vertical = 0
-text = "Main2"
+[node name="Button" type="Button" parent="Main/Tabs"]
+margin_right = 12.0
+margin_bottom = 18.0
 
-[node name="Sub" type="MarginContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -31.5
-margin_top = -20.0
-margin_right = 31.5
-margin_bottom = 20.0
-
-[node name="Button" type="Button" parent="Sub"]
-margin_right = 63.0
-margin_bottom = 40.0
-text = "Button1"
-
-[connection signal="pressed" from="Main/HBoxContainer/Main1" to="." method="_on_Main1_pressed"]
-[connection signal="pressed" from="Main/HBoxContainer/Main2" to="." method="_on_Main2_pressed"]
-[connection signal="pressed" from="Sub/Button" to="." method="_on_Button_pressed"]
+[node name="Button2" type="Button" parent="Main/Tabs"]
+margin_right = 12.0
+margin_bottom = 18.0

@@ -5,10 +5,12 @@ signal value_chosen(delta_value)
 
 onready var debouncer = $Debouncer
 
-onready var icon = $VBoxContainer/ResourceIcon
+onready var icon = $VBoxContainer/HBoxContainer2/ResourceIcon
+onready var balance = $VBoxContainer/HBoxContainer2/PlayerBalance
 onready var slider = $VBoxContainer/HBoxContainer/HSlider
 onready var input_box = $VBoxContainer/HBoxContainer/SpinBox
 onready var confirm = $VBoxContainer/ConfirmButton
+
 
 # the debouncer timer ensures that _on_value_changed isn't called exceedingly
 var debounce_flag = true
@@ -45,6 +47,9 @@ func _on_value_changed(value: float) -> void:
 		var clamped = clamp(value, min_value, max_value)
 		slider.value = clamped
 		input_box.value = clamped
+		
+		var delta = input_box.value - min_value
+		balance.text = str(max_value - delta)
 
 
 func _on_ConfirmButton_pressed() -> void:
