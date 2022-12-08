@@ -77,6 +77,8 @@ var resource_names = {
 	FacilityResources.MATERIALS: "Materials",
 }
 
+const COMPACT_LOSS = 1.2
+
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
 
 var facility_types = {} # this file is a horrible place to be doing this
