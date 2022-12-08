@@ -22,5 +22,5 @@ script = ExtResource( 3 )
 material = SubResource( 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
-BASE_SCALE = 2.0
+BASE_SCALE = 3.0
 UPDATE_Z = true

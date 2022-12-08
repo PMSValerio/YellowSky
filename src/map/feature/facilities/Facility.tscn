@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/map/feature/facilities/facility.gd" type="Script" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
@@ -46,6 +46,21 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 64, 64, 64 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "workshop_start"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 0, 128, 64, 64 ) ]
+}
+
 [sub_resource type="Animation" id=3]
 resource_name = "wrecked_start"
 tracks/0/type = "value"
@@ -82,4 +97,5 @@ visible = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
 anims/coal_plant_start = SubResource( 2 )
+anims/workshop_start = SubResource( 5 )
 anims/wrecked_start = SubResource( 3 )
