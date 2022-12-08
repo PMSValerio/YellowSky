@@ -14,8 +14,11 @@ onready var materials_button = $MarginContainer/HBoxContainer/GridManager/Resour
 
 # Item Details Nodes
 onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
+onready var item_name = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer3/Name
 onready var item_display = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer/ItemDisplay
 onready var item_description = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/ItemDescription
+onready var item_value = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Value
+onready var _item_value_margin = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer
 onready var _use_btn_margin = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer
 onready var use_button = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton
 
@@ -97,8 +100,11 @@ func _update_item_details(slot : GridSlot):
 		details_panel.visible = false
 		return
 	details_panel.visible = true
+	item_name.text = slot.data.name
 	item_display.texture = slot.data.texture
 	item_description.text = slot.data.flavour_text
+	item_value.text = str(slot.data.value)
+	_item_value_margin.visible = slot.data.value > 0.0
 	use_button.disabled = not slot.data.usable
 	_use_btn_margin.visible = slot.data.usable
 

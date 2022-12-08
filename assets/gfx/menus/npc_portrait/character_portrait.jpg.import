@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fac_wrecked.png-88ecaf705528cb2a4b1240f498cfae6d.stex"
+path="res://.import/character_portrait.jpg-ade8bda7b96d5f1f374f0aacb054f29b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/fac_wrecked.png"
-dest_files=[ "res://.import/fac_wrecked.png-88ecaf705528cb2a4b1240f498cfae6d.stex" ]
+source_file="res://assets/gfx/menus/npc_portrait/character_portrait.jpg"
+dest_files=[ "res://.import/character_portrait.jpg-ade8bda7b96d5f1f374f0aacb054f29b.stex" ]
 
 [params]
 

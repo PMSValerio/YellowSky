@@ -39,20 +39,20 @@ size_flags_horizontal = 3
 
 [node name="Name" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_right = 320.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 
 [node name="Art" type="TextureRect" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
-margin_top = 18.0
+margin_top = 16.0
 margin_right = 320.0
-margin_bottom = 218.0
+margin_bottom = 216.0
 rect_min_size = Vector2( 320, 200 )
 expand = true
 stretch_mode = 1
 
 [node name="FlavourText" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
-margin_top = 222.0
+margin_top = 220.0
 margin_right = 320.0
-margin_bottom = 394.0
+margin_bottom = 393.0
 size_flags_vertical = 7
 autowrap = true
 clip_text = true
@@ -60,7 +60,7 @@ clip_text = true
 [node name="Status" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_top = 477.0
 margin_right = 320.0
-margin_bottom = 491.0
+margin_bottom = 489.0
 size_flags_vertical = 6
 align = 1
 
@@ -96,44 +96,33 @@ custom_constants/separation = 0
 
 [node name="IntegrityRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen"]
 margin_right = 656.0
-margin_bottom = 146.0
+margin_bottom = 128.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow"]
 margin_right = 524.0
-margin_bottom = 146.0
+margin_bottom = 128.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2"]
 margin_right = 524.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 text = "Integrity"
 
 [node name="HealthDetails" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2" instance=ExtResource( 2 )]
-margin_top = 18.0
+margin_top = 16.0
 margin_right = 524.0
-margin_bottom = 58.0
+margin_bottom = 54.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow"]
+[node name="OnOffButton" type="Button" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow"]
 margin_left = 528.0
 margin_right = 656.0
-margin_bottom = 146.0
-
-[node name="OnOffButton" type="Button" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer"]
-margin_right = 128.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="StatusMarker" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer"]
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 146.0
-text = "On"
-align = 1
-
 [node name="ResourcesRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen"]
-margin_top = 146.0
+margin_top = 128.0
 margin_right = 656.0
 margin_bottom = 570.0
 size_flags_vertical = 3
@@ -141,22 +130,22 @@ custom_constants/separation = 0
 
 [node name="FuelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
 margin_right = 328.0
-margin_bottom = 424.0
+margin_bottom = 442.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
-margin_bottom = 417.0
+margin_bottom = 435.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
 margin_right = 314.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 155.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 size_flags_horizontal = 3
 text = "Fuel"
 align = 1
@@ -164,14 +153,14 @@ align = 1
 [node name="ConsumptionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 159.0
 margin_right = 314.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 size_flags_horizontal = 3
 align = 1
 
 [node name="FuelList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 16.0
 margin_right = 314.0
-margin_bottom = 410.0
+margin_bottom = 428.0
 rect_clip_content = true
 size_flags_vertical = 3
 alignment = 1
@@ -179,22 +168,22 @@ alignment = 1
 [node name="ProductContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow"]
 margin_left = 328.0
 margin_right = 656.0
-margin_bottom = 424.0
+margin_bottom = 442.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
-margin_bottom = 417.0
+margin_bottom = 435.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
 margin_right = 314.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer"]
 margin_right = 155.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 size_flags_horizontal = 3
 text = "Production"
 align = 1
@@ -202,14 +191,14 @@ align = 1
 [node name="ProductionRate" type="Label" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer"]
 margin_left = 159.0
 margin_right = 314.0
-margin_bottom = 14.0
+margin_bottom = 12.0
 size_flags_horizontal = 3
 align = 1
 
 [node name="ProdList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 16.0
 margin_right = 314.0
-margin_bottom = 410.0
+margin_bottom = 428.0
 rect_clip_content = true
 size_flags_vertical = 3
 alignment = 1
@@ -226,5 +215,5 @@ margin_right = 144.0
 margin_bottom = 113.0
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/AbandonedPanel/Rebuild" to="." method="_on_Rebuild_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer/OnOffButton" to="." method="_on_OnOffButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/OnOffButton" to="." method="_on_OnOffButton_pressed"]
 [connection signal="value_chosen" from="ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]

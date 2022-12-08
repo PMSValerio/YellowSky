@@ -113,6 +113,7 @@ input=false
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom="res://assets/ui_theme/ui_theme.tres"
 
 [importer_defaults]
 

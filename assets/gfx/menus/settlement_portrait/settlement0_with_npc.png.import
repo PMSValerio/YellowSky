@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/character_portrait.jpg-c4dcec21711129c383a2b7a9323b636f.stex"
+path="res://.import/settlement0_with_npc.png-36b64b54b80ea6d0d774120c7f418113.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/character_portrait.jpg"
-dest_files=[ "res://.import/character_portrait.jpg-c4dcec21711129c383a2b7a9323b636f.stex" ]
+source_file="res://assets/gfx/menus/settlement_portrait/settlement0_with_npc.png"
+dest_files=[ "res://.import/settlement0_with_npc.png-36b64b54b80ea6d0d774120c7f418113.stex" ]
 
 [params]
 

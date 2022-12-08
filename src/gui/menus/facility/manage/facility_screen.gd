@@ -18,7 +18,6 @@ onready var stats_container = $MarginContainer/HBoxContainer/StatsContainer
 
 # Integrity Elements
 onready var health_details = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2/HealthDetails
-onready var status_marker = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer/StatusMarker
 
 # Resources Elements
 onready var fuel_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
@@ -97,7 +96,6 @@ func _update_status():
 	var status = facility_entity.get_status()
 	
 	status_indicator.text = Facility.Status.keys()[status]
-	status_marker.text = "ON" if facility_entity.running else "OFF"
 	
 	# TODO: set appropriate colours and warnings
 

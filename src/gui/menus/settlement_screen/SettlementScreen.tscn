@@ -1,8 +1,9 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/gfx/menus/settlement0_with_npc.png" type="Texture" id=1]
+[ext_resource path="res://assets/gfx/menus/settlement_portrait/settlement0_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_script.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/menus/dialogue_triangle.png" type="Texture" id=3]
+
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;

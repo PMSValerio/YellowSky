@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/settlement_portrait_art_tmp.png-ad4e73f7635905de23102fda2d66814b.stex"
+path="res://.import/wrecked.png-0ae8b816c1faf29ab51df96dd39908c8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/settlement_portrait_art_tmp.png"
-dest_files=[ "res://.import/settlement_portrait_art_tmp.png-ad4e73f7635905de23102fda2d66814b.stex" ]
+source_file="res://assets/gfx/menus/facility_portrait/wrecked.png"
+dest_files=[ "res://.import/wrecked.png-0ae8b816c1faf29ab51df96dd39908c8.stex" ]
 
 [params]
 
