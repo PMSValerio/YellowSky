@@ -15,6 +15,7 @@ enum Menus {
 
 enum Disasters {
 	TEST,
+	TORNADO,
 	AMOGEDDON,
 }
 
