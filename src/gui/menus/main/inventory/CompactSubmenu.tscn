@@ -2,9 +2,9 @@
 
 [ext_resource path="res://src/gui/menus/main/inventory/CompactTransactionSlot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/inventory/compact_submenu.gd" type="Script" id=2]
-[ext_resource path="res://assets/gfx/HUD/waterIcon.png" type="Texture" id=3]
-[ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=4]
-[ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/waterIcon.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=5]
 
 [node name="CompactSubmenu" type="PanelContainer"]
 anchor_left = 0.5
@@ -56,16 +56,10 @@ toggle_mode = true
 icon = ExtResource( 5 )
 expand_icon = true
 
-[node name="TransactionValue" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 68.0
 margin_right = 342.0
-margin_bottom = 80.0
-align = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 84.0
-margin_right = 342.0
-margin_bottom = 384.0
+margin_bottom = 368.0
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
@@ -96,9 +90,9 @@ margin_right = 310.0
 margin_bottom = 268.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 388.0
+margin_top = 372.0
 margin_right = 342.0
-margin_bottom = 406.0
+margin_bottom = 390.0
 
 [node name="CancelCompactButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
 margin_right = 342.0

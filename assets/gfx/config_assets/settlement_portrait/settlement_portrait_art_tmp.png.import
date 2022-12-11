@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/water_bottle.png-b59d0c4145587945c1c6f869e5e9a955.stex"
+path="res://.import/settlement_portrait_art_tmp.png-7eedd85c6de4d67712a91d0cd7746ef1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/items/resources/water/water_bottle.png"
-dest_files=[ "res://.import/water_bottle.png-b59d0c4145587945c1c6f869e5e9a955.stex" ]
+source_file="res://assets/gfx/config_assets/settlement_portrait/settlement_portrait_art_tmp.png"
+dest_files=[ "res://.import/settlement_portrait_art_tmp.png-7eedd85c6de4d67712a91d0cd7746ef1.stex" ]
 
 [params]
 

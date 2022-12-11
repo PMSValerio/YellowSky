@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wrecked_icon.png-489bfe09d3801a229cf15fad014e9c32.stex"
+path="res://.import/coal_plant_icon.png-4cbf90f39a39031253db73753f7991fe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/facility_icon/wrecked_icon.png"
-dest_files=[ "res://.import/wrecked_icon.png-489bfe09d3801a229cf15fad014e9c32.stex" ]
+source_file="res://assets/gfx/config_assets/facility_icon/coal_plant_icon.png"
+dest_files=[ "res://.import/coal_plant_icon.png-4cbf90f39a39031253db73753f7991fe.stex" ]
 
 [params]
 

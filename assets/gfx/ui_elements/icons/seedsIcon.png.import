@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/character_portrait.jpg-ade8bda7b96d5f1f374f0aacb054f29b.stex"
+path="res://.import/seedsIcon.png-1b6fdea7d575cd92bb8dbe49bea859e6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/npc_portrait/character_portrait.jpg"
-dest_files=[ "res://.import/character_portrait.jpg-ade8bda7b96d5f1f374f0aacb054f29b.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/seedsIcon.png"
+dest_files=[ "res://.import/seedsIcon.png-1b6fdea7d575cd92bb8dbe49bea859e6.stex" ]
 
 [params]
 

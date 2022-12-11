@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/keg_o_water.png-41ed7bf3413fbb5365f4c7c31e08e772.stex"
+path="res://.import/energyIcon.png-a4c7f472ff393f7d82e5f32b509bf284.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/items/resources/water/keg_o_water.png"
-dest_files=[ "res://.import/keg_o_water.png-41ed7bf3413fbb5365f4c7c31e08e772.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/energyIcon.png"
+dest_files=[ "res://.import/energyIcon.png-a4c7f472ff393f7d82e5f32b509bf284.stex" ]
 
 [params]
 

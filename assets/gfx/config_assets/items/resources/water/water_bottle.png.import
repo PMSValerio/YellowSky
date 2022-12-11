@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dialogue_triangle.png-77172bd77a6bf0450817a60ee3089ef9.stex"
+path="res://.import/water_bottle.png-e2c517ef8c259ee14ce261189108f65b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/dialogue_triangle.png"
-dest_files=[ "res://.import/dialogue_triangle.png-77172bd77a6bf0450817a60ee3089ef9.stex" ]
+source_file="res://assets/gfx/config_assets/items/resources/water/water_bottle.png"
+dest_files=[ "res://.import/water_bottle.png-e2c517ef8c259ee14ce261189108f65b.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gallon_of_water.png-712f672790ae09cf894628951456a791.stex"
+path="res://.import/wrecked_icon.png-b9b1d412953767c3f2a4d25bc82e7d56.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/items/resources/water/gallon_of_water.png"
-dest_files=[ "res://.import/gallon_of_water.png-712f672790ae09cf894628951456a791.stex" ]
+source_file="res://assets/gfx/config_assets/facility_icon/wrecked_icon.png"
+dest_files=[ "res://.import/wrecked_icon.png-b9b1d412953767c3f2a4d25bc82e7d56.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/coal_plant_icon.png-a10a93718c5201b4a80dd8db3ae5d074.stex"
+path="res://.import/craftMatIcons.png-103be8569f8bb30c780af23074a62a19.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/facility_icon/coal_plant_icon.png"
-dest_files=[ "res://.import/coal_plant_icon.png-a10a93718c5201b4a80dd8db3ae5d074.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/craftMatIcons.png"
+dest_files=[ "res://.import/craftMatIcons.png-103be8569f8bb30c780af23074a62a19.stex" ]
 
 [params]
 

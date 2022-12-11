@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/settlement0.png-c8a7fddfbeee7d896ea7627471ee500a.stex"
+path="res://.import/pointer.png-59778f51ee2de92d3eb036a88dfcf051.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/settlement_portrait/settlement0.png"
-dest_files=[ "res://.import/settlement0.png-c8a7fddfbeee7d896ea7627471ee500a.stex" ]
+source_file="res://assets/gfx/ui_elements/pointer.png"
+dest_files=[ "res://.import/pointer.png-59778f51ee2de92d3eb036a88dfcf051.stex" ]
 
 [params]
 

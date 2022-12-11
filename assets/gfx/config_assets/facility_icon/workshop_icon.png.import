@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wrecked.png-0ae8b816c1faf29ab51df96dd39908c8.stex"
+path="res://.import/workshop_icon.png-0b5e656ec3e78f76c7161dd849e61c08.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/menus/facility_portrait/wrecked.png"
-dest_files=[ "res://.import/wrecked.png-0ae8b816c1faf29ab51df96dd39908c8.stex" ]
+source_file="res://assets/gfx/config_assets/facility_icon/workshop_icon.png"
+dest_files=[ "res://.import/workshop_icon.png-0b5e656ec3e78f76c7161dd849e61c08.stex" ]
 
 [params]
 
