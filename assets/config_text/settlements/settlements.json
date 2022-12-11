@@ -1,0 +1,14 @@
+{
+    "settlement1" : {
+        "Settlement" : {
+            "Name" : "Low End Creek", 
+            "Description" : "As there are very few humans left and resources are scarce, conflict is largely inevitable. However, reason mostly prevails and there is a tentative peace between settlements."
+        }
+    },
+    "settlement2" : {
+        "Settlement" : {
+            "Name" : "High End Creek", 
+            "Description" : "Settlement description template2" 
+        }
+    }
+}
