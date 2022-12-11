@@ -48,8 +48,7 @@ func _on_value_changed(value: float) -> void:
 		slider.value = clamped
 		input_box.value = clamped
 		
-		var delta = input_box.value - min_value
-		balance.text = str(max_value - delta)
+		balance.text = str(max_value - input_box.value)
 
 
 func _on_ConfirmButton_pressed() -> void:
