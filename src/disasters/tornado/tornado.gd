@@ -11,3 +11,9 @@ func background_in():
 
 func background_out():
 	back.anim(false)
+
+
+func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
+	back.queue_free()
+	back = null
+	emit_signal("disaster_end")

@@ -10,6 +10,7 @@ var _text_directories = {
 
 
 func get_text_from_file(text_type, file_name, key_array):
+	# Creating a new file instance every time text needs to be accessed is a good idea? In garbage collection we trust?
 	var file = File.new()
 	var file_path = _text_directories[text_type] + file_name
 	if file.file_exists(file_path):

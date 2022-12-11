@@ -8,6 +8,7 @@ onready var category_tabs = $MarginContainer/HBoxContainer/GridManager/Tabs
 onready var water_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton
 onready var energy_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/EnergyButton
 onready var materials_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/MaterialsButton
+onready var compact_button = $MarginContainer/HBoxContainer/GridManager/MarginContainer/CompactButton
 
 # Item Details Nodes
 onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
@@ -34,9 +35,10 @@ onready var ResourceManager = Global.get_player().get_node("ResourceManager") # 
 
 
 func _ready() -> void:
-	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER, water_button.get_resource_icon()])
-	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY, energy_button.get_resource_icon()])
-	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS, materials_button.get_resource_icon()])
+#	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
+#	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY])
+#	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS])
+	compact_button.connect("pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
 	
 	category_tabs.add_tab("Resources")
 	category_tabs.add_tab("Food")
@@ -123,9 +125,8 @@ func _on_UseButton_pressed() -> void:
 		_populate_item_grid(grid_category, _page_first_ix)
 
 
-func _on_resource_pressed(rec_id, icon) -> void:
-	compact_submenu.toggle_on(rec_id, icon)
-	
+func _on_resource_pressed(rec_id) -> void:
+	compact_submenu.toggle_on(rec_id)
 
 
 func _on_select_category(type) -> void:

@@ -28,6 +28,7 @@ var _is_destroyed = true # if destroyed, health must be replenished fully before
 
 func _ready() -> void:
 	set_type(Global.facility_types.keys()[0])
+	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 
 
 func _process(delta: float) -> void:
@@ -41,7 +42,7 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	# this is done so that the tooltip's scale isn't affected by perspective warping, only the position
 	# still don't know what's better, add Tootip as child of Sprite instead to warp scale as well
-	tooltip.position = sprite.position + Vector2(0, -64) * sprite.scale
+	tooltip.position = sprite.position + Vector2(0, -32) * sprite.scale
 
 
 # update facility stats
@@ -165,3 +166,7 @@ func collect(resource):
 
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+
+
+func _on_disaster_damage(damage):
+	repair(-damage)

@@ -6,9 +6,6 @@ onready var description_box = $ColorRect/HBoxContainer/SettlementContainer/Settl
 onready var talk_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/TalkButton
 onready var trade_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/TradeButton
 onready var leave_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/LeaveButton
-
-# TODO: decide whether continue button stays or goes, since the pointer is also an option
-onready var continue_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/ContinueButton
 onready var goodbye_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/GoodbyeButton
 onready var accept_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/AcceptButton
 onready var decline_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/DeclineButton
@@ -18,6 +15,8 @@ export var text_speed = 0.01
 var text_in_progress = false
 var npc_text = []
 var current_dialogue_branch = 0
+var is_talking = false
+var text_file_ref = "settlements.json"
 
 
 func _ready() -> void:
@@ -31,26 +30,29 @@ func toggle_text_mode(to_npc):
 	talk_btn.visible = !to_npc
 	trade_btn.visible = !to_npc
 	leave_btn.visible = !to_npc
-	#continue_btn.visible = to_npc
 	goodbye_btn.visible = to_npc
 	dialogue_pntr.visible = to_npc
 
 	if to_npc:
+		is_talking = true
+		text_file_ref = "npc_dialogue.json"
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
-		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", "Name"])
+
+		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Name"])
 
 		update_branch_text()
 		next_line()
 	else:
+		if is_talking:
+			settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
+
+		is_talking = false
+		text_file_ref = "settlements.json"
 		accept_btn.visible = false
 		decline_btn.visible = false
 
-		#TODO: find proper solution to prevent anim from playing on the first time the settlement menu opens up
-		if npc_text.size() != 0:
-			settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
-		
-		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "Settlement", "Name"])
-		description_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "Settlement", "Description"])
+		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, text_file_ref, ["settlement1", "Settlement", "Name"])
+		description_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, text_file_ref, ["settlement1", "Settlement", "Description"])
 		description_box.visible_characters = description_box.text.length()
 
 
@@ -77,20 +79,18 @@ func next_line():
 		if npc_text[0] == "Quest":
 			quest_update(true)
 		elif npc_text[0] == "End":
-			#continue_btn.visible = false
 			dialogue_pntr.visible = false
 	else:
 		print("Finish")
 
 
 func update_branch_text():
-	npc_text = Global.get_text_from_file(Global.Text.SETTLEMENTS, "dialogue_repo.json", ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
+	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
 
 
 func quest_update(show):
 	accept_btn.visible = show
 	decline_btn.visible = show
-	#continue_btn.visible = !show
 	dialogue_pntr.visible = !show
 
 	if !show:
@@ -112,14 +112,6 @@ func _on_GoodbyeButton_pressed():
 	toggle_text_mode(false)
 
 # Dialogue Options
-func _on_ContinueButton_pressed():
-	if text_in_progress:
-		description_box.visible_characters = description_box.text.length()
-		text_in_progress = false
-	else:
-		next_line()
-
-
 func _on_AcceptButton_pressed():
 	current_dialogue_branch += 1
 	quest_update(false)
@@ -130,8 +122,8 @@ func _on_DeclineButton_pressed():
 	quest_update(false)
 
 
-func _on_DialoguePointer_gui_input(event:InputEvent):
-	if (event is InputEventMouseButton && event.pressed && event.button_index == 1):
+func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && is_talking):
 		if text_in_progress:
 			description_box.visible_characters = description_box.text.length()
 			text_in_progress = false

@@ -275,7 +275,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id=36]
 resource_name = "play"
-length = 40.0
+length = 38.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Vignette:visible")
 tracks/0/interp = 1
@@ -401,10 +401,25 @@ tracks/9/keys = {
 "method": "background_out"
 } ]
 }
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 33.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "damage"
+} ]
+}
 
 [node name="Tornado" type="Node2D"]
 script = ExtResource( 2 )
 shake_strength = 5.0
+DAMAGE = 40
 background_scene_path = ExtResource( 3 )
 
 [node name="Tornado" type="Node2D" parent="."]
@@ -420,20 +435,21 @@ __meta__ = {
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "back"
+frame = 5
 playing = true
 
 [node name="Mid" type="AnimatedSprite" parent="Tornado"]
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "mid"
-frame = 7
+frame = 2
 playing = true
 
 [node name="Fore" type="AnimatedSprite" parent="Tornado"]
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "fore"
-frame = 2
+frame = 7
 playing = true
 
 [node name="Vignette" type="Polygon2D" parent="."]
@@ -456,3 +472,5 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 35 )
 anims/play = SubResource( 36 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

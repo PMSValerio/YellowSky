@@ -5,6 +5,7 @@ class_name Disaster
 signal disaster_end
 
 export var shake_strength = 0.0 setget set_shake
+export var DAMAGE = 0
 export(PackedScene) var background_scene_path
 
 var background_layer
@@ -24,3 +25,7 @@ func start() -> void:
 func set_shake(_shake_strength):
 	shake_strength = _shake_strength
 	Global.get_cam().set_shake(shake_strength)
+
+
+func damage():
+	EventManager.emit_signal("disaster_damage", DAMAGE)
