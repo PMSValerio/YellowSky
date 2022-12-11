@@ -99,3 +99,8 @@ anims/RESET = SubResource( 1 )
 anims/coal_plant_start = SubResource( 2 )
 anims/workshop_start = SubResource( 5 )
 anims/wrecked_start = SubResource( 3 )
+
+[node name="TooltipTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_TooltipTimer_timeout"]

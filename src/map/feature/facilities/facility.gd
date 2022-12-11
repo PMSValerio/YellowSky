@@ -62,9 +62,6 @@ func _tick() -> void:
 		dict["stored"] = products[products.keys()[0]] if products.size() > 0 else ""
 		dict["health"] = health
 		tooltip.update_items(dict)
-	
-	# TODO: remove
-	tooltip.visible = true
 
 
 # update state according to operation costs
@@ -168,5 +165,17 @@ func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
 
 
+func mouse_entered() -> void:
+	tooltip.visible = true
+
+
+func mouse_exited() -> void:
+	$TooltipTimer.start()
+
+
 func _on_disaster_damage(damage):
 	repair(-damage)
+
+
+func _on_TooltipTimer_timeout() -> void:
+	tooltip.visible = false
