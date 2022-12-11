@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/disasters/amogeddon/amogeddon.gd" type="Script" id=1]
 [ext_resource path="res://assets/shaders/vignette.gdshader" type="Shader" id=2]
+[ext_resource path="res://src/disasters/amogeddon/AmogeddonBack.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 2 )
@@ -152,9 +153,25 @@ tracks/5/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 10.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "damage"
+} ]
+}
 
 [node name="Amogeddon" type="Node2D"]
 script = ExtResource( 1 )
+DAMAGE = 70
+background_scene_path = ExtResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 visible = false
@@ -172,29 +189,29 @@ anims/play = SubResource( 4 )
 
 [node name="Achievement" type="Node2D" parent="."]
 visible = false
-position = Vector2( 880, 544 )
+position = Vector2( 840, 544 )
 
 [node name="PanelContainer" type="PanelContainer" parent="Achievement"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -128.0
+margin_left = -167.0
 margin_top = -40.0
-margin_right = 128.0
+margin_right = 167.0
 margin_bottom = 40.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Achievement/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 249.0
+margin_right = 327.0
 margin_bottom = 73.0
 custom_constants/separation = 8
 alignment = 1
 
 [node name="Label" type="Label" parent="Achievement/PanelContainer/VBoxContainer"]
-margin_top = 15.0
-margin_right = 242.0
+margin_top = 17.0
+margin_right = 320.0
 margin_bottom = 29.0
 text = "A c h i e v e m e n t  u n l o c k e d"
 align = 2
@@ -203,8 +220,8 @@ uppercase = true
 
 [node name="Label2" type="Label" parent="Achievement/PanelContainer/VBoxContainer"]
 margin_top = 37.0
-margin_right = 242.0
-margin_bottom = 51.0
+margin_right = 320.0
+margin_bottom = 49.0
 text = "Survived the Amogeddon"
 align = 2
 

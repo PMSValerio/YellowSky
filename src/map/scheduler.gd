@@ -47,8 +47,8 @@ func _process_disaster(disaster_id):
 
 func _schedule_new_disaster():
 	# TODO: calculate based on total progression
-	_next_interval = -1
-	_next_disaster = Global.Disasters.TEST
+	_next_interval = 20 + (randf() * 5)
+	_next_disaster = Global.Disasters.AMOGEDDON if randf() < 0.2 else Global.Disasters.TORNADO
 
 
 func _on_disaster_end():

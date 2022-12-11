@@ -8,3 +8,6 @@ signal pop_menu
 
 # Inventory
 signal item_used(item_data)
+
+# World
+signal disaster_damage(damage)

@@ -52,6 +52,7 @@ func _ready() -> void:
 	add_child(out_of_stamina_timer)
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
+	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 
 func _notification(what):
 	match what:
@@ -183,3 +184,7 @@ func _on_World_tile_entered(interactable):
 func _on_item_used(item_data : Item) -> void:
 	if item_data.type == Global.Items.FOOD: # all food items restore stamina by an amount equal to their stat
 		change_stamina(item_data.stat)
+
+
+func _on_disaster_damage(damage):
+	change_health(-damage)
