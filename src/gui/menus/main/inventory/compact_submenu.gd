@@ -22,11 +22,8 @@ func _ready() -> void:
 		button.connect("pressed", self, "_on_compact_item_pressed", [button])
 	
 	water_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.WATER])
-	water_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.WATER))
 	energy_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.ENERGY])
-	energy_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
 	material_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.MATERIALS])
-	material_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
 
 
 func toggle_on(rec_id):
@@ -62,6 +59,10 @@ func toggle_on(rec_id):
 		Global.FacilityResources.MATERIALS:
 			material_tab.pressed = true
 			material_tab.button_mask = 0
+	
+	water_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.WATER))
+	energy_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
+	material_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
 
 
 func _on_compact_item_pressed(button : CompactTransactionSlot) -> void:

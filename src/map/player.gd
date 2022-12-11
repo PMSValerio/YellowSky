@@ -69,7 +69,7 @@ func _notification(what):
 
 func _physics_process(_delta: float) -> void:
 	# so that the prompt isn't affected by the scale warping, but only by the position warping
-	_prompt_anchor.global_position = sprite.global_position
+	_prompt_anchor.position = sprite.position + Vector2(0, -32) * sprite.scale
 	
 	var move_direction = Vector2(
 		Input.get_action_strength("mov_right") - Input.get_action_strength("mov_left"),
