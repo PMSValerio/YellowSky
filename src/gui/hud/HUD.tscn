@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/HUD/barBg.png" type="Texture" id=2]
-[ext_resource path="res://assets/gfx/HUD/barFill.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/health_bar_fill.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_water.png" type="Texture" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=5]
-[ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=6]
-[ext_resource path="res://assets/gfx/HUD/seedsIcon.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_health.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_scrap.png" type="Texture" id=6]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_energy.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_seeds.png" type="Texture" id=8]
+[ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_trade.png" type="Texture" id=10]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
@@ -17,64 +20,147 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 412.0
-margin_bottom = 126.0
-rect_scale = Vector2( 0.5, 0.5 )
+[node name="AllElements" type="HBoxContainer" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -438.0
+margin_top = -46.0
+margin_right = 438.0
+margin_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+custom_constants/separation = 33
 
-[node name="HealthBar" type="TextureProgress" parent="Control/VBoxContainer"]
-margin_right = 396.0
-margin_bottom = 53.0
-value = 100.0
-texture_under = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
-tint_under = Color( 0.54902, 0.160784, 0.105882, 1 )
-tint_progress = Color( 0.94902, 0.247059, 0.156863, 1 )
+[node name="Other" type="HBoxContainer" parent="Control/AllElements"]
+margin_right = 359.0
+margin_bottom = 46.0
+custom_constants/separation = 20
 
-[node name="StaminaBar" type="TextureProgress" parent="Control/VBoxContainer"]
-margin_top = 57.0
-margin_right = 396.0
-margin_bottom = 110.0
-value = 100.0
-texture_under = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
-tint_under = Color( 0.286275, 0.513726, 0.054902, 1 )
-tint_progress = Color( 0.623529, 0.913725, 0.105882, 1 )
+[node name="Inventory" type="Button" parent="Control/AllElements/Other"]
+margin_right = 136.0
+margin_bottom = 46.0
+text = "Inventory"
+icon = ExtResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -444.0
-margin_top = 32.0
-margin_right = -32.0
-margin_bottom = 72.0
+[node name="Skills" type="Button" parent="Control/AllElements/Other"]
+margin_left = 156.0
+margin_right = 259.0
+margin_bottom = 46.0
+text = "Skills"
+icon = ExtResource( 10 )
 
-[node name="WaterCounter" parent="Control/HBoxContainer" instance=ExtResource( 4 )]
+[node name="SeedsCounter" parent="Control/AllElements/Other" instance=ExtResource( 4 )]
+margin_left = 279.0
+margin_right = 359.0
 
-[node name="CraftMatCounter" parent="Control/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 104.0
-margin_right = 204.0
+[node name="HBoxContainer" parent="Control/AllElements/Other/SeedsCounter" index="0"]
+margin_right = 73.0
 
-[node name="TextureRect" parent="Control/HBoxContainer/CraftMatCounter/Panel" index="1"]
-texture = ExtResource( 6 )
+[node name="Label" parent="Control/AllElements/Other/SeedsCounter/HBoxContainer" index="0"]
+margin_right = 30.0
 
-[node name="EnergyCounter" parent="Control/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 208.0
-margin_right = 308.0
+[node name="TextureRect" parent="Control/AllElements/Other/SeedsCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 8 )
 
-[node name="TextureRect" parent="Control/HBoxContainer/EnergyCounter/Panel" index="1"]
+[node name="Bars" type="VBoxContainer" parent="Control/AllElements"]
+margin_left = 392.0
+margin_right = 595.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+
+[node name="Health" parent="Control/AllElements/Bars" instance=ExtResource( 9 )]
+margin_right = 203.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" parent="Control/AllElements/Bars/Health" index="0"]
+margin_right = 18.0
+margin_bottom = 21.0
 texture = ExtResource( 5 )
 
-[node name="SeedsCounter" parent="Control/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 312.0
-margin_right = 412.0
+[node name="TextureProgress" parent="Control/AllElements/Bars/Health" index="1"]
+margin_left = 22.0
+margin_right = 203.0
+margin_bottom = 21.0
+texture_progress = ExtResource( 2 )
 
-[node name="TextureRect" parent="Control/HBoxContainer/SeedsCounter/Panel" index="1"]
+[node name="Stamina" parent="Control/AllElements/Bars" instance=ExtResource( 9 )]
+margin_top = 25.0
+margin_right = 203.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" parent="Control/AllElements/Bars/Stamina" index="0"]
+margin_right = 18.0
+margin_bottom = 21.0
+
+[node name="TextureProgress" parent="Control/AllElements/Bars/Stamina" index="1"]
+margin_left = 22.0
+margin_right = 203.0
+margin_bottom = 21.0
+
+[node name="Resources" type="HBoxContainer" parent="Control/AllElements"]
+margin_left = 628.0
+margin_right = 876.0
+margin_bottom = 46.0
+
+[node name="WaterCounter" parent="Control/AllElements/Resources" instance=ExtResource( 4 )]
+margin_right = 80.0
+
+[node name="HBoxContainer" parent="Control/AllElements/Resources/WaterCounter" index="0"]
+margin_right = 73.0
+
+[node name="Label" parent="Control/AllElements/Resources/WaterCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/AllElements/Resources/WaterCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 3 )
+
+[node name="CraftMatCounter" parent="Control/AllElements/Resources" instance=ExtResource( 4 )]
+margin_left = 84.0
+margin_right = 164.0
+
+[node name="HBoxContainer" parent="Control/AllElements/Resources/CraftMatCounter" index="0"]
+margin_right = 73.0
+
+[node name="Label" parent="Control/AllElements/Resources/CraftMatCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/AllElements/Resources/CraftMatCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 6 )
+
+[node name="EnergyCounter" parent="Control/AllElements/Resources" instance=ExtResource( 4 )]
+margin_left = 168.0
+margin_right = 248.0
+
+[node name="HBoxContainer" parent="Control/AllElements/Resources/EnergyCounter" index="0"]
+margin_right = 73.0
+
+[node name="Label" parent="Control/AllElements/Resources/EnergyCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/AllElements/Resources/EnergyCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
 texture = ExtResource( 7 )
 
-[editable path="Control/HBoxContainer/WaterCounter"]
-[editable path="Control/HBoxContainer/CraftMatCounter"]
-[editable path="Control/HBoxContainer/EnergyCounter"]
-[editable path="Control/HBoxContainer/SeedsCounter"]
+[connection signal="pressed" from="Control/AllElements/Other/Inventory" to="." method="_on_Inventory_pressed"]
+[connection signal="pressed" from="Control/AllElements/Other/Skills" to="." method="_on_Skills_pressed"]
+
+[editable path="Control/AllElements/Other/SeedsCounter"]
+[editable path="Control/AllElements/Bars/Health"]
+[editable path="Control/AllElements/Bars/Stamina"]
+[editable path="Control/AllElements/Resources/WaterCounter"]
+[editable path="Control/AllElements/Resources/CraftMatCounter"]
+[editable path="Control/AllElements/Resources/EnergyCounter"]

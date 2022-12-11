@@ -165,7 +165,8 @@ func _update_cam():
 	cam_move_direction = Vector2.ZERO
 
 	mouse_border["top"] = mouse_pos.y < screen_size_pan_margins
-	mouse_border["bottom"] = mouse_pos.y > screen_size.y - screen_size_pan_margins
+	# TODO: Find a solution to harmonize both HUD buttons and pan
+	mouse_border["bottom"] = ((mouse_pos.y > screen_size.y - screen_size_pan_margins) && (mouse_pos.x > screen_size_pan_margins + (screen_size.x/2)))
 	mouse_border["left"] = mouse_pos.x < screen_size_pan_margins
 	mouse_border["right"] = mouse_pos.x > screen_size.x - screen_size_pan_margins
 
