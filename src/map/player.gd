@@ -33,7 +33,11 @@ var is_moving_cache = false
 var total_walked_distance = 0
 var walked_distance_step = 0
 
+var mouse_pos = Vector2.ZERO
+var cam_move_direction = Vector2.ZERO
 var mouse_is_on_window = false
+var mouse_exit_menu_cooldown = false
+var mouse_border = {"top": false, "bottom": false, "left": false, "right": false}
 
 var current_health = TOTAL_HEALTH setget set_health
 var current_stamina = TOTAL_STAMINA setget set_stamina
@@ -53,7 +57,9 @@ func _ready() -> void:
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
+	_v = EventManager.connect("pop_menu", self, "_on_pop_menu")
 
+# called by the engine
 func _notification(what):
 	match what:
 		NOTIFICATION_WM_MOUSE_EXIT:
@@ -77,7 +83,6 @@ func _physics_process(_delta: float) -> void:
 	is_moving = not move_direction.is_equal_approx(Vector2.ZERO)
 	
 	_update_visuals()
-	
 	_update_cam()
 
 	if is_moving and not is_moving_cache and _cam_anchor.position != init_cam_pos:
@@ -156,22 +161,32 @@ func _update_visuals():
 
 # cam funcs
 func _update_cam():
-	var mouse_pos = get_viewport().get_mouse_position()
-	var cam_move_direction = Vector2.ZERO
-	
+	mouse_pos = get_viewport().get_mouse_position()
 	cam_move_direction = Vector2.ZERO
-	if mouse_pos.x > screen_size.x - screen_size_pan_margins:
-		cam_move_direction.x += 1
-	if mouse_pos.x < screen_size_pan_margins:
-		cam_move_direction.x -= 1
-	if mouse_pos.y > screen_size.y - screen_size_pan_margins:
-		cam_move_direction.y += 1
-	if mouse_pos.y < screen_size_pan_margins:
-		cam_move_direction.y -= 1
-	
-	if mouse_is_on_window && not is_moving:
-		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
 
+	mouse_border["top"] = mouse_pos.y < screen_size_pan_margins
+	mouse_border["bottom"] = mouse_pos.y > screen_size.y - screen_size_pan_margins
+	mouse_border["left"] = mouse_pos.x < screen_size_pan_margins
+	mouse_border["right"] = mouse_pos.x > screen_size.x - screen_size_pan_margins
+
+	if mouse_exit_menu_cooldown:
+		if !mouse_border["top"] && !mouse_border["bottom"] && !mouse_border["left"] && !mouse_border["right"]:
+			mouse_exit_menu_cooldown = false
+	else:
+		if mouse_border["right"]:
+			cam_move_direction.x += 1
+		elif mouse_border["left"]:
+			cam_move_direction.x -= 1
+	
+		if mouse_border["bottom"]:
+			cam_move_direction.y += 1
+		elif mouse_border["top"]:
+			cam_move_direction.y -= 1
+
+		if mouse_is_on_window && not is_moving:
+			_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+	
+	
 func _reset_cam_pos():
 	_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	_cam_tween.start()
@@ -188,3 +203,6 @@ func _on_item_used(item_data : Item) -> void:
 
 func _on_disaster_damage(damage):
 	change_health(-damage)
+
+func _on_pop_menu():
+	mouse_exit_menu_cooldown = true
