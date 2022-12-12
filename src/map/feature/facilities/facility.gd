@@ -45,6 +45,7 @@ func _physics_process(_delta: float) -> void:
 	# this is done so that the tooltip's scale isn't affected by perspective warping, only the position
 	# still don't know what's better, add Tootip as child of Sprite instead to warp scale as well
 	tooltip.position = sprite.position + Vector2(0, -32) * sprite.scale
+	healthbar_anchor.position = sprite.position + Vector2(0, 16) * sprite.scale
 
 
 # update facility stats
@@ -94,6 +95,11 @@ func get_status():
 		if products[p] >= get_max_prod():
 			return Status.FULL
 	return Status.OK
+
+
+func _update_healthbar() -> void:
+	healthbar.max_value = get_max_health()
+	healthbar.value = health
 
 
 # --- || Get Stats || ---
@@ -147,8 +153,12 @@ func repair(amount):
 	health = clamp(health + amount, 0.0, get_max_health())
 	if health >= get_max_health():
 		_is_destroyed = false
-	elif health <= 0.0:
-		_is_destroyed = true
+		healthbar_anchor.visible = false
+	else:
+		healthbar_anchor.visible = true
+		if health <= 0.0:
+			_is_destroyed = true
+	_update_healthbar()
 
 
 func refuel(amount, resource):
@@ -165,6 +175,7 @@ func collect(resource):
 
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+	tooltip.visible = false
 
 
 func mouse_entered() -> void:

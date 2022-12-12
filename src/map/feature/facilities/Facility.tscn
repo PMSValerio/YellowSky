@@ -101,7 +101,7 @@ anims/workshop_start = SubResource( 5 )
 anims/wrecked_start = SubResource( 3 )
 
 [node name="Node2D" type="Node2D" parent="."]
-visible = false
+position = Vector2( 0, 32 )
 
 [node name="ProgressBar" type="ProgressBar" parent="Node2D"]
 anchor_left = 0.5
