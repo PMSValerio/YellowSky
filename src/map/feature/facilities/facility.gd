@@ -63,6 +63,7 @@ func _tick() -> void:
 	
 		if tooltip.visible:
 			tooltip.update_items(self)
+	healthbar_anchor.visible = sprite.visible and health < get_max_health()
 
 
 # update state according to operation costs
@@ -153,9 +154,7 @@ func repair(amount):
 	health = clamp(health + amount, 0.0, get_max_health())
 	if health >= get_max_health():
 		_is_destroyed = false
-		healthbar_anchor.visible = false
 	else:
-		healthbar_anchor.visible = true
 		if health <= 0.0:
 			_is_destroyed = true
 	_update_healthbar()
