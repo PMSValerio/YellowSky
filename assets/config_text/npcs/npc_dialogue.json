@@ -1,7 +1,7 @@
 {
     "settlement1" : {
         "NPC" : {
-            "Name" : "Dead Guy:", 
+            "Name" : "Rusty:", 
             "Branches" : {
                 "0" : [
                     "Hello there mate, pleasure to meet ya!", 
@@ -14,7 +14,7 @@
                     "End"
                 ],
                 "2" : [
-                    "Well that's a real shame aint it. Guess we'll see each other around then. Take care!", 
+                    "Well that's a real shame, ain't it. Guess we'll see each other around, then. Take care!", 
                     "End"
                 ]
             } 
