@@ -10,9 +10,11 @@ enum Status {
 	OK, # operating normally
 }
 
-onready var tooltip = $Tooltip
+onready var tooltip = $FacilityTooltip
 onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
+onready var healthbar_anchor = $Node2D
+onready var healthbar = $Node2D/ProgressBar
 
 var facility_type : FacilityType = null
 
@@ -43,6 +45,7 @@ func _physics_process(_delta: float) -> void:
 	# this is done so that the tooltip's scale isn't affected by perspective warping, only the position
 	# still don't know what's better, add Tootip as child of Sprite instead to warp scale as well
 	tooltip.position = sprite.position + Vector2(0, -32) * sprite.scale
+	healthbar_anchor.position = sprite.position + Vector2(0, 16) * sprite.scale
 
 
 # update facility stats
@@ -58,13 +61,9 @@ func _tick() -> void:
 					print("Facility full")
 					pass # alert facility full
 	
-		var dict = fuels.duplicate()
-		dict["stored"] = products[products.keys()[0]] if products.size() > 0 else ""
-		dict["health"] = health
-		tooltip.update_items(dict)
-	
-	# TODO: remove
-	tooltip.visible = true
+		if tooltip.visible:
+			tooltip.update_items(self)
+	healthbar_anchor.visible = sprite.visible and health < get_max_health()
 
 
 # update state according to operation costs
@@ -97,6 +96,11 @@ func get_status():
 		if products[p] >= get_max_prod():
 			return Status.FULL
 	return Status.OK
+
+
+func _update_healthbar() -> void:
+	healthbar.max_value = get_max_health()
+	healthbar.value = health
 
 
 # --- || Get Stats || ---
@@ -150,22 +154,38 @@ func repair(amount):
 	health = clamp(health + amount, 0.0, get_max_health())
 	if health >= get_max_health():
 		_is_destroyed = false
-	elif health <= 0.0:
-		_is_destroyed = true
+	else:
+		if health <= 0.0:
+			_is_destroyed = true
+	_update_healthbar()
 
 
 func refuel(amount, resource):
 	if resource in fuels.keys():
 		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, get_max_fuel())
+		tooltip.update_items(self)
 
 
 func collect(resource):
 	if resource in products.keys():
 		products[resource] = 0.0 
+		tooltip.update_items(self)
 
 
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
+	tooltip.visible = false
+
+
+func mouse_entered() -> void:
+	var status = get_status()
+	if sprite.visible and status in [Status.OK, Status.FULL, Status.NO_FUEL, Status.OFF]:
+		tooltip.visible = true
+		tooltip.update_items(self)
+
+
+func mouse_exited() -> void:
+	tooltip.visible = false
 
 
 func _on_disaster_damage(damage):

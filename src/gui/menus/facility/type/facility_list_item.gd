@@ -10,7 +10,7 @@ func set_state(type_data, cost):
 	$HBoxContainer/ProductIcon.texture = data.icon_texture
 	$HBoxContainer/Name.text = data.type_name
 	$HBoxContainer/HBoxContainer/Cost.text = str(cost)
-	$HBoxContainer/HBoxContainer/ResourceIcon.init(Global.FacilityResources.MATERIALS, 32)
+	$HBoxContainer/HBoxContainer/ResourceIcon.init(Global.FacilityResources.MATERIALS, 16)
 
 
 func _on_Button_pressed() -> void:

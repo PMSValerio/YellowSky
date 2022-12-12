@@ -1,9 +1,26 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/map/feature/tooltip.gd" type="Script" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+onready var item_list := $PanelContainer/VBoxContainer
+
+
+# generic function, receives a dictionary of values to display on tooltip; override if necessary
+func update_items(items : Dictionary) -> void:
+	for child in item_list.get_children():
+		child.queue_free()
+	
+	for key in items.keys():
+		var label = Label.new()
+		label.clip_text = true
+		label.text = str(key) + \": \" + str(items[key])
+		item_list.add_child(label)
+"
 
 [node name="Tooltip" type="Node2D"]
-script = ExtResource( 1 )
+script = SubResource( 1 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5
@@ -18,9 +35,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 105.0
-margin_bottom = 21.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -18,7 +18,7 @@ onready var background_layer = get_node(background_layer_path)
 
 var total_elapsed_time = 0
 var _elapsed = 0
-var _next_interval = 1
+var _next_interval = -1
 var _next_disaster = Global.Disasters.TORNADO
 
 var disaster_node = null
@@ -33,6 +33,11 @@ func _process(delta: float) -> void:
 		if _elapsed >= _next_interval:
 			_elapsed = 0
 			_process_disaster(_next_disaster)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		_next_interval = 1
 
 
 func _process_disaster(disaster_id):

@@ -64,10 +64,10 @@ enum Text {
 
 var resource_icons = {
 	FacilityResources.NONE: null,
-	FacilityResources.FOOD: preload("res://assets/gfx/HUD/waterIcon.png"),
-	FacilityResources.WATER: preload("res://assets/gfx/HUD/waterIcon.png"),
-	FacilityResources.ENERGY: preload("res://assets/gfx/HUD/energyIcon.png"),
-	FacilityResources.MATERIALS: preload("res://assets/gfx/HUD/craftMatIcons.png")
+	FacilityResources.FOOD: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
+	FacilityResources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
+	FacilityResources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
+	FacilityResources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png")
 }
 
 var resource_names = {
@@ -81,6 +81,8 @@ var resource_names = {
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
+
+const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
 
@@ -134,9 +136,11 @@ func _build_single_facility(data):
 	for str_f in data["fuel_types"]:
 		fuel_types.append(FacilityResources[str_f])
 	var prod_types = []
+	var portrait = BASE_CONFIG_ASSETS_PATH + data["portrait_texture"]
+	var icon = BASE_CONFIG_ASSETS_PATH + data["icon_texture"]
 	for str_p in data["product_types"]:
 		prod_types.append(FacilityResources[str_p])
-	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], data["portrait_texture"], data["icon_texture"])
+	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
 	facility.init_stats(data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
 

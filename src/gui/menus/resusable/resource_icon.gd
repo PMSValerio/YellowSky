@@ -23,3 +23,7 @@ func init_manual(icon : Texture, _text : String, size) -> void:
 	text = _text
 	if tooltip != null:
 		tooltip.hint_tooltip = _text
+
+
+func clear() -> void:
+	init_manual(null, "", 32)

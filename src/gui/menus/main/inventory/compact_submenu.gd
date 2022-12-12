@@ -8,7 +8,6 @@ onready var water_tab = $VBoxContainer/ResourceTabs/WaterButton
 onready var energy_tab = $VBoxContainer/ResourceTabs/EnergyButton
 onready var material_tab = $VBoxContainer/ResourceTabs/MaterialButton
 
-onready var compact_transaction_value = $VBoxContainer/TransactionValue
 onready var compact_item_list = $VBoxContainer/MarginContainer/CompactItems
 
 
@@ -31,7 +30,6 @@ func toggle_on(rec_id):
 	resource_id = rec_id
 	
 	visible = true
-	compact_transaction_value.text = str(ResourceManager.get_resource(resource_id))
 	
 	var ix = 0
 	for item_id in InventoryManager.get_all_compact_ids(resource_id):
@@ -61,6 +59,10 @@ func toggle_on(rec_id):
 		Global.FacilityResources.MATERIALS:
 			material_tab.pressed = true
 			material_tab.button_mask = 0
+	
+	water_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.WATER))
+	energy_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
+	material_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
 
 
 func _on_compact_item_pressed(button : CompactTransactionSlot) -> void:

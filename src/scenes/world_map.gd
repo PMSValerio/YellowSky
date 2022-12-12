@@ -24,6 +24,7 @@ onready var mountains = $Entities/Mountains
 
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
+var _mouse_hex_tile = Vector2(-1, -1)
 
 var _rng = RandomNumberGenerator.new()
 var map_grid = []
@@ -69,6 +70,20 @@ func _physics_process(_delta: float) -> void:
 		cache_hex_center = hex_center
 		var interactable = _is_feature(tile_entity)
 		player._on_World_tile_entered(interactable)
+	
+	var last_mouse_tile = _mouse_hex_tile
+	var screen_pos = MapUtils.get_warped_mouse_position()
+	_mouse_hex_tile = tilemap.get_global_transform().affine_inverse() * (tilemap.get_viewport_transform().affine_inverse() * screen_pos)
+	_mouse_hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(_mouse_hex_tile))
+	var in_bounds_new = 0 <= _mouse_hex_tile.x and _mouse_hex_tile.x < map_grid.size() and 0 <= _mouse_hex_tile.y and _mouse_hex_tile.y < map_grid[0].size()
+	var in_bounds_last = 0 <= last_mouse_tile.x and last_mouse_tile.x < map_grid.size() and 0 <= last_mouse_tile.y and last_mouse_tile.y < map_grid[0].size()
+	if last_mouse_tile != _mouse_hex_tile and in_bounds_last and in_bounds_new:
+		var last_entity = map_grid[last_mouse_tile.x][last_mouse_tile.y]
+		var new_entity = map_grid[_mouse_hex_tile.x][_mouse_hex_tile.y]
+		if _is_feature(last_entity):
+			last_entity.mouse_exited()
+		if _is_feature(new_entity):
+			new_entity.mouse_entered()
 
 
 func _get_player_position():

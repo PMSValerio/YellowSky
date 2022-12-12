@@ -28,7 +28,8 @@ func _ready():
 func _build_single_item(data):
 	var item = Item.new()
 	var type = Global.Items[data["type"]]
-	item.init(data["item_id"], type, data["texture"], data["value"], data["stat"], data["usable"])
+	var texture = Global.BASE_CONFIG_ASSETS_PATH + data["texture"]
+	item.init(data["item_id"], type, texture, data["value"], data["stat"], data["usable"])
 	item.init_flavour(data["name"], data["flavour_text"])
 	if type == Global.Items.RESOURCES:
 		item.subtype = Global.FacilityResources[data["subtype"]]

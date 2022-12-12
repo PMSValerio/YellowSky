@@ -14,16 +14,16 @@ onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/Fl
 
 # --- || Stat Screen Elements || ---
 onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel
-onready var stats_container = $MarginContainer/HBoxContainer/StatsContainer
+onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 
 # Integrity Elements
-onready var health_details = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/IntegrityRow/VBoxContainer2/HealthDetails
+onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/HealthDetails
 
 # Resources Elements
-onready var fuel_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
-onready var prod_list = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ProdList
-onready var cons_rate_label = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer/ConsumptionRate
-onready var prod_rate_label = $MarginContainer/HBoxContainer/StatsContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer/ProductionRate
+onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
+onready var prod_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ProdList
+onready var cons_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer/ConsumptionRate
+onready var prod_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer/ProductionRate
 
 onready var resource_slider = $ResourceSlider
 

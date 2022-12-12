@@ -6,20 +6,21 @@ const TMP_COST = 100 # TODO
 
 signal type_chosen
 
-onready var confirm_button = $MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/ConfirmButton
-onready var type_list = $MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/TypeList
-onready var type_name = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/Name
-onready var type_art = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/Art
-onready var stats = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer
+onready var confirm_button = $MarginContainer/HBoxContainer/VBoxContainer/ConfirmButton
+onready var type_list = $MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/TypeList
+onready var name_panel = $MarginContainer/HBoxContainer/TypeDetail/PanelContainer
+onready var type_name = $MarginContainer/HBoxContainer/TypeDetail/PanelContainer/Name
+onready var type_art = $MarginContainer/HBoxContainer/TypeDetail/Art
+onready var stats = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer
 
-onready var max_health = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/BaseStats/VBoxContainer/PanelContainer/Integrity
-onready var max_fuel = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/BaseStats/VBoxContainer/PanelContainer2/MaxFuel
-onready var max_prod = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/BaseStats/VBoxContainer/PanelContainer3/MaxProd
+onready var max_health = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer2/PanelContainer/Integrity
+onready var max_fuel = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer2/PanelContainer2/MaxFuel
+onready var max_prod = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer2/PanelContainer3/MaxProd
 
-onready var cons_rate = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/OperationStats/VBoxContainer/PanelContainer/ConsumptionRate
-onready var fuel_list = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/OperationStats/VBoxContainer/FuelList
-onready var prod_rate = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/OperationStats/VBoxContainer/PanelContainer2/ProductionRate
-onready var prod_list = $MarginContainer/PanelContainer/HBoxContainer/TypeDetail/HBoxContainer/OperationStats/VBoxContainer/ProdList
+onready var cons_rate = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer/PanelContainer/ConsumptionRate
+onready var fuel_list = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer/FuelList
+onready var prod_rate = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer/PanelContainer2/ProductionRate
+onready var prod_list = $MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer/ProdList
 
 var facility_entity : Facility = null # the actual facility node
 
@@ -47,10 +48,12 @@ func set_context(context):
 func _set_type_details(type : FacilityType):
 	if type == null:
 		type_name.text = ""
+		name_panel.visible = false
 		type_art.texture = null
 		stats.visible = false
 	else:
 		type_name.text = type.type_name
+		name_panel.visible = true
 		type_art.texture = type.portrait_texture
 		stats.visible = true
 	
@@ -84,9 +87,6 @@ func _set_type_details(type : FacilityType):
 			else:
 				c.visible = false
 			p_ix += 1
-#		# TODO: change
-#		prod_list.get_child(0).visible = true
-#		prod_list.get_child(0).init(type.product_type, 32)
 
 
 func _on_type_select(type) -> void:

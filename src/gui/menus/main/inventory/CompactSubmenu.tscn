@@ -2,9 +2,9 @@
 
 [ext_resource path="res://src/gui/menus/main/inventory/CompactTransactionSlot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/inventory/compact_submenu.gd" type="Script" id=2]
-[ext_resource path="res://assets/gfx/HUD/waterIcon.png" type="Texture" id=3]
-[ext_resource path="res://assets/gfx/HUD/energyIcon.png" type="Texture" id=4]
-[ext_resource path="res://assets/gfx/HUD/craftMatIcons.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/waterIcon.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=5]
 
 [node name="CompactSubmenu" type="PanelContainer"]
 anchor_left = 0.5
@@ -20,18 +20,18 @@ script = ExtResource( 2 )
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 349.0
-margin_bottom = 423.0
+margin_right = 359.0
+margin_bottom = 477.0
 
 [node name="ResourceTabs" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 342.0
+margin_right = 352.0
 margin_bottom = 64.0
 custom_constants/separation = 12
 alignment = 1
 
 [node name="WaterButton" type="Button" parent="VBoxContainer/ResourceTabs"]
-margin_left = 63.0
-margin_right = 127.0
+margin_left = 68.0
+margin_right = 132.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 toggle_mode = true
@@ -39,8 +39,8 @@ icon = ExtResource( 3 )
 expand_icon = true
 
 [node name="EnergyButton" type="Button" parent="VBoxContainer/ResourceTabs"]
-margin_left = 139.0
-margin_right = 203.0
+margin_left = 144.0
+margin_right = 208.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 toggle_mode = true
@@ -48,24 +48,18 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="MaterialButton" type="Button" parent="VBoxContainer/ResourceTabs"]
-margin_left = 215.0
-margin_right = 279.0
+margin_left = 220.0
+margin_right = 284.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 toggle_mode = true
 icon = ExtResource( 5 )
 expand_icon = true
 
-[node name="TransactionValue" type="Label" parent="VBoxContainer"]
-margin_top = 68.0
-margin_right = 342.0
-margin_bottom = 80.0
-align = 1
-
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 84.0
-margin_right = 342.0
-margin_bottom = 384.0
+margin_top = 68.0
+margin_right = 352.0
+margin_bottom = 448.0
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
@@ -74,34 +68,31 @@ custom_constants/margin_bottom = 16
 [node name="CompactItems" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 326.0
-margin_bottom = 284.0
+margin_right = 336.0
+margin_bottom = 364.0
 
 [node name="Compact0" parent="VBoxContainer/MarginContainer/CompactItems" instance=ExtResource( 1 )]
-margin_right = 310.0
+margin_bottom = 84.0
 
 [node name="CompactTransactionSlot1" parent="VBoxContainer/MarginContainer/CompactItems" instance=ExtResource( 1 )]
-margin_top = 68.0
-margin_right = 310.0
-margin_bottom = 132.0
+margin_top = 88.0
+margin_bottom = 172.0
 
 [node name="CompactTransactionSlot2" parent="VBoxContainer/MarginContainer/CompactItems" instance=ExtResource( 1 )]
-margin_top = 136.0
-margin_right = 310.0
-margin_bottom = 200.0
+margin_top = 176.0
+margin_bottom = 260.0
 
 [node name="CompactTransactionSlot3" parent="VBoxContainer/MarginContainer/CompactItems" instance=ExtResource( 1 )]
-margin_top = 204.0
-margin_right = 310.0
-margin_bottom = 268.0
+margin_top = 264.0
+margin_bottom = 348.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 388.0
-margin_right = 342.0
-margin_bottom = 406.0
+margin_top = 452.0
+margin_right = 352.0
+margin_bottom = 470.0
 
 [node name="CancelCompactButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 342.0
+margin_right = 352.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 text = "Cancel"

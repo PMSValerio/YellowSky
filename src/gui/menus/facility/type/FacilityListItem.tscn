@@ -23,14 +23,15 @@ mouse_filter = 2
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
 expand = true
 stretch_mode = 6
 
 [node name="Name" type="Label" parent="HBoxContainer"]
 margin_left = 68.0
-margin_top = 25.0
+margin_top = 26.0
 margin_right = 536.0
-margin_bottom = 39.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
@@ -42,12 +43,13 @@ mouse_filter = 2
 [node name="ResourceIcon" parent="HBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_right = 0.0
 margin_bottom = 64.0
+mouse_filter = 2
 
 [node name="Cost" type="Label" parent="HBoxContainer/HBoxContainer"]
 margin_left = 4.0
-margin_top = 25.0
+margin_top = 26.0
 margin_right = 100.0
-margin_bottom = 39.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 96, 0 )
 clip_text = true
 
