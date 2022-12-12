@@ -100,6 +100,7 @@ InventoryManager="*res://src/autoload/InventoryManager.gd"
 
 [display]
 
+mouse_cursor/custom_image="res://assets/gfx/ui_elements/pointer.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

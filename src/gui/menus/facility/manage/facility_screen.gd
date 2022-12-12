@@ -5,6 +5,9 @@ signal want_rebuild
 
 var stat_panel_scene = preload("res://src/gui/menus/facility/manage/StatDetails.tscn")
 
+var on_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_on.png")
+var off_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_off.png")
+
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
@@ -18,6 +21,7 @@ onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 
 # Integrity Elements
 onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/HealthDetails
+onready var onoff_button = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/OnOffButton
 
 # Resources Elements
 onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
@@ -96,6 +100,7 @@ func _update_status():
 	var status = facility_entity.get_status()
 	
 	status_indicator.text = Facility.Status.keys()[status]
+	onoff_button.icon = on_icon if facility_entity.running else off_icon
 	
 	# TODO: set appropriate colours and warnings
 
@@ -178,5 +183,5 @@ func _on_ResourceSlider_value_chosen(delta_value) -> void:
 	slider_mode = 0
 
 
-func _on_OnOffButton_pressed() -> void:
-	_toggle_on_off(not facility_entity.running)
+func _on_OnOffButton_toggled(button_pressed: bool) -> void:
+	_toggle_on_off(button_pressed)

@@ -1,8 +1,35 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://assets/fonts/base_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui_styles/inner_panel.tres" type="StyleBox" id=2]
 [ext_resource path="res://assets/gfx/ui_elements/tabcontainer_panels.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/ui_elements/buttons/button_pressed.png" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/ui_elements/buttons/button_normal.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/buttons/button_hover.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 40, 20 )
+margin_left = 4.0
+margin_right = 5.0
+margin_top = 4.0
+margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 39, 19 )
+margin_left = 4.0
+margin_right = 5.0
+margin_top = 4.0
+margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 38, 17 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 3 )
@@ -39,8 +66,14 @@ expand_margin_bottom = 3.0
 
 [resource]
 default_font = ExtResource( 1 )
+Button/styles/hover = SubResource( 5 )
+Button/styles/normal = SubResource( 6 )
+Button/styles/pressed = SubResource( 7 )
 PanelContainer/styles/panel = ExtResource( 2 )
 TabContainer/styles/panel = SubResource( 1 )
 TabContainer/styles/tab_bg = SubResource( 3 )
 TabContainer/styles/tab_disabled = SubResource( 4 )
 TabContainer/styles/tab_fg = SubResource( 2 )
+Tabs/styles/tab_bg = SubResource( 3 )
+Tabs/styles/tab_disabled = SubResource( 4 )
+Tabs/styles/tab_fg = SubResource( 2 )
