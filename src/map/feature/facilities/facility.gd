@@ -10,9 +10,11 @@ enum Status {
 	OK, # operating normally
 }
 
-onready var tooltip = $Tooltip
+onready var tooltip = $FacilityTooltip
 onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
+onready var healthbar_anchor = $Node2D
+onready var healthbar = $Node2D/ProgressBar
 
 var facility_type : FacilityType = null
 
@@ -58,10 +60,8 @@ func _tick() -> void:
 					print("Facility full")
 					pass # alert facility full
 	
-		var dict = fuels.duplicate()
-		dict["stored"] = products[products.keys()[0]] if products.size() > 0 else ""
-		dict["health"] = health
-		tooltip.update_items(dict)
+		if tooltip.visible:
+			tooltip.update_items(self)
 
 
 # update state according to operation costs
@@ -154,11 +154,13 @@ func repair(amount):
 func refuel(amount, resource):
 	if resource in fuels.keys():
 		fuels[resource] = clamp(fuels[resource], fuels[resource] + amount, get_max_fuel())
+		tooltip.update_items(self)
 
 
 func collect(resource):
 	if resource in products.keys():
 		products[resource] = 0.0 
+		tooltip.update_items(self)
 
 
 func interact() -> void:
@@ -166,16 +168,15 @@ func interact() -> void:
 
 
 func mouse_entered() -> void:
-	tooltip.visible = true
+	var status = get_status()
+	if sprite.visible and status in [Status.OK, Status.FULL, Status.NO_FUEL, Status.OFF]:
+		tooltip.visible = true
+		tooltip.update_items(self)
 
 
 func mouse_exited() -> void:
-	$TooltipTimer.start()
+	tooltip.visible = false
 
 
 func _on_disaster_damage(damage):
 	repair(-damage)
-
-
-func _on_TooltipTimer_timeout() -> void:
-	tooltip.visible = false

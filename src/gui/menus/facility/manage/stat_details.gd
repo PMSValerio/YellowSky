@@ -26,7 +26,7 @@ func init(texture, tool_tip, current_amount, max_amount, action_name, siz = 64) 
 	size = siz
 
 
-func init_resource(rec_id, current_amount, max_amount, action_name, siz = 64) -> void:
+func init_resource(rec_id, current_amount, max_amount, action_name, siz = 48) -> void:
 	tex = Global.resource_icons[rec_id]
 	tooltip = Global.resource_names[rec_id]
 	current = current_amount

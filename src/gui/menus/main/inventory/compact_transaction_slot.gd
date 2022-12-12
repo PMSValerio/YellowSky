@@ -3,10 +3,10 @@ class_name CompactTransactionSlot
 
 onready var icon_texture = $MarginContainer/HBoxContainer/Icon
 onready var name_label = $MarginContainer/HBoxContainer/VBoxContainer/Name
-onready var stat = $MarginContainer/HBoxContainer/VBoxContainer/GridContainer/Stat
-onready var resource_icon = $MarginContainer/HBoxContainer/VBoxContainer/GridContainer/ResourceIcon
-onready var cost_label = $MarginContainer/HBoxContainer/VBoxContainer/GridContainer/Cost
-onready var value = $MarginContainer/HBoxContainer/VBoxContainer/GridContainer/Value
+onready var stat = $MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/GridContainer/Stat
+onready var resource_icon = $MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/GridContainer/ResourceIcon
+onready var cost_label = $MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Cost
+onready var value = $MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/GridContainer/Value
 
 var data : Item = null
 var cost

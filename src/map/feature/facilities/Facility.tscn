@@ -3,8 +3,8 @@
 [ext_resource path="res://src/map/feature/facilities/facility.gd" type="Script" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/entities/facilities.png" type="Texture" id=3]
-[ext_resource path="res://src/map/feature/Tooltip.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/shaders/dim_fade.gdshader" type="Shader" id=5]
+[ext_resource path="res://src/map/feature/facilities/FacilityTooltip.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 5 )
@@ -91,7 +91,7 @@ script = ExtResource( 2 )
 BASE_SCALE = 3.0
 UPDATE_Z = true
 
-[node name="Tooltip" parent="." instance=ExtResource( 4 )]
+[node name="FacilityTooltip" parent="." instance=ExtResource( 6 )]
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -100,7 +100,16 @@ anims/coal_plant_start = SubResource( 2 )
 anims/workshop_start = SubResource( 5 )
 anims/wrecked_start = SubResource( 3 )
 
-[node name="TooltipTimer" type="Timer" parent="."]
-one_shot = true
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
 
-[connection signal="timeout" from="TooltipTimer" to="." method="_on_TooltipTimer_timeout"]
+[node name="ProgressBar" type="ProgressBar" parent="Node2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -5.0
+margin_right = 32.0
+margin_bottom = 5.0
+percent_visible = false
