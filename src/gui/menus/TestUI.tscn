@@ -20,29 +20,38 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 952.0
 margin_bottom = 464.0
-custom_constants/margin_right = 16
-custom_constants/margin_top = 16
-custom_constants/margin_left = 16
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
 custom_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 928.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 912.0
 margin_bottom = 440.0
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_right = 912.0
-margin_bottom = 388.0
+margin_right = 880.0
+margin_bottom = 372.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Tutorial text goes here."
+text = "Welcome to the Yellow Sky alpha!
+
+This game focuses on resource management and exploration of a post-apocalyptic wasteland, set 200 years in the future. Mankind ignored scientists' warnings regarding the environment, and waged war for ever dwindling resources. Nuclear fallout and chemical gases gathered in the atmosphere, dyeing the sky a perpetual, sickening yellow. 
+
+90% of the world's population was wiped out, but humans are ever resilient and endure in the form of small groups and settlements.
+
+However, natural disasters ravage the earth at a near constant, coupled with other dangers. You are the sole survivor of one such disaster which destroyed your own settlement. It's up to you to forge ahead and do something good for the world. One person can make a difference.
+
+Use WASD to move and E to interact with objects of interest. Hovering your cursor over most things reveals tooltips."
+autowrap = true
 
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_left = 424.0
-margin_top = 392.0
-margin_right = 488.0
-margin_bottom = 424.0
+margin_left = 408.0
+margin_top = 376.0
+margin_right = 472.0
+margin_bottom = 408.0
 rect_min_size = Vector2( 64, 32 )
 size_flags_horizontal = 4
 text = "Exit"

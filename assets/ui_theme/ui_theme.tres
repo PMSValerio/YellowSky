@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=2]
+[gd_resource type="Theme" load_steps=25 format=2]
 
 [ext_resource path="res://assets/fonts/base_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui_styles/inner_panel.tres" type="StyleBox" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_back.png" type="Texture" id=7]
 [ext_resource path="res://assets/gfx/ui_elements/range/stamina_bar_fill.png" type="Texture" id=8]
 [ext_resource path="res://assets/gfx/ui_elements/range/slider.png" type="Texture" id=9]
+[ext_resource path="res://assets/gfx/ui_elements/range/slider_bar_9p.png" type="Texture" id=10]
+[ext_resource path="res://assets/gfx/ui_elements/range/slider_bar_fill.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 6 )
@@ -41,6 +43,22 @@ region = Rect2( 0, 0, 16, 32 )
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 9 )
 region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="StyleBoxTexture" id=13]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 15, 8 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 15, 8 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 7 )
@@ -90,6 +108,9 @@ Button/styles/normal = SubResource( 6 )
 Button/styles/pressed = SubResource( 7 )
 HSlider/icons/grabber = SubResource( 10 )
 HSlider/icons/grabber_highlight = SubResource( 11 )
+HSlider/styles/grabber_area = SubResource( 13 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = SubResource( 12 )
 PanelContainer/styles/panel = ExtResource( 2 )
 ProgressBar/styles/bg = SubResource( 8 )
 ProgressBar/styles/fg = SubResource( 9 )
