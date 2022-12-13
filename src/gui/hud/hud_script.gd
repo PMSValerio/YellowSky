@@ -3,7 +3,7 @@ extends CanvasLayer
 onready var health_bar_ref = $Control/MarginContainer/AllElements/Bars/Health/TextureProgress
 onready var stamina_bar_ref = $Control/MarginContainer/AllElements/Bars/Stamina/TextureProgress
 onready var water_counter_ref = $Control/MarginContainer/AllElements/Resources/WaterCounter/HBoxContainer/Label
-onready var scraps_counter_ref = $Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer/Label
+onready var materials_counter_ref = $Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer/Label
 onready var energy_counter_ref = $Control/MarginContainer/AllElements/Resources/EnergyCounter/HBoxContainer/Label
 onready var seeds_counter_ref = $Control/MarginContainer/AllElements/SeedsCounter/HBoxContainer/Label
 
