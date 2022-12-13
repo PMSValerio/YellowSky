@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=18 format=2]
 
 [ext_resource path="res://assets/fonts/base_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui_styles/inner_panel.tres" type="StyleBox" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/gfx/ui_elements/buttons/button_pressed.png" type="Texture" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/buttons/button_normal.png" type="Texture" id=5]
 [ext_resource path="res://assets/gfx/ui_elements/buttons/button_hover.png" type="Texture" id=6]
+[ext_resource path="res://assets/gfx/ui_elements/range/health_bar_back.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/ui_elements/range/stamina_bar_fill.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 6 )
@@ -30,6 +32,14 @@ margin_left = 4.0
 margin_right = 4.0
 margin_top = 4.0
 margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 168, 24 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 160, 16 )
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 3 )
@@ -70,6 +80,8 @@ Button/styles/hover = SubResource( 5 )
 Button/styles/normal = SubResource( 6 )
 Button/styles/pressed = SubResource( 7 )
 PanelContainer/styles/panel = ExtResource( 2 )
+ProgressBar/styles/bg = SubResource( 8 )
+ProgressBar/styles/fg = SubResource( 9 )
 TabContainer/styles/panel = SubResource( 1 )
 TabContainer/styles/tab_bg = SubResource( 3 )
 TabContainer/styles/tab_disabled = SubResource( 4 )

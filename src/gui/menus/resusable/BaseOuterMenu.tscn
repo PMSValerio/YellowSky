@@ -33,10 +33,10 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="ExitBtn" type="Button" parent="MarginContainer/PanelContainer"]
-margin_left = 900.0
+margin_left = 896.0
 margin_top = 16.0
 margin_right = 944.0
-margin_bottom = 32.0
+margin_bottom = 38.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "Exit"
