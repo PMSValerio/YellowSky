@@ -20,20 +20,20 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 952.0
 margin_bottom = 464.0
-custom_constants/margin_right = 32
-custom_constants/margin_top = 32
-custom_constants/margin_left = 32
+custom_constants/margin_right = 24
+custom_constants/margin_top = 24
+custom_constants/margin_left = 24
 custom_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-margin_left = 32.0
-margin_top = 32.0
-margin_right = 912.0
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 920.0
 margin_bottom = 440.0
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_right = 880.0
-margin_bottom = 372.0
+margin_right = 896.0
+margin_bottom = 380.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Welcome to the Yellow Sky alpha!
@@ -44,14 +44,18 @@ This game focuses on resource management and exploration of a post-apocalyptic w
 
 However, natural disasters ravage the earth at a near constant, coupled with other dangers. You are the sole survivor of one such disaster which destroyed your own settlement. It's up to you to forge ahead and do something good for the world. One person can make a difference.
 
+The red bar represents your health, which drains when you're hungry. The yellow bar represents your stamina, which drains when you move. Eat food to restore your stamina, or you'll go hungry!
+
+There are four resources in the game: Scrap, energy, water and seeds. Scrap is used for building, energy for powering machinery, water to produce food and seeds to spread greenery. Right now, you'll only be using scrap and energy.
+
 Use WASD to move and E to interact with objects of interest. Hovering your cursor over most things reveals tooltips."
 autowrap = true
 
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_left = 408.0
-margin_top = 376.0
-margin_right = 472.0
-margin_bottom = 408.0
+margin_left = 416.0
+margin_top = 384.0
+margin_right = 480.0
+margin_bottom = 416.0
 rect_min_size = Vector2( 64, 32 )
 size_flags_horizontal = 4
 text = "Exit"
