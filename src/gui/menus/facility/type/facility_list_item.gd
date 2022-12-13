@@ -5,11 +5,11 @@ signal pressed
 
 var data : FacilityType
 
-func set_state(type_data, cost):
+func set_state(type_data):
 	data = type_data
 	$HBoxContainer/ProductIcon.texture = data.icon_texture
 	$HBoxContainer/Name.text = data.type_name
-	$HBoxContainer/HBoxContainer/Cost.text = str(cost)
+	$HBoxContainer/HBoxContainer/Cost.text = str(data.build_cost)
 	$HBoxContainer/HBoxContainer/ResourceIcon.init(Global.FacilityResources.MATERIALS, 16)
 
 

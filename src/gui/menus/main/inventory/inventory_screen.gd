@@ -31,14 +31,12 @@ var _page_last_ix = -1 # the array index of the last item being shown in the cur
 var grid_category = Global.Items.RESOURCES # category being examined by the grid
 var inspected_slot : GridSlot = null # item currently highlighted in details panel
 
-onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
-
 
 func _ready() -> void:
-#	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
-#	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.ENERGY])
-#	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.FacilityResources.MATERIALS])
-	compact_button.connect("pressed", self, "_on_resource_pressed", [Global.FacilityResources.WATER])
+#	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.WATER])
+#	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.ENERGY])
+#	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.MATERIALS])
+	compact_button.connect("pressed", self, "_on_resource_pressed", [Global.Resources.WATER])
 	
 	category_tabs.add_tab("Resources")
 	category_tabs.add_tab("Food")
@@ -55,9 +53,9 @@ func set_context(_context):
 
 # set resources
 func _set_resources():
-	water_button.set_value(ResourceManager.get_resource(Global.FacilityResources.WATER))
-	energy_button.set_value(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
-	materials_button.set_value(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
+	water_button.set_value(ResourceManager.get_resource(Global.Resources.WATER))
+	energy_button.set_value(ResourceManager.get_resource(Global.Resources.ENERGY))
+	materials_button.set_value(ResourceManager.get_resource(Global.Resources.MATERIALS))
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards

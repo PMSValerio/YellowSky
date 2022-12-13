@@ -14,16 +14,13 @@ onready var compact_item_list = $VBoxContainer/MarginContainer/CompactItems
 var resource_id
 
 
-onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
-
-
 func _ready() -> void:
 	for button in compact_item_list.get_children():
 		button.connect("pressed", self, "_on_compact_item_pressed", [button])
 	
-	water_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.WATER])
-	energy_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.ENERGY])
-	material_tab.connect("pressed", self, "_on_tab_selected", [Global.FacilityResources.MATERIALS])
+	water_tab.connect("pressed", self, "_on_tab_selected", [Global.Resources.WATER])
+	energy_tab.connect("pressed", self, "_on_tab_selected", [Global.Resources.ENERGY])
+	material_tab.connect("pressed", self, "_on_tab_selected", [Global.Resources.MATERIALS])
 
 
 func toggle_on(rec_id):
@@ -50,19 +47,19 @@ func toggle_on(rec_id):
 	material_tab.pressed = false
 	material_tab.button_mask = BUTTON_MASK_LEFT
 	match rec_id:
-		Global.FacilityResources.WATER:
+		Global.Resources.WATER:
 			water_tab.pressed = true
 			water_tab.button_mask = 0
-		Global.FacilityResources.ENERGY:
+		Global.Resources.ENERGY:
 			energy_tab.pressed = true
 			energy_tab.button_mask = 0
-		Global.FacilityResources.MATERIALS:
+		Global.Resources.MATERIALS:
 			material_tab.pressed = true
 			material_tab.button_mask = 0
 	
-	water_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.WATER))
-	energy_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.ENERGY))
-	material_tab.text = str(ResourceManager.get_resource(Global.FacilityResources.MATERIALS))
+	water_tab.text = str(ResourceManager.get_resource(Global.Resources.WATER))
+	energy_tab.text = str(ResourceManager.get_resource(Global.Resources.ENERGY))
+	material_tab.text = str(ResourceManager.get_resource(Global.Resources.MATERIALS))
 
 
 func _on_compact_item_pressed(button : CompactTransactionSlot) -> void:

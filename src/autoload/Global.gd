@@ -19,6 +19,15 @@ enum Disasters {
 	AMOGEDDON,
 }
 
+enum Resources {
+	NONE,
+	WATER, 
+	MATERIALS,
+	ENERGY,
+	FOOD, # Maybe? 
+	SEEDS 
+}
+
 enum FacilityTypes {
 	WRECKED, # only used for unitialised facilities
 	
@@ -40,11 +49,10 @@ enum FacilityTypes {
 # all product types that can be produced by facilities
 enum FacilityResources {
 	NONE, # just for wrecked probably
-	FOOD,
 	WATER,
 	MATERIALS,
 	ENERGY,
-	SEEDS, # this should be removed
+	FOOD,
 }
 
 enum Items {
@@ -61,21 +69,21 @@ enum Text {
 	SETTLEMENTS,
 	NPCS
 }
-
+# using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	FacilityResources.NONE: null,
-	FacilityResources.FOOD: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
 	FacilityResources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
+	FacilityResources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png"),
 	FacilityResources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
-	FacilityResources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png")
+	FacilityResources.FOOD: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
 }
 
 var resource_names = {
 	FacilityResources.NONE: "<NONE>",
-	FacilityResources.FOOD: "Food",
 	FacilityResources.WATER: "Water",
-	FacilityResources.ENERGY: "Energy",
 	FacilityResources.MATERIALS: "Materials",
+	FacilityResources.ENERGY: "Energy",
+	FacilityResources.FOOD: "Food",
 }
 
 const COMPACT_LOSS = 1.2
@@ -141,7 +149,7 @@ func _build_single_facility(data):
 	for str_p in data["product_types"]:
 		prod_types.append(FacilityResources[str_p])
 	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
-	facility.init_stats(data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
+	facility.init_stats(data["build_cost"], data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
 
 

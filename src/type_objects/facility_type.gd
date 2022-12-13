@@ -12,6 +12,7 @@ var icon_texture = null
 
 # later on
 # var environmental = false
+var build_cost = 100
 var max_health = 100.0
 var max_fuel = 100.0
 var max_prod = 100.0
@@ -31,7 +32,8 @@ func init(_type_id, _name, _flavour_text, _fuel_types, _product_types, _base_ani
 	icon_texture = load(_icon_texture_path)
 
 
-func init_stats(_max_health, _max_fuel, _max_prod, _consumption_rate, _production_rate) -> void:
+func init_stats(_build_cost, _max_health, _max_fuel, _max_prod, _consumption_rate, _production_rate) -> void:
+	build_cost = _build_cost
 	max_health = _max_health
 	max_fuel = _max_fuel
 	max_prod = _max_prod

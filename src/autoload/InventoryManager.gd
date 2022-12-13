@@ -17,9 +17,9 @@ func _ready():
 	
 	for t in Global.Items.values(): # have a dictionary for each item type
 		inventory[t] = {}
-	compact_resource_items[Global.FacilityResources.WATER] = []
-	compact_resource_items[Global.FacilityResources.ENERGY] = []
-	compact_resource_items[Global.FacilityResources.MATERIALS] = []
+	compact_resource_items[Global.Resources.WATER] = []
+	compact_resource_items[Global.Resources.ENERGY] = []
+	compact_resource_items[Global.Resources.MATERIALS] = []
 	
 	_build_items()
 
@@ -32,7 +32,7 @@ func _build_single_item(data):
 	item.init(data["item_id"], type, texture, data["value"], data["stat"], data["usable"])
 	item.init_flavour(data["name"], data["flavour_text"])
 	if type == Global.Items.RESOURCES:
-		item.subtype = Global.FacilityResources[data["subtype"]]
+		item.subtype = Global.Resources[data["subtype"]]
 	return item
 
 
