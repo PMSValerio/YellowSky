@@ -4,7 +4,6 @@ extends CanvasLayer
 # preloaded menu scenes
 var _menus = {
 	Global.Menus.TEST: preload("res://src/gui/menus/TestUI.tscn"),
-	Global.Menus.SUBTEST: preload("res://src/gui/menus/SubTestUI.tscn"),
 	Global.Menus.PAUSE_SCREEN: preload("res://src/gui/menus/pause/PauseScreen.tscn"),
 	Global.Menus.FACILITY_MENU: preload("res://src/gui/menus/facility/FacilityMenu.tscn"),
 	Global.Menus.MAIN_MENU: preload("res://src/gui/menus/main/MainMenu.tscn"),

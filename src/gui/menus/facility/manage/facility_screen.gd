@@ -13,7 +13,7 @@ onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourD
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
 onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/FlavourText
 
-onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Status
+onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/PanelContainer/Status
 
 # --- || Stat Screen Elements || ---
 onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel

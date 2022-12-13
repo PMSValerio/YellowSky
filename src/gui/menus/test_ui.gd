@@ -1,8 +1,7 @@
 extends Control
 
 
-func _on_Sub_pressed() -> void:
-	EventManager.emit_signal("push_menu", Global.Menus.SUBTEST, null)
+
 
 
 func _on_Button_pressed() -> void:
