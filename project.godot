@@ -93,10 +93,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://src/autoload/Global.gd"
 EventManager="*res://src/autoload/EventManager.gd"
-MapUtils="*res://src/autoload/MapUtils.gd"
+Global="*res://src/autoload/Global.gd"
 InventoryManager="*res://src/autoload/InventoryManager.gd"
+MapUtils="*res://src/autoload/MapUtils.gd"
+ResourceManager="*res://src/autoload/ResourceManager.gd"
 
 [display]
 

@@ -2,7 +2,7 @@
     "settlement1" : {
         "Settlement" : {
             "Name" : "Low End Creek", 
-            "Description" : "In the distance, you spot a plume of smoke, as well as a tall water tower. People mill around camping tents, somewhat wary of your presence."
+            "Description" : "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well."
         }
     },
     "settlement2" : {

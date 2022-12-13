@@ -36,7 +36,6 @@ var facility_entity : Facility = null # the actual facility node
 var fuel_stats_dict = {}
 var prod_stats_dict = {}
 
-onready var ResourceManager = Global.get_player().get_node("ResourceManager") # <- this is very bad, Resource should be global, maybe?
 
 var slider_mode = 0 # 0: nothing; 1: repair; 2: refuel
 var slider_resource = Global.FacilityResources.NONE

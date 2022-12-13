@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/gfx/entities/player.png" type="Texture" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
 [ext_resource path="res://src/map/player.gd" type="Script" id=3]
 [ext_resource path="res://assets/gfx/iconE.png" type="Texture" id=4]
 [ext_resource path="res://src/map/ext_camera.gd" type="Script" id=5]
-[ext_resource path="res://src/map/resource_manager.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 14 )
@@ -205,9 +204,6 @@ current = true
 script = ExtResource( 5 )
 
 [node name="Tween" type="Tween" parent="CameraAnchor"]
-
-[node name="ResourceManager" type="Node2D" parent="."]
-script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle_front"

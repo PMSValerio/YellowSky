@@ -10,11 +10,11 @@
                     "Quest"
                 ],
                 "1" : [
-                    "Good, good. Off ya go then!", 
+                    "[ALPHA] Joke's on you, quests haven't been implemented yet! Come back later.", 
                     "End"
                 ],
                 "2" : [
-                    "Well that's a real shame, ain't it. Guess we'll see each other around, then. Take care!", 
+                    "[ALPHA] Well, they haven't been implemented yet anyways. Take care!", 
                     "End"
                 ]
             } 

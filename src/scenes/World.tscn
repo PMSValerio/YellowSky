@@ -181,10 +181,6 @@ script = ExtResource( 6 )
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
 [connection signal="stamina_changed" from="Entities/Player" to="HUD" method="_on_Player_stamina_changed"]
-[connection signal="craft_mat_changed" from="Entities/Player/ResourceManager" to="HUD" method="_on_ResourceManager_craft_mat_changed"]
-[connection signal="energy_changed" from="Entities/Player/ResourceManager" to="HUD" method="_on_ResourceManager_energy_changed"]
-[connection signal="seeds_changed" from="Entities/Player/ResourceManager" to="HUD" method="_on_ResourceManager_seeds_changed"]
-[connection signal="water_changed" from="Entities/Player/ResourceManager" to="HUD" method="_on_ResourceManager_water_changed"]
 
 [editable path="Entities/Feature"]
 [editable path="Entities/Player"]

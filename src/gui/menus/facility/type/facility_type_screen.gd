@@ -33,7 +33,7 @@ func _ready() -> void:
 		type = type as FacilityType
 		if type.type_id != Global.FacilityTypes.WRECKED:
 			var list_item = list_item_scene.instance()
-			list_item.set_state(type, TMP_COST)
+			list_item.set_state(type)
 			list_item.connect("pressed", self, "_on_type_select", [type])
 			type_list.add_child(list_item)
 
@@ -97,6 +97,7 @@ func _on_type_select(type) -> void:
 
 func _on_type_confirm():
 	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values():
+		ResourceManager.add_to_resource(Global.FacilityResources.MATERIALS, -selected_type.build_cost)
 		facility_entity.set_type(selected_type.type_id)
 		facility_entity.repair(facility_entity.get_max_health())
 	emit_signal("type_chosen")
