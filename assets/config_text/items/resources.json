@@ -1,0 +1,46 @@
+{
+  "water_bottle": {
+    "item_id": "water_bottle",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "items/resources/water/water_bottle.png",
+    "value": 10,
+    "stat": 1,
+    "usable": true,
+    "name": "Bottle of Water",
+    "flavour_text": "A plastic bottle filled with fresh water.\n\nUse to obtain 1 liter of water."
+  },
+  "water_gallon": {
+    "item_id": "water_gallon",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "items/resources/water/gallon_of_water.png",
+    "value": 15,
+    "stat": 10,
+    "usable": true,
+    "name": "Gallon of Water",
+    "flavour_text": "An old plastic gallon jug, filled to the brim with fresh water.\n\nUse to obtain 10 liters of water."
+  },
+  "water_keg": {
+    "item_id": "water_keg",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "items/resources/water/keg_o_water.png",
+    "value": 20,
+    "stat": 50,
+    "usable": true,
+    "name": "Keg o' Water",
+    "flavour_text": "A metal keg which once held beer, but now holds water.\n\nUse to obtain 50 liters of water.\n\nBreweries are far few and in between out in the wasteland, given there's barely any grain left. Distillieries and bathtub operations, on the other hand, are plentiful."
+  },
+  "water_drum": {
+    "item_id": "water_drum",
+    "type": "RESOURCES",
+    "subtype": "WATER",
+    "texture": "items/resources/water/water_drum.png",
+    "value": 25,
+    "stat": 100,
+    "usable": true,
+    "name": "Water Drum",
+    "flavour_text": "A large oil drum, cleaned out and filled with fresh water. Oil is so rare that it can't be found in drums anymore.\nUse to obtain 100 liters of water."
+  }
+}

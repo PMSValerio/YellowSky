@@ -1,6 +1,5 @@
 extends Node
 
-
 const HORIZON_Y = 0.7
 const STRETCH_FACTOR = 0.4
 
@@ -17,6 +16,10 @@ var quarter_hei = cell_hei / 4.0
 var edge_right = Vector2(cell_wid, quarter_hei) - Vector2(mid_wid, 0.0)
 var edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
+var row_count = -1
+var col_count = -1
+
+# enables perpective warps
 const ENABLED = true
 
 var _ref_tilemap : TileMap = null
@@ -33,6 +36,12 @@ func set_ref_tilemap(ref_tilemap : TileMap) -> void:
 	edge_left = Vector2(mid_wid, 0.0) - Vector2(0.0, quarter_hei)
 
 
+# set the number of rows and cells to be used
+func set_dimensions(rows, columns):
+	row_count = rows
+	col_count = columns
+
+
 # return reference tilemap
 func get_ref_tilemap() -> TileMap:
 	return _ref_tilemap
@@ -43,7 +52,7 @@ func is_enabled() -> bool:
 	return ENABLED
 
 # get the hexagon center position of the hexagon that pos (a global position) is inside of
-func get_hex_center(pos : Vector2):
+func get_hex_center(pos : Vector2) -> Vector2:
 	pos.x = round(pos.x)
 	pos.y = round(pos.y)
 	var cell = _ref_tilemap.world_to_map(_ref_tilemap.to_local(pos))
@@ -80,3 +89,43 @@ func get_hex_center(pos : Vector2):
 	var hex_center = Vector2(offset + cell.x * cell_wid + cell_wid / 2, cell.y * cell_hei + cell_hei * (2.0/3.0))
 	
 	return hex_center
+
+
+func get_hex_id(pos : Vector2) -> int:
+	pos.x = round(pos.x)
+	pos.y = round(pos.y)
+	var cell = _ref_tilemap.world_to_map(_ref_tilemap.to_local(pos))
+	return _ref_tilemap.get_cell(cell.x, cell.y)
+
+
+# transform mouse screen position to unwarped world position
+# this wall of math performs the exact opposite operation done in perspective_sprite and for figuring that out I deserve a medal
+func get_warped_mouse_position() -> Vector2:
+	var b = STRETCH_FACTOR
+	var h = HORIZON_Y
+	var a = 1.0
+	var screen_pos = get_viewport().get_mouse_position()
+	var screen_size = Vector2(1024, 600)
+	screen_pos.x /= screen_size.x
+	screen_pos.y = 1.0 - (screen_pos.y / screen_size.y)
+	
+	var bb = 1.0 / b
+	var q = (bb - a) / 2.0
+
+	var p = (bb * h) / (bb - a)
+	
+	var d = (q * (h - screen_pos.y)) / h
+	
+	var w = screen_pos.x + d
+	
+	var xx = (w * (p - h)) / (p - screen_pos.y)
+	
+	var yy = (a * h * screen_pos.y) / (bb * h - screen_pos.y * (bb - a))
+	
+	screen_pos.x = xx
+	screen_pos.y = yy
+	
+	screen_pos.x *= screen_size.x
+	screen_pos.y = (1.0 - screen_pos.y) * screen_size.y
+	
+	return screen_pos

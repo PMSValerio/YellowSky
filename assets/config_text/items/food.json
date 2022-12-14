@@ -1,0 +1,35 @@
+{
+  "food1": {
+    "item_id": "food1",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 15,
+    "usable": true,
+    "name": "MRE",
+    "flavour_text": "Military-grade leftovers from before the war. Tasteless and not very filling, but it's better than nothing. \n\nRestores 15 Stamina."
+  },
+  "food2": {
+    "item_id": "food2",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 25,
+    "usable": true,
+    "name": "Canned Food",
+    "flavour_text": "Preserved meat and vegetables in a sealed canister. The expiration date has been scratched out.\n\nRestores 25 Stamina."
+  },
+  "food3": {
+    "item_id": "food3",
+    "type": "FOOD",
+    "subtype": "",
+    "texture": "items/resources/water/water_bottle.png",
+    "value": 50,
+    "stat": 40,
+    "usable": true,
+    "name": "Dried Meat",
+    "flavour_text": "It's hard to tell what animal this meat came from, but beggars can't be choosers.\n\nRestores 40 Stamina."
+  }
+}

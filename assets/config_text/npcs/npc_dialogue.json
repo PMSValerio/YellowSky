@@ -1,0 +1,53 @@
+{
+    "settlement1" : {
+        "NPC" : {
+            "Name" : "Rusty:", 
+            "Branches" : {
+                "0" : [
+                    "Hello there mate, pleasure to meet ya!", 
+                    "Feelin a wee bit adventurous, are we?", 
+                    "How about a lil quest to spice up yer life ay?", 
+                    "Quest"
+                ],
+                "1" : [
+                    "[ALPHA] Joke's on you, quests haven't been implemented yet! Come back later.", 
+                    "End"
+                ],
+                "2" : [
+                    "[ALPHA] Well, they haven't been implemented yet anyways. Take care!", 
+                    "End"
+                ]
+            } 
+        },
+        "Player" : {
+            "Branches" : {
+                "0" : [
+                    "How are you?", 
+                    "Do you need anything?", 
+                    "Buzz off!"
+                ],
+                "1" : ["Gald to hear it."], 
+                "2" : ["I can get you food."],
+                "3" : [
+                    "(Kill)", 
+                    "(Leave peacefully)"
+                ]
+            } 
+        }
+    },
+    "settlement2" : {
+        "NPC" : {
+            "Name" : "Live Guy:", 
+            "Branches" : {
+                "0" : "Hello!",
+                "1" : "Im good."
+            } 
+        },
+        "Player" : {
+            "Branches" : {
+                "0" : "Hello!",
+                "1" : "Im good."
+            } 
+        }
+    }
+}

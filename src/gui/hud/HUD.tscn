@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
+[ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=3]
+[ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_health.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=6]
+[ext_resource path="res://assets/gfx/ui_elements/icons/seedsIcon.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_hope.png" type="Texture" id=8]
+[ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_bag.png" type="Texture" id=10]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -96.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 8
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 8
+
+[node name="AllElements" type="HBoxContainer" parent="Control/MarginContainer"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 1008.0
+margin_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+custom_constants/separation = 33
+
+[node name="Other" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
+margin_right = 317.0
+margin_bottom = 80.0
+custom_constants/separation = 20
+
+[node name="Inventory" type="Button" parent="Control/MarginContainer/AllElements/Other"]
+margin_right = 165.0
+margin_bottom = 80.0
+text = "Inventory"
+icon = ExtResource( 10 )
+
+[node name="Skills" type="Button" parent="Control/MarginContainer/AllElements/Other"]
+margin_left = 185.0
+margin_right = 317.0
+margin_bottom = 80.0
+text = "Skills"
+icon = ExtResource( 8 )
+
+[node name="Bars" type="VBoxContainer" parent="Control/MarginContainer/AllElements"]
+margin_left = 350.0
+margin_right = 554.0
+margin_bottom = 80.0
+alignment = 1
+
+[node name="Health" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 9 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 6.0
+margin_right = 204.0
+margin_bottom = 38.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Health" index="0"]
+texture = ExtResource( 5 )
+
+[node name="TextureProgress" parent="Control/MarginContainer/AllElements/Bars/Health" index="1"]
+texture_progress = ExtResource( 2 )
+
+[node name="Stamina" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 9 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 42.0
+margin_right = 204.0
+margin_bottom = 74.0
+
+[node name="SeedsCounter" parent="Control/MarginContainer/AllElements" instance=ExtResource( 4 )]
+margin_left = 587.0
+margin_top = 16.0
+margin_right = 669.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/SeedsCounter" index="0"]
+margin_right = 74.0
+
+[node name="Label" parent="Control/MarginContainer/AllElements/SeedsCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/SeedsCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 7 )
+
+[node name="Resources" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
+margin_left = 702.0
+margin_right = 992.0
+margin_bottom = 80.0
+rect_clip_content = true
+size_flags_horizontal = 3
+custom_constants/separation = 8
+alignment = 1
+
+[node name="WaterCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+margin_left = 14.0
+margin_top = 16.0
+margin_right = 96.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/WaterCounter" index="0"]
+margin_right = 74.0
+
+[node name="Label" parent="Control/MarginContainer/AllElements/Resources/WaterCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/WaterCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+
+[node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+margin_left = 104.0
+margin_top = 16.0
+margin_right = 186.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter" index="0"]
+margin_right = 74.0
+
+[node name="Label" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 6 )
+
+[node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+margin_left = 194.0
+margin_top = 16.0
+margin_right = 276.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter" index="0"]
+margin_right = 74.0
+
+[node name="Label" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter/HBoxContainer" index="0"]
+margin_right = 30.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter/HBoxContainer" index="1"]
+margin_left = 34.0
+margin_right = 66.0
+texture = ExtResource( 3 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -96.0
+margin_right = 2.0
+margin_bottom = 2.0
+
+[connection signal="pressed" from="Control/MarginContainer/AllElements/Other/Inventory" to="." method="_on_Inventory_pressed"]
+
+[editable path="Control/MarginContainer/AllElements/Bars/Health"]
+[editable path="Control/MarginContainer/AllElements/Bars/Stamina"]
+[editable path="Control/MarginContainer/AllElements/SeedsCounter"]
+[editable path="Control/MarginContainer/AllElements/Resources/WaterCounter"]
+[editable path="Control/MarginContainer/AllElements/Resources/CraftMatCounter"]
+[editable path="Control/MarginContainer/AllElements/Resources/EnergyCounter"]

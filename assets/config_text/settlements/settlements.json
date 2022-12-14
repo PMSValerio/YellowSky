@@ -1,0 +1,14 @@
+{
+    "settlement1" : {
+        "Settlement" : {
+            "Name" : "Low End Creek", 
+            "Description" : "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well."
+        }
+    },
+    "settlement2" : {
+        "Settlement" : {
+            "Name" : "High End Creek", 
+            "Description" : "Settlement description template2" 
+        }
+    }
+}

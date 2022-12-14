@@ -1,0 +1,50 @@
+{
+  "wrecked": {
+    "type_id": "WRECKED",
+    "type_name": "Wrecked Facility",
+    "flavour_text": "An abandoned warehouse, ravaged by time. Leftover scraps of metal and machinery suggest it was once a factory of some sort.\n[ALPHA] This is a facility, which allows production (and consumption) of your resources to produce different resources, or useful items.",
+    "fuel_types": [],
+    "product_types": [],
+    "base_animation": "wrecked",
+    "portrait_texture": "facility_portrait/wrecked.png",
+    "icon_texture": "facility_icon/wrecked_icon.png",
+    "build_cost" : 0.0,
+    "max_health": 0.0,
+    "max_fuel": 0.0,
+    "max_product": 0.0,
+    "consumption_rate": 0.0,
+    "production_rate": 0.0
+  },
+  "coal_plant": {
+    "type_id": "COAL_PLANT",
+    "type_name": "Coal Plant",
+    "flavour_text": "A facility housing many makeshift furnaces that burn coal to produce energy.\n\n[ALPHA] Pick this facility if you want to produce energy.",
+    "fuel_types": [],
+    "product_types": ["ENERGY"],
+    "base_animation": "coal_plant",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/coal_plant_icon.png",
+    "build_cost" : 5.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  },
+  "parts_workshop": {
+    "type_id": "PARTS_WORKSHOP",
+    "type_name": "Parts Workshop",
+    "flavour_text": "A factory featuring an assembly line for mass production of mechanical parts.\n\n[ALPHA] Pick this facility if you want to produce scrap.",
+    "fuel_types": ["ENERGY"],
+    "product_types": ["MATERIALS"],
+    "base_animation": "workshop",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/workshop_icon.png",
+    "build_cost" : 10.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  }
+}

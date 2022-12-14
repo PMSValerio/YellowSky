@@ -1,0 +1,228 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/disasters/amogeddon/amogeddon.gd" type="Script" id=1]
+[ext_resource path="res://assets/shaders/vignette.gdshader" type="Shader" id=2]
+[ext_resource path="res://src/disasters/amogeddon/AmogeddonBack.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+shader_param/colour = Color( 0.36, 0.26, 0.35, 1 )
+shader_param/multiplier = 0.5
+shader_param/softness = 0.7
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Polygon2D:material:shader_param/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Polygon2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Flash:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:shake_strength")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Achievement:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "play"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Polygon2D:material:shader_param/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.1, 10.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.7, 0.2, 0.6 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Polygon2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 10.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Flash:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.95, 2, 2.1, 2.3, 4.15, 4.2, 4.3, 4.4, 4.6, 5.25, 5.3, 5.4, 5.5, 5.7, 7.95, 8, 8.1, 8.2, 8.3, 8.55, 8.6, 8.7, 9.55, 9.6, 9.7, 9.8, 9.9, 10.1, 10.2, 12, 14 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.816327 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:shake_strength")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2.1, 4.4, 5.5, 6.2, 8, 9, 10.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.5, 1.0, 2.5, 4.0, 5.0, 6.0, 0.0 ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 5.5, 10.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ true ],
+"method": "play_back"
+}, {
+"args": [ false ],
+"method": "play_back"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Achievement:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 17, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 10.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "damage"
+} ]
+}
+
+[node name="Amogeddon" type="Node2D"]
+script = ExtResource( 1 )
+DAMAGE = 70
+background_scene_path = ExtResource( 3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+material = SubResource( 2 )
+color = Color( 0.360784, 0.254902, 0.352941, 1 )
+polygon = PoolVector2Array( 0, 0, 0, 600, 1024, 600, 1024, 0 )
+
+[node name="Flash" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0 )
+polygon = PoolVector2Array( 0, 0, 0, 600, 1024, 600, 1024, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/play = SubResource( 4 )
+
+[node name="Achievement" type="Node2D" parent="."]
+visible = false
+position = Vector2( 840, 544 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Achievement"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -167.0
+margin_top = -40.0
+margin_right = 167.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Achievement/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 327.0
+margin_bottom = 73.0
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="Achievement/PanelContainer/VBoxContainer"]
+margin_top = 17.0
+margin_right = 320.0
+margin_bottom = 29.0
+text = "A c h i e v e m e n t  u n l o c k e d"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="Label2" type="Label" parent="Achievement/PanelContainer/VBoxContainer"]
+margin_top = 37.0
+margin_right = 320.0
+margin_bottom = 49.0
+text = "Survived the Amogeddon"
+align = 2
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_anim_end"]
