@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/map/feature/facilities/facility.gd" type="Script" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
@@ -31,6 +31,39 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "coal_plant_end"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ), Vector2( 6, 3 ), Vector2( 6, 3 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "coal_plant_on"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ), Vector2( 4, 2 ), Vector2( 4, 2 ) ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "coal_plant_start"
 length = 0.8
@@ -41,10 +74,43 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 1 ), Vector2( 6, 1 ) ]
+"values": [ Vector2( 0, 1 ), Vector2( 6, 1 ), Vector2( 6, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "workshop_end"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ), Vector2( 6, 6 ), Vector2( 6, 6 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "workshop_on"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 5 ), Vector2( 4, 5 ), Vector2( 4, 5 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -57,10 +123,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 4 ), Vector2( 6, 4 ) ]
+"values": [ Vector2( 0, 4 ), Vector2( 6, 4 ), Vector2( 6, 4 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -99,7 +165,11 @@ visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
+anims/coal_plant_end = SubResource( 7 )
+anims/coal_plant_on = SubResource( 6 )
 anims/coal_plant_start = SubResource( 2 )
+anims/workshop_end = SubResource( 10 )
+anims/workshop_on = SubResource( 9 )
 anims/workshop_start = SubResource( 5 )
 anims/wrecked_start = SubResource( 3 )
 
@@ -117,3 +187,5 @@ margin_top = -5.0
 margin_right = 32.0
 margin_bottom = 5.0
 percent_visible = false
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

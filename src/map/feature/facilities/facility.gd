@@ -26,6 +26,7 @@ var running = true
 
 var _update_step = 0 # timer counter for update
 var _is_destroyed = true # if destroyed, health must be replenished fully before it can operate again
+var _last_status = Status.WRECKED
 
 
 func _ready() -> void:
@@ -64,6 +65,12 @@ func _tick() -> void:
 		if tooltip.visible:
 			tooltip.update_items(self)
 	healthbar_anchor.visible = sprite.visible and health < get_max_health()
+	
+	if _last_status != Status.OK and get_status() == Status.OK:
+		_play_anim("_start")
+	elif _last_status == Status.OK and get_status() != Status.OK:
+		_play_anim("_end")
+	_last_status = get_status()
 
 
 # update state according to operation costs
@@ -147,7 +154,11 @@ func set_type(type):
 		for p in facility_type.product_types:
 			products[p] = 0.0
 		
-		anim.play(str(facility_type.base_animation) + "_start")
+		if get_status() == Status.OK:
+			_play_anim("_start")
+		else:
+			_play_anim("_end")
+			anim.seek(anim.current_animation_length)
 
 
 func repair(amount):
@@ -172,6 +183,13 @@ func collect(resource):
 		tooltip.update_items(self)
 
 
+func _play_anim(state : String):
+	if facility_type.type_id == Global.FacilityTypes.WRECKED:
+		anim.play(facility_type.base_animation + "_start")
+	else:
+		anim.play(facility_type.base_animation + state)
+
+
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
 	tooltip.visible = false
@@ -190,3 +208,8 @@ func mouse_exited() -> void:
 
 func _on_disaster_damage(damage):
 	repair(-damage)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == facility_type.base_animation + "_start":
+		_play_anim("_on")
