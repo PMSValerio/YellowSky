@@ -176,6 +176,7 @@ layer = 6
 script = ExtResource( 6 )
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
+pause_mode = 2
 layer = 7
 
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]

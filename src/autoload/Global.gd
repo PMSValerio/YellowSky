@@ -1,7 +1,7 @@
 extends Node
 
 
-var tooltip = preload("res://src/gui/menus/resusable/MenuTooltip.tscn")
+var tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
 
 enum Menus {
 	TEST,

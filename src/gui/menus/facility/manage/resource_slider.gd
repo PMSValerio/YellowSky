@@ -54,3 +54,7 @@ func _on_value_changed(value: float) -> void:
 func _on_ConfirmButton_pressed() -> void:
 	emit_signal("value_chosen", input_box.value - min_value)
 	visible = false
+
+
+func _on_ExitBtn_pressed() -> void:
+	visible = false

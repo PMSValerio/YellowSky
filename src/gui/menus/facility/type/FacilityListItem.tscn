@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/gui/menus/facility/type/facility_list_item.gd" type="Script" id=2]
-[ext_resource path="res://src/gui/menus/resusable/ResourceIcon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/gui/menus/reusable/ResourceIcon.tscn" type="PackedScene" id=3]
+
 
 [node name="FacilityListItem" type="MarginContainer"]
 anchor_right = 0.625

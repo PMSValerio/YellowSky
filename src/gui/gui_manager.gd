@@ -24,7 +24,7 @@ func _get_menu_scene(menu):
 
 
 func _on_push_menu(menu, context):
-	if menu in _menus:
+	if menu in _menus and (menu_stack.empty() or menu_stack.back() != menu):
 		var new_menu = _get_menu_scene(menu)
 		menu_stack.push_back(menu)
 		

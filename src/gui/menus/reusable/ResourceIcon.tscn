@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/gui/menus/resusable/resource_icon.gd" type="Script" id=1]
-[ext_resource path="res://src/gui/menus/resusable/menu_tooltip_proxy.gd" type="Script" id=2]
+[ext_resource path="res://src/gui/menus/reusable/resource_icon.gd" type="Script" id=1]
+[ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
 [node name="ResourceIcon" type="TextureRect"]

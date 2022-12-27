@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/gui/menus/resusable/menu_tooltip.gd" type="Script" id=1]
+[ext_resource path="res://src/gui/menus/reusable/menu_tooltip.gd" type="Script" id=1]
 
 [node name="MenuTooltip" type="Control"]
 script = ExtResource( 1 )

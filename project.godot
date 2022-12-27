@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "MenuTooltipProxy",
 "language": "GDScript",
-"path": "res://src/gui/menus/resusable/menu_tooltip_proxy.gd"
+"path": "res://src/gui/menus/reusable/menu_tooltip_proxy.gd"
 }, {
 "base": "Sprite",
 "class": "PerspectiveSprite",

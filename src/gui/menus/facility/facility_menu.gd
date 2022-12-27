@@ -1,4 +1,4 @@
-extends "res://src/gui/menus/resusable/base_outer_menu.gd"
+extends "res://src/gui/menus/reusable/base_outer_menu.gd"
 
 
 onready var manage_tab = $MarginContainer/PanelContainer/TabContainer/Manage
