@@ -11,6 +11,11 @@ enum TileType{
 }
 
 export (PackedScene) var MOUNTAIN_SCENE
+export (PackedScene) var SETTLEMENT_SCENE
+export (PackedScene) var FACILITY_SCENE
+
+const FEATURE_TILES_COUNT = 15 # number of feature tiles to be distributed in the map
+const START_RADIUS = 4 # x tile radius of open area
 
 onready var map_perspective = $MapEffect
 onready var sky = $Sky
@@ -21,6 +26,8 @@ onready var tilemap = $TileMap
 onready var cursor = $Cursor
 onready var player = $Entities/Player
 onready var mountains = $Entities/Mountains
+onready var settlements = $Entities/Settlements
+onready var facilities = $Entities/Facilities
 
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
@@ -28,6 +35,8 @@ var _mouse_hex_tile = Vector2(-1, -1)
 
 var _rng = RandomNumberGenerator.new()
 var map_grid = [] # map grid with references to all game entities
+var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
+						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -98,6 +107,19 @@ func _is_feature(tile_entity):
 	return false
 
 
+# occupy a position in the map, also marking the ones surrounding it as occupied
+# increments the tiles it will occupy, so that, only when no feature is occupying it, it can be used
+func _occupy_cross(cell, occupy):
+	var neighs = [cell + Vector2.RIGHT, cell + Vector2.DOWN, cell + Vector2.LEFT, cell + Vector2.UP]
+	neighs.append_array([cell + Vector2(1,1), cell + Vector2(1,-1), cell + Vector2(-1, 1), cell + Vector2(-1, -1)])
+	for n in neighs:
+		if n.x >= 0 and n.x < map_grid.size() and n.y >= 0 and n.y < map_grid[0].size():
+			if occupy:
+				vacant_tiles[n] += 1
+			else:
+				vacant_tiles[n] = max(vacant_tiles[n]-1, 0)
+
+
 # || --- MAP GENERATION --- ||
 
 
@@ -111,13 +133,21 @@ func _generate_map():
 	_balance_mountain_ratio(used_cells, noise)
 	
 	# force open area around player
-	var radius = 4 # x tile radius
 	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
-	_force_open_area(center, radius)
+	_force_open_area(center)
 	
 	# guaranteing that there are no inaccessible areas on the map
 	var buckets = _open_clusters(used_cells)
 	_connect_cluster(buckets)
+	
+	for cell in used_cells:
+		if map_grid[cell.x][cell.y] == TileType.EMPTY:
+			vacant_tiles[cell] = 0
+		else:
+			vacant_tiles[cell] = 1
+	
+	# evenly distribute feature tiles
+	_distribute_features()
 	
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
@@ -185,8 +215,8 @@ func _balance_mountain_ratio(used_cells, simplex_noise):
 
 
 # force an open area around the center of the map
-func _force_open_area(center : Vector2, radius : int):
-	
+func _force_open_area(center : Vector2):
+	var radius = START_RADIUS
 	var square_rad = pow(radius, 2)
 	var index = Vector2(center.x - radius + 1, center.y - radius + 1)
 	while index.x <= center.x + radius - 1:
@@ -266,12 +296,13 @@ func _connect_cluster(clusters):
 				map_grid[cell.x][cell.y] = TileType.MOUNTAIN
 		bucket_ix += 1
 	
+	# loop through all other centers and connect them to the biggest cluster
 	if centers.size() - ignored_buckets > 1: # if there's more than one bucket
 		var center_ix = 0
 		var pos1 = centers[biggest_cluster]
 		var pos2 = centers[0]
 		while center_ix < centers.size():
-			if center_ix != biggest_cluster:
+			if center_ix != biggest_cluster and centers[center_ix] is Vector2:
 				pos2 = centers[center_ix]
 				
 				# linear equation
@@ -291,16 +322,47 @@ func _connect_cluster(clusters):
 	print("%s buckets were discarded for being too small" % [ignored_buckets])
 
 
+# evenly distribute feature tiles accross map
+# this function also marks as filled those tiles around the feature so that features do not spawn adjacent to each other
+func _distribute_features():
+	var radius = START_RADIUS
+	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+	var square_rad = pow(radius, 2)
+	
+	for _i in range(FEATURE_TILES_COUNT):
+		var empties = []
+		for cell in vacant_tiles: # recalculate all empty tiles every turn
+			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad:
+				empties.append(cell)
+		var random_pos_ix = _rng.randi_range(0, empties.size()-1)
+		var cell = empties[random_pos_ix]
+		_occupy_cross(cell, true)
+		map_grid[cell.x][cell.y] = TileType.FEATURE
+
+
 # populate with the actual scene instances
 func _instance_map_scene(cell : Vector2, scene_type : int):
 	var world_pos = tilemap.map_to_world(cell)
+	var real_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 	match scene_type:
 		TileType.MOUNTAIN:
 			if MOUNTAIN_SCENE != null:
 				var mountain = MOUNTAIN_SCENE.instance()
-				mountain.global_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+				mountain.global_position = real_position
 				mountains.add_child(mountain)
 				map_grid[cell.x][cell.y] = mountain
+		TileType.SETTLEMENT:
+			if SETTLEMENT_SCENE != null:
+				var settlement = SETTLEMENT_SCENE.instance()
+				settlement.global_position = real_position
+				settlements.add_child(settlement)
+				map_grid[cell.x][cell.y] = settlement
+		TileType.FACILITY:
+			if SETTLEMENT_SCENE != null:
+				var facility = FACILITY_SCENE.instance()
+				facility.global_position = real_position
+				facilities.add_child(facility)
+				map_grid[cell.x][cell.y] = facility
 
 
 # || --- SIGNALS --- ||
