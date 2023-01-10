@@ -11,6 +11,7 @@ enum TileType{
 }
 
 export (PackedScene) var MOUNTAIN_SCENE
+export (PackedScene) var OUT_MOUNTAIN_SCENE
 export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 
@@ -23,9 +24,11 @@ onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
 
 onready var tilemap = $TileMap
+onready var out_tilemap = $Background
 onready var cursor = $Cursor
 onready var player = $Entities/Player
 onready var mountains = $Entities/Mountains
+onready var out_mountains = $Entities/MountainsOffMap
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 
@@ -93,6 +96,8 @@ func _physics_process(_delta: float) -> void:
 			last_entity.mouse_exited()
 		if _is_feature(new_entity):
 			new_entity.mouse_entered()
+	
+	$HUD/Control/Label.text = str(tilemap.world_to_map(MapUtils.get_hex_center(_get_player_position())))
 
 
 func _get_player_position():
@@ -152,6 +157,8 @@ func _generate_map():
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
 		_instance_map_scene(cell, map_grid[cell.x][cell.y])
+	
+	#_border_barriers()
 
 
 # generate procedurally generated map, using perlin noise
@@ -212,6 +219,7 @@ func _balance_mountain_ratio(used_cells, simplex_noise):
 		mountain_ratio = float(mountain_count) / float(used_cells.size())
 		tries += 1
 		print("mountain to empty ratio: %s" % mountain_ratio)
+	print("Total tries: " + str(tries))
 
 
 # force an open area around the center of the map
@@ -252,7 +260,8 @@ func _open_clusters(used_cells : Array):
 	var str_sizes = ""
 	for b in buckets:
 		str_sizes += str(b.size()) + "-"
-	print("Found %s buckets of sizes: %s" % [buckets.size(), str_sizes])
+	str_sizes.erase(str_sizes.length()-1, 1)
+	print("Found %s empty area buckets of sizes: %s" % [buckets.size(), str_sizes])
 	
 	return buckets
 
@@ -281,23 +290,27 @@ func _connect_cluster(clusters):
 			biggest_cluster = bucket_ix
 			biggest_size = bucket.size()
 		if bucket.size() >= size_threshold: # if cluster is big enough
-			var cpos = Vector2.ZERO
-			for cell in bucket:
-				cpos += cell
-			cpos = cpos / bucket.size() # mean average of all positions
-			cpos.x = floor(cpos.x)
-			cpos.y = floor(cpos.y)
+			var c_ix = _rng.randi_range(0, bucket.size()-1)
 			while bucket_ix >= centers.size():
 				centers.append(null)
-			centers[bucket_ix] = cpos
+			centers[bucket_ix] = bucket[c_ix]
 		else:
 			ignored_buckets += 1
 			for cell in bucket:
 				map_grid[cell.x][cell.y] = TileType.MOUNTAIN
 		bucket_ix += 1
 	
+	print("%s buckets were discarded for being too small" % [ignored_buckets])
+	print("Bucket centers: " + str(centers))
+	print("Bucket cells:")
+	var ix = 0
+	for b in clusters:
+		if ix != biggest_cluster:
+			print(b)
+		ix += 1
+	
 	# loop through all other centers and connect them to the biggest cluster
-	if centers.size() - ignored_buckets > 1: # if there's more than one bucket
+	if centers.size() > 1: # if there's more than one bucket
 		var center_ix = 0
 		var pos1 = centers[biggest_cluster]
 		var pos2 = centers[0]
@@ -312,14 +325,25 @@ func _connect_cluster(clusters):
 				var dir = 1 if pos2.x > pos1.x else -1 # direction of line
 				
 				var xx = pos1.x
+				var yy = pos1.y
 				while xx != pos2.x:
-					var yy = m * xx + b # solve equation finding corresponding y coord
-					map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
+					var new_yy = round(m * xx + b) # solve equation finding corresponding y coord
+					while abs(yy - new_yy) > 1:
+						yy = move_toward(yy, new_yy, 1)
+						map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
+						print("Open cell: " + str(Vector2(xx, yy)))
+					map_grid[xx][new_yy] = TileType.EMPTY # set all tiles in the line as empty
+					print("Open cell: " + str(Vector2(xx, new_yy)))
+					map_grid[xx + dir][new_yy] = TileType.EMPTY # set all tiles in the line as empty
+					print("Open cell: " + str(Vector2(xx + dir, new_yy)))
 					xx += dir
+					yy = new_yy
+				while abs(yy - pos2.y) > 1:
+					yy = move_toward(yy, pos2.y, 1)
+					map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
+					print("Open cell: " + str(Vector2(xx, yy)))
 				
 			center_ix += 1
-	
-	print("%s buckets were discarded for being too small" % [ignored_buckets])
 
 
 # evenly distribute feature tiles accross map
@@ -363,6 +387,16 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				facility.global_position = real_position
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
+
+
+# add mountains to borders of map
+func _border_barriers():
+	for cell in out_tilemap.get_used_cells():
+		var world_pos = tilemap.map_to_world(cell)
+		var real_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+		var mountain = MOUNTAIN_SCENE.instance()
+		mountain.global_position = real_position
+		out_mountains.add_child(mountain)
 
 
 # || --- SIGNALS --- ||
