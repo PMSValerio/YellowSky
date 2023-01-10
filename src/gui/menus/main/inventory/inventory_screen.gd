@@ -5,11 +5,6 @@ extends Control
 onready var item_grid = $MarginContainer/HBoxContainer/GridManager/ItemGrid
 onready var category_tabs = $MarginContainer/HBoxContainer/GridManager/Tabs
 
-onready var water_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/WaterButton
-onready var energy_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/EnergyButton
-onready var materials_button = $MarginContainer/HBoxContainer/GridManager/ResourcesPanel/MaterialsButton
-onready var compact_button = $MarginContainer/HBoxContainer/GridManager/MarginContainer/CompactButton
-
 # Item Details Nodes
 onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
 onready var item_name = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer3/Name
@@ -33,10 +28,6 @@ var inspected_slot : GridSlot = null # item currently highlighted in details pan
 
 
 func _ready() -> void:
-#	water_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.WATER])
-#	energy_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.ENERGY])
-#	materials_button.connect("action_pressed", self, "_on_resource_pressed", [Global.Resources.MATERIALS])
-	compact_button.connect("pressed", self, "_on_resource_pressed", [Global.Resources.WATER])
 	
 	category_tabs.add_tab("Resources")
 	category_tabs.add_tab("Food")
@@ -49,13 +40,6 @@ func _ready() -> void:
 
 func set_context(_context):
 	_populate_item_grid(Global.Items.RESOURCES, 0)
-
-
-# set resources
-func _set_resources():
-	water_button.set_value(ResourceManager.get_resource(Global.Resources.WATER))
-	energy_button.set_value(ResourceManager.get_resource(Global.Resources.ENERGY))
-	materials_button.set_value(ResourceManager.get_resource(Global.Resources.MATERIALS))
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards
