@@ -27,7 +27,7 @@ var cache_hex_center = Vector2.ZERO
 var _mouse_hex_tile = Vector2(-1, -1)
 
 var _rng = RandomNumberGenerator.new()
-var map_grid = []
+var map_grid = [] # map grid with references to all game entities
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -47,7 +47,7 @@ func _ready() -> void:
 		parallax_sky.visible = false
 		map_perspective.visible = false
 	
-	# TODO: remove
+	# Manually instance starting features
 	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Feature
 	
@@ -114,6 +114,10 @@ func _generate_map():
 	var radius = 4 # x tile radius
 	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
 	_force_open_area(center, radius)
+	
+	# guaranteing that there are no inaccessible areas on the map
+	var buckets = _open_clusters(used_cells)
+	_connect_cluster(buckets)
 	
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
@@ -192,6 +196,99 @@ func _force_open_area(center : Vector2, radius : int):
 				map_grid[index.x][index.y] = TileType.EMPTY
 			index.y += 1
 		index.x += 1
+
+
+# identify all empty clusters to make sure no area is unreachable
+func _open_clusters(used_cells : Array):
+	var buckets = [] # array of arrays, each array is a group of connected cells on the map
+	var tagged = {} # dict of the status of all cells; -2: mountain, -1: untagged, 0+: tagged to a bucket (ix of bucket)
+	var cells_queue = used_cells.duplicate(true)
+	
+	# initialise tags
+	for cell in used_cells:
+		tagged[cell] = -2 if map_grid[cell.x][cell.y] == TileType.MOUNTAIN else -1
+	
+	var bucket_ix = 0
+	while cells_queue.size():
+		var cell = cells_queue.back() # head of queue
+		
+		if tagged[cell] == -1: # untagged and a mountain
+			buckets.append([])
+			_traverse_neighbours(cell, bucket_ix, buckets, tagged, Vector2(map_grid.size(), map_grid[0].size()))
+			bucket_ix += 1 # next bucket only if a new group was traversed
+		
+		cells_queue.pop_back() # remove this cell
+	
+	var str_sizes = ""
+	for b in buckets:
+		str_sizes += str(b.size()) + "-"
+	print("Found %s buckets of sizes: %s" % [buckets.size(), str_sizes])
+	
+	return buckets
+
+
+# traverse cell neighbours
+func _traverse_neighbours(cell : Vector2, bucket_ix : int, buckets : Array, tagged : Dictionary, siz : Vector2):
+	tagged[cell] = bucket_ix
+	buckets[bucket_ix].append(cell)
+	var neighs = [cell + Vector2.RIGHT, cell + Vector2.DOWN, cell + Vector2.LEFT, cell + Vector2.UP]
+	for n in neighs:
+		if n.x >= 0 and n.x < siz.x and n.y >= 0 and n.y < siz.y and tagged[n] == -1: # untagged and not a mountain
+			_traverse_neighbours(n, bucket_ix, buckets, tagged, siz)
+
+
+# connect all empty clusters to make sure no area is inaccessible
+func _connect_cluster(clusters):
+	var size_threshold = 6 # each bucket must have at least this number of cells, or the will simply be filled with mountain
+	var centers = [] # the center position of each bucket
+	var ignored_buckets = 0
+	var biggest_cluster = 0 # ix of biggest cluster
+	var biggest_size = clusters[0].size() # size of biggest cluster
+	
+	var bucket_ix = 0
+	for bucket in clusters:
+		if bucket.size() > biggest_size: # find biggest cluster
+			biggest_cluster = bucket_ix
+			biggest_size = bucket.size()
+		if bucket.size() >= size_threshold: # if cluster is big enough
+			var cpos = Vector2.ZERO
+			for cell in bucket:
+				cpos += cell
+			cpos = cpos / bucket.size() # mean average of all positions
+			cpos.x = floor(cpos.x)
+			cpos.y = floor(cpos.y)
+			while bucket_ix >= centers.size():
+				centers.append(null)
+			centers[bucket_ix] = cpos
+		else:
+			ignored_buckets += 1
+			for cell in bucket:
+				map_grid[cell.x][cell.y] = TileType.MOUNTAIN
+		bucket_ix += 1
+	
+	if centers.size() - ignored_buckets > 1: # if there's more than one bucket
+		var center_ix = 0
+		var pos1 = centers[biggest_cluster]
+		var pos2 = centers[0]
+		while center_ix < centers.size():
+			if center_ix != biggest_cluster:
+				pos2 = centers[center_ix]
+				
+				# linear equation
+				var m = (pos2.y - pos1.y) / (pos2.x - pos1.x)
+				var b = pos1.y - (m * pos1.x)
+				
+				var dir = 1 if pos2.x > pos1.x else -1 # direction of line
+				
+				var xx = pos1.x
+				while xx != pos2.x:
+					var yy = m * xx + b # solve equation finding corresponding y coord
+					map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
+					xx += dir
+				
+			center_ix += 1
+	
+	print("%s buckets were discarded for being too small" % [ignored_buckets])
 
 
 # populate with the actual scene instances
