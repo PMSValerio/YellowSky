@@ -53,14 +53,20 @@ rect_min_size = Vector2( 320, 200 )
 expand = true
 stretch_mode = 1
 
-[node name="FlavourText" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_top = 220.0
 margin_right = 320.0
 margin_bottom = 392.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="FlavourText" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/ScrollContainer"]
+margin_right = 320.0
+margin_bottom = 172.0
+size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 1 )
 autowrap = true
-clip_text = true
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_top = 396.0

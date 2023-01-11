@@ -11,7 +11,7 @@ var off_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_off
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
-onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/FlavourText
+onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/ScrollContainer/FlavourText
 
 onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/PanelContainer/Status
 
