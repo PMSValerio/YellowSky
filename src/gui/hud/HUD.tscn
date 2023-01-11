@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
 [ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/gfx/HUD/experimental/final/icon_health.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_stamina.png" type="Texture" id=5]
 [ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=6]
 [ext_resource path="res://assets/gfx/ui_elements/icons/seedsIcon.png" type="Texture" id=7]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_hope.png" type="Texture" id=8]
 [ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_bag.png" type="Texture" id=10]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_health.png" type="Texture" id=11]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
@@ -75,7 +76,7 @@ margin_right = 204.0
 margin_bottom = 38.0
 
 [node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Health" index="0"]
-texture = ExtResource( 5 )
+texture = ExtResource( 11 )
 
 [node name="TextureProgress" parent="Control/MarginContainer/AllElements/Bars/Health" index="1"]
 texture_progress = ExtResource( 2 )
@@ -89,6 +90,9 @@ margin_left = 0.0
 margin_top = 42.0
 margin_right = 204.0
 margin_bottom = 74.0
+
+[node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Stamina" index="0"]
+texture = ExtResource( 5 )
 
 [node name="SeedsCounter" parent="Control/MarginContainer/AllElements" instance=ExtResource( 4 )]
 margin_left = 587.0

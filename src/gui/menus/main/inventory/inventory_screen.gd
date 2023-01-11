@@ -10,10 +10,18 @@ onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
 onready var item_name = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer3/Name
 onready var item_display = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer/ItemDisplay
 onready var item_description = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/ItemDescription
-onready var item_value = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Value
-onready var _item_value_margin = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer
 onready var _use_btn_margin = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer
 onready var use_button = $MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton
+
+onready var item_trade_container = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Trade
+onready var item_trade_value = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Trade/HBoxContainer/Value
+onready var item_stats_container = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Stat
+onready var item_stats_tooltip = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Stat/MenuTooltipProxy
+onready var item_stats_value = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Stat/HBoxContainer/Value
+onready var item_stats_icon = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer/Stat/HBoxContainer/TextureRect
+onready var _item_stats_margin = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer
+
+
 
 onready var items_per_page = item_grid.get_child_count() # item_grid should already be populated with item slots
 onready var rows = items_per_page / item_grid.columns
@@ -86,8 +94,21 @@ func _update_item_details(slot : GridSlot):
 	item_name.text = slot.data.name
 	item_display.texture = slot.data.texture
 	item_description.text = slot.data.flavour_text
-	item_value.text = str(slot.data.value)
-	_item_value_margin.visible = slot.data.value > 0.0
+	
+	item_trade_value.text = str(slot.data.value)
+	item_stats_container.visible = true
+	item_stats_value.text = str(slot.data.stat)
+	match slot.data.type:
+		Global.Items.RESOURCES:
+			item_stats_tooltip.hint_tooltip = "Yields " + str(slot.data.stat) + " " + Global.resource_names[slot.data.subtype]
+			item_stats_icon.texture = Global.resource_icons[slot.data.subtype]
+		Global.Items.FOOD:
+			item_stats_tooltip.hint_tooltip = "Restores " + str(slot.data.stat) + " Stamina"
+			item_stats_icon.texture = Global.resource_icons[Global.Resources.FOOD]
+		Global.Items.LUXURY, Global.Items.QUEST:
+			item_stats_container.visible = false
+	
+	_item_stats_margin.visible = slot.data.value > 0.0
 	use_button.disabled = not slot.data.usable
 	_use_btn_margin.visible = slot.data.usable
 
