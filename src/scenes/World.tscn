@@ -90,6 +90,7 @@ region_enabled = true
 region_rect = Rect2( 68, 0, 56, 64 )
 
 [node name="Background" type="TileMap" parent="."]
+modulate = Color( 1, 0.901961, 0.901961, 1 )
 tile_set = ExtResource( 18 )
 cell_size = Vector2( 56, 48 )
 cell_half_offset = 0

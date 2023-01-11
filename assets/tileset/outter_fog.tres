@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/gfx/terrain/outter_fog.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 64, 80, 0, 80, 0, 0, 64, 0 )
+points = PoolVector2Array( 60, 64, 4, 64, 4, 0, 60, 0 )
 
 [resource]
 0/name = "outter_fog.png 0"

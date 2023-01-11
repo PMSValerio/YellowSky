@@ -16,6 +16,7 @@ export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 
 const FEATURE_TILES_COUNT = 15 # number of feature tiles to be distributed in the map
+const SETTLEMENT_FACILITY_RATIO = 0.5 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
 
 onready var map_perspective = $MapEffect
@@ -353,15 +354,27 @@ func _distribute_features():
 	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
 	var square_rad = pow(radius, 2)
 	
+	var feature_tiles = [] # list of tiles marked as feature tiles
+	
 	for _i in range(FEATURE_TILES_COUNT):
 		var empties = []
 		for cell in vacant_tiles: # recalculate all empty tiles every turn
-			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad:
+			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad and cell.y < map_grid[0].size()-1:
 				empties.append(cell)
+		if empties.size() == 0: # failsafe, player simply got bad luck and will have less features than they should
+			break
 		var random_pos_ix = _rng.randi_range(0, empties.size()-1)
 		var cell = empties[random_pos_ix]
 		_occupy_cross(cell, true)
 		map_grid[cell.x][cell.y] = TileType.FEATURE
+		feature_tiles.append(cell)
+	
+	for _i in range(FEATURE_TILES_COUNT*SETTLEMENT_FACILITY_RATIO): # select which features will be settlements
+		var _rand_tile = feature_tiles[_rng.randi_range(0, feature_tiles.size()-1)]
+		map_grid[_rand_tile.x][_rand_tile.y] = TileType.SETTLEMENT
+		feature_tiles.erase(_rand_tile)
+	for cell in feature_tiles: # all remaining features will be facilities
+		map_grid[cell.x][cell.y] = TileType.FACILITY
 
 
 # populate with the actual scene instances
