@@ -1,12 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
-[ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_stamina.png" type="Texture" id=5]
-[ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=6]
-[ext_resource path="res://assets/gfx/ui_elements/icons/seedsIcon.png" type="Texture" id=7]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_hope.png" type="Texture" id=8]
 [ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_bag.png" type="Texture" id=10]
@@ -100,17 +97,6 @@ margin_top = 16.0
 margin_right = 669.0
 margin_bottom = 64.0
 
-[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/SeedsCounter" index="0"]
-margin_right = 74.0
-
-[node name="Label" parent="Control/MarginContainer/AllElements/SeedsCounter/HBoxContainer" index="0"]
-margin_right = 30.0
-
-[node name="TextureRect" parent="Control/MarginContainer/AllElements/SeedsCounter/HBoxContainer" index="1"]
-margin_left = 34.0
-margin_right = 66.0
-texture = ExtResource( 7 )
-
 [node name="Resources" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
 margin_left = 702.0
 margin_right = 992.0
@@ -126,49 +112,17 @@ margin_top = 16.0
 margin_right = 96.0
 margin_bottom = 64.0
 
-[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/WaterCounter" index="0"]
-margin_right = 74.0
-
-[node name="Label" parent="Control/MarginContainer/AllElements/Resources/WaterCounter/HBoxContainer" index="0"]
-margin_right = 30.0
-
-[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/WaterCounter/HBoxContainer" index="1"]
-margin_left = 34.0
-margin_right = 66.0
-
 [node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
 margin_left = 104.0
 margin_top = 16.0
 margin_right = 186.0
 margin_bottom = 64.0
 
-[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter" index="0"]
-margin_right = 74.0
-
-[node name="Label" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer" index="0"]
-margin_right = 30.0
-
-[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/CraftMatCounter/HBoxContainer" index="1"]
-margin_left = 34.0
-margin_right = 66.0
-texture = ExtResource( 6 )
-
 [node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
 margin_left = 194.0
 margin_top = 16.0
 margin_right = 276.0
 margin_bottom = 64.0
-
-[node name="HBoxContainer" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter" index="0"]
-margin_right = 74.0
-
-[node name="Label" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter/HBoxContainer" index="0"]
-margin_right = 30.0
-
-[node name="TextureRect" parent="Control/MarginContainer/AllElements/Resources/EnergyCounter/HBoxContainer" index="1"]
-margin_left = 34.0
-margin_right = 66.0
-texture = ExtResource( 3 )
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 visible = false
@@ -184,7 +138,3 @@ margin_bottom = 2.0
 
 [editable path="Control/MarginContainer/AllElements/Bars/Health"]
 [editable path="Control/MarginContainer/AllElements/Bars/Stamina"]
-[editable path="Control/MarginContainer/AllElements/SeedsCounter"]
-[editable path="Control/MarginContainer/AllElements/Resources/WaterCounter"]
-[editable path="Control/MarginContainer/AllElements/Resources/CraftMatCounter"]
-[editable path="Control/MarginContainer/AllElements/Resources/EnergyCounter"]

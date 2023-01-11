@@ -46,8 +46,10 @@ func _ready() -> void:
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
 
 
-func set_context(_context):
+func set_context(context):
 	_populate_item_grid(Global.Items.RESOURCES, 0)
+	if context != null and context in Global.Resources.values():
+		_on_resource_pressed(context)
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards

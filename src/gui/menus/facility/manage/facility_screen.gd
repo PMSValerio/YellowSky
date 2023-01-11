@@ -20,7 +20,7 @@ onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel
 onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 
 # Integrity Elements
-onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/HealthDetails
+onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/MarginContainer/HealthDetails
 onready var onoff_button = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/OnOffButton
 
 # Resources Elements
@@ -38,7 +38,7 @@ var prod_stats_dict = {}
 
 
 var slider_mode = 0 # 0: nothing; 1: repair; 2: refuel
-var slider_resource = Global.FacilityResources.NONE
+var slider_resource = Global.Resources.NONE
 
 
 func _ready() -> void:
@@ -107,7 +107,7 @@ func _update_status():
 # this already assumes the player has enough resources for the operation
 func _repair_by_amount(amount):
 	if facility_entity != null:
-		ResourceManager.add_to_resource(Global.FacilityResources.MATERIALS, -amount)
+		ResourceManager.add_to_resource(Global.Resources.MATERIALS, -amount)
 		facility_entity.repair(amount)
 		health_details.set_x_out_of_y(facility_entity.health, facility_entity.get_max_health())
 		_update_status()
@@ -143,11 +143,11 @@ func _on_Repair_pressed() -> void:
 	var amount = facility_entity.get_max_health() - facility_entity.health
 	if amount > 0:
 		var _min = facility_entity.health
-		var _max = _min + ResourceManager.get_resource(Global.FacilityResources.MATERIALS)
-		resource_slider.set_state(0, facility_entity.get_max_health(), _min, _max, Global.resource_icons[Global.FacilityResources.MATERIALS])
+		var _max = _min + ResourceManager.get_resource(Global.Resources.MATERIALS)
+		resource_slider.set_state(0, facility_entity.get_max_health(), _min, _max, Global.resource_icons[Global.Resources.MATERIALS])
 		resource_slider.visible = true
 		slider_mode = 1
-		slider_resource = Global.FacilityResources.MATERIALS
+		slider_resource = Global.Resources.MATERIALS
 
 
 func _on_Refuel_pressed(resource) -> void:

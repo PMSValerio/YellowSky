@@ -44,6 +44,7 @@ func populate_data() -> void:
 func set_icon(texture, tool_tip) -> void:
 	if texture == null or texture is Texture:
 		$HBoxContainer/Icon.init_manual(texture, tool_tip, size)
+		$HBoxContainer/Icon.visible = texture != null
 
 
 func set_x_out_of_y(current_amount, max_amount) -> void:

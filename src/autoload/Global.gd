@@ -46,15 +46,6 @@ enum FacilityTypes {
 	# RECYLING CENTER,
 }
 
-# all product types that can be produced by facilities
-enum FacilityResources {
-	NONE, # just for wrecked probably
-	WATER,
-	MATERIALS,
-	ENERGY,
-	FOOD,
-}
-
 enum Items {
 	RESOURCES,
 	FOOD,
@@ -71,19 +62,20 @@ enum Text {
 }
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
-	FacilityResources.NONE: null,
-	FacilityResources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
-	FacilityResources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png"),
-	FacilityResources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
-	FacilityResources.FOOD: preload("res://assets/gfx/ui_elements/icons/icon_stamina.png"),
+	Resources.NONE: null,
+	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
+	Resources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png"),
+	Resources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
+	Resources.FOOD: preload("res://assets/gfx/ui_elements/icons/icon_stamina.png"),
+	Resources.SEEDS: preload("res://assets/gfx/ui_elements/icons/seedsIcon.png"),
 }
 
 var resource_names = {
-	FacilityResources.NONE: "<NONE>",
-	FacilityResources.WATER: "Water",
-	FacilityResources.MATERIALS: "Materials",
-	FacilityResources.ENERGY: "Energy",
-	FacilityResources.FOOD: "Food",
+	Resources.NONE: "<NONE>",
+	Resources.WATER: "Water",
+	Resources.MATERIALS: "Materials",
+	Resources.ENERGY: "Energy",
+	Resources.FOOD: "Food",
 }
 
 const COMPACT_LOSS = 1.2
@@ -142,12 +134,12 @@ func _build_single_facility(data):
 	var type = FacilityTypes[data["type_id"]]
 	var fuel_types = []
 	for str_f in data["fuel_types"]:
-		fuel_types.append(FacilityResources[str_f])
+		fuel_types.append(Resources[str_f])
 	var prod_types = []
 	var portrait = BASE_CONFIG_ASSETS_PATH + data["portrait_texture"]
 	var icon = BASE_CONFIG_ASSETS_PATH + data["icon_texture"]
 	for str_p in data["product_types"]:
-		prod_types.append(FacilityResources[str_p])
+		prod_types.append(Resources[str_p])
 	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
 	facility.init_stats(data["build_cost"], data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
