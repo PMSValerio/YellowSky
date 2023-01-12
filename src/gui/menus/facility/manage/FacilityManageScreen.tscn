@@ -56,30 +56,17 @@ stretch_mode = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
 margin_top = 220.0
 margin_right = 320.0
-margin_bottom = 392.0
+margin_bottom = 568.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="FlavourText" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/ScrollContainer"]
 margin_right = 320.0
-margin_bottom = 172.0
+margin_bottom = 348.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 1 )
 autowrap = true
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail"]
-margin_top = 396.0
-margin_right = 320.0
-margin_bottom = 568.0
-size_flags_vertical = 3
-
-[node name="Status" type="Label" parent="MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/PanelContainer"]
-margin_left = 8.0
-margin_top = 80.0
-margin_right = 312.0
-margin_bottom = 92.0
-align = 1
 
 [node name="AbandonedPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
@@ -139,14 +126,19 @@ margin_right = 516.0
 margin_bottom = 82.0
 size_flags_vertical = 4
 
-[node name="OnOffButton" type="Button" parent="MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow"]
 margin_left = 524.0
 margin_right = 652.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
-toggle_mode = true
-pressed = true
-expand_icon = true
+size_flags_vertical = 3
+
+[node name="Status" type="Label" parent="MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer"]
+margin_left = 8.0
+margin_top = 58.0
+margin_right = 120.0
+margin_bottom = 70.0
+align = 1
 
 [node name="ResourcesRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/StatsScreen"]
 margin_top = 148.0
@@ -241,5 +233,4 @@ margin_right = 144.0
 margin_bottom = 113.0
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/AbandonedPanel/Rebuild" to="." method="_on_Rebuild_pressed"]
-[connection signal="toggled" from="MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/OnOffButton" to="." method="_on_OnOffButton_toggled"]
 [connection signal="value_chosen" from="ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]

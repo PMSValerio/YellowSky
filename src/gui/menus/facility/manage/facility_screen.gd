@@ -5,15 +5,10 @@ signal want_rebuild
 
 var stat_panel_scene = preload("res://src/gui/menus/facility/manage/StatDetails.tscn")
 
-var on_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_on.png")
-var off_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_off.png")
-
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
 onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/ScrollContainer/FlavourText
-
-onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/PanelContainer/Status
 
 # --- || Stat Screen Elements || ---
 onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel
@@ -21,7 +16,8 @@ onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 
 # Integrity Elements
 onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/MarginContainer/HealthDetails
-onready var onoff_button = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/OnOffButton
+
+onready var status_indicator = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/Status
 
 # Resources Elements
 onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
@@ -99,7 +95,6 @@ func _update_status():
 	var status = facility_entity.get_status()
 	
 	status_indicator.text = Facility.Status.keys()[status]
-	onoff_button.icon = on_icon if facility_entity.running else off_icon
 	
 	# TODO: set appropriate colours and warnings
 
