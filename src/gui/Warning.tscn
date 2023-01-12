@@ -23,10 +23,11 @@ animations = [ {
 [node name="Warning" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Anchor"]
 frames = SubResource( 3 )
 animation = "info"
-frame = 1
 playing = true
 
-[node name="MenuTooltip" parent="." instance=ExtResource( 3 )]
+[node name="MenuTooltip" parent="Anchor" instance=ExtResource( 3 )]
