@@ -96,6 +96,7 @@ var facility_types = {} # this file is a horrible place to be doing this
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
 var _player = null setget set_player, get_player
+var _warped_mouse_pos = Vector2.ZERO
 
 var _config_parser : TextManager
 
@@ -125,6 +126,14 @@ func set_player(player):
 
 func get_player():
 	return _player
+
+
+func set_mouse_in_perspective(mouse_pos : Vector2):
+	_warped_mouse_pos = mouse_pos
+
+
+func get_mouse_in_perspective() -> Vector2:
+	return _warped_mouse_pos
 
 
 # in case further customizations are to be made to tooltip

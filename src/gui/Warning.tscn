@@ -2,8 +2,7 @@
 
 [ext_resource path="res://assets/gfx/ui_elements/warning_signs.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/warning.gd" type="Script" id=2]
-[ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=3]
-
+[ext_resource path="res://src/gui/menus/reusable/MenuTooltip.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -30,16 +29,4 @@ animation = "info"
 frame = 1
 playing = true
 
-[node name="MenuTooltipProxy" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-script = ExtResource( 3 )
-
-[connection signal="mouse_entered" from="MenuTooltipProxy" to="." method="_on_MenuTooltipProxy_mouse_entered"]
-[connection signal="mouse_exited" from="MenuTooltipProxy" to="." method="_on_MenuTooltipProxy_mouse_exited"]
+[node name="MenuTooltip" parent="." instance=ExtResource( 3 )]
