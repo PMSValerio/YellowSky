@@ -78,6 +78,13 @@ var resource_names = {
 	Resources.FOOD: "Food",
 }
 
+var item_category_names = {
+	Items.RESOURCES: "Resources",
+	Items.FOOD: "Food",
+	Items.LUXURY: "Luxury",
+	Items.QUEST: "Quest",
+}
+
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick

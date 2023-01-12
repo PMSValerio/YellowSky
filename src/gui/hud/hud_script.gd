@@ -51,4 +51,8 @@ func _on_Skills_pressed():
 	EventManager.emit_signal("push_menu", Global.Menus.TEST, null)
 
 func _on_resource_button_pressed(rec_id):
-	EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, rec_id)
+	var gui = get_parent().get_node("GUI") # this is very very bad code, don't do this at home
+	if gui.get_current_menu() == Global.Menus.MAIN_MENU:
+		EventManager.emit_signal("change_compact_resource", rec_id)
+	else:
+		EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, rec_id)

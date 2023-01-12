@@ -37,10 +37,12 @@ var inspected_slot : GridSlot = null # item currently highlighted in details pan
 
 func _ready() -> void:
 	
-	category_tabs.add_tab("Resources")
-	category_tabs.add_tab("Food")
-	category_tabs.add_tab("Luxury")
-	category_tabs.add_tab("Quest")
+#	category_tabs.add_tab("Resources")
+#	category_tabs.add_tab("Food")
+#	category_tabs.add_tab("Luxury")
+#	category_tabs.add_tab("Quest")
+	for cat in Global.item_category_names:
+		category_tabs.add_tab(Global.item_category_names[cat])
 	
 	for child in item_grid.get_children():
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
@@ -49,7 +51,7 @@ func _ready() -> void:
 func set_context(context):
 	_populate_item_grid(Global.Items.RESOURCES, 0)
 	if context != null and context in Global.Resources.values():
-		_on_resource_pressed(context)
+		toggle_compact_menu_on(context)
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards
@@ -84,7 +86,7 @@ func _populate_item_grid(type, first_ix, keep_inspected_slot = false):
 	
 	var slot = inspected_slot if keep_inspected_slot else null
 	_update_item_details(slot)
-	_on_Tabs_tab_changed(category_tabs.current_tab)
+	#_on_Tabs_tab_changed(category_tabs.current_tab)
 
 
 func _update_item_details(slot : GridSlot):
@@ -130,7 +132,9 @@ func _on_UseButton_pressed() -> void:
 		_populate_item_grid(grid_category, _page_first_ix)
 
 
-func _on_resource_pressed(rec_id) -> void:
+func toggle_compact_menu_on(rec_id) -> void:
+	_populate_item_grid(Global.Items.RESOURCES, 0)
+	category_tabs.current_tab = Global.Items.RESOURCES
 	compact_submenu.toggle_on(rec_id)
 
 
@@ -144,7 +148,8 @@ func _on_select_slot(slot) -> void:
 
 
 func _on_CompactSubmenu_update_items() -> void:
-	_populate_item_grid(Global.Items.RESOURCES, _page_first_ix)
+	_populate_item_grid(Global.Items.RESOURCES, 0)
+	category_tabs.current_tab = Global.Items.RESOURCES
 
 
 func _on_Tabs_tab_changed(tab: int) -> void:
