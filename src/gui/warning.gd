@@ -18,7 +18,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if mouse_in:
-				visible = false
+				toggle(false)
 
 
 func _physics_process(_delta: float) -> void:
@@ -36,3 +36,11 @@ func _physics_process(_delta: float) -> void:
 
 func set_tooltip_text(text : String):
 	$Anchor/MenuTooltip.set_text(text)
+
+
+func set_type(type : String):
+	$Anchor/AnimatedSprite.play(type)
+
+
+func toggle(onoff : bool):
+	visible = onoff

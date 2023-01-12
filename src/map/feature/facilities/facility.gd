@@ -12,6 +12,7 @@ enum Status {
 
 onready var tooltip = $FacilityTooltip
 onready var sprite = $Sprite
+onready var warning = $Warning
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar
@@ -84,7 +85,7 @@ func _operate_cost():
 
 # can only operate if it wasn't destroyed and if it has fuel
 func _can_operate():
-	return get_status() in [Status.FULL, Status.OK]
+	return get_status() in [Status.OK]
 
 
 func toggle_tooltip(toggle: bool) -> void:
@@ -162,12 +163,23 @@ func set_type(type):
 
 
 func repair(amount):
+	var old_status = get_status()
 	health = clamp(health + amount, 0.0, get_max_health())
+	if amount < 0 and old_status != Status.WRECKED:
+		warning.set_tooltip_text("Facility Damaged! [Click to dismiss]")
+		warning.set_type("damage")
+		warning.toggle(true)
+	else:
+		warning.toggle(false)
 	if health >= get_max_health():
 		_is_destroyed = false
 	else:
 		if health <= 0.0:
 			_is_destroyed = true
+			if old_status != Status.WRECKED:
+				warning.set_tooltip_text("Facility Destroyed! [Click to dismiss]")
+				warning.set_type("critical")
+				warning.toggle(true)
 	_update_healthbar()
 
 
@@ -193,6 +205,7 @@ func _play_anim(state : String):
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.FACILITY_MENU, self)
 	tooltip.visible = false
+	warning.toggle(false)
 
 
 func mouse_entered() -> void:

@@ -11,7 +11,6 @@ func interact() -> void:
 func _physics_process(_delta: float) -> void:
 	if has_node("Warning"):
 		$Warning.global_position = $Sprite.global_position + Vector2(0, -32) * $Sprite.scale
-		#print("%s - %s" % [$Warning.global_position, $Warning/MenuTooltipProxy.rect_global_position])
 
 
 func mouse_entered() -> void:
