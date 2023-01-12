@@ -42,6 +42,7 @@ var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 
+
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
 	_rng.randomize()
@@ -84,9 +85,15 @@ func _physics_process(_delta: float) -> void:
 		var interactable = _is_feature(tile_entity)
 		player._on_World_tile_entered(interactable)
 	
+	# find the tile being hovered
 	var last_mouse_tile = _mouse_hex_tile
 	var screen_pos = MapUtils.get_warped_mouse_position()
-	_mouse_hex_tile = tilemap.get_global_transform().affine_inverse() * (tilemap.get_viewport_transform().affine_inverse() * screen_pos)
+	# the transform must be manually tailored, because the viewport's transform takes into account the whole window space
+	# while the mouse position only takes the screen space, fuck you Godot
+	var transf = tilemap.get_viewport_transform().affine_inverse()
+	transf.x = transf.x.normalized()
+	transf.y = transf.y.normalized()
+	_mouse_hex_tile = tilemap.get_global_transform().affine_inverse() * (transf * screen_pos)
 	_mouse_hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(_mouse_hex_tile))
 	var in_bounds_new = 0 <= _mouse_hex_tile.x and _mouse_hex_tile.x < map_grid.size() and 0 <= _mouse_hex_tile.y and _mouse_hex_tile.y < map_grid[0].size()
 	var in_bounds_last = 0 <= last_mouse_tile.x and last_mouse_tile.x < map_grid.size() and 0 <= last_mouse_tile.y and last_mouse_tile.y < map_grid[0].size()
@@ -99,6 +106,7 @@ func _physics_process(_delta: float) -> void:
 			new_entity.mouse_entered()
 	
 	$HUD/Control/Label.text = str(tilemap.world_to_map(MapUtils.get_hex_center(_get_player_position())))
+	#$HUD/Control/Label2.text = str(_mouse_hex_tile)
 
 
 func _get_player_position():
