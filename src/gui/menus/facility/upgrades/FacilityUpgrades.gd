@@ -4,15 +4,15 @@ var facility_entity : Facility = null # the actual facility node
 
 # In the scene where you are calling the other scene
 func _ready():
-	var button1 = get_node("Button1")
+	var button1 = get_node("VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate/Button1")
 	button1.connect("pressed", self, "on_button1_pressed")
-	var button2 = get_node("Button2")
+	var button2 = get_node("VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate/Button2")
 	button2.connect("pressed", self, "on_button2_pressed")
-	var button3 = get_node("Button3")
+	var button3 = get_node("VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate/Button3")
 	button3.connect("pressed", self, "on_button3_pressed")
 
 func set_context(context):
-	if context is Facility:
+	if context is Feature:
 		facility_entity = context
 
 func on_button1_pressed():

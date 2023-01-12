@@ -8,26 +8,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
-margin_right = 1024.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 1024, 600 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 1016.0
-margin_bottom = 592.0
+margin_bottom = 374.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
-margin_right = 1008.0
-margin_bottom = 366.0
-
-[node name="UpgradesSection" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="UpgradesSection" type="HBoxContainer" parent="PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 1000.0
@@ -36,19 +23,19 @@ rect_min_size = Vector2( 0, 350 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/UpgradesSection"]
 margin_right = 992.0
 margin_bottom = 350.0
 size_flags_horizontal = 3
 
-[node name="ProdRate" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer"]
+[node name="ProdRate" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
 margin_right = 992.0
 margin_bottom = 114.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_top = 20.0
 margin_right = 73.0
 margin_bottom = 94.0
@@ -56,7 +43,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador1" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+[node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 88.0
 margin_top = 47.0
 margin_right = 444.0
@@ -67,7 +54,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button2" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 459.0
 margin_top = 20.0
 margin_right = 532.0
@@ -76,7 +63,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador2" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+[node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 547.0
 margin_top = 47.0
 margin_right = 904.0
@@ -87,7 +74,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button3" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 919.0
 margin_top = 20.0
 margin_right = 992.0
@@ -96,7 +83,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="MaxCapcity" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer"]
+[node name="MaxCapcity" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
 margin_top = 118.0
 margin_right = 992.0
 margin_bottom = 232.0
@@ -104,7 +91,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_top = 20.0
 margin_right = 73.0
 margin_bottom = 94.0
@@ -112,7 +99,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador1" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+[node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 88.0
 margin_top = 47.0
 margin_right = 444.0
@@ -123,7 +110,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button2" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 459.0
 margin_top = 20.0
 margin_right = 532.0
@@ -132,7 +119,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador2" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+[node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 547.0
 margin_top = 47.0
 margin_right = 904.0
@@ -143,7 +130,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button3" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 919.0
 margin_top = 20.0
 margin_right = 992.0
@@ -152,7 +139,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Durability" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer"]
+[node name="Durability" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
 margin_top = 236.0
 margin_right = 992.0
 margin_bottom = 350.0
@@ -160,7 +147,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_top = 20.0
 margin_right = 73.0
 margin_bottom = 94.0
@@ -168,7 +155,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador1" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+[node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 88.0
 margin_top = 47.0
 margin_right = 444.0
@@ -179,7 +166,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button2" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 459.0
 margin_top = 20.0
 margin_right = 532.0
@@ -188,7 +175,7 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="Separador2" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+[node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 547.0
 margin_top = 47.0
 margin_right = 904.0
@@ -199,7 +186,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Button3" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 919.0
 margin_top = 20.0
 margin_right = 992.0
@@ -208,19 +195,20 @@ rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 icon = ExtResource( 2 )
 
-[node name="DownSection" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
-margin_top = 370.0
-margin_right = 1008.0
-margin_bottom = 584.0
+[node name="DownSection" type="HBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 378.0
+margin_right = 1016.0
+margin_bottom = 592.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection"]
+[node name="PanelContainer" type="PanelContainer" parent="DownSection"]
 margin_right = 688.0
 margin_bottom = 214.0
 size_flags_horizontal = 3
 
-[node name="Descprition_Cost" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer"]
+[node name="Descprition_Cost" type="VBoxContainer" parent="DownSection/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 680.0
@@ -228,32 +216,32 @@ margin_bottom = 206.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer/Descprition_Cost"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DownSection/PanelContainer/Descprition_Cost"]
 margin_right = 672.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer/Descprition_Cost/HBoxContainer"]
+[node name="Label" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer"]
 margin_top = 9.0
 margin_right = 241.0
 margin_bottom = 21.0
 text = "Cost: Cost of the upgrade"
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer/Descprition_Cost"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="DownSection/PanelContainer/Descprition_Cost"]
 margin_top = 34.0
 margin_right = 672.0
 margin_bottom = 198.0
 size_flags_vertical = 3
 custom_constants/separation = 24
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
+[node name="Label" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
 margin_right = 672.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Description:"
 
-[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
+[node name="Label2" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
 margin_top = 36.0
 margin_right = 672.0
 margin_bottom = 63.0
@@ -262,12 +250,12 @@ size_flags_vertical = 1
 text = "Some description about the upgrade like what it does and the percentage of the upgrade value."
 autowrap = true
 
-[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection"]
+[node name="PanelContainer2" type="PanelContainer" parent="DownSection"]
 margin_left = 692.0
 margin_right = 1008.0
 margin_bottom = 214.0
 
-[node name="Enviromental" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer2"]
+[node name="Enviromental" type="VBoxContainer" parent="DownSection/PanelContainer2"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 308.0
@@ -276,11 +264,11 @@ rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 custom_constants/separation = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer2/Enviromental"]
+[node name="MarginContainer" type="MarginContainer" parent="DownSection/PanelContainer2/Enviromental"]
 margin_right = 300.0
 margin_bottom = 64.0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer2/Enviromental/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="DownSection/PanelContainer2/Enviromental/MarginContainer"]
 margin_left = 118.0
 margin_right = 182.0
 margin_bottom = 64.0
@@ -291,14 +279,14 @@ texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer2/Enviromental"]
+[node name="MarginContainer2" type="MarginContainer" parent="DownSection/PanelContainer2/Enviromental"]
 margin_top = 74.0
 margin_right = 300.0
 margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/DownSection/PanelContainer2/Enviromental/MarginContainer2"]
+[node name="Label" type="Label" parent="DownSection/PanelContainer2/Enviromental/MarginContainer2"]
 margin_right = 300.0
 margin_bottom = 124.0
 size_flags_vertical = 5
