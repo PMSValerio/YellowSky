@@ -46,5 +46,21 @@
     "max_product": 100.0,
     "consumption_rate": 2.0,
     "production_rate": 5.0
+  },
+  "cannery": {
+    "type_id": "CANNERY",
+    "type_name": "Cannery",
+    "flavour_text": "[ALPHA] Pick this facility if you want to produce food.",
+    "fuel_types": ["ENERGY", "WATER"],
+    "product_types": ["FOOD"],
+    "base_animation": "cannery",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/cannery_icon.png",
+    "build_cost" : 10.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
   }
 }

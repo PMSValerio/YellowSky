@@ -38,6 +38,9 @@ func add_to_resource(type, amount):
 			set_energy(_energy + amount)
 		Global.Resources.SEEDS:
 			set_seeds(_seeds + amount)
+		Global.Resources.FOOD:
+			# fetch from a pool of possible facility food items and add them to inventory
+			print("Collected food")
 
 
 func get_resource(type) -> int:

@@ -32,18 +32,20 @@ enum FacilityTypes {
 	WRECKED, # only used for unitialised facilities
 	
 	# food
+	CANNERY,
+	# HYDROPONICS
 	
 	# water
 	# GROUNDWATER_PUMP,
-	# ???
+	# PURIFIER
 	
 	# energy
 	COAL_PLANT,
-	# EOLIC_TURBINE,
+	# WIND_FARM,
 	
 	# materials
 	PARTS_WORKSHOP, # what a crappy name
-	# RECYLING CENTER,
+	# RECYLING CENTRE,
 }
 
 enum Items {
