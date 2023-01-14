@@ -36,7 +36,7 @@ enum FacilityTypes {
 	# HYDROPONICS
 	
 	# water
-	# GROUNDWATER_PUMP,
+	WATER_PUMP,
 	# PURIFIER
 	
 	# energy
