@@ -19,6 +19,8 @@ func select_category(category):
 func _on_tab_pressed(button, category):
 	for child in $VBoxContainer.get_children():
 		(child as TextureButton).pressed = false
+		child.get_node("ColorRect").visible = false
 	button.pressed = true
+	button.get_node("ColorRect").visible = true
 	
 	emit_signal("switch_tab", category)

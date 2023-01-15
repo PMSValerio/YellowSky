@@ -36,18 +36,18 @@ region = Rect2( 64, 192, 64, 64 )
 atlas = ExtResource( 1 )
 region = Rect2( 0, 192, 64, 64 )
 
-[node name="CategoryTabs" type="Control"]
+[node name="CategoryTabs" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1024.0
+margin_bottom = 600.0
 custom_constants/separation = 0
 
 [node name="Resources" type="TextureButton" parent="VBoxContainer"]
-margin_right = 64.0
+margin_right = 1024.0
 margin_bottom = 64.0
 toggle_mode = true
 action_mode = 0
@@ -61,9 +61,17 @@ anchor_bottom = 1.0
 hint_tooltip = "Compact Resources"
 script = ExtResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Resources"]
+visible = false
+margin_left = 64.0
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 62.0
+color = Color( 0.270588, 0.12549, 0.203922, 1 )
+
 [node name="Food" type="TextureButton" parent="VBoxContainer"]
 margin_top = 64.0
-margin_right = 64.0
+margin_right = 1024.0
 margin_bottom = 128.0
 toggle_mode = true
 action_mode = 0
@@ -77,9 +85,17 @@ anchor_bottom = 1.0
 hint_tooltip = "Food"
 script = ExtResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Food"]
+visible = false
+margin_left = 64.0
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 62.0
+color = Color( 0.270588, 0.12549, 0.203922, 1 )
+
 [node name="Luxury" type="TextureButton" parent="VBoxContainer"]
 margin_top = 128.0
-margin_right = 64.0
+margin_right = 1024.0
 margin_bottom = 192.0
 toggle_mode = true
 action_mode = 0
@@ -93,9 +109,17 @@ anchor_bottom = 1.0
 hint_tooltip = "Luxuries"
 script = ExtResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Luxury"]
+visible = false
+margin_left = 64.0
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 62.0
+color = Color( 0.270588, 0.12549, 0.203922, 1 )
+
 [node name="Quest" type="TextureButton" parent="VBoxContainer"]
 margin_top = 192.0
-margin_right = 64.0
+margin_right = 1024.0
 margin_bottom = 256.0
 toggle_mode = true
 action_mode = 0
@@ -108,3 +132,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 hint_tooltip = "Quest Items"
 script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Quest"]
+visible = false
+margin_left = 64.0
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 62.0
+color = Color( 0.270588, 0.12549, 0.203922, 1 )

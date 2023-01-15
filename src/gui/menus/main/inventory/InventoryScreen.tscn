@@ -1,11 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://src/gui/menus/main/inventory/CategoryTabs.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gfx/ui_elements/panels.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/menus/main/inventory/CompactSubmenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/gui/menus/main/inventory/GridSlot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/gui/menus/main/inventory/inventory_screen.gd" type="Script" id=6]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_trade.png" type="Texture" id=7]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=8]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 2 )
+region_rect = Rect2( 96, 0, 48, 48 )
+margin_left = 10.0
+margin_right = 10.0
+margin_top = 10.0
+margin_bottom = 10.0
 
 [sub_resource type="DynamicFont" id=1]
 size = 10
@@ -30,157 +40,176 @@ margin_top = 8.0
 margin_right = 1016.0
 margin_bottom = 592.0
 
-[node name="GridManager" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 420.0
-margin_bottom = 584.0
+[node name="GridManager" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_top = 148.0
+margin_right = 352.0
+margin_bottom = 436.0
+size_flags_vertical = 4
+custom_constants/separation = 0
 alignment = 1
 
-[node name="Tabs" type="Tabs" parent="MarginContainer/HBoxContainer/GridManager"]
-margin_top = 152.0
-margin_right = 420.0
-margin_bottom = 180.0
-rect_min_size = Vector2( 420, 0 )
-tab_align = 0
-
-[node name="ItemGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/GridManager"]
-margin_top = 184.0
-margin_right = 420.0
-margin_bottom = 432.0
-columns = 5
-
-[node name="GridSlot0" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="CategoryTabs" parent="MarginContainer/HBoxContainer/GridManager" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 80.0
+margin_right = 64.0
+margin_bottom = 288.0
 
-[node name="GridSlot1" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/GridManager"]
+margin_left = 64.0
+margin_right = 352.0
+margin_bottom = 288.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 278.0
+size_flags_horizontal = 0
+columns = 4
+
+[node name="GridSlot0" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 84.0
-margin_right = 164.0
-margin_bottom = 80.0
+margin_right = 64.0
+margin_bottom = 64.0
 
-[node name="GridSlot2" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot1" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 168.0
-margin_right = 248.0
-margin_bottom = 80.0
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
 
-[node name="GridSlot3" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot2" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 252.0
-margin_right = 332.0
-margin_bottom = 80.0
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
 
-[node name="GridSlot4" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot3" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 336.0
-margin_right = 416.0
-margin_bottom = 80.0
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
 
-[node name="GridSlot5" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot4" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 84.0
-margin_right = 80.0
-margin_bottom = 164.0
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
 
-[node name="GridSlot6" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot5" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 84.0
-margin_top = 84.0
-margin_right = 164.0
-margin_bottom = 164.0
+margin_left = 68.0
+margin_top = 68.0
+margin_right = 132.0
+margin_bottom = 132.0
 
-[node name="GridSlot7" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot6" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 168.0
-margin_top = 84.0
-margin_right = 248.0
-margin_bottom = 164.0
+margin_left = 136.0
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 132.0
 
-[node name="GridSlot8" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot7" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 252.0
-margin_top = 84.0
-margin_right = 332.0
-margin_bottom = 164.0
+margin_left = 204.0
+margin_top = 68.0
+margin_right = 268.0
+margin_bottom = 132.0
 
-[node name="GridSlot9" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot8" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 336.0
-margin_top = 84.0
-margin_right = 416.0
-margin_bottom = 164.0
+margin_top = 136.0
+margin_right = 64.0
+margin_bottom = 200.0
 
-[node name="GridSlot10" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot9" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 168.0
-margin_right = 80.0
-margin_bottom = 248.0
+margin_left = 68.0
+margin_top = 136.0
+margin_right = 132.0
+margin_bottom = 200.0
 
-[node name="GridSlot11" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot10" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 84.0
-margin_top = 168.0
-margin_right = 164.0
-margin_bottom = 248.0
+margin_left = 136.0
+margin_top = 136.0
+margin_right = 200.0
+margin_bottom = 200.0
 
-[node name="GridSlot12" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot11" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 168.0
-margin_top = 168.0
-margin_right = 248.0
-margin_bottom = 248.0
+margin_left = 204.0
+margin_top = 136.0
+margin_right = 268.0
+margin_bottom = 200.0
 
-[node name="GridSlot13" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot12" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 252.0
-margin_top = 168.0
-margin_right = 332.0
-margin_bottom = 248.0
+margin_top = 204.0
+margin_right = 64.0
+margin_bottom = 268.0
 
-[node name="GridSlot14" parent="MarginContainer/HBoxContainer/GridManager/ItemGrid" instance=ExtResource( 4 )]
+[node name="GridSlot13" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 336.0
-margin_top = 168.0
-margin_right = 416.0
-margin_bottom = 248.0
+margin_left = 68.0
+margin_top = 204.0
+margin_right = 132.0
+margin_bottom = 268.0
+
+[node name="GridSlot14" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_top = 204.0
+margin_right = 200.0
+margin_bottom = 268.0
+
+[node name="GridSlot15" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_top = 204.0
+margin_right = 268.0
+margin_bottom = 268.0
 
 [node name="ItemDetails" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 424.0
+visible = false
+margin_left = 408.0
 margin_right = 1008.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
-margin_right = 584.0
+margin_right = 600.0
 margin_bottom = 28.0
 
 [node name="Name" type="Label" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer3"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 576.0
+margin_right = 592.0
 margin_bottom = 20.0
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
-margin_left = 204.0
+margin_left = 212.0
 margin_top = 32.0
-margin_right = 380.0
+margin_right = 388.0
 margin_bottom = 208.0
 size_flags_horizontal = 4
 
@@ -195,14 +224,14 @@ stretch_mode = 6
 
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
 margin_top = 212.0
-margin_right = 584.0
+margin_right = 600.0
 margin_bottom = 532.0
 size_flags_vertical = 3
 
 [node name="ItemDescription" type="Label" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 576.0
+margin_right = 592.0
 margin_bottom = 312.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
@@ -212,18 +241,18 @@ clip_text = true
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2"]
 margin_left = 8.0
 margin_top = 280.0
-margin_right = 576.0
+margin_right = 592.0
 margin_bottom = 312.0
 size_flags_horizontal = 7
 size_flags_vertical = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer"]
-margin_right = 568.0
+margin_right = 584.0
 margin_bottom = 32.0
 
 [node name="Trade" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer"]
-margin_left = 123.0
-margin_right = 159.0
+margin_left = 127.0
+margin_right = 163.0
 margin_bottom = 32.0
 size_flags_horizontal = 6
 
@@ -256,8 +285,8 @@ expand = true
 stretch_mode = 6
 
 [node name="Stat" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer"]
-margin_left = 409.0
-margin_right = 445.0
+margin_left = 421.0
+margin_right = 457.0
 margin_bottom = 32.0
 size_flags_horizontal = 6
 
@@ -289,7 +318,7 @@ stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
 margin_top = 536.0
-margin_right = 584.0
+margin_right = 600.0
 margin_bottom = 584.0
 custom_constants/margin_right = 32
 custom_constants/margin_top = 8
@@ -299,7 +328,7 @@ custom_constants/margin_bottom = 8
 [node name="UseButton" type="Button" parent="MarginContainer/HBoxContainer/ItemDetails/MarginContainer"]
 margin_left = 32.0
 margin_top = 8.0
-margin_right = 552.0
+margin_right = 568.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 32 )
 text = "Use"
@@ -307,6 +336,6 @@ text = "Use"
 [node name="CompactSubmenu" parent="." instance=ExtResource( 3 )]
 visible = false
 
-[connection signal="tab_changed" from="MarginContainer/HBoxContainer/GridManager/Tabs" to="." method="_on_Tabs_tab_changed"]
+[connection signal="switch_tab" from="MarginContainer/HBoxContainer/GridManager/CategoryTabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton" to="." method="_on_UseButton_pressed"]
 [connection signal="update_items" from="CompactSubmenu" to="." method="_on_CompactSubmenu_update_items"]
