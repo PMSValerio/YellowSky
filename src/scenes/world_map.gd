@@ -94,6 +94,7 @@ func _physics_process(_delta: float) -> void:
 	transf.x = transf.x.normalized()
 	transf.y = transf.y.normalized()
 	_mouse_hex_tile = tilemap.get_global_transform().affine_inverse() * (transf * screen_pos)
+	Global.set_mouse_in_perspective(_mouse_hex_tile if MapUtils.ENABLED else get_global_mouse_position())
 	_mouse_hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(_mouse_hex_tile))
 	var in_bounds_new = 0 <= _mouse_hex_tile.x and _mouse_hex_tile.x < map_grid.size() and 0 <= _mouse_hex_tile.y and _mouse_hex_tile.y < map_grid[0].size()
 	var in_bounds_last = 0 <= last_mouse_tile.x and last_mouse_tile.x < map_grid.size() and 0 <= last_mouse_tile.y and last_mouse_tile.y < map_grid[0].size()
@@ -328,7 +329,7 @@ func _connect_cluster(clusters):
 				pos2 = centers[center_ix]
 				
 				# linear equation
-				var m = (pos2.y - pos1.y) / (pos2.x - pos1.x)
+				var m = (pos2.y - pos1.y) / (pos2.x - pos1.x) if (pos2.x - pos1.x) != 0 else 0
 				var b = pos1.y - (m * pos1.x)
 				
 				var dir = 1 if pos2.x > pos1.x else -1 # direction of line

@@ -10,7 +10,7 @@ func interact() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if has_node("Warning"):
-		$Warning.position = $Sprite.position + Vector2(0, -32) * $Sprite.scale
+		$Warning.global_position = $Sprite.global_position + Vector2(0, -32) * $Sprite.scale
 
 
 func mouse_entered() -> void:

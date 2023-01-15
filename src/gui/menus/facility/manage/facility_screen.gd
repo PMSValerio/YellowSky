@@ -18,6 +18,7 @@ onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/MarginContainer/HealthDetails
 
 onready var status_indicator = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/Status
+onready var status_tooltip = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/StatusTooltip
 
 # Resources Elements
 onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
