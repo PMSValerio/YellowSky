@@ -58,5 +58,13 @@ func set_action(action_name) -> void:
 	action_button.text = action_name
 
 
+func is_full() -> float:
+	return $HBoxContainer/VBoxContainer/ProgressBar.value == $HBoxContainer/VBoxContainer/ProgressBar.max_value
+
+
+func enable_button(en = true) -> void:
+	action_button.disabled = not en
+
+
 func _on_Button_pressed() -> void:
 	emit_signal("action_pressed")

@@ -94,9 +94,21 @@ func set_context(context):
 func _update_status():
 	var status = facility_entity.get_status()
 	
-	status_indicator.text = Facility.Status.keys()[status]
+	match status:
+		Facility.Status.OK:
+			status_indicator.play("ok")
+			status_tooltip.hint_tooltip = "Facility is in working condition"
+		Facility.Status.WRECKED:
+			status_indicator.play("wrecked")
+			status_tooltip.hint_tooltip = "Facility destroyed, repairs required"
+		Facility.Status.NO_FUEL:
+			status_indicator.play("no_fuel")
+			status_tooltip.hint_tooltip = "Not enough fuel to work"
+		Facility.Status.FULL:
+			status_indicator.play("full")
+			status_tooltip.hint_tooltip = "Product tank is full"
 	
-	# TODO: set appropriate colours and warnings
+	health_details.enable_button(not health_details.is_full())
 
 
 # this already assumes the player has enough resources for the operation

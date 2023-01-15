@@ -66,7 +66,7 @@ var resource_icons = {
 	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
 	Resources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png"),
 	Resources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
-	Resources.FOOD: preload("res://assets/gfx/ui_elements/icons/icon_stamina.png"),
+	Resources.FOOD: preload("res://assets/gfx/HUD/HUD_icons/icon_stamina.png"),
 	Resources.SEEDS: preload("res://assets/gfx/ui_elements/icons/seedsIcon.png"),
 }
 

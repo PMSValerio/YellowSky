@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_stamina.png-ed0fa9506f0fd01872daf271919ee98a.stex"
+path="res://.import/icon_health.png-5fcfc8e1da77ade2637a8c645d48ae68.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/ui_elements/icons/icon_stamina.png"
-dest_files=[ "res://.import/icon_stamina.png-ed0fa9506f0fd01872daf271919ee98a.stex" ]
+source_file="res://assets/gfx/HUD/HUD_icons/icon_health.png"
+dest_files=[ "res://.import/icon_health.png-5fcfc8e1da77ade2637a8c645d48ae68.stex" ]
 
 [params]
 
