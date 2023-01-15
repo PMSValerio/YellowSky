@@ -11,10 +11,7 @@ func _ready():
 	var _v = EventManager.connect("resource_changed", self, "on_resource_changed")
 	
 	# For testing purposes only
-	ResourceManager.add_to_resource(Global.Resources.WATER, 200)
-	ResourceManager.add_to_resource(Global.Resources.MATERIALS, 200)
-	ResourceManager.add_to_resource(Global.Resources.ENERGY, 200)
-	ResourceManager.add_to_resource(Global.Resources.SEEDS, 200)
+	ResourceManager.add_to_resource(Global.Resources.MATERIALS, 20)
 	
 	water_counter_ref.set_resource(Global.Resources.WATER)
 	water_counter_ref.connect("action", self, "_on_resource_button_pressed", [Global.Resources.WATER])
