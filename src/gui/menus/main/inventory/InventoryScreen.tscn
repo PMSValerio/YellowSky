@@ -41,9 +41,9 @@ margin_right = 1016.0
 margin_bottom = 592.0
 
 [node name="GridManager" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_top = 148.0
-margin_right = 352.0
-margin_bottom = 436.0
+margin_top = 116.0
+margin_right = 416.0
+margin_bottom = 468.0
 size_flags_vertical = 4
 custom_constants/separation = 0
 alignment = 1
@@ -52,141 +52,141 @@ alignment = 1
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 64.0
-margin_bottom = 288.0
+margin_bottom = 352.0
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/GridManager"]
 margin_left = 64.0
-margin_right = 352.0
-margin_bottom = 288.0
+margin_right = 416.0
+margin_bottom = 352.0
 custom_styles/panel = SubResource( 2 )
 
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 278.0
-margin_bottom = 278.0
+margin_right = 342.0
+margin_bottom = 342.0
 size_flags_horizontal = 0
 columns = 4
 
 [node name="GridSlot0" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 80.0
+margin_bottom = 80.0
 
 [node name="GridSlot1" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 68.0
-margin_right = 132.0
-margin_bottom = 64.0
+margin_left = 84.0
+margin_right = 164.0
+margin_bottom = 80.0
 
 [node name="GridSlot2" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
-margin_right = 200.0
-margin_bottom = 64.0
+margin_left = 168.0
+margin_right = 248.0
+margin_bottom = 80.0
 
 [node name="GridSlot3" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_right = 268.0
-margin_bottom = 64.0
+margin_left = 252.0
+margin_right = 332.0
+margin_bottom = 80.0
 
 [node name="GridSlot4" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 68.0
-margin_right = 64.0
-margin_bottom = 132.0
+margin_top = 84.0
+margin_right = 80.0
+margin_bottom = 164.0
 
 [node name="GridSlot5" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 68.0
-margin_top = 68.0
-margin_right = 132.0
-margin_bottom = 132.0
+margin_left = 84.0
+margin_top = 84.0
+margin_right = 164.0
+margin_bottom = 164.0
 
 [node name="GridSlot6" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
-margin_top = 68.0
-margin_right = 200.0
-margin_bottom = 132.0
+margin_left = 168.0
+margin_top = 84.0
+margin_right = 248.0
+margin_bottom = 164.0
 
 [node name="GridSlot7" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_top = 68.0
-margin_right = 268.0
-margin_bottom = 132.0
+margin_left = 252.0
+margin_top = 84.0
+margin_right = 332.0
+margin_bottom = 164.0
 
 [node name="GridSlot8" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 136.0
-margin_right = 64.0
-margin_bottom = 200.0
+margin_top = 168.0
+margin_right = 80.0
+margin_bottom = 248.0
 
 [node name="GridSlot9" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 68.0
-margin_top = 136.0
-margin_right = 132.0
-margin_bottom = 200.0
+margin_left = 84.0
+margin_top = 168.0
+margin_right = 164.0
+margin_bottom = 248.0
 
 [node name="GridSlot10" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 200.0
-margin_bottom = 200.0
+margin_left = 168.0
+margin_top = 168.0
+margin_right = 248.0
+margin_bottom = 248.0
 
 [node name="GridSlot11" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_top = 136.0
-margin_right = 268.0
-margin_bottom = 200.0
+margin_left = 252.0
+margin_top = 168.0
+margin_right = 332.0
+margin_bottom = 248.0
 
 [node name="GridSlot12" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 204.0
-margin_right = 64.0
-margin_bottom = 268.0
+margin_top = 252.0
+margin_right = 80.0
+margin_bottom = 332.0
 
 [node name="GridSlot13" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 68.0
-margin_top = 204.0
-margin_right = 132.0
-margin_bottom = 268.0
+margin_left = 84.0
+margin_top = 252.0
+margin_right = 164.0
+margin_bottom = 332.0
 
 [node name="GridSlot14" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
-margin_top = 204.0
-margin_right = 200.0
-margin_bottom = 268.0
+margin_left = 168.0
+margin_top = 252.0
+margin_right = 248.0
+margin_bottom = 332.0
 
 [node name="GridSlot15" parent="MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_top = 204.0
-margin_right = 268.0
-margin_bottom = 268.0
+margin_left = 252.0
+margin_top = 252.0
+margin_right = 332.0
+margin_bottom = 332.0
 
 [node name="ItemDetails" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 visible = false

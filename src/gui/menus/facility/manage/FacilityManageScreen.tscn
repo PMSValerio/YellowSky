@@ -234,11 +234,19 @@ margin_bottom = 12.0
 size_flags_horizontal = 3
 align = 1
 
-[node name="FuelList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer"]
 margin_top = 16.0
 margin_right = 316.0
 margin_bottom = 420.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="FuelList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/ScrollContainer"]
+margin_right = 316.0
+margin_bottom = 404.0
 rect_clip_content = true
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
@@ -272,11 +280,19 @@ margin_bottom = 12.0
 size_flags_horizontal = 3
 align = 1
 
-[node name="ProdList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer"]
 margin_top = 16.0
 margin_right = 316.0
 margin_bottom = 420.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="ProdList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ScrollContainer"]
+margin_right = 316.0
+margin_bottom = 404.0
 rect_clip_content = true
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 

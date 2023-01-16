@@ -62,7 +62,6 @@ hint_tooltip = "Compact Resources"
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Resources"]
-visible = false
 margin_left = 64.0
 margin_top = 2.0
 margin_right = 70.0

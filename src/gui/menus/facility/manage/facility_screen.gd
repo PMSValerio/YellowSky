@@ -21,8 +21,8 @@ onready var status_indicator = $MarginContainer/HBoxContainer/StatsScreen/PanelC
 onready var status_tooltip = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/StatusTooltip
 
 # Resources Elements
-onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
-onready var prod_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ProdList
+onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/ScrollContainer/FuelList
+onready var prod_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ScrollContainer/ProdList
 onready var cons_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer/ConsumptionRate
 onready var prod_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer/ProductionRate
 

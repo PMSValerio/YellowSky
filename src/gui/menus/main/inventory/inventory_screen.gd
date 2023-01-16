@@ -127,7 +127,6 @@ func _on_UseButton_pressed() -> void:
 
 
 func toggle_compact_menu_on(rec_id) -> void:
-	#_populate_item_grid(Global.Items.RESOURCES, 0)
 	category_tabs.select_category(Global.Items.RESOURCES)
 	compact_submenu.toggle_on(rec_id)
 
@@ -142,7 +141,7 @@ func _on_select_slot(slot) -> void:
 
 
 func _on_CompactSubmenu_update_items() -> void:
-	#_populate_item_grid(Global.Items.RESOURCES, 0)
+	_populate_item_grid(Global.Items.RESOURCES, 0)
 	category_tabs.select_category(Global.Items.RESOURCES)
 
 

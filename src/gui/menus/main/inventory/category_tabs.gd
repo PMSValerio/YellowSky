@@ -9,6 +9,9 @@ func _ready() -> void:
 	_v = $VBoxContainer/Food.connect("pressed", self, "_on_tab_pressed", [$VBoxContainer/Food, 1])
 	_v = $VBoxContainer/Luxury.connect("pressed", self, "_on_tab_pressed", [$VBoxContainer/Luxury, 2])
 	_v = $VBoxContainer/Quest.connect("pressed", self, "_on_tab_pressed", [$VBoxContainer/Quest, 3])
+	
+	# set z index so that even if this is behind the grid, it is displayed in front
+	VisualServer.canvas_item_set_z_index(get_canvas_item(), 1)
 
 
 func select_category(category):
