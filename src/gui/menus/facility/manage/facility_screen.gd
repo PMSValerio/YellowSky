@@ -150,9 +150,10 @@ func _toggle_on_off(onoff):
 func _on_Repair_pressed() -> void:
 	var amount = facility_entity.get_max_health() - facility_entity.health
 	if amount > 0:
-		var _min = facility_entity.health
-		var _max = _min + ResourceManager.get_resource(Global.Resources.MATERIALS)
-		resource_slider.set_state(0, facility_entity.get_max_health(), _min, _max, Global.resource_icons[Global.Resources.MATERIALS])
+		var _pl_value = ResourceManager.get_resource(Global.Resources.MATERIALS)
+		var _fc_value = facility_entity.health
+		var _fc_max = facility_entity.get_max_health()
+		resource_slider.set_state(_pl_value, _fc_value, _fc_max, Global.resource_icons[Global.Resources.MATERIALS])
 		resource_slider.visible = true
 		slider_mode = 1
 		slider_resource = Global.Resources.MATERIALS
@@ -160,9 +161,10 @@ func _on_Repair_pressed() -> void:
 
 func _on_Refuel_pressed(resource) -> void:
 	if facility_entity.health > 0:
-		var _min = facility_entity.fuels[resource]
-		var _max = _min + ResourceManager.get_resource(resource)
-		resource_slider.set_state(0, facility_entity.get_max_fuel(), _min, _max, Global.resource_icons[resource])
+		var _pl_value = ResourceManager.get_resource(resource)
+		var _fc_value = facility_entity.fuels[resource]
+		var _fc_max = facility_entity.get_max_fuel()
+		resource_slider.set_state(_pl_value, _fc_value, _fc_max, Global.resource_icons[resource])
 		resource_slider.visible = true
 		slider_mode = 2
 		slider_resource = resource
