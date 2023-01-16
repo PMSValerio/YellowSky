@@ -61,7 +61,9 @@ func _tick() -> void:
 				products[p] = min(get_max_prod(), products[p] + facility_type.production_rate)
 				if products[p] == get_max_prod():
 					print("Facility full")
-					pass # alert facility full
+					warning.set_tooltip_text("Facility Full! [Click to dismiss]")
+					warning.set_type("full")
+					warning.toggle(true)
 	
 		if tooltip.visible:
 			tooltip.update_items(self)
@@ -81,6 +83,9 @@ func _operate_cost():
 		if fuels[f] == 0:
 			# alert facility power off
 			print("Facility switching off")
+			warning.set_tooltip_text("Facility out of Fuel! [Click to dismiss]")
+			warning.set_type("fuel")
+			warning.toggle(true)
 
 
 # can only operate if it wasn't destroyed and if it has fuel
