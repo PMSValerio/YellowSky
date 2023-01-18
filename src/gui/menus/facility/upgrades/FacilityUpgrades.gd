@@ -13,12 +13,12 @@ const pr2_cost = 112
 onready var pr3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/ProdRate/Button3")
 const pr3_cost = 113
 #MaxCapacity Buttons
-onready var mc1 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button1")
-const mc1_cost = 121
-onready var mc2 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button2")
-const mc2_cost = 122
-onready var mc3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button3")
-const mc3_cost = 123
+onready var cr1 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button1")
+const cr1_cost = 121
+onready var cr2 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button2")
+const cr2_cost = 122
+onready var cr3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity/Button3")
+const cr3_cost = 123
 #Durability Buttons
 onready var d1 = get_node("PanelContainer/UpgradesSection/VBoxContainer/Durability/Button1")
 const d1_cost = 131
@@ -36,9 +36,9 @@ func _connect_buttons():
 	pr1.connect("pressed", self, "_on_button_pressed", [pr1])
 	pr2.connect("pressed", self, "_on_button_pressed", [pr2])
 	pr3.connect("pressed", self, "_on_button_pressed", [pr3])
-	mc1.connect("pressed", self, "_on_button_pressed", [mc1])
-	mc2.connect("pressed", self, "_on_button_pressed", [mc2])
-	mc3.connect("pressed", self, "_on_button_pressed", [mc3])
+	cr1.connect("pressed", self, "_on_button_pressed", [cr1])
+	cr2.connect("pressed", self, "_on_button_pressed", [cr2])
+	cr3.connect("pressed", self, "_on_button_pressed", [cr3])
 	d1.connect("pressed", self, "_on_button_pressed", [d1])
 	d2.connect("pressed", self, "_on_button_pressed", [d2])
 	d3.connect("pressed", self, "_on_button_pressed", [d3])
@@ -58,13 +58,13 @@ func _on_button_pressed(button):
 	elif button == pr3:
 		print("#Upgrade ProdRate to lvl3")
 		change_upgrade_info(button)
-	elif button == mc1:
+	elif button == cr1:
 		print("#Upgrade MaxCapacity to lvl1")
 		change_upgrade_info(button)
-	elif button == mc2:
+	elif button == cr2:
 		print("#Upgrade MaxCapacity to lvl2")
 		change_upgrade_info(button)
-	elif button == mc3:
+	elif button == cr3:
 		print("#Upgrade MaxCapacity to lvl3")
 		change_upgrade_info(button)
 	elif button == d1:
@@ -87,15 +87,15 @@ func change_upgrade_info(button):
 	elif button == pr3:
 		description_label.text = "Lvl3 prodrate upgrade description"
 		cost_label.text = str(pr3_cost) + "materials"
-	elif button == mc1:
+	elif button == cr1:
 		description_label.text = "Lvl1 max capacity upgrade description"
-		cost_label.text = str(mc1_cost) + "materials"
-	elif button == mc2:
+		cost_label.text = str(cr1_cost) + "materials"
+	elif button == cr2:
 		description_label.text = "Lvl2 max capacity upgrade description"
-		cost_label.text = str(mc2_cost) + "materials"
-	elif button == mc3:
+		cost_label.text = str(cr2_cost) + "materials"
+	elif button == cr3:
 		description_label.text = "Lvl3 max capacity upgrade description"
-		cost_label.text = str(mc3_cost) + "materials"
+		cost_label.text = str(cr3_cost) + "materials"
 	elif button == d1:
 		description_label.text = "Lvl1 durability upgrade description"
 		cost_label.text = str(d1_cost) + "materials"
