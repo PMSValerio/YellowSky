@@ -6,6 +6,7 @@ var _text_directories = {
 	Global.Text.FACILITIES: "res://assets/config_text/facilities/",
 	Global.Text.SETTLEMENTS: "res://assets/config_text/settlements/",
 	Global.Text.NPCS: "res://assets/config_text/npcs/",
+	Global.Text.EVENTS: "res://assets/config_text/events/",
 }
 
 

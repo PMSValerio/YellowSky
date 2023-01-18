@@ -20,6 +20,16 @@ _global_script_classes=[ {
 "path": "res://src/disasters/disaster.gd"
 }, {
 "base": "Feature",
+"class": "Event",
+"language": "GDScript",
+"path": "res://src/map/feature/event/event.gd"
+}, {
+"base": "Reference",
+"class": "EventData",
+"language": "GDScript",
+"path": "res://src/type_objects/event_data.gd"
+}, {
+"base": "Feature",
 "class": "Facility",
 "language": "GDScript",
 "path": "res://src/map/feature/facilities/facility.gd"
@@ -72,6 +82,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "CompactTransactionSlot": "",
 "Disaster": "",
+"Event": "",
+"EventData": "",
 "Facility": "",
 "FacilityType": "",
 "Feature": "",

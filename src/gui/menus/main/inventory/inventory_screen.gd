@@ -43,7 +43,7 @@ func _ready() -> void:
 
 
 func set_context(context):
-	#_populate_item_grid(Global.Items.RESOURCES, 0)
+	grid_category = -1
 	category_tabs.select_category(Global.Items.RESOURCES)
 	if context != null and context in Global.Resources.values():
 		toggle_compact_menu_on(context)

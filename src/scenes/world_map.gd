@@ -62,8 +62,9 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Feature.global_position))
-	map_grid[cell.x][cell.y] = $Entities/Feature
+	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Event.global_position))
+	map_grid[cell.x][cell.y] = $Entities/Event
+	$Entities/Event.set_data(Global.event_data["starter"])
 	
 	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Facility.global_position))
 	map_grid[cell.x][cell.y] = $Entities/Facility

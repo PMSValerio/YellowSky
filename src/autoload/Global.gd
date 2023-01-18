@@ -11,6 +11,7 @@ enum Menus {
 	MAIN_MENU,
 	SETTLEMENT_SCREEN,
 	SETTLEMENT_DIALOGUE_SCREEN,
+	EVENT_SCREEN,
 }
 
 enum Disasters {
@@ -60,7 +61,8 @@ enum Text {
 	ITEMS,
 	FACILITIES ,
 	SETTLEMENTS,
-	NPCS
+	NPCS,
+	EVENTS,
 }
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
@@ -94,6 +96,7 @@ const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
+var event_data = {} # another horrible place to have this
 
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
@@ -108,6 +111,7 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
+	_init_event_data()
 
 
 func set_cam(cam : Camera2D):
@@ -169,3 +173,20 @@ func _init_facility_types():
 	for fac_type in file_data.keys():
 		var facility = _build_single_facility(file_data[fac_type])
 		facility_types[facility.type_id] = facility
+
+
+func _build_single_event(event_id, data):
+	var event = EventData.new()
+	event.init(event_id, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
+	
+	return event
+
+
+func _init_event_data():
+	var config_file = ["generic.json"]
+	
+	for file in config_file:
+		var events = _config_parser.get_text_from_file(Text.EVENTS, file, [])
+		for event_id in events:
+			var event_obj = _build_single_event(event_id, events[event_id])
+			event_data[event_id] = event_obj

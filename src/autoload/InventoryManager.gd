@@ -80,6 +80,14 @@ func use_item(type, item_id):
 		EventManager.emit_signal("item_used", item_stats[item_id])
 
 
-func add_item(type, item_id):
+func _change_item(type, item_id, amount):
 	if type in inventory:
-		inventory[type][item_id] = 1 if not item_id in inventory[type] else inventory[type][item_id] + 1
+		inventory[type][item_id] = 1 if not item_id in inventory[type] else inventory[type][item_id] + amount
+
+
+func add_item(type, item_id, amount = 1):
+	_change_item(type, item_id, amount)
+
+
+func remove_item(type, item_id, amount = 1):
+	_change_item(type, item_id, -amount)

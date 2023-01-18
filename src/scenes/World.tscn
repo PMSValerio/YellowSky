@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
 [ext_resource path="res://assets/tileset/floor_tile_ext.tres" type="TileSet" id=3]
-[ext_resource path="res://src/map/feature/Feature.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/gfx/terrain/hex_tile.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/gui_manager.gd" type="Script" id=6]
 [ext_resource path="res://src/map/scheduler.gd" type="Script" id=7]
@@ -13,11 +12,11 @@
 [ext_resource path="res://assets/shaders/sky_perspective.gdshader" type="Shader" id=11]
 [ext_resource path="res://src/scenes/normal_sky.gd" type="Script" id=12]
 [ext_resource path="res://src/map/feature/settlements/Settlement.tscn" type="PackedScene" id=13]
-[ext_resource path="res://assets/gfx/entities/settlement.png" type="Texture" id=14]
 [ext_resource path="res://assets/shaders/map_perspective.gdshader" type="Shader" id=15]
 [ext_resource path="res://assets/gfx/terrain/sky_layered.png" type="Texture" id=16]
 [ext_resource path="res://src/map/OutMountain.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/tileset/outter_fog.tres" type="TileSet" id=18]
+[ext_resource path="res://src/map/feature/event/Event.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 15 )
@@ -165,14 +164,8 @@ position = Vector2( 448, 464 )
 
 [node name="Settlements" type="Node2D" parent="Entities"]
 
-[node name="Feature" parent="Entities" instance=ExtResource( 4 )]
+[node name="Event" parent="Entities" instance=ExtResource( 19 )]
 position = Vector2( 588, 512 )
-
-[node name="Sprite" parent="Entities/Feature" index="0"]
-texture = ExtResource( 14 )
-hframes = 4
-vframes = 2
-frame = 4
 
 [node name="Settlement" parent="Entities" instance=ExtResource( 13 )]
 position = Vector2( 590, 319 )
@@ -206,5 +199,4 @@ layer = 7
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
 [connection signal="stamina_changed" from="Entities/Player" to="HUD" method="_on_Player_stamina_changed"]
 
-[editable path="Entities/Feature"]
 [editable path="Entities/Player"]
