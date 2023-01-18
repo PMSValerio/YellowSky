@@ -1,0 +1,74 @@
+{
+  "INTEGRITY": {
+    "base_icon": "integrity.png",
+    "max_level": 3,
+    "data": [
+      {
+        "cost": 200,
+        "multiplier": 2.0,
+        "info_text": "Sample text here for Integrity lv1",
+        "base_icon_subimage": 0
+      },
+      {
+        "cost": 210,
+        "multiplier": 3.0,
+        "info_text": "Sample text here for Integrity lv2",
+        "base_icon_subimage": 1
+      },
+      {
+        "cost": 220,
+        "multiplier": 4.0,
+        "info_text": "Sample text here for Integrity lv3",
+        "base_icon_subimage": 2
+      }
+    ]
+  },
+  "CONS_RATE": {
+    "base_icon": "cons_rate.png",
+    "max_level": 3,
+    "data": [
+      {
+        "cost": 100,
+        "multiplier": 0.8,
+        "info_text": "Sample text here for Consumption Rate lv1",
+        "base_icon_subimage": 0
+      },
+      {
+        "cost": 110,
+        "multiplier": 0.6,
+        "info_text": "Sample text here for Consumption Rate lv2",
+        "base_icon_subimage": 1
+      },
+      {
+        "cost": 120,
+        "multiplier": 0.4,
+        "info_text": "Sample text here for Consumption Rate lv3",
+        "base_icon_subimage": 2
+      }
+    ]
+  },
+  "PROD_RATE": {
+    "base_icon": "prod_rate.png",
+    "max_level": 3,
+    "data": [
+      {
+        "cost": 100,
+        "multiplier": 2.0,
+        "info_text": "Sample text here for Production Rate lv1",
+        "base_icon_subimage": 0
+      },
+      {
+        "cost": 110,
+        "multiplier": 3.0,
+        "info_text": "Sample text here for Production Rate lv2",
+        "base_icon_subimage": 1
+      },
+      {
+        "cost": 220,
+        "multiplier": 4.0,
+        "info_text": "Sample text here for Production Rate lv3",
+        "base_icon_subimage": 2
+      }
+    ]
+  }
+}

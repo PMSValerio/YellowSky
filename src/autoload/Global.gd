@@ -48,6 +48,12 @@ enum FacilityTypes {
 	# RECYLING CENTRE,
 }
 
+enum FacilityUpgrades {
+	INTEGRITY,
+	CONS_RATE,
+	PROD_RATE,
+}
+
 enum Items {
 	RESOURCES,
 	FOOD,
@@ -60,7 +66,9 @@ enum Text {
 	ITEMS,
 	FACILITIES ,
 	SETTLEMENTS,
-	NPCS
+	NPCS,
+	QUESTS,
+	CONFIGS, # general configurations that do not fall into any specific category
 }
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
@@ -87,6 +95,8 @@ var item_category_names = {
 	Items.QUEST: "Quest",
 }
 
+var facility_upgrades_config = {}
+
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
@@ -108,6 +118,8 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
+	
+	facility_upgrades_config = _config_parser.get_text_from_file(Text.CONFIGS, "facility_upgrades.json", [])
 
 
 func set_cam(cam : Camera2D):
@@ -145,6 +157,13 @@ func get_tooltip():
 
 func get_text_from_file(text_type, file_name, key_array):
 	return _config_parser.get_text_from_file(text_type, file_name, key_array)
+
+
+func get_facility_upgrade_field(upgrade_type, field_name : String, level : int = -1):
+	var upgrade_str = FacilityUpgrades.keys()[upgrade_type]
+	if level > 0:
+		return facility_upgrades_config[upgrade_str]["data"][level][field_name]
+	return facility_upgrades_config[upgrade_str][field_name]
 
 
 func _build_single_facility(data):

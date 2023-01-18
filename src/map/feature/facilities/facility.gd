@@ -23,6 +23,12 @@ var health = 0.0
 var fuels = {}
 var products = {}
 
+var upgrades_progress = {
+	Global.FacilityUpgrades.INTEGRITY: -1,
+	Global.FacilityUpgrades.CONS_RATE: -1,
+	Global.FacilityUpgrades.PROD_RATE: -1
+}
+
 var running = true
 
 var _update_step = 0 # timer counter for update
@@ -44,8 +50,6 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# this is done so that the tooltip's scale isn't affected by perspective warping, only the position
-	# still don't know what's better, add Tootip as child of Sprite instead to warp scale as well
 	tooltip.position = sprite.position + Vector2(0, -32) * sprite.scale
 	healthbar_anchor.position = sprite.position + Vector2(0, 16) * sprite.scale
 
@@ -55,10 +59,12 @@ func _tick() -> void:
 	if _can_operate():
 		# consume fuel per update
 		_operate_cost()
+		
+		var prod_rate = get_production_rate()
 		# update stored resource
 		for p in products.keys():
 			if products[p] < get_max_prod():
-				products[p] = min(get_max_prod(), products[p] + facility_type.production_rate)
+				products[p] = min(get_max_prod(), products[p] + prod_rate)
 				if products[p] == get_max_prod():
 					print("Facility full")
 					warning.set_tooltip_text("Facility Full! [Click to dismiss]")
@@ -78,8 +84,9 @@ func _tick() -> void:
 
 # update state according to operation costs
 func _operate_cost():
+	var cons_rate = get_consumption_rate()
 	for f in fuels.keys():
-		fuels[f] = max(0, fuels[f] - facility_type.consumption_rate)
+		fuels[f] = max(0, fuels[f] - cons_rate)
 		if fuels[f] == 0:
 			# alert facility power off
 			print("Facility switching off")
@@ -120,7 +127,7 @@ func _update_healthbar() -> void:
 
 
 func get_max_health(_base : bool = false) -> float:
-	return facility_type.max_health
+	return facility_type.max_health * get_upgrade_multiplier(Global.FacilityUpgrades.INTEGRITY)
 
 
 func get_max_fuel(_base : bool = false) -> float:
@@ -132,11 +139,25 @@ func get_max_prod(_base : bool = false) -> float:
 
 
 func get_consumption_rate(_base : bool = false) -> float:
-	return facility_type.consumption_rate
+	return facility_type.consumption_rate * get_upgrade_multiplier(Global.FacilityUpgrades.CONS_RATE)
 
 
 func get_production_rate(_base : bool = false) -> float:
-	return facility_type.production_rate
+	return facility_type.production_rate * get_upgrade_multiplier(Global.FacilityUpgrades.PROD_RATE)
+
+
+func get_upgrade_multiplier(upgrade_type) -> float:
+	var mult = 1.0
+	var level = upgrades_progress[upgrade_type]
+	var max_level = Global.get_facility_upgrade_field(upgrade_type, "max_level")
+	if level >= 0 and level < max_level:
+		mult = Global.get_facility_upgrade_field(upgrade_type, "multiplier", level)
+	return mult
+
+
+func advance_upgrade(upgrade_id) -> void:
+	if upgrade_id in Global.FacilityUpgrades:
+		upgrades_progress[upgrade_id] = min(upgrades_progress[upgrade_id] + 1, Global.facility_upgrades_config[upgrade_id]["max_level"] - 1)
 
 
 # --- || Operation || ---
