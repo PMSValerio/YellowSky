@@ -19,6 +19,10 @@ func _ready() -> void:
 	_v = EventManager.connect("pop_menu", self, "_on_pop_menu")
 
 
+func get_current_menu():
+	return menu_stack.back() if menu_stack.size() > 0 else null
+
+
 func _get_menu_scene(menu):
 	return _menus[menu].instance()
 

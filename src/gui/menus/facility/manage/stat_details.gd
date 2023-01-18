@@ -44,6 +44,7 @@ func populate_data() -> void:
 func set_icon(texture, tool_tip) -> void:
 	if texture == null or texture is Texture:
 		$HBoxContainer/Icon.init_manual(texture, tool_tip, size)
+		$HBoxContainer/Icon.visible = texture != null
 
 
 func set_x_out_of_y(current_amount, max_amount) -> void:
@@ -55,6 +56,14 @@ func set_x_out_of_y(current_amount, max_amount) -> void:
 
 func set_action(action_name) -> void:
 	action_button.text = action_name
+
+
+func is_full() -> float:
+	return $HBoxContainer/VBoxContainer/ProgressBar.value == $HBoxContainer/VBoxContainer/ProgressBar.max_value
+
+
+func enable_button(en = true) -> void:
+	action_button.disabled = not en
 
 
 func _on_Button_pressed() -> void:

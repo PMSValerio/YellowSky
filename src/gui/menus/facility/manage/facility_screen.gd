@@ -5,27 +5,24 @@ signal want_rebuild
 
 var stat_panel_scene = preload("res://src/gui/menus/facility/manage/StatDetails.tscn")
 
-var on_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_on.png")
-var off_icon = preload("res://assets/gfx/ui_elements/buttons/facility_button_off.png")
-
 # Flavour Detail Elements
 onready var name_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Name
 onready var art_rect = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/Art
-onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/FlavourText
-
-onready var status_indicator = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/PanelContainer/Status
+onready var flavour_label = $MarginContainer/HBoxContainer/DetailContainer/FlavourDetail/ScrollContainer/FlavourText
 
 # --- || Stat Screen Elements || ---
 onready var abandoned_panel = $MarginContainer/HBoxContainer/AbandonedPanel
 onready var stats_container = $MarginContainer/HBoxContainer/StatsScreen
 
 # Integrity Elements
-onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/HealthDetails
-onready var onoff_button = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/OnOffButton
+onready var health_details = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/VBoxContainer2/MarginContainer/HealthDetails
+
+onready var status_indicator = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/Status
+onready var status_tooltip = $MarginContainer/HBoxContainer/StatsScreen/PanelContainer/IntegrityRow/PanelContainer/StatusTooltip
 
 # Resources Elements
-onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/FuelList
-onready var prod_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ProdList
+onready var fuel_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/ScrollContainer/FuelList
+onready var prod_list = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/ScrollContainer/ProdList
 onready var cons_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/FuelContainer/VBoxContainer/HBoxContainer/ConsumptionRate
 onready var prod_rate_label = $MarginContainer/HBoxContainer/StatsScreen/ResourcesRow/ProductContainer/VBoxContainer/HBoxContainer/ProductionRate
 
@@ -38,7 +35,7 @@ var prod_stats_dict = {}
 
 
 var slider_mode = 0 # 0: nothing; 1: repair; 2: refuel
-var slider_resource = Global.FacilityResources.NONE
+var slider_resource = Global.Resources.NONE
 
 
 func _ready() -> void:
@@ -98,16 +95,27 @@ func set_context(context):
 func _update_status():
 	var status = facility_entity.get_status()
 	
-	status_indicator.text = Facility.Status.keys()[status]
-	onoff_button.icon = on_icon if facility_entity.running else off_icon
+	match status:
+		Facility.Status.OK:
+			status_indicator.play("ok")
+			status_tooltip.hint_tooltip = "Facility is in working condition"
+		Facility.Status.WRECKED:
+			status_indicator.play("wrecked")
+			status_tooltip.hint_tooltip = "Facility destroyed, repairs required"
+		Facility.Status.NO_FUEL:
+			status_indicator.play("no_fuel")
+			status_tooltip.hint_tooltip = "Not enough fuel to work"
+		Facility.Status.FULL:
+			status_indicator.play("full")
+			status_tooltip.hint_tooltip = "Product tank is full"
 	
-	# TODO: set appropriate colours and warnings
+	health_details.enable_button(not health_details.is_full())
 
 
 # this already assumes the player has enough resources for the operation
 func _repair_by_amount(amount):
 	if facility_entity != null:
-		ResourceManager.add_to_resource(Global.FacilityResources.MATERIALS, -amount)
+		ResourceManager.add_to_resource(Global.Resources.MATERIALS, -amount)
 		facility_entity.repair(amount)
 		health_details.set_x_out_of_y(facility_entity.health, facility_entity.get_max_health())
 		_update_status()
@@ -142,19 +150,21 @@ func _toggle_on_off(onoff):
 func _on_Repair_pressed() -> void:
 	var amount = facility_entity.get_max_health() - facility_entity.health
 	if amount > 0:
-		var _min = facility_entity.health
-		var _max = _min + ResourceManager.get_resource(Global.FacilityResources.MATERIALS)
-		resource_slider.set_state(0, facility_entity.get_max_health(), _min, _max, Global.resource_icons[Global.FacilityResources.MATERIALS])
+		var _pl_value = ResourceManager.get_resource(Global.Resources.MATERIALS)
+		var _fc_value = facility_entity.health
+		var _fc_max = facility_entity.get_max_health()
+		resource_slider.set_state(_pl_value, _fc_value, _fc_max, Global.resource_icons[Global.Resources.MATERIALS])
 		resource_slider.visible = true
 		slider_mode = 1
-		slider_resource = Global.FacilityResources.MATERIALS
+		slider_resource = Global.Resources.MATERIALS
 
 
 func _on_Refuel_pressed(resource) -> void:
 	if facility_entity.health > 0:
-		var _min = facility_entity.fuels[resource]
-		var _max = _min + ResourceManager.get_resource(resource)
-		resource_slider.set_state(0, facility_entity.get_max_fuel(), _min, _max, Global.resource_icons[resource])
+		var _pl_value = ResourceManager.get_resource(resource)
+		var _fc_value = facility_entity.fuels[resource]
+		var _fc_max = facility_entity.get_max_fuel()
+		resource_slider.set_state(_pl_value, _fc_value, _fc_max, Global.resource_icons[resource])
 		resource_slider.visible = true
 		slider_mode = 2
 		slider_resource = resource
