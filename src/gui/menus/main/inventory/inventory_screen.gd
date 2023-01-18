@@ -2,8 +2,8 @@ extends Control
 
 
 # Item Grid Nodes
-onready var item_grid = $MarginContainer/HBoxContainer/GridManager/ItemGrid
-onready var category_tabs = $MarginContainer/HBoxContainer/GridManager/Tabs
+onready var item_grid = $MarginContainer/HBoxContainer/GridManager/PanelContainer/ItemGrid
+onready var category_tabs = $MarginContainer/HBoxContainer/GridManager/CategoryTabs
 
 # Item Details Nodes
 onready var details_panel = $MarginContainer/HBoxContainer/ItemDetails
@@ -37,17 +37,16 @@ var inspected_slot : GridSlot = null # item currently highlighted in details pan
 
 func _ready() -> void:
 	
-	category_tabs.add_tab("Resources")
-	category_tabs.add_tab("Food")
-	category_tabs.add_tab("Luxury")
-	category_tabs.add_tab("Quest")
 	
 	for child in item_grid.get_children():
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
 
 
-func set_context(_context):
-	_populate_item_grid(Global.Items.RESOURCES, 0)
+func set_context(context):
+	#_populate_item_grid(Global.Items.RESOURCES, 0)
+	category_tabs.select_category(Global.Items.RESOURCES)
+	if context != null and context in Global.Resources.values():
+		toggle_compact_menu_on(context)
 
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards
@@ -82,7 +81,6 @@ func _populate_item_grid(type, first_ix, keep_inspected_slot = false):
 	
 	var slot = inspected_slot if keep_inspected_slot else null
 	_update_item_details(slot)
-	_on_Tabs_tab_changed(category_tabs.current_tab)
 
 
 func _update_item_details(slot : GridSlot):
@@ -128,7 +126,8 @@ func _on_UseButton_pressed() -> void:
 		_populate_item_grid(grid_category, _page_first_ix)
 
 
-func _on_resource_pressed(rec_id) -> void:
+func toggle_compact_menu_on(rec_id) -> void:
+	category_tabs.select_category(Global.Items.RESOURCES)
 	compact_submenu.toggle_on(rec_id)
 
 
@@ -142,7 +141,8 @@ func _on_select_slot(slot) -> void:
 
 
 func _on_CompactSubmenu_update_items() -> void:
-	_populate_item_grid(Global.Items.RESOURCES, _page_first_ix)
+	_populate_item_grid(Global.Items.RESOURCES, 0)
+	category_tabs.select_category(Global.Items.RESOURCES)
 
 
 func _on_Tabs_tab_changed(tab: int) -> void:

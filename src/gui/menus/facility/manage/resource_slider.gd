@@ -5,29 +5,37 @@ signal value_chosen(delta_value)
 
 onready var debouncer = $Debouncer
 
-onready var icon = $VBoxContainer/HBoxContainer2/ResourceIcon
-onready var balance = $VBoxContainer/HBoxContainer2/PlayerBalance
-onready var slider = $VBoxContainer/HBoxContainer/HSlider
-onready var input_box = $VBoxContainer/HBoxContainer/SpinBox
-onready var confirm = $VBoxContainer/ConfirmButton
+onready var icon = $MarginContainer/VBoxContainer/HBoxContainer2/ResourceIcon
+onready var player_value_label = $MarginContainer/VBoxContainer/HBoxContainer2/GridContainer/PlayerValue
+onready var facility_value_label = $MarginContainer/VBoxContainer/HBoxContainer2/GridContainer/FacilityValue
+onready var slider = $MarginContainer/VBoxContainer/HBoxContainer/HSlider
+onready var input_box = $MarginContainer/VBoxContainer/HBoxContainer/SpinBox
+onready var confirm = $MarginContainer/VBoxContainer/ConfirmButton
 
 
 # the debouncer timer ensures that _on_value_changed isn't called exceedingly
 var debounce_flag = true
 var debounce_interval = 0.005
 
-var min_value = 25
+var min_value = 0
 var max_value = 75
 
+var _player_balance = 0
+var _faciity_balance = 0
 
-func set_state(outer_min, outer_max, inner_min, inner_max, texture : Texture) -> void:
-	slider.min_value = outer_min
-	input_box.min_value = outer_min
-	slider.max_value = outer_max
-	input_box.max_value = outer_max
+
+func set_state(player_value, facility_value, facility_max, texture : Texture) -> void:
+	var fac_missing = facility_max-facility_value # the missing amount of the resource on the facility
 	
-	min_value = inner_min
-	max_value = inner_max
+	min_value = 0
+	max_value = min(fac_missing, player_value)
+	_player_balance = player_value
+	_faciity_balance = facility_value
+	
+	slider.min_value = 0
+	input_box.min_value = 0
+	slider.max_value = fac_missing
+	input_box.max_value = fac_missing
 	
 	icon.texture = texture
 	
@@ -48,11 +56,13 @@ func _on_value_changed(value: float) -> void:
 		slider.value = clamped
 		input_box.value = clamped
 		
-		balance.text = str(max_value - input_box.value)
+		#balance.text = str(max_value - input_box.value)
+		player_value_label.text = str(_player_balance - input_box.value)
+		facility_value_label.text = str(_faciity_balance + input_box.value)
 
 
 func _on_ConfirmButton_pressed() -> void:
-	emit_signal("value_chosen", input_box.value - min_value)
+	emit_signal("value_chosen", input_box.value)
 	visible = false
 
 

@@ -3,6 +3,9 @@ extends Node
 const HORIZON_Y = 0.7
 const STRETCH_FACTOR = 0.4
 
+var screen_wid = 1024
+var screen_hei = 600
+
 # dimensions of the corresponding rectangular cells
 var cell_wid = 56.0
 var cell_hei = 48.0
@@ -23,6 +26,11 @@ var col_count = -1
 const ENABLED = true
 
 var _ref_tilemap : TileMap = null
+
+
+func _ready() -> void:
+	screen_wid = OS.window_size.x
+	screen_hei = OS.window_size.y
 
 
 # set the tilemap to be used for map calculations
@@ -105,7 +113,8 @@ func get_warped_mouse_position() -> Vector2:
 	var h = HORIZON_Y
 	var a = 1.0
 	var screen_pos = get_viewport().get_mouse_position()
-	var screen_size = Vector2(1024, 600)
+	var screen_size = Vector2(screen_wid, screen_hei)
+	
 	screen_pos.x /= screen_size.x
 	screen_pos.y = 1.0 - (screen_pos.y / screen_size.y)
 	

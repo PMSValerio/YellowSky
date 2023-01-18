@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_health.png-e498cfd61d2335bbfff72cb3465e0a61.stex"
+path="res://.import/grid_item_buttons.png-8cfaaa2b5a3d9aa5cb54a09b609be798.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/ui_elements/icons/icon_health.png"
-dest_files=[ "res://.import/icon_health.png-e498cfd61d2335bbfff72cb3465e0a61.stex" ]
+source_file="res://assets/gfx/ui_elements/buttons/grid_item_buttons.png"
+dest_files=[ "res://.import/grid_item_buttons.png-8cfaaa2b5a3d9aa5cb54a09b609be798.stex" ]
 
 [params]
 

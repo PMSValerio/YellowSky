@@ -30,14 +30,14 @@ size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_right = 524.0
-margin_bottom = 548.0
+margin_bottom = 516.0
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 516.0
-margin_bottom = 540.0
+margin_bottom = 508.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
@@ -46,10 +46,10 @@ margin_right = 508.0
 size_flags_horizontal = 3
 
 [node name="ConfirmButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 552.0
+margin_top = 520.0
 margin_right = 524.0
 margin_bottom = 584.0
-rect_min_size = Vector2( 0, 32 )
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 5
 text = "Confirm"
 
