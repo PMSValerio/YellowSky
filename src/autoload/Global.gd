@@ -161,7 +161,7 @@ func get_text_from_file(text_type, file_name, key_array):
 
 func get_facility_upgrade_field(upgrade_type, field_name : String, level : int = -1):
 	var upgrade_str = FacilityUpgrades.keys()[upgrade_type]
-	if level > 0:
+	if level >= 0:
 		return facility_upgrades_config[upgrade_str]["data"][level][field_name]
 	return facility_upgrades_config[upgrade_str][field_name]
 
