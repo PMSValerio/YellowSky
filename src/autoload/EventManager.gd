@@ -13,6 +13,7 @@ signal change_compact_resource(rec_id) # this signal should only be used when th
 
 # Resources
 signal resource_changed(type, new_val)
+signal hope_gained(amount)
 
 # Inventory
 signal item_used(item_data)

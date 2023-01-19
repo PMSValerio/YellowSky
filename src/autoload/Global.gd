@@ -26,7 +26,8 @@ enum Resources {
 	MATERIALS,
 	ENERGY,
 	FOOD, # Maybe? 
-	SEEDS 
+	SEEDS,
+	HOPE,
 }
 
 enum FacilityTypes {

@@ -4,6 +4,7 @@ var _water = 0 setget set_water
 var _materials = 0 setget set_materials 
 var _energy = 0 setget set_energy
 var _seeds = 0 setget set_seeds
+var _hope = 0 setget set_hope
 
 
 func _ready():
@@ -27,6 +28,10 @@ func set_seeds(new_val):
 	_seeds = new_val
 	EventManager.emit_signal("resource_changed", Global.Resources.SEEDS, _seeds)
 
+func set_hope(new_val):
+	_hope = new_val
+	EventManager.emit_signal("resource_changed", Global.Resources.HOPE, _seeds)
+
 
 func add_to_resource(type, amount):
 	match type:
@@ -41,6 +46,9 @@ func add_to_resource(type, amount):
 		Global.Resources.FOOD:
 			# fetch from a pool of possible facility food items and add them to inventory
 			print("Collected food")
+		Global.Resources.HOPE:
+			set_hope(_hope + amount)
+			EventManager.emit_signal("hope_gained", amount)
 
 
 func get_resource(type) -> int:
@@ -59,4 +67,4 @@ func get_resource(type) -> int:
 # used only for decompacting resource items
 func _on_item_used(item_data : Item):
 	if item_data.type == Global.Items.RESOURCES:
-		add_to_resource(item_data.subtype, item_data.stat) # TODO: apply penalty
+		add_to_resource(item_data.subtype, item_data.stat)

@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/map/perspective_sprite.gd"
 }, {
+"base": "Node",
+"class": "QuestLog",
+"language": "GDScript",
+"path": "res://src/quests/quest_log.gd"
+}, {
 "base": "PanelContainer",
 "class": "ResourceButton",
 "language": "GDScript",
@@ -97,6 +102,7 @@ _global_script_class_icons={
 "MenuTooltipProxy": "",
 "Mountain": "",
 "PerspectiveSprite": "",
+"QuestLog": "",
 "ResourceButton": "",
 "StatDetails": "",
 "TextManager": ""
@@ -116,6 +122,7 @@ Global="*res://src/autoload/Global.gd"
 InventoryManager="*res://src/autoload/InventoryManager.gd"
 MapUtils="*res://src/autoload/MapUtils.gd"
 ResourceManager="*res://src/autoload/ResourceManager.gd"
+WorldData="*res://src/autoload/WorldData.gd"
 
 [display]
 
