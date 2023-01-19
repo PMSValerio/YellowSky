@@ -282,7 +282,7 @@ func _set_cell_discovery(cell, _disc = true):
 func _discover_around(cell):
 	var to_discover = _get_cells_around(cell, DISCOVER_RANGE)
 	for neigh in to_discover:
-		if not discovered[neigh.x][neigh.y]: # don't rediscover a cell
+		if _is_cell_in_bounds(neigh) and not discovered[neigh.x][neigh.y]: # don't rediscover a cell
 			_set_cell_discovery(neigh)
 
 
