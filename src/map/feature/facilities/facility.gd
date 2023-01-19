@@ -159,7 +159,6 @@ func advance_upgrade(upgrade_id) -> void:
 	if upgrade_id in Global.FacilityUpgrades:
 		upgrades_progress[upgrade_id] = min(upgrades_progress[upgrade_id] + 1, Global.facility_upgrades_config[upgrade_id]["max_level"] - 1)
 
-
 # --- || Operation || ---
 
 

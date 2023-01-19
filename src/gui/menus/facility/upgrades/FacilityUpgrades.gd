@@ -28,8 +28,8 @@ const d2_cost = 132
 onready var d3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/Durability/Button3")
 const d3_cost = 133
 #Environmental friendly
-onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
-onready var upgrade_btn = get_node("DownSection/PanelContainer/Descprition_Cost/HBoxContainer3/Button")
+#onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
+onready var upgrade_btn = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
 
 func _ready():
 	_connect_buttons()
@@ -44,12 +44,11 @@ func _connect_buttons():
 	d1.connect("pressed", self, "_change_upgrade_info", [d1])
 	d2.connect("pressed", self, "_change_upgrade_info", [d2])
 	d3.connect("pressed", self, "_change_upgrade_info", [d3])
-	env.connect("pressed", self, "_change_upgrade_info", [env])
+	#env.connect("pressed", self, "_change_upgrade_info", [env])
 	upgrade_btn.connect("pressed", self, "_upgrade") 
 
 func set_context(context):
 	if context is Feature:
-
 		facility_entity = context
 		_check_level()
 
@@ -97,8 +96,9 @@ func _check_level():
 	_disable_buttons_durability()
 	
 func _upgrade():
-	facility_entity.advance_upgrade(_selected_upgrade_type)
-	_check_level()
+	if _selected_upgrade_type != null:
+		facility_entity.advance_upgrade(_selected_upgrade_type)
+		_check_level()
 	
 func _disable_buttons_prod_rate():
 	if facility_entity.upgrades_progress[Global.FacilityUpgrades.PROD_RATE] == -1:
@@ -116,29 +116,29 @@ func _disable_buttons_prod_rate():
 		
 func _disable_buttons_consump_rate():
 	if facility_entity.upgrades_progress[Global.FacilityUpgrades.CONS_RATE] == -1:
-		pr1.disabled = false
-		pr2.disabled = true
-		pr3.disabled = true
+		cr1.disabled = false
+		cr2.disabled = true
+		cr3.disabled = true
 	elif facility_entity.upgrades_progress[Global.FacilityUpgrades.CONS_RATE] == 0:
-		pr1.disabled = true
-		pr2.disabled = false
-		pr3.disabled = true
+		cr1.disabled = true
+		cr2.disabled = false
+		cr3.disabled = true
 	elif facility_entity.upgrades_progress[Global.FacilityUpgrades.CONS_RATE] == 1:
-		pr1.disabled = true
-		pr2.disabled = true
-		pr3.disabled = false
+		cr1.disabled = true
+		cr2.disabled = true
+		cr3.disabled = false
 		
 func _disable_buttons_durability():
 	if facility_entity.upgrades_progress[Global.FacilityUpgrades.INTEGRITY] == -1:
-		pr1.disabled = false
-		pr2.disabled = true
-		pr3.disabled = true
+		d1.disabled = false
+		d2.disabled = true
+		d3.disabled = true
 	elif facility_entity.upgrades_progress[Global.FacilityUpgrades.INTEGRITY] == 0:
-		pr1.disabled = true
-		pr2.disabled = false
-		pr3.disabled = true
+		d1.disabled = true
+		d2.disabled = false
+		d3.disabled = true
 	elif facility_entity.upgrades_progress[Global.FacilityUpgrades.INTEGRITY] == 1:
-		pr1.disabled = true
-		pr2.disabled = true
-		pr3.disabled = false
+		d1.disabled = true
+		d2.disabled = true
+		d3.disabled = false
 	
