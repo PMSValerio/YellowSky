@@ -27,6 +27,10 @@ func mouse_exited() -> void:
 	pass
 
 
+func set_discovered(discovered = true):
+	visible = discovered
+
+
 func die() -> void:
 	EventManager.emit_signal("feature_tile_left", self)
 	queue_free()

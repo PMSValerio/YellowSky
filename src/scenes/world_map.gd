@@ -23,6 +23,7 @@ export var MAP_HEI = 30
 const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
+const DISCOVER_RANGE = 4 # range at which tiles are discovered
 const FEATURE_SPACING = 3 # minimum space between features on generation
 
 onready var map_perspective = $MapEffect
@@ -47,6 +48,7 @@ var _rng = RandomNumberGenerator.new()
 var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
+var discovered = [] # map cells not obscured by fog of war (true or false)
 var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
 
 
@@ -75,12 +77,7 @@ func _ready() -> void:
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
-	
-#	var cell = _get_cell_from_position($Entities/Facility.global_position)
-#	map_grid[cell.x][cell.y] = $Entities/Facility
-#
-#	cell = _get_cell_from_position($Entities/Settlement.global_position)
-#	map_grid[cell.x][cell.y] = $Entities/Settlement
+	_discover_around(map_center)
 	
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
@@ -93,11 +90,13 @@ func _physics_process(_delta: float) -> void:
 		return
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	
+	# player switched tiles
 	if hex_center != cache_hex_center:
 		cursor.global_position = hex_center
 		cache_hex_center = hex_center
 		var interactable = _is_feature(tile_entity)
 		player._on_World_tile_entered(interactable)
+		_discover_around(hex_tile)
 	
 	# find the tile being hovered
 	var last_mouse_tile = _mouse_hex_tile
@@ -140,6 +139,7 @@ func generate_event_tile(event_data, pos_cell : Vector2 = Vector2(-1, -1)):
 	var pos = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 		
 	tile.global_position = pos
+	tile.set_discovered(false)
 	tile.set_data(event_data)
 	events.add_child(tile)
 	var cell = _get_cell_from_position(pos)
@@ -265,6 +265,27 @@ func _set_tilemap_cell(xx, yy, id, priorities : Array = [1.0]):
 	tilemap.set_cell(xx, yy, id, false, false, false, Vector2(i, 0))
 
 
+# mark a cell as discovered or hidden as opposed to fog of war
+func _set_cell_discovery(cell, _disc = true):
+	var tilemap_subtile = tilemap.get_cell_autotile_coord(cell.x, cell.y)
+	tilemap_subtile.y = 0 if _disc else 1
+	tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+	var entity = map_grid[cell.x][cell.y]
+	if _is_feature(entity):
+		entity.set_discovered(_disc)
+		discovered[cell.x][cell.y] = _disc
+	elif entity is Mountain:
+		entity.set_discovered(_disc)
+
+
+# discover all cells around a cell
+func _discover_around(cell):
+	var to_discover = _get_cells_around(cell, DISCOVER_RANGE)
+	for neigh in to_discover:
+		if not discovered[neigh.x][neigh.y]: # don't rediscover a cell
+			_set_cell_discovery(neigh)
+
+
 # || --- MAP GENERATION --- ||
 
 # initialise vacant tiles, accounting only for mountains
@@ -304,6 +325,13 @@ func _generate_map():
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
 		_instance_map_scene(cell, map_grid[cell.x][cell.y])
+	
+	# initialise all cells as undiscovered
+	for _xx in range(map_grid.size()):
+		discovered.append([])
+		for _yy in range(map_grid[_xx].size()):
+			discovered[_xx].append(false)
+			_set_cell_discovery(Vector2(_xx, _yy), false)
 
 
 # generate procedurally generated map, using perlin noise
@@ -440,11 +468,11 @@ func _connect_cluster(clusters):
 	print("%s buckets were discarded for being too small" % [ignored_buckets])
 	print("Bucket centers: " + str(centers))
 	print("Bucket cells:")
-	var ix = 0
-	for b in clusters:
-		if ix != biggest_cluster:
-			print(b)
-		ix += 1
+#	var ix = 0
+#	for b in clusters:
+#		if ix != biggest_cluster:
+#			print(b)
+#		ix += 1
 	
 	# loop through all other centers and connect them to the biggest cluster
 	if centers.size() > 1: # if there's more than one bucket
@@ -468,17 +496,17 @@ func _connect_cluster(clusters):
 					while abs(yy - new_yy) > 1:
 						yy = move_toward(yy, new_yy, 1)
 						map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
-						print("Open cell: " + str(Vector2(xx, yy)))
+						#print("Open cell: " + str(Vector2(xx, yy)))
 					map_grid[xx][new_yy] = TileType.EMPTY # set all tiles in the line as empty
-					print("Open cell: " + str(Vector2(xx, new_yy)))
+					#print("Open cell: " + str(Vector2(xx, new_yy)))
 					map_grid[xx + dir][new_yy] = TileType.EMPTY # set all tiles in the line as empty
-					print("Open cell: " + str(Vector2(xx + dir, new_yy)))
+					#print("Open cell: " + str(Vector2(xx + dir, new_yy)))
 					xx += dir
 					yy = new_yy
 				while abs(yy - pos2.y) > 1:
 					yy = move_toward(yy, pos2.y, 1)
 					map_grid[xx][yy] = TileType.EMPTY # set all tiles in the line as empty
-					print("Open cell: " + str(Vector2(xx, yy)))
+					#print("Open cell: " + str(Vector2(xx, yy)))
 				
 			center_ix += 1
 
@@ -523,18 +551,21 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 			if MOUNTAIN_SCENE != null:
 				var mountain = MOUNTAIN_SCENE.instance()
 				mountain.global_position = real_position
+				mountain.set_discovered(false)
 				mountains.add_child(mountain)
 				map_grid[cell.x][cell.y] = mountain
 		TileType.SETTLEMENT:
 			if SETTLEMENT_SCENE != null:
 				var settlement = SETTLEMENT_SCENE.instance()
 				settlement.global_position = real_position
+				settlement.set_discovered(false)
 				settlements.add_child(settlement)
 				map_grid[cell.x][cell.y] = settlement
 		TileType.FACILITY:
 			if SETTLEMENT_SCENE != null:
 				var facility = FACILITY_SCENE.instance()
 				facility.global_position = real_position
+				facility.set_discovered(false)
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
 
