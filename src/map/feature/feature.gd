@@ -4,6 +4,10 @@ class_name Feature
 var occupied_cells = []
 
 
+func _ready() -> void:
+	EventManager.emit_signal("feature_tile_placed", self)
+
+
 func interact() -> void:
 	if has_node("Warning"):
 		$Warning.visible = false
@@ -21,3 +25,8 @@ func mouse_entered() -> void:
 
 func mouse_exited() -> void:
 	pass
+
+
+func die() -> void:
+	EventManager.emit_signal("feature_tile_left", self)
+	queue_free()

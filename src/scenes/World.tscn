@@ -68,6 +68,7 @@ MOUNTAIN_SCENE = ExtResource( 1 )
 OUT_MOUNTAIN_SCENE = ExtResource( 17 )
 SETTLEMENT_SCENE = ExtResource( 13 )
 FACILITY_SCENE = ExtResource( 10 )
+EVENT_SCENE = ExtResource( 19 )
 
 [node name="Scheduler" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -157,15 +158,14 @@ region_rect = Rect2( 0, 300, 1200, 300 )
 layer = 4
 follow_viewport_enable = true
 
+[node name="Events" type="Node2D" parent="Entities"]
+
 [node name="Facilities" type="Node2D" parent="Entities"]
 
 [node name="Facility" parent="Entities" instance=ExtResource( 10 )]
 position = Vector2( 448, 464 )
 
 [node name="Settlements" type="Node2D" parent="Entities"]
-
-[node name="Event" parent="Entities" instance=ExtResource( 19 )]
-position = Vector2( 588, 512 )
 
 [node name="Settlement" parent="Entities" instance=ExtResource( 13 )]
 position = Vector2( 590, 319 )

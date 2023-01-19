@@ -8,17 +8,19 @@ enum TileType{
 	FEATURE, # feature type should never be used at the same time as either settlement or facility, it is merely a temporary type
 	SETTLEMENT,
 	FACILITY,
+	EVENT_SCENE,
 }
 
 export (PackedScene) var MOUNTAIN_SCENE
 export (PackedScene) var OUT_MOUNTAIN_SCENE
 export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
+export (PackedScene) var EVENT_SCENE
 
 const FEATURE_TILES_COUNT = 15 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.3 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
-const FEATURE_SPACING = 4 # minimum space between features on generation
+const FEATURE_SPACING = 3 # minimum space between features on generation
 
 onready var map_perspective = $MapEffect
 onready var sky = $Sky
@@ -33,6 +35,7 @@ onready var mountains = $Entities/Mountains
 onready var out_mountains = $Entities/MountainsOffMap
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
+onready var events = $Entities/Events
 
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
@@ -63,15 +66,16 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	var cell = _get_cell_from_position($Entities/Event.global_position)
-	map_grid[cell.x][cell.y] = $Entities/Event
-	$Entities/Event.set_data(Global.event_data["starter"])
+	generate_event_tile(Global.event_data["starter"], Vector2(588, 512))
 	
-	cell = _get_cell_from_position($Entities/Facility.global_position)
+	var cell = _get_cell_from_position($Entities/Facility.global_position)
 	map_grid[cell.x][cell.y] = $Entities/Facility
 
 	cell = _get_cell_from_position($Entities/Settlement.global_position)
 	map_grid[cell.x][cell.y] = $Entities/Settlement
+	
+	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
+	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
 
 
 func _physics_process(_delta: float) -> void:
@@ -109,7 +113,32 @@ func _physics_process(_delta: float) -> void:
 			new_entity.mouse_entered()
 	
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
-	#$HUD/Control/Label2.text = str(_mouse_hex_tile)
+
+
+func generate_event_tile(event_data, pos : Vector2 = Vector2(-1, -1)):
+	var tile = EVENT_SCENE.instance()
+	
+	if pos == Vector2(-1, -1):
+		var empties = []
+		var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+		var square_rad = pow(START_RADIUS, 2)
+		for cell in vacant_tiles: # recalculate all empty tiles every turn
+			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad and cell.y < map_grid[0].size()-1:
+				empties.append(cell)
+		var random_pos_ix = _rng.randi_range(0, empties.size()-1)
+		var cell_pos = empties[random_pos_ix]
+		
+		var world_pos = tilemap.map_to_world(cell_pos)
+		pos = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+		
+	tile.global_position = pos
+	tile.set_data(event_data)
+	events.add_child(tile)
+	var cell = _get_cell_from_position(pos)
+	map_grid[cell.x][cell.y] = tile
+
+
+#  || --- HELPER FUNCTIONS --- ||
 
 
 func _get_player_position():
@@ -155,10 +184,10 @@ func _get_cells_around(origin, radius):
 	var lst = []
 	
 	var square_rad = pow(radius, 2)
-	var index = Vector2(origin.x - radius + 1, origin.y - radius + 1)
-	while index.x <= origin.x + radius - 1:
-		index.y = origin.y - radius + 1
-		while index.y <= origin.y + radius - 1:
+	var index = Vector2(origin.x - radius, origin.y - radius)
+	while index.x <= origin.x + radius:
+		index.y = origin.y - radius
+		while index.y <= origin.y + radius:
 			if index.distance_squared_to(origin) <= square_rad:
 				lst.append(index)
 			index.y += 1
@@ -456,9 +485,18 @@ func _on_Player_interact(position):
 
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
-	pass
+	var cell = _get_cell_from_position(feature.global_position)
+	var neighs = _get_cells_around(cell, 1)
+	var occupied = neighs.duplicate()
+	occupied.append(cell)
+	
+	feature.occupied_cells = []
+	feature.occupied_cells.append_array(occupied)
+	for o in occupied:
+		_occupy_cell(o, true)
 
 
 # when a feature tile leaves the map
 func _on_feature_tile_left(feature : Feature):
-	pass
+	for o in feature.occupied_cells:
+		_occupy_cell(o, false)

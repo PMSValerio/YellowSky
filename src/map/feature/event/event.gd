@@ -7,6 +7,13 @@ onready var warning = $Warning
 
 var data : EventData
 
+var _readied = false
+
+
+func _ready() -> void:
+	_readied = true
+	set_data(data)
+
 
 func interact() -> void:
 	EventManager.emit_signal("push_menu", Global.Menus.EVENT_SCREEN, self)
@@ -15,4 +22,5 @@ func interact() -> void:
 
 func set_data(_data : EventData):
 	data = _data
-	anim.play(data["animation"])
+	if _readied:
+		anim.play(data["animation"])
