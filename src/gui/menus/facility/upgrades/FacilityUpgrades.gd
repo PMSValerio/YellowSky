@@ -33,7 +33,6 @@ onready var upgrade_btn = get_node("DownSection/PanelContainer/Descprition_Cost/
 
 func _ready():
 	_connect_buttons()
-	_check_level()
 
 func _connect_buttons():
 	pr1.connect("pressed", self, "_change_upgrade_info", [pr1])
@@ -52,6 +51,7 @@ func set_context(context):
 	if context is Feature:
 
 		facility_entity = context
+		_check_level()
 
 func _change_upgrade_info(button):
 	if button == pr1:
