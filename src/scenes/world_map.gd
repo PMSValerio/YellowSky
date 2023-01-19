@@ -17,8 +17,11 @@ export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 export (PackedScene) var EVENT_SCENE
 
-const FEATURE_TILES_COUNT = 15 # number of feature tiles to be distributed in the map
-const SETTLEMENT_FACILITY_RATIO = 0.3 # settlement to facility ratio
+export var MAP_WID = 50
+export var MAP_HEI = 30
+
+const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
+const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
 const FEATURE_SPACING = 3 # minimum space between features on generation
 
@@ -32,7 +35,6 @@ onready var out_tilemap = $Background
 onready var cursor = $Cursor
 onready var player = $Entities/Player
 onready var mountains = $Entities/Mountains
-onready var out_mountains = $Entities/MountainsOffMap
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 onready var events = $Entities/Events
@@ -45,11 +47,13 @@ var _rng = RandomNumberGenerator.new()
 var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
+var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
 
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
 	_rng.randomize()
+	_resize_map()
 	_generate_map()
 	MapUtils.set_dimensions(map_grid[0].size(), map_grid.size())
 
@@ -66,13 +70,17 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	generate_event_tile(Global.event_data["starter"], Vector2(588, 512))
+	generate_event_tile(Global.event_data["starter"], map_center + Vector2.DOWN)
+	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
+	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
-	var cell = _get_cell_from_position($Entities/Facility.global_position)
-	map_grid[cell.x][cell.y] = $Entities/Facility
-
-	cell = _get_cell_from_position($Entities/Settlement.global_position)
-	map_grid[cell.x][cell.y] = $Entities/Settlement
+	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+	
+#	var cell = _get_cell_from_position($Entities/Facility.global_position)
+#	map_grid[cell.x][cell.y] = $Entities/Facility
+#
+#	cell = _get_cell_from_position($Entities/Settlement.global_position)
+#	map_grid[cell.x][cell.y] = $Entities/Settlement
 	
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
@@ -115,21 +123,21 @@ func _physics_process(_delta: float) -> void:
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
 
 
-func generate_event_tile(event_data, pos : Vector2 = Vector2(-1, -1)):
+func generate_event_tile(event_data, pos_cell : Vector2 = Vector2(-1, -1)):
 	var tile = EVENT_SCENE.instance()
 	
-	if pos == Vector2(-1, -1):
+	if pos_cell == Vector2(-1, -1):
 		var empties = []
-		var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+		var center = map_center
 		var square_rad = pow(START_RADIUS, 2)
 		for cell in vacant_tiles: # recalculate all empty tiles every turn
 			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad and cell.y < map_grid[0].size()-1:
 				empties.append(cell)
 		var random_pos_ix = _rng.randi_range(0, empties.size()-1)
-		var cell_pos = empties[random_pos_ix]
+		pos_cell = empties[random_pos_ix]
 		
-		var world_pos = tilemap.map_to_world(cell_pos)
-		pos = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+	var world_pos = tilemap.map_to_world(pos_cell)
+	var pos = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 		
 	tile.global_position = pos
 	tile.set_data(event_data)
@@ -196,8 +204,68 @@ func _get_cells_around(origin, radius):
 	return lst
 
 
-# || --- MAP GENERATION --- ||
+# || --- TILEMAP MANIPULATION --- ||
 
+# resize map as needed
+func _resize_map():
+	var id = 0
+	var tileset = tilemap.tile_set
+	var rect = tileset.tile_get_region(id)
+	var size_x = rect.size.x / tileset.autotile_get_size(id).x
+	var priorities = []
+	var sum = 0.0
+	
+	# get all priorities of all subtiles in tileset
+	for x in range(size_x): 
+		var pr = float(tileset.autotile_get_subtile_priority(id, Vector2(x, 0)))
+		sum += pr
+		priorities.append(pr)
+	
+	# normalise priorities
+	for i in range(priorities.size()):
+		priorities[i] /= sum
+	
+	# fill remaining tiles if map is bigger than 20x20 cells
+	for x in range(MAP_WID):
+		for y in range(MAP_HEI):
+			if tilemap.get_cell(x, y) == -1:
+				_set_tilemap_cell(x, y, id, priorities)
+	
+	_set_border_tiles()
+
+
+# set border tilemap cells
+func _set_border_tiles():
+	var tl = Vector2(-10, -10)
+	var br = Vector2(MAP_WID + 10, MAP_HEI + 10)
+	var xx = tl.x
+	var yy = tl.y
+	
+	# set he border tilemap only around normal map
+	while xx < br.x:
+		yy = tl.y
+		while yy < br.y:
+			if not (xx >= 0 and xx < MAP_WID and yy >= 0 and yy < MAP_HEI):
+				out_tilemap.set_cell(xx, yy, 0)
+			yy += 1
+		xx += 1
+
+
+# set a single tilemap cell at a position respecting priorities
+func _set_tilemap_cell(xx, yy, id, priorities : Array = [1.0]):
+	var prob = _rng.randf()
+	var i = priorities.size()-1
+	var priori = 0
+	while i >= 0:
+		priori += priorities[i]
+		if prob <= priori: # select which subtile to use based on cumulative priorities
+			break
+		i-= 1
+	
+	tilemap.set_cell(xx, yy, id, false, false, false, Vector2(i, 0))
+
+
+# || --- MAP GENERATION --- ||
 
 # initialise vacant tiles, accounting only for mountains
 func _init_vacant_tiles(cells):
@@ -218,7 +286,7 @@ func _generate_map():
 	_balance_mountain_ratio(used_cells, noise)
 	
 	# force open area around player
-	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+	var center = map_center
 	_force_open_area(center)
 	
 	# guaranteing that there are no inaccessible areas on the map
@@ -419,7 +487,7 @@ func _connect_cluster(clusters):
 # this function also marks as filled those tiles around the feature so that features do not spawn adjacent to each other
 func _distribute_features():
 	var radius = START_RADIUS
-	var center = Vector2(map_grid.size() / 2 - 1, map_grid[0].size() / 2 - 1)
+	var center = map_center
 	var square_rad = pow(radius, 2)
 	
 	var feature_tiles = [] # list of tiles marked as feature tiles
