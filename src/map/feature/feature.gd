@@ -1,6 +1,8 @@
 extends Node2D
 class_name Feature
 
+var occupied_cells = []
+
 
 func interact() -> void:
 	if has_node("Warning"):

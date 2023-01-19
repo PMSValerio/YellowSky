@@ -16,8 +16,9 @@ export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 
 const FEATURE_TILES_COUNT = 15 # number of feature tiles to be distributed in the map
-const SETTLEMENT_FACILITY_RATIO = 0.5 # settlement to facility ratio
+const SETTLEMENT_FACILITY_RATIO = 0.3 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
+const FEATURE_SPACING = 4 # minimum space between features on generation
 
 onready var map_perspective = $MapEffect
 onready var sky = $Sky
@@ -62,20 +63,20 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	var cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Event.global_position))
+	var cell = _get_cell_from_position($Entities/Event.global_position)
 	map_grid[cell.x][cell.y] = $Entities/Event
 	$Entities/Event.set_data(Global.event_data["starter"])
 	
-	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Facility.global_position))
+	cell = _get_cell_from_position($Entities/Facility.global_position)
 	map_grid[cell.x][cell.y] = $Entities/Facility
 
-	cell = tilemap.world_to_map(MapUtils.get_hex_center($Entities/Settlement.global_position))
+	cell = _get_cell_from_position($Entities/Settlement.global_position)
 	map_grid[cell.x][cell.y] = $Entities/Settlement
 
 
 func _physics_process(_delta: float) -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())
-	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(hex_center))
+	var hex_tile = _get_cell_from_position(hex_center)
 	if 0 > hex_tile.x or hex_tile.x >= map_grid.size() or 0 > hex_tile.y or hex_tile.y >= map_grid[0].size():
 		return
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
@@ -96,9 +97,9 @@ func _physics_process(_delta: float) -> void:
 	transf.y = transf.y.normalized()
 	_mouse_hex_tile = tilemap.get_global_transform().affine_inverse() * (transf * screen_pos)
 	Global.set_mouse_in_perspective(_mouse_hex_tile if MapUtils.ENABLED else get_global_mouse_position())
-	_mouse_hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(_mouse_hex_tile))
-	var in_bounds_new = 0 <= _mouse_hex_tile.x and _mouse_hex_tile.x < map_grid.size() and 0 <= _mouse_hex_tile.y and _mouse_hex_tile.y < map_grid[0].size()
-	var in_bounds_last = 0 <= last_mouse_tile.x and last_mouse_tile.x < map_grid.size() and 0 <= last_mouse_tile.y and last_mouse_tile.y < map_grid[0].size()
+	_mouse_hex_tile = _get_cell_from_position(_mouse_hex_tile)
+	var in_bounds_new = _is_cell_in_bounds(_mouse_hex_tile)
+	var in_bounds_last = _is_cell_in_bounds(last_mouse_tile)
 	if last_mouse_tile != _mouse_hex_tile and in_bounds_last and in_bounds_new:
 		var last_entity = map_grid[last_mouse_tile.x][last_mouse_tile.y]
 		var new_entity = map_grid[_mouse_hex_tile.x][_mouse_hex_tile.y]
@@ -107,12 +108,17 @@ func _physics_process(_delta: float) -> void:
 		if _is_feature(new_entity):
 			new_entity.mouse_entered()
 	
-	$HUD/Control/Label.text = str(tilemap.world_to_map(MapUtils.get_hex_center(_get_player_position())))
+	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
 	#$HUD/Control/Label2.text = str(_mouse_hex_tile)
 
 
 func _get_player_position():
 	return player.global_position
+
+
+# get the corresponding cell from a position in map
+func _get_cell_from_position(position):
+	return tilemap.world_to_map(MapUtils.get_hex_center(position))
 
 
 # return whether a tile entity is a feature tile
@@ -123,20 +129,54 @@ func _is_feature(tile_entity):
 	return false
 
 
+# return whether cell is in map bounds
+func _is_cell_in_bounds(cell):
+	return cell.x >= 0 and cell.x < map_grid.size() and cell.y >= 0 and cell.y < map_grid[0].size()
+
+
 # occupy a position in the map, also marking the ones surrounding it as occupied
-# increments the tiles it will occupy, so that, only when no feature is occupying it, it can be used
-func _occupy_cross(cell, occupy):
-	var neighs = [cell + Vector2.RIGHT, cell + Vector2.DOWN, cell + Vector2.LEFT, cell + Vector2.UP]
-	neighs.append_array([cell + Vector2(1,1), cell + Vector2(1,-1), cell + Vector2(-1, 1), cell + Vector2(-1, -1)])
+func _occupy_around(cell, radius, occupy):
+	var neighs = _get_cells_around(cell, radius)
 	for n in neighs:
-		if n.x >= 0 and n.x < map_grid.size() and n.y >= 0 and n.y < map_grid[0].size():
-			if occupy:
-				vacant_tiles[n] += 1
-			else:
-				vacant_tiles[n] = max(vacant_tiles[n]-1, 0)
+		_occupy_cell(n, occupy)
+
+
+# increments the tiles the cell will occupy, so that, only when no feature is occupying it, it can be used
+func _occupy_cell(cell, occupy):
+	if _is_cell_in_bounds(cell):
+		if occupy:
+			vacant_tiles[cell] += 1
+		else:
+			vacant_tiles[cell] = max(vacant_tiles[cell]-1, 0)
+
+
+# returns a list of all cells around a given origin cell
+func _get_cells_around(origin, radius):
+	var lst = []
+	
+	var square_rad = pow(radius, 2)
+	var index = Vector2(origin.x - radius + 1, origin.y - radius + 1)
+	while index.x <= origin.x + radius - 1:
+		index.y = origin.y - radius + 1
+		while index.y <= origin.y + radius - 1:
+			if index.distance_squared_to(origin) <= square_rad:
+				lst.append(index)
+			index.y += 1
+		index.x += 1
+	
+	return lst
 
 
 # || --- MAP GENERATION --- ||
+
+
+# initialise vacant tiles, accounting only for mountains
+func _init_vacant_tiles(cells):
+	for cell in cells:
+		if map_grid[cell.x][cell.y] == TileType.MOUNTAIN:
+			vacant_tiles[cell] = 1
+		else:
+			vacant_tiles[cell] = 0
 
 
 # map generation pipeline
@@ -156,20 +196,17 @@ func _generate_map():
 	var buckets = _open_clusters(used_cells)
 	_connect_cluster(buckets)
 	
-	for cell in used_cells:
-		if map_grid[cell.x][cell.y] == TileType.EMPTY:
-			vacant_tiles[cell] = 0
-		else:
-			vacant_tiles[cell] = 1
+	_init_vacant_tiles(used_cells)
 	
 	# evenly distribute feature tiles
 	_distribute_features()
 	
+	# re-initialise vacant cells, now with the initial features
+	_init_vacant_tiles(used_cells)
+	
 	# actual process of populating the map with the apropriate scenes
 	for cell in used_cells:
 		_instance_map_scene(cell, map_grid[cell.x][cell.y])
-	
-	#_border_barriers()
 
 
 # generate procedurally generated map, using perlin noise
@@ -235,16 +272,8 @@ func _balance_mountain_ratio(used_cells, simplex_noise):
 
 # force an open area around the center of the map
 func _force_open_area(center : Vector2):
-	var radius = START_RADIUS
-	var square_rad = pow(radius, 2)
-	var index = Vector2(center.x - radius + 1, center.y - radius + 1)
-	while index.x <= center.x + radius - 1:
-		index.y = center.y - radius + 1
-		while index.y <= center.y + radius - 1:
-			if index.distance_squared_to(center) <= square_rad:
-				map_grid[index.x][index.y] = TileType.EMPTY
-			index.y += 1
-		index.x += 1
+	for cell in _get_cells_around(center, START_RADIUS):
+		map_grid[cell.x][cell.y] = TileType.EMPTY
 
 
 # identify all empty clusters to make sure no area is unreachable
@@ -372,10 +401,11 @@ func _distribute_features():
 			if vacant_tiles[cell] == 0 and cell.distance_squared_to(center) > square_rad and cell.y < map_grid[0].size()-1:
 				empties.append(cell)
 		if empties.size() == 0: # failsafe, player simply got bad luck and will have less features than they should
+			print("%s feature tiles were not placed due to no vacant slots" % [FEATURE_TILES_COUNT-_i])
 			break
 		var random_pos_ix = _rng.randi_range(0, empties.size()-1)
 		var cell = empties[random_pos_ix]
-		_occupy_cross(cell, true)
+		_occupy_around(cell, FEATURE_SPACING, true)
 		map_grid[cell.x][cell.y] = TileType.FEATURE
 		feature_tiles.append(cell)
 	
@@ -412,23 +442,23 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				map_grid[cell.x][cell.y] = facility
 
 
-# add mountains to borders of map
-func _border_barriers():
-	for cell in out_tilemap.get_used_cells():
-		var world_pos = tilemap.map_to_world(cell)
-		var real_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
-		var mountain = MOUNTAIN_SCENE.instance()
-		mountain.global_position = real_position
-		out_mountains.add_child(mountain)
-
-
 # || --- SIGNALS --- ||
 
 
 # callback function when player presses interact button
 func _on_Player_interact(position):
-	var hex_tile = tilemap.world_to_map(MapUtils.get_hex_center(position))
+	var hex_tile = _get_cell_from_position(position)
 	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
 		tile_entity.interact()
+
+
+# when a feature tile enters the map
+func _on_feature_tile_placed(feature : Feature):
+	pass
+
+
+# when a feature tile leaves the map
+func _on_feature_tile_left(feature : Feature):
+	pass
