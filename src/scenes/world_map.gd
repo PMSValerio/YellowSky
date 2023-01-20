@@ -580,6 +580,7 @@ func _on_Player_interact(position):
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
 		tile_entity.interact()
+		EventManager.emit_signal("feature_interacted", tile_entity)
 
 
 # when a feature tile enters the map
@@ -599,3 +600,8 @@ func _on_feature_tile_placed(feature : Feature):
 func _on_feature_tile_left(feature : Feature):
 	for o in feature.occupied_cells:
 		_occupy_cell(o, false)
+
+
+# process a request to generate a new event tile
+func _on_spawn_event_request(event_id, type):
+	generate_event_tile(Global.get_event_data(event_id, type))

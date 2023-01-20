@@ -63,8 +63,16 @@ enum Text {
 	FACILITIES ,
 	SETTLEMENTS,
 	NPCS,
+	QUESTS,
 	EVENTS,
 }
+
+# types of events
+enum EventTypes {
+	GENERIC,
+	QUEST,
+}
+
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
@@ -174,6 +182,10 @@ func _init_facility_types():
 	for fac_type in file_data.keys():
 		var facility = _build_single_facility(file_data[fac_type])
 		facility_types[facility.type_id] = facility
+
+
+func get_event_data(event_id, type) -> EventData:
+	return event_data[event_id]
 
 
 func _build_single_event(event_id, data):

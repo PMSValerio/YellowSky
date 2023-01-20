@@ -1,0 +1,39 @@
+{
+  "quest1": {
+    "event_id": "quest1_event",
+    "deliver_items": null,
+    "return_items": null,
+    "rewards": {
+      "water_bottle": 2
+    },
+    "prompt_dialogue": "Do you accept quest1?",
+    "accept_dialogue": "Quest1 accepted",
+    "finish_dialogue": "Quest1 complete"
+  },
+  "quest2": {
+    "event_id": "quest2_event",
+    "deliver_items": {
+      "water_bottle": 5
+    },
+    "return_items": null,
+    "rewards": {
+      "water_gallon": 3
+    },
+    "prompt_dialogue": "Do you accept quest2?",
+    "accept_dialogue": "Quest2 accepted",
+    "finish_dialogue": "Quest2 complete"
+  },
+  "quest3": {
+    "event_id": null,
+    "deliver_items": null,
+    "return_items": {
+      "water_keg": 1
+    },
+    "rewards": {
+      "water_drum": 1
+    },
+    "prompt_dialogue": "Do you accept quest3?",
+    "accept_dialogue": "Quest3 accepted",
+    "finish_dialogue": "Quest3 complete"
+  }
+}
