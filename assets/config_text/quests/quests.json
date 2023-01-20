@@ -6,6 +6,8 @@
     "rewards": {
       "water_bottle": 2
     },
+    "name": "Quest 1",
+    "description": "This is sample text from Quest 1",
     "prompt_dialogue": "Do you accept quest1?",
     "accept_dialogue": "Quest1 accepted",
     "finish_dialogue": "Quest1 complete"
@@ -13,12 +15,14 @@
   "quest2": {
     "event_id": "quest2_event",
     "deliver_items": {
-      "water_bottle": 5
+      "quest_item2": 1
     },
     "return_items": null,
     "rewards": {
       "water_gallon": 3
     },
+    "name": "Quest 2",
+    "description": "This is sample text from Quest 2",
     "prompt_dialogue": "Do you accept quest2?",
     "accept_dialogue": "Quest2 accepted",
     "finish_dialogue": "Quest2 complete"
@@ -27,11 +31,13 @@
     "event_id": null,
     "deliver_items": null,
     "return_items": {
-      "water_keg": 1
+      "water_bottle": 1
     },
     "rewards": {
       "water_drum": 1
     },
+    "name": "Quest 3",
+    "description": "This is sample text from Quest 3",
     "prompt_dialogue": "Do you accept quest3?",
     "accept_dialogue": "Quest3 accepted",
     "finish_dialogue": "Quest3 complete"

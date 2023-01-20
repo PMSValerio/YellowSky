@@ -72,7 +72,7 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	generate_event_tile(Global.event_data["starter"], map_center + Vector2.DOWN)
+	generate_event_tile(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN)
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
@@ -81,6 +81,11 @@ func _ready() -> void:
 	
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
+	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	
+	# TODO: remove
+	var quest_data = Global.get_quest_data("quest1")
+	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
 
 
 func _physics_process(_delta: float) -> void:
@@ -144,6 +149,7 @@ func generate_event_tile(event_data, pos_cell : Vector2 = Vector2(-1, -1)):
 	events.add_child(tile)
 	var cell = _get_cell_from_position(pos)
 	map_grid[cell.x][cell.y] = tile
+	print(pos_cell)
 
 
 #  || --- HELPER FUNCTIONS --- ||
@@ -579,8 +585,8 @@ func _on_Player_interact(position):
 	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
+		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
-		EventManager.emit_signal("feature_interacted", tile_entity)
 
 
 # when a feature tile enters the map

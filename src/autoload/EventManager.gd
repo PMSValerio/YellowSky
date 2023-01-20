@@ -8,8 +8,6 @@ signal feature_tile_left(feature)
 
 signal spawn_event_request(event_id, type)
 
-signal feature_interacted(feature_entity)
-
 # Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed
 signal pop_menu

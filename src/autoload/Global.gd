@@ -105,7 +105,6 @@ const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
-var event_data = {} # another horrible place to have this
 
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
@@ -120,7 +119,6 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
-	_init_event_data()
 
 
 func set_cam(cam : Camera2D):
@@ -185,21 +183,19 @@ func _init_facility_types():
 
 
 func get_event_data(event_id, type) -> EventData:
-	return event_data[event_id]
-
-
-func _build_single_event(event_id, data):
+	var filepath = "generic.json"
+	match type:
+		EventTypes.QUEST:
+			filepath = "quests.json"
 	var event = EventData.new()
+	var data = get_text_from_file(Text.EVENTS, filepath, [event_id])
 	event.init(event_id, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
-	
 	return event
 
 
-func _init_event_data():
-	var config_file = ["generic.json"]
+func get_quest_data(quest_id) -> Quest:
+	var quest = Quest.new()
+	var data = get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id])
 	
-	for file in config_file:
-		var events = _config_parser.get_text_from_file(Text.EVENTS, file, [])
-		for event_id in events:
-			var event_obj = _build_single_event(event_id, events[event_id])
-			event_data[event_id] = event_obj
+	quest.init(quest_id, data)
+	return quest
