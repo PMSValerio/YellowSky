@@ -16,7 +16,8 @@ enum Dialog {
 
 var quest_id
 
-var event_id # the id of the related event (from the quest category ONLY)
+var event # the id of the related event (from the quest category ONLY)
+var _event_id
 var deliver_items = {} # items and amounts {item_id: amount} that must be brought to event tile
 var quest_giver : Feature # the settlement that gave this quest
 var return_items = {} #  items and amounts {item_id: amount} that must be brought back to settlement
@@ -33,7 +34,7 @@ var _status = Status.EVENT
 func init(_quest_id, data):
 	quest_id = _quest_id
 	
-	event_id = data["event_id"]
+	_event_id = data["event_id"]
 	deliver_items = data["deliver_items"]
 	return_items = data["return_items"]
 	
@@ -47,8 +48,8 @@ func init(_quest_id, data):
 func start(settlement_entity):
 	quest_giver = settlement_entity
 	
-	if event_id != null: # if an event was specified, generate it and set correct state
-		EventManager.emit_signal("spawn_event_request", event_id, Global.EventTypes.QUEST)
+	if _event_id != null: # if an event was specified, generate it and set correct state
+		EventManager.emit_signal("spawn_event_request", _event_id, Global.EventTypes.QUEST)
 	else:
 		_status = Status.RETURN
 
@@ -57,7 +58,7 @@ func _on_feature_interacted(feature_entity : Feature):
 	if not can_advance():
 		return
 	if _status == Status.EVENT: # if current goal is to visit event
-		if feature_entity is Event and feature_entity.data.event_id == event_id:
+		if feature_entity is Event and feature_entity.data.event_id == _event_id:
 			# TODO: remove all deliver items from inventory
 			_status = Status.RETURN
 			print("interacted with event")

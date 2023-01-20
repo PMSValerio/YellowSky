@@ -17,6 +17,10 @@ func has_quest(quest_id):
 	return _quest_log.has(quest_id)
 
 
+func get_quests():
+	return _quest_log.values()
+
+
 # return a type of dialogue lines
 func get_dialogue(quest_id, type):
 	if has_quest(quest_id):

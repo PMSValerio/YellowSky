@@ -3,6 +3,8 @@ extends Node
 
 var time_played = 0 # elapsed play time in seconds
 var quest_log : QuestLog
+var completed_quest_counter = 0
+var failed_quest_counter = 0
 var unlocked_facilities = [] # list of facility ids the player can build
 
 var world_hope = 0 # corresponds to the cumulative amount of earned hope points
