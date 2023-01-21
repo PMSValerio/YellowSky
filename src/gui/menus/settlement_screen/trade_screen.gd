@@ -130,8 +130,10 @@ func offer_remove_all(side):
 func check_trade_button():
 	if player_offer.get_total_value() >= settlement_offer.get_total_value() && settlement_offer.get_total_value() > 0 && player_offer.get_total_value() > 0:
 		trade_button.disabled = false
+		trade_button.flat = false
 	else:
 		trade_button.disabled = true
+		trade_button.flat = true
 
 
 func change_offer_value(side, new_value):
@@ -156,14 +158,11 @@ func reset():
 				var _v = (child as GridSlot).connect("button_pressed", self, "_on_select_slot", [child, side]) 
 
 			
-		# UI
 		_populate_item_grid(0, side)
 		bars[side].max_value = max(InventoryManager.inventory.get_total_value(), settlement_entity.inventory.get_total_value())
 		change_offer_value(side, 0)
-		trade_button.disabled = true
-
-		# trade inventories
 		item_offerings[side].reset()
+		check_trade_button()
 
 
 # --- || Signal Callbacks || ---
