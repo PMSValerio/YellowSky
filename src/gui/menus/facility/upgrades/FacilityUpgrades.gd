@@ -28,8 +28,8 @@ const d2_cost = 132
 onready var d3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/Durability/Button3")
 const d3_cost = 133
 #Environmental friendly
-#onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
-onready var upgrade_btn = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
+onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
+onready var upgrade_btn = get_node("DownSection/PanelContainer/Descprition_Cost/HBoxContainer3/Button")
 
 func _ready():
 	_connect_buttons()
@@ -44,7 +44,7 @@ func _connect_buttons():
 	d1.connect("pressed", self, "_change_upgrade_info", [d1])
 	d2.connect("pressed", self, "_change_upgrade_info", [d2])
 	d3.connect("pressed", self, "_change_upgrade_info", [d3])
-	#env.connect("pressed", self, "_change_upgrade_info", [env])
+	env.connect("pressed", self, "_change_upgrade_info", [env])
 	upgrade_btn.connect("pressed", self, "_upgrade") 
 
 func set_context(context):
@@ -89,17 +89,22 @@ func _change_upgrade_info(button):
 		_selected_upgrade_type = Global.FacilityUpgrades.INTEGRITY		
 		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 2))
 		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 2))
-			
+	elif button == env:
+		_selected_upgrade_type = Global.FacilityUpgrades.ENV_FRIENDLY
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 0))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 0))
+	
 func _check_level():
 	_disable_buttons_prod_rate()
 	_disable_buttons_consump_rate()
 	_disable_buttons_durability()
+	_disable_buttons_env_friendly()
 	
 func _upgrade():
 	if _selected_upgrade_type != null:
 		facility_entity.advance_upgrade(_selected_upgrade_type)
 		_check_level()
-	
+		
 func _disable_buttons_prod_rate():
 	if facility_entity.upgrades_progress[Global.FacilityUpgrades.PROD_RATE] == -1:
 		pr1.disabled = false
@@ -141,4 +146,10 @@ func _disable_buttons_durability():
 		d1.disabled = true
 		d2.disabled = true
 		d3.disabled = false
+		
+func _disable_buttons_env_friendly():
+	if facility_entity.upgrades_progress[Global.FacilityUpgrades.ENV_FRIENDLY] == -1:
+		env.disabled = false
+	else:
+		env.disabled = true
 	

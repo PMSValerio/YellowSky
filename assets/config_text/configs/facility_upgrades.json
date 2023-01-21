@@ -70,5 +70,17 @@
         "base_icon_subimage": 2
       }
     ]
+  },
+  "ENV_FRIENDLY": {
+    "base_icon": "env_friendly.png",
+    "max_level": 1,
+    "data": [
+      {
+        "cost": 500,
+        "multiplier": 2.0,
+        "info_text": "Sample text here for Enviromental Friendly Upgrade",
+        "base_icon_subimage": 0
+      }
+    ]
   }
 }

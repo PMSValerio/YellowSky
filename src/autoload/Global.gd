@@ -52,6 +52,7 @@ enum FacilityUpgrades {
 	INTEGRITY,
 	CONS_RATE,
 	PROD_RATE,
+	ENV_FRIENDLY,
 }
 
 enum Items {

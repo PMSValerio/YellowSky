@@ -26,7 +26,8 @@ var products = {}
 var upgrades_progress = {
 	Global.FacilityUpgrades.INTEGRITY: -1,
 	Global.FacilityUpgrades.CONS_RATE: -1,
-	Global.FacilityUpgrades.PROD_RATE: -1
+	Global.FacilityUpgrades.PROD_RATE: -1,
+	Global.FacilityUpgrades.ENV_FRIENDLY: -1,
 }
 
 var running = true
@@ -156,12 +157,10 @@ func get_upgrade_multiplier(upgrade_type) -> float:
 
 
 func advance_upgrade(upgrade_id) -> void:
-	if upgrade_id in Global.FacilityUpgrades:
-		upgrades_progress[upgrade_id] = min(upgrades_progress[upgrade_id] + 1, Global.facility_upgrades_config[upgrade_id]["max_level"] - 1)
+	if upgrade_id in Global.FacilityUpgrades.values():
+		upgrades_progress[upgrade_id] = min(upgrades_progress[upgrade_id] + 1, Global.get_facility_upgrade_field(upgrade_id, 'max_level') - 1)
 
 # --- || Operation || ---
-
-
 # function for turning facility on/off, changing visuals and other stuff
 func toggle_facility(on_off) -> void:
 	running = on_off
