@@ -4,8 +4,6 @@ class_name Quest
 enum Status {
 	EVENT, # must go interact with event
 	RETURN, # must return to settlement,
-	COMPLETE, # marked as complete
-	FAILED, # when the settlement is destroyed
 }
 
 enum Dialog {
@@ -69,7 +67,7 @@ func _on_feature_interacted(feature_entity : Feature):
 			_status = Status.COMPLETE
 
 
-# returns whether quest can advance progress (mainly if it has the required items
+# returns whether quest can advance progress (mainly if it has the required items)
 func can_advance() -> bool:
 	return true
 

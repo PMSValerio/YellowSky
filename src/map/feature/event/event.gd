@@ -5,6 +5,8 @@ onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
 onready var warning = $Warning
 
+var die_on_interact = true
+
 var data : EventData
 
 var _readied = false

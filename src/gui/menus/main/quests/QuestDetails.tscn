@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/gui/menus/main/quests/quest_details.gd" type="Script" id=2]
+[ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[node name="QuestDetails" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1016.0
+margin_bottom = 592.0
+custom_constants/separation = 8
+
+[node name="TitleMarker" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+margin_right = 1008.0
+margin_bottom = 28.0
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer/TitleMarker"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1000.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+align = 1
+
+[node name="Description" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 1008.0
+margin_bottom = 48.0
+
+[node name="ObjectivesMarker" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 1008.0
+margin_bottom = 84.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesMarker"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1000.0
+margin_bottom = 20.0
+text = "Objectives"
+
+[node name="ObjectivesContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 1008.0
+margin_bottom = 208.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 4
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer"]
+margin_left = 16.0
+margin_top = 4.0
+margin_right = 992.0
+margin_bottom = 112.0
+custom_constants/separation = 12
+
+[node name="EventItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_right = 976.0
+margin_bottom = 12.0
+text = "Gather the following items:"
+
+[node name="EventItemsList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 976.0
+margin_bottom = 24.0
+
+[node name="EventInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 976.0
+margin_bottom = 48.0
+text = "Investigate location"
+
+[node name="ReturnItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 976.0
+margin_bottom = 72.0
+text = "Gather the following items:"
+
+[node name="ReturnItemsList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 84.0
+margin_right = 976.0
+margin_bottom = 84.0
+
+[node name="ReturnInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 96.0
+margin_right = 976.0
+margin_bottom = 108.0
+text = "Return to"
+
+[node name="RewardsMarker" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 216.0
+margin_right = 1008.0
+margin_bottom = 244.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/RewardsMarker"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1000.0
+margin_bottom = 20.0
+text = "Rewards"
+
+[node name="ItemRewardGrid" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_left = 212.0
+margin_top = 252.0
+margin_right = 796.0
+margin_bottom = 332.0

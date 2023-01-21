@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=2]
-[ext_resource path="res://src/gui/menus/main/inventory/GridSlot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://src/gui/menus/misc/event_screen.gd" type="Script" id=5]
 
@@ -71,61 +71,7 @@ custom_fonts/font = SubResource( 2 )
 autowrap = true
 clip_text = true
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-margin_left = 140.0
-margin_top = 312.0
-margin_right = 724.0
-margin_bottom = 392.0
-size_flags_horizontal = 4
-columns = 8
-
-[node name="GridSlot1" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 80.0
-
-[node name="GridSlot2" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 84.0
-margin_right = 164.0
-margin_bottom = 80.0
-
-[node name="GridSlot3" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 168.0
-margin_right = 248.0
-margin_bottom = 80.0
-
-[node name="GridSlot4" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 252.0
-margin_right = 332.0
-margin_bottom = 80.0
-
-[node name="GridSlot5" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 336.0
-margin_right = 416.0
-margin_bottom = 80.0
-
-[node name="GridSlot6" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 420.0
-margin_right = 500.0
-margin_bottom = 80.0
-
-[node name="GridSlot7" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 504.0
-margin_right = 584.0
-margin_bottom = 80.0
+[node name="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
 
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 margin_left = 368.0

@@ -84,7 +84,7 @@ func _ready() -> void:
 	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	
 	# TODO: remove
-	var quest_data = Global.get_quest_data("quest1")
+	var quest_data = Global.get_quest_data("quest2")
 	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
 
 
@@ -600,12 +600,15 @@ func _on_feature_tile_placed(feature : Feature):
 	feature.occupied_cells.append_array(occupied)
 	for o in occupied:
 		_occupy_cell(o, true)
+	map_grid[cell.x][cell.y] = feature
 
 
 # when a feature tile leaves the map
 func _on_feature_tile_left(feature : Feature):
 	for o in feature.occupied_cells:
 		_occupy_cell(o, false)
+	var cell = _get_cell_from_position(feature.global_position)
+	map_grid[cell.x][cell.y] = TileType.EMPTY
 
 
 # process a request to generate a new event tile

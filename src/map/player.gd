@@ -100,7 +100,7 @@ func _input(event):
 	elif event.is_action_released("ctrl_cam_pan"):
 		can_move_cam = false
 		Global.change_mouse_cursor(false)
-		_reset_cam_pos()
+		#_reset_cam_pos()
 
 
 func _unhandled_input(event: InputEvent) -> void:

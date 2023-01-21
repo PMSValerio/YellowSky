@@ -23,12 +23,7 @@ func set_context(context):
 		text.text = event_entity.data.flavour_text
 		
 		var items = event_entity.data.item_updates
-		for i in range(items.size()):
-			if i >= grid.get_child_count(): # stop at the amount of grid slots max
-				break
-			var item_id = items.keys()[i]
-			
-			grid.get_child(i).populate_data(InventoryManager.item_stats[item_id], items[item_id])
+		grid.populate_items(items)
 
 
 func _on_Button_pressed() -> void:
@@ -36,3 +31,5 @@ func _on_Button_pressed() -> void:
 		var t = InventoryManager.item_stats[item_id].type
 		InventoryManager.inventory.add_items(t, item_id, event_entity.data.item_updates[item_id])
 	EventManager.emit_signal("pop_menu")
+	if event_entity.die_on_interact:
+		event_entity.die()
