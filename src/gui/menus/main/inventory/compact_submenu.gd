@@ -63,7 +63,7 @@ func toggle_on(rec_id):
 
 
 func _on_compact_item_pressed(button : CompactTransactionSlot) -> void:
-	InventoryManager.add_item(button.data.type, button.data.id)
+	InventoryManager.inventory.add_items(button.data.type, button.data.id)
 	ResourceManager.add_to_resource(resource_id, -button.cost)
 	emit_signal("update_items")
 	visible = false

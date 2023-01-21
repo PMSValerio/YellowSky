@@ -8,6 +8,7 @@ var _menus = {
 	Global.Menus.FACILITY_MENU: preload("res://src/gui/menus/facility/FacilityMenu.tscn"),
 	Global.Menus.MAIN_MENU: preload("res://src/gui/menus/main/MainMenu.tscn"),
 	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement_screen/SettlementScreen.tscn"),
+	Global.Menus.TRADE_SCREEN: preload("res://src/gui/menus/settlement_screen/TradeScreen.tscn"),
 	Global.Menus.EVENT_SCREEN: preload("res://src/gui/menus/misc/EventScreen.tscn")
 }
 
@@ -44,6 +45,7 @@ func _on_push_menu(menu, context):
 		if not get_tree().paused:
 			# TODO: pausing could be handled by the menu
 			get_tree().paused = true
+			Global.change_mouse_cursor(false)
 	else:
 		print("Menu not found")
 

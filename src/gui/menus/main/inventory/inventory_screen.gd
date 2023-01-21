@@ -51,7 +51,7 @@ func set_context(context):
 
 # populate grid with <items_per_page> items starting from the first_ix in the ItemIds array onwards
 func _populate_item_grid(type, first_ix, keep_inspected_slot = false):
-	if not type in InventoryManager.inventory.keys(): # sanity check
+	if not type in InventoryManager.inventory.get_inventory_keys() : # sanity check
 		return
 	
 	grid_category = type
@@ -62,13 +62,13 @@ func _populate_item_grid(type, first_ix, keep_inspected_slot = false):
 	_page_first_ix = first_ix
 	var item_ix = first_ix
 	var items_shown = 0
-	var ids_list = InventoryManager.get_all_ids_of_type(grid_category)
+	var ids_list = InventoryManager.inventory.get_all_ids_of_type(grid_category)
 	while items_shown < items_per_page:
 		if item_ix >= ids_list.size(): # if reached the last id, break
 			break
 		
 		var id = ids_list[item_ix]
-		var item_amount = InventoryManager.get_item_amount(grid_category, id)
+		var item_amount = InventoryManager.inventory.get_item_amount(grid_category, id)
 		if item_amount > 0: # if player has the item, update slot
 			var item_data = InventoryManager.item_stats[id]
 			
@@ -119,10 +119,10 @@ func _clean_up():
 
 
 func _on_UseButton_pressed() -> void:
-	InventoryManager.use_item(grid_category, inspected_slot.data.id)
-	inspected_slot.set_amount(InventoryManager.get_item_amount(grid_category, inspected_slot.data.id))
+	InventoryManager.inventory.use_item(grid_category, inspected_slot.data.id)
+	inspected_slot.set_amount(InventoryManager.inventory.get_item_amount(grid_category, inspected_slot.data.id))
 	if inspected_slot.amount <= 0: # if item was used up completely
-		# repopulate item grid with the same page
+		# repopulate item grid within the same page
 		_populate_item_grid(grid_category, _page_first_ix)
 
 

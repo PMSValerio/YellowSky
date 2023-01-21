@@ -34,5 +34,5 @@ func set_context(context):
 func _on_Button_pressed() -> void:
 	for item_id in event_entity.data.item_updates:
 		var t = InventoryManager.item_stats[item_id].type
-		InventoryManager.add_item(t, item_id, event_entity.data.item_updates[item_id])
+		InventoryManager.inventory.add_items(t, item_id, event_entity.data.item_updates[item_id])
 	EventManager.emit_signal("pop_menu")
