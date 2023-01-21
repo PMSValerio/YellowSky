@@ -67,4 +67,5 @@ func _on_ConfirmButton_pressed() -> void:
 
 
 func _on_ExitBtn_pressed() -> void:
+	emit_signal("value_chosen", 0)
 	visible = false
