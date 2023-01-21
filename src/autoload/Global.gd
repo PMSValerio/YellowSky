@@ -1,7 +1,11 @@
 extends Node
 
 
-var tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
+var menu_tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
+var grid_slot_tooltip = preload("res://src/gui/menus/reusable/GridSlotTooltip.tscn")
+var default_cursor = preload("res://assets/gfx/ui_elements/pointer.png")
+var pan_cursor = preload("res://assets/gfx/ui_elements/pan_pointer.png")
+
 
 enum Menus {
 	TEST,
@@ -10,7 +14,7 @@ enum Menus {
 	FACILITY_MENU,
 	MAIN_MENU,
 	SETTLEMENT_SCREEN,
-	SETTLEMENT_DIALOGUE_SCREEN,
+	TRADE_SCREEN,
 	EVENT_SCREEN,
 }
 
@@ -121,6 +125,11 @@ func set_cam(cam : Camera2D):
 func get_cam() -> Camera2D:
 	return _cam
 
+func change_mouse_cursor(is_pan : bool):
+	if is_pan:
+		Input.set_custom_mouse_cursor(pan_cursor)
+	else:
+		Input.set_custom_mouse_cursor(default_cursor)
 
 func get_screen_size() -> Vector2:
 	return _screen_size
@@ -144,7 +153,7 @@ func get_mouse_in_perspective() -> Vector2:
 
 # in case further customizations are to be made to tooltip
 func get_tooltip():
-	return tooltip.instance()
+	return menu_tooltip.instance()
 
 
 func get_text_from_file(text_type, file_name, key_array):

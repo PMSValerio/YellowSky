@@ -25,7 +25,7 @@ var _faciity_balance = 0
 
 
 func set_state(player_value, facility_value, facility_max, texture : Texture) -> void:
-	var fac_missing = facility_max-facility_value # the missing amount of the resource on the facility
+	var fac_missing = facility_max - facility_value # the missing amount of the resource on the facility
 	
 	min_value = 0
 	max_value = min(fac_missing, player_value)

@@ -1,15 +1,18 @@
 extends Control
 
-onready var settlement_image = $ColorRect/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage
-onready var name_box = $ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
-onready var description_box = $ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
-onready var talk_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/TalkButton
-onready var trade_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/TradeButton
-onready var leave_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/LeaveButton
-onready var goodbye_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/GoodbyeButton
-onready var accept_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/AcceptButton
-onready var decline_btn = $ColorRect/HBoxContainer/OptionsContainer/Options/DeclineButton
-onready var dialogue_pntr = $ColorRect/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
+onready var settlement_image = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage
+onready var name_box = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
+onready var description_box = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
+onready var talk_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/TalkButton
+onready var trade_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/TradeButton
+onready var leave_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/LeaveButton
+onready var goodbye_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/GoodbyeButton
+onready var accept_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/AcceptButton
+onready var decline_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/DeclineButton
+onready var dialogue_pntr = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
+
+onready var trade_screen_ref = $Margin/TradeScreen
+
 
 export var text_speed = 0.01
 var text_in_progress = false
@@ -18,11 +21,20 @@ var current_dialogue_branch = 0
 var is_talking = false
 var text_file_ref = "settlements.json"
 
+var settlement_entity : Settlement  = null # the actual facility node
+var has_set_trade = false # used to circumvent the fact that trade's "set_context" cant be set when the menu is pushed 
+
 
 func _ready() -> void:
-
 	description_box.get_node("Timer").wait_time = text_speed
 	toggle_text_mode(false)
+
+
+func set_context(context) -> void:
+	settlement_entity = context
+
+
+# --- || Dialogue || ---
 
 
 func toggle_text_mode(to_npc):
@@ -98,20 +110,32 @@ func quest_update(show):
 
 	next_line()
 
-# Signal Stuff Below:::::::::::::::::::::::::::::::::::::::::::
+
+# --- || Signal Callbacks || ---
+
+
 func _on_TalkButton_pressed():
 	toggle_text_mode(true)
+
+
+func _on_TradeButton_pressed():
+	if !has_set_trade:
+		has_set_trade = true
+		trade_screen_ref.set_context(settlement_entity)
+	
+	trade_screen_ref.visible = true
 
 
 func _on_LeaveButton_pressed():
 	EventManager.emit_signal("pop_menu")
 
 
+# Dialogue Options
 func _on_GoodbyeButton_pressed():
 	current_dialogue_branch = 0
 	toggle_text_mode(false)
 
-# Dialogue Options
+
 func _on_AcceptButton_pressed():
 	current_dialogue_branch += 1
 	quest_update(false)

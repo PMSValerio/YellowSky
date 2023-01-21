@@ -7,7 +7,6 @@ var subtype # this will probably only be used for compact resource items
 var texture
 var value
 var stat
-
 var usable
 
 var name
