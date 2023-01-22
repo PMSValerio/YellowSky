@@ -219,6 +219,7 @@ size_flags_horizontal = 4
 disabled = true
 text = "Trade"
 icon = ExtResource( 5 )
+flat = true
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea"]
 margin_left = 24.0
