@@ -7,7 +7,7 @@ onready var warning = $Warning
 
 var die_on_interact = true
 var cell_pos = Vector2(-1, -1)
-var associated_quest : Quest
+var associated_quest = null
 
 var data : EventData
 
@@ -20,8 +20,11 @@ func _ready() -> void:
 
 
 func interact() -> void:
-	EventManager.emit_signal("push_menu", Global.Menus.EVENT_SCREEN, self)
-	warning.toggle(false)
+	if associated_quest == null or associated_quest.can_advance():
+		EventManager.emit_signal("push_menu", Global.Menus.EVENT_SCREEN, self)
+		warning.toggle(false)
+	else:
+		EventManager.emit_signal("push_menu", Global.Menus.EVENT_REQUIREMENTS_SCREEN, self)
 
 
 func set_data(_data : EventData):
@@ -30,5 +33,5 @@ func set_data(_data : EventData):
 		anim.play(data["animation"])
 
 
-func set_associated_quest(quest : Quest):
+func set_associated_quest(quest):
 	associated_quest = quest

@@ -9,7 +9,8 @@ var _menus = {
 	Global.Menus.MAIN_MENU: preload("res://src/gui/menus/main/MainMenu.tscn"),
 	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement_screen/SettlementScreen.tscn"),
 	Global.Menus.TRADE_SCREEN: preload("res://src/gui/menus/settlement_screen/TradeScreen.tscn"),
-	Global.Menus.EVENT_SCREEN: preload("res://src/gui/menus/misc/EventScreen.tscn")
+	Global.Menus.EVENT_SCREEN: preload("res://src/gui/menus/misc/EventScreen.tscn"),
+	Global.Menus.EVENT_REQUIREMENTS_SCREEN: preload("res://src/gui/menus/misc/EventRequirementsScreen.tscn")
 }
 
 # the stack of loaded menus, when empty, game should process normally

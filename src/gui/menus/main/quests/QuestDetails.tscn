@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/headline_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/gui/menus/main/quests/quest_details.gd" type="Script" id=2]
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/buttons/find_on_map_button.png" type="Texture" id=6]
 
 [node name="QuestDetails" type="MarginContainer"]
 anchor_right = 1.0
@@ -57,7 +58,7 @@ text = "Objectives"
 [node name="ObjectivesContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 92.0
 margin_right = 1008.0
-margin_bottom = 332.0
+margin_bottom = 280.0
 custom_constants/margin_right = 16
 custom_constants/margin_top = 4
 custom_constants/margin_left = 16
@@ -67,7 +68,7 @@ custom_constants/margin_bottom = 4
 margin_left = 16.0
 margin_top = 4.0
 margin_right = 992.0
-margin_bottom = 236.0
+margin_bottom = 184.0
 custom_constants/separation = 12
 
 [node name="EventItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
@@ -83,56 +84,72 @@ margin_bottom = 24.0
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
 margin_top = 36.0
 margin_right = 976.0
-margin_bottom = 110.0
+margin_bottom = 84.0
 
 [node name="EventInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer"]
-margin_top = 31.0
+margin_top = 18.0
 margin_right = 486.0
-margin_bottom = 43.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 text = "Investigate location"
 
 [node name="EventMap" type="Button" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer"]
-margin_left = 696.0
-margin_right = 769.0
-margin_bottom = 74.0
+margin_left = 709.0
+margin_right = 757.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
 size_flags_horizontal = 6
-icon = ExtResource( 4 )
+icon = ExtResource( 6 )
+icon_align = 1
+
+[node name="MenuTooltipProxy" type="Control" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer/EventMap"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+hint_tooltip = "Show on map"
+script = ExtResource( 5 )
 
 [node name="ReturnItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 122.0
+margin_top = 96.0
 margin_right = 976.0
-margin_bottom = 134.0
+margin_bottom = 108.0
 text = "Gather the following items:"
 
 [node name="ReturnItemsList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 146.0
+margin_top = 120.0
 margin_right = 976.0
-margin_bottom = 146.0
+margin_bottom = 120.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 158.0
+margin_top = 132.0
 margin_right = 976.0
-margin_bottom = 232.0
+margin_bottom = 180.0
 
 [node name="ReturnInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 31.0
+margin_top = 18.0
 margin_right = 486.0
-margin_bottom = 43.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 text = "Return to"
 
 [node name="ReturnMap" type="Button" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 696.0
-margin_right = 769.0
-margin_bottom = 74.0
+margin_left = 709.0
+margin_right = 757.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
 size_flags_horizontal = 6
-icon = ExtResource( 4 )
+icon = ExtResource( 6 )
+icon_align = 1
+
+[node name="MenuTooltipProxy" type="Control" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2/ReturnMap"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+hint_tooltip = "Show on map"
+script = ExtResource( 5 )
 
 [node name="RewardsMarker" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 340.0
+margin_top = 288.0
 margin_right = 1008.0
-margin_bottom = 368.0
+margin_bottom = 316.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/RewardsMarker"]
 margin_left = 8.0
@@ -143,9 +160,9 @@ text = "Rewards"
 
 [node name="ItemRewardGrid" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 212.0
-margin_top = 376.0
+margin_top = 324.0
 margin_right = 796.0
-margin_bottom = 456.0
+margin_bottom = 404.0
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer/EventMap" to="." method="_on_EventMap_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2/ReturnMap" to="." method="_on_ReturnMap_pressed"]

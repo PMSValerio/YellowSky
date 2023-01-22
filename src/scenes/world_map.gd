@@ -89,6 +89,7 @@ func _ready() -> void:
 	# TODO: remove
 	var quest_data = Global.get_quest_data("quest2")
 	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
+	#InventoryManager.inventory.add_items(Global.Items.QUEST, "quest_item2")
 
 
 func _physics_process(_delta: float) -> void:
