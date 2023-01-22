@@ -81,6 +81,7 @@ func set_up(_quest : Quest):
 
 func _on_EventMap_pressed() -> void:
 	if is_instance_valid(quest.event):
+		quest.event.toggle_warning()
 		Global.get_player().set_cam_pos(quest.event.global_position)
 		EventManager.emit_signal("pop_menu")
 

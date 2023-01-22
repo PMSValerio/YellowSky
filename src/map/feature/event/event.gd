@@ -35,3 +35,11 @@ func set_data(_data : EventData):
 
 func set_associated_quest(quest):
 	associated_quest = quest
+
+
+func toggle_warning(onoff = true):
+	if associated_quest == null:
+		warning.set_type(Global.Warnings.MSQ, "Point of interest")
+	else:
+		warning.set_type(Global.Warnings.QUEST, associated_quest.name)
+	warning.toggle(onoff)

@@ -60,9 +60,7 @@ func _tick() -> void:
 			if products[p] < get_max_prod():
 				products[p] = min(get_max_prod(), products[p] + facility_type.production_rate)
 				if products[p] == get_max_prod():
-					print("Facility full")
-					warning.set_tooltip_text("Facility Full! [Click to dismiss]")
-					warning.set_type("full")
+					warning.set_type(Global.Warnings.FULL)
 					warning.toggle(true)
 	
 		if tooltip.visible:
@@ -82,9 +80,7 @@ func _operate_cost():
 		fuels[f] = max(0, fuels[f] - facility_type.consumption_rate)
 		if fuels[f] == 0:
 			# alert facility power off
-			print("Facility switching off")
-			warning.set_tooltip_text("Facility out of Fuel! [Click to dismiss]")
-			warning.set_type("fuel")
+			warning.set_type(Global.Warnings.NO_FUEL)
 			warning.toggle(true)
 
 
@@ -171,8 +167,7 @@ func repair(amount):
 	var old_status = get_status()
 	health = clamp(health + amount, 0.0, get_max_health())
 	if amount < 0 and old_status != Status.WRECKED:
-		warning.set_tooltip_text("Facility Damaged! [Click to dismiss]")
-		warning.set_type("damage")
+		warning.set_type(Global.Warnings.F_DAMAGE)
 		warning.toggle(true)
 	else:
 		warning.toggle(false)
@@ -182,8 +177,7 @@ func repair(amount):
 		if health <= 0.0:
 			_is_destroyed = true
 			if old_status != Status.WRECKED:
-				warning.set_tooltip_text("Facility Destroyed! [Click to dismiss]")
-				warning.set_type("critical")
+				warning.set_type(Global.Warnings.F_CRITICAL)
 				warning.toggle(true)
 	_update_healthbar()
 

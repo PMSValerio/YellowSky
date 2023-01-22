@@ -49,6 +49,7 @@ func start(settlement_entity):
 	if _event_id != null: # if an event was specified, generate it and set correct state
 		event = Global.generate_event(Global.get_event_data(_event_id, Global.EventTypes.QUEST))
 		event.set_associated_quest(self)
+		event.toggle_warning()
 	else:
 		_status = Status.RETURN
 

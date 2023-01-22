@@ -20,6 +20,17 @@ enum Menus {
 	EVENT_REQUIREMENTS_SCREEN,
 }
 
+enum Warnings {
+	MSQ,
+	F_DAMAGE,
+	S_DAMAGE,
+	F_CRITICAL,
+	S_CRITICAL,
+	QUEST,
+	NO_FUEL,
+	FULL,
+}
+
 enum Disasters {
 	TEST,
 	TORNADO,
