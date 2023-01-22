@@ -1,17 +1,17 @@
 extends Control
 
-onready var settlement_image = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage
-onready var name_box = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
-onready var description_box = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
-onready var talk_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/TalkButton
-onready var trade_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/TradeButton
-onready var leave_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/LeaveButton
-onready var goodbye_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/GoodbyeButton
-onready var accept_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/AcceptButton
-onready var decline_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Options/DeclineButton
-onready var dialogue_pntr = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
+onready var settlement_image = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage
+onready var name_box = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
+onready var description_box = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
+onready var talk_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/TalkButton
+onready var trade_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/TradeButton
+onready var leave_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/LeaveButton
+onready var goodbye_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/GoodbyeButton
+onready var accept_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/AcceptButton
+onready var decline_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DeclineButton
+onready var dialogue_pntr = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
 
-onready var trade_screen_ref = $Margin/TradeScreen
+onready var trade_screen_ref = $TradeScreen
 
 
 export var text_speed = 0.01

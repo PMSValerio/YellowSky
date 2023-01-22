@@ -29,62 +29,91 @@ region_rect = Rect2( 64, 0, 32, 32 )
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 32, 32 )
 
-[node name="TradeScreen" type="PanelContainer"]
+[node name="TradeScreen" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = ExtResource( 2 )
+custom_constants/margin_right = 32
+custom_constants/margin_top = 8
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 96
 script = ExtResource( 3 )
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 32.0
+margin_top = 8.0
+margin_right = 992.0
+margin_bottom = 504.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 1008.0
-margin_bottom = 584.0
+margin_right = 944.0
+margin_bottom = 480.0
 custom_constants/margin_top = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 margin_top = 40.0
-margin_right = 992.0
-margin_bottom = 568.0
+margin_right = 928.0
+margin_bottom = 464.0
+custom_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 992.0
-margin_bottom = 508.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 928.0
+margin_bottom = 398.0
 size_flags_vertical = 3
 
-[node name="PlayerArea" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 416.0
-margin_bottom = 508.0
+[node name="PlayerArea" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 360.0
+margin_bottom = 398.0
 size_flags_horizontal = 3
+custom_constants/separation = 10
 
-[node name="PlayerButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea"]
+margin_right = 360.0
+margin_bottom = 42.0
+
+[node name="PlayerButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/HBoxContainer"]
 margin_right = 153.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 0, 42 )
-size_flags_horizontal = 0
 text = "Add/Remove All"
 
-[node name="ScrollInventory" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea"]
-margin_top = 46.0
-margin_right = 416.0
-margin_bottom = 508.0
-size_flags_horizontal = 3
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/HBoxContainer"]
+margin_left = 327.0
+margin_top = 15.0
+margin_right = 360.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+text = "You"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea"]
+margin_top = 52.0
+margin_right = 360.0
+margin_bottom = 398.0
+size_flags_vertical = 3
+
+[node name="ScrollInventory" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 352.0
+margin_bottom = 338.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="InventoryGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory"]
-margin_right = 416.0
-margin_bottom = 248.0
-columns = 5
+[node name="InventoryGrid" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory"]
+margin_right = 332.0
+margin_bottom = 332.0
+columns = 4
 
-[node name="GridSlot0" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot0" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 80.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot1" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot1" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 84.0
@@ -92,7 +121,7 @@ margin_right = 164.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot2" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot2" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 168.0
@@ -100,7 +129,7 @@ margin_right = 248.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot3" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot3" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 252.0
@@ -108,15 +137,7 @@ margin_right = 332.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot4" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 336.0
-margin_right = 416.0
-margin_bottom = 80.0
-is_for_trade = true
-
-[node name="GridSlot5" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot4" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 84.0
@@ -124,7 +145,7 @@ margin_right = 80.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot6" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot5" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 84.0
@@ -133,7 +154,7 @@ margin_right = 164.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot7" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot6" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 168.0
@@ -142,7 +163,7 @@ margin_right = 248.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot8" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot7" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 252.0
@@ -151,16 +172,7 @@ margin_right = 332.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot9" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 336.0
-margin_top = 84.0
-margin_right = 416.0
-margin_bottom = 164.0
-is_for_trade = true
-
-[node name="GridSlot10" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot8" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 168.0
@@ -168,7 +180,7 @@ margin_right = 80.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot11" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot9" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 84.0
@@ -177,7 +189,7 @@ margin_right = 164.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot12" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot10" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 168.0
@@ -186,7 +198,7 @@ margin_right = 248.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot13" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot11" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 252.0
@@ -195,24 +207,51 @@ margin_right = 332.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot14" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+[node name="GridSlot12" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 336.0
-margin_top = 168.0
-margin_right = 416.0
-margin_bottom = 248.0
+margin_top = 252.0
+margin_right = 80.0
+margin_bottom = 332.0
 is_for_trade = true
 
-[node name="TradeArea" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 420.0
-margin_right = 588.0
-margin_bottom = 508.0
+[node name="GridSlot13" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 84.0
+margin_top = 252.0
+margin_right = 164.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="GridSlot14" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 168.0
+margin_top = 252.0
+margin_right = 248.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="GridSlot15" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 252.0
+margin_top = 252.0
+margin_right = 332.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="TradeArea" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 364.0
+margin_right = 576.0
+margin_bottom = 398.0
 size_flags_horizontal = 3
+custom_constants/separation = 10
 
-[node name="TradeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea"]
-margin_left = 24.0
-margin_right = 144.0
+[node name="TradeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea"]
+margin_left = 46.0
+margin_right = 166.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 120, 42 )
 size_flags_horizontal = 4
@@ -221,30 +260,30 @@ text = "Trade"
 icon = ExtResource( 5 )
 flat = true
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea"]
-margin_left = 24.0
-margin_top = 46.0
-margin_right = 144.0
-margin_bottom = 508.0
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea"]
+margin_left = 49.0
+margin_top = 52.0
+margin_right = 163.0
+margin_bottom = 398.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 112.0
-margin_bottom = 454.0
+margin_right = 106.0
+margin_bottom = 338.0
 size_flags_horizontal = 4
-custom_constants/separation = 16
+custom_constants/separation = 10
 
-[node name="PlayerOffer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer"]
+[node name="PlayerOffer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer"]
 margin_right = 44.0
-margin_bottom = 446.0
+margin_bottom = 330.0
 
-[node name="PlayerBar" type="TextureProgress" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer"]
+[node name="PlayerBar" type="TextureProgress" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer"]
 margin_left = 7.0
 margin_right = 37.0
-margin_bottom = 430.0
+margin_bottom = 314.0
 rect_min_size = Vector2( 30, 300 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -254,23 +293,23 @@ fill_mode = 3
 tint_progress = Color( 0.870588, 0.623529, 0.392157, 1 )
 nine_patch_stretch = true
 
-[node name="PlayerOfferLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer"]
-margin_top = 434.0
+[node name="PlayerOfferLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer"]
+margin_top = 318.0
 margin_right = 44.0
-margin_bottom = 446.0
+margin_bottom = 330.0
 rect_min_size = Vector2( 44, 0 )
-text = "12"
+text = "1200"
 align = 1
 
-[node name="SettlementOffer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer"]
-margin_left = 60.0
-margin_right = 104.0
-margin_bottom = 446.0
+[node name="SettlementOffer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 98.0
+margin_bottom = 330.0
 
-[node name="SettlementBar" type="TextureProgress" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer"]
+[node name="SettlementBar" type="TextureProgress" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer"]
 margin_left = 7.0
 margin_right = 37.0
-margin_bottom = 430.0
+margin_bottom = 314.0
 rect_min_size = Vector2( 30, 300 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -280,50 +319,69 @@ fill_mode = 3
 tint_progress = Color( 0.411765, 0.611765, 0.403922, 1 )
 nine_patch_stretch = true
 
-[node name="SettlementOfferLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer"]
-margin_top = 434.0
+[node name="SettlementOfferLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer"]
+margin_top = 318.0
 margin_right = 44.0
-margin_bottom = 446.0
+margin_bottom = 330.0
 rect_min_size = Vector2( 44, 0 )
-text = "12"
+text = "1200"
 align = 1
 
-[node name="SettlementArea" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 592.0
-margin_right = 992.0
-margin_bottom = 508.0
+[node name="SettlementArea" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 580.0
+margin_right = 928.0
+margin_bottom = 398.0
 size_flags_horizontal = 3
+custom_constants/separation = 10
 
-[node name="SettlementButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea"]
-margin_left = 247.0
-margin_right = 400.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea"]
+margin_right = 348.0
+margin_bottom = 42.0
+alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/HBoxContainer"]
+margin_top = 15.0
+margin_right = 104.0
+margin_bottom = 27.0
+size_flags_horizontal = 2
+text = "Settlement"
+
+[node name="SettlementButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/HBoxContainer"]
+margin_left = 195.0
+margin_right = 348.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 0, 42 )
 size_flags_horizontal = 8
 text = "Add/Remove All"
 
-[node name="ScrollSettlement" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea"]
-margin_top = 46.0
-margin_right = 400.0
-margin_bottom = 508.0
-size_flags_horizontal = 3
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea"]
+margin_top = 52.0
+margin_right = 348.0
+margin_bottom = 398.0
+size_flags_vertical = 3
+
+[node name="ScrollSettlement" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 340.0
+margin_bottom = 338.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="SettlementGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement"]
-margin_right = 400.0
-margin_bottom = 248.0
+[node name="SettlementGrid" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement"]
+margin_right = 320.0
+margin_bottom = 332.0
 custom_constants/hseparation = 0
-columns = 5
+columns = 4
 
-[node name="GridSlot0" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot0" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 80.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot1" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot1" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 80.0
@@ -331,7 +389,7 @@ margin_right = 160.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot2" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot2" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -339,7 +397,7 @@ margin_right = 240.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot3" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot3" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 240.0
@@ -347,15 +405,7 @@ margin_right = 320.0
 margin_bottom = 80.0
 is_for_trade = true
 
-[node name="GridSlot4" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 320.0
-margin_right = 400.0
-margin_bottom = 80.0
-is_for_trade = true
-
-[node name="GridSlot5" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot4" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 84.0
@@ -363,7 +413,7 @@ margin_right = 80.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot6" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot5" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 80.0
@@ -372,7 +422,7 @@ margin_right = 160.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot7" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot6" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -381,7 +431,7 @@ margin_right = 240.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot8" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot7" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 240.0
@@ -390,16 +440,7 @@ margin_right = 320.0
 margin_bottom = 164.0
 is_for_trade = true
 
-[node name="GridSlot9" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 320.0
-margin_top = 84.0
-margin_right = 400.0
-margin_bottom = 164.0
-is_for_trade = true
-
-[node name="GridSlot10" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot8" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 168.0
@@ -407,7 +448,7 @@ margin_right = 80.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot11" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot9" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 80.0
@@ -416,7 +457,7 @@ margin_right = 160.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot12" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot10" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -425,7 +466,7 @@ margin_right = 240.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot13" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot11" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 240.0
@@ -434,87 +475,113 @@ margin_right = 320.0
 margin_bottom = 248.0
 is_for_trade = true
 
-[node name="GridSlot14" parent="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+[node name="GridSlot12" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 320.0
-margin_top = 168.0
-margin_right = 400.0
-margin_bottom = 248.0
+margin_top = 252.0
+margin_right = 80.0
+margin_bottom = 332.0
 is_for_trade = true
 
-[node name="Footnotes" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 512.0
-margin_right = 992.0
-margin_bottom = 528.0
+[node name="GridSlot13" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_top = 252.0
+margin_right = 160.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="GridSlot14" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 160.0
+margin_top = 252.0
+margin_right = 240.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="GridSlot15" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 240.0
+margin_top = 252.0
+margin_right = 320.0
+margin_bottom = 332.0
+is_for_trade = true
+
+[node name="Footnotes" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 408.0
+margin_right = 928.0
+margin_bottom = 424.0
 custom_constants/separation = 32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footnotes"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes"]
 margin_right = 53.0
 margin_bottom = 16.0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer"]
 margin_left = 20.0
 margin_top = 2.0
 margin_right = 53.0
 margin_bottom = 14.0
 text = "Add"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footnotes"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes"]
 margin_left = 85.0
 margin_right = 184.0
 margin_bottom = 16.0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer2"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture = ExtResource( 9 )
 flip_h = true
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer2"]
 margin_left = 20.0
 margin_top = 2.0
 margin_right = 99.0
 margin_bottom = 14.0
 text = "Quantity"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footnotes"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes"]
 margin_left = 216.0
 margin_right = 305.0
 margin_bottom = 16.0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer3"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture = ExtResource( 6 )
 flip_h = true
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Footnotes/HBoxContainer3"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Footnotes/HBoxContainer3"]
 margin_left = 20.0
 margin_top = 2.0
 margin_right = 89.0
 margin_bottom = 14.0
 text = "Remove"
 
-[node name="ResourceSlider" parent="MarginContainer" instance=ExtResource( 8 )]
+[node name="ResourceSlider" parent="PanelContainer/MarginContainer" instance=ExtResource( 8 )]
 visible = false
-margin_left = 378.0
-margin_top = 201.0
-margin_right = 613.0
-margin_bottom = 407.0
+margin_left = 346.0
+margin_top = 149.0
+margin_right = 581.0
+margin_bottom = 355.0
 rect_min_size = Vector2( 235, 206 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ExitBtn" type="Button" parent="."]
-margin_left = 984.0
+[node name="ExitBtn" type="Button" parent="PanelContainer"]
+margin_left = 920.0
 margin_top = 16.0
-margin_right = 1008.0
+margin_right = 944.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
 size_flags_horizontal = 8
@@ -523,8 +590,8 @@ custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PlayerButton" to="." method="_on_PlayerButton_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton" to="." method="_on_TradeButton_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/SettlementButton" to="." method="_on_SettlementButton_pressed"]
-[connection signal="value_chosen" from="MarginContainer/ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]
-[connection signal="pressed" from="ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/HBoxContainer/PlayerButton" to="." method="_on_PlayerButton_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton" to="." method="_on_TradeButton_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/HBoxContainer/SettlementButton" to="." method="_on_SettlementButton_pressed"]
+[connection signal="value_chosen" from="PanelContainer/MarginContainer/ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]
+[connection signal="pressed" from="PanelContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]

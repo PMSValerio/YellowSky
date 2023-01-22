@@ -30,7 +30,7 @@ func _ready():
 
 
 	inventory = Inventory.new()
-	inventory.init(InventoryManager.inventory_layouts.keys()[num])
+	inventory.init(settlement_type.inventory_id)
 
 	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 
@@ -87,7 +87,7 @@ func _operate_cost():
 			warning.set_type("fuel")
 			warning.toggle(true) """
 
-func repair(amount):
+func repair(_amount):
 	pass
 	""" 	var old_status = get_status()
 	health = clamp(health + amount, 0.0, get_max_health())

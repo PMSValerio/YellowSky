@@ -27,8 +27,7 @@ func _ready():
 
 func set_up_for_trade():
 	is_for_trade = true
-	button_node.button_mask = BUTTON_MASK_LEFT | BUTTON_MASK_RIGHT | BUTTON_MASK_MIDDLE
-
+	
 
 func _on_button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
@@ -47,6 +46,12 @@ func populate_data(item_data : Item, item_amount : int) -> void:
 
 
 func clear_data() -> void:
+
+	if is_for_trade:
+		button_node.button_mask = BUTTON_MASK_LEFT | BUTTON_MASK_RIGHT | BUTTON_MASK_MIDDLE
+	else:
+		button_node.button_mask = BUTTON_MASK_LEFT
+
 	texture_node.texture = null
 	data = null
 	button_node.data = null
