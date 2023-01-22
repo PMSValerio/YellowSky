@@ -6,6 +6,7 @@ onready var anim = $AnimationPlayer
 onready var warning = $Warning
 
 var die_on_interact = true
+var cell_pos = Vector2(-1, -1)
 
 var data : EventData
 

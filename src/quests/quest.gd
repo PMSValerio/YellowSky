@@ -47,7 +47,7 @@ func start(settlement_entity):
 	quest_giver = settlement_entity
 	
 	if _event_id != null: # if an event was specified, generate it and set correct state
-		EventManager.emit_signal("spawn_event_request", _event_id, Global.EventTypes.QUEST)
+		Global.generate_event(Global.get_event_data(_event_id, Global.EventTypes.QUEST))
 	else:
 		_status = Status.RETURN
 

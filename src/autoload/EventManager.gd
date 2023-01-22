@@ -6,7 +6,7 @@ extends Node
 signal feature_tile_placed(feature)
 signal feature_tile_left(feature)
 
-signal spawn_event_request(event_id, type)
+signal spawn_event_request(event)
 
 # Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed

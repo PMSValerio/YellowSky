@@ -5,6 +5,7 @@ var menu_tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
 var grid_slot_tooltip = preload("res://src/gui/menus/reusable/GridSlotTooltip.tscn")
 var default_cursor = preload("res://assets/gfx/ui_elements/pointer.png")
 var pan_cursor = preload("res://assets/gfx/ui_elements/pan_pointer.png")
+var event_scene = preload("res://src/map/feature/event/Event.tscn")
 
 
 enum Menus {
@@ -208,3 +209,16 @@ func get_quest_data(quest_id) -> Quest:
 	
 	quest.init(quest_id, data)
 	return quest
+
+
+func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
+	var event = event_scene.instance()
+	
+	event.cell_pos = cell_position
+	event.die_on_interact = die_on_interact
+	event.set_data(event_data)
+	
+	if send_signal:
+		EventManager.emit_signal("spawn_event_request", event)
+	
+	return event

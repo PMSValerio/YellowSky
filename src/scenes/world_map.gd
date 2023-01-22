@@ -72,7 +72,10 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 	# Manually instance starting features
-	generate_event_tile(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN)
+	#generate_event_tile(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN)
+	var ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
+	# vv why the hell is this necessary???? vv
+	_on_spawn_event_request(ev)
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
@@ -127,8 +130,8 @@ func _physics_process(_delta: float) -> void:
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
 
 
-func generate_event_tile(event_data, pos_cell : Vector2 = Vector2(-1, -1)):
-	var tile = EVENT_SCENE.instance()
+func generate_event_tile(event : Event):
+	var pos_cell = event.cell_pos
 	
 	if pos_cell == Vector2(-1, -1):
 		var empties = []
@@ -142,13 +145,13 @@ func generate_event_tile(event_data, pos_cell : Vector2 = Vector2(-1, -1)):
 		
 	var world_pos = tilemap.map_to_world(pos_cell)
 	var pos = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
-		
-	tile.global_position = pos
-	tile.set_discovered(false)
-	tile.set_data(event_data)
-	events.add_child(tile)
+	
+	event.cell_pos = pos_cell
+	event.global_position = pos
+	event.set_discovered(false)
+	events.add_child(event)
 	var cell = _get_cell_from_position(pos)
-	map_grid[cell.x][cell.y] = tile
+	map_grid[cell.x][cell.y] = event
 	print(pos_cell)
 
 
@@ -612,5 +615,5 @@ func _on_feature_tile_left(feature : Feature):
 
 
 # process a request to generate a new event tile
-func _on_spawn_event_request(event_id, type):
-	generate_event_tile(Global.get_event_data(event_id, type))
+func _on_spawn_event_request(event):
+	generate_event_tile(event)
