@@ -7,6 +7,7 @@ onready var warning = $Warning
 
 var die_on_interact = true
 var cell_pos = Vector2(-1, -1)
+var associated_quest : Quest
 
 var data : EventData
 
@@ -27,3 +28,7 @@ func set_data(_data : EventData):
 	data = _data
 	if _readied:
 		anim.play(data["animation"])
+
+
+func set_associated_quest(quest : Quest):
+	associated_quest = quest

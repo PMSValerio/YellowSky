@@ -198,7 +198,11 @@ func _reset_cam_pos():
 	if  _cam_anchor.position != init_cam_pos and not _cam_tween.is_active():
 		_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		_cam_tween.start()
-		
+
+
+func set_cam_pos(pos : Vector2) -> void:
+	_cam_anchor.global_position = pos
+
 
 # OTHER FUNCS
 func _on_World_tile_entered(interactable):

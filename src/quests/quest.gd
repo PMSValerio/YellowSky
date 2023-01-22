@@ -14,8 +14,8 @@ enum Dialog {
 
 var quest_id
 
-var event # the id of the related event (from the quest category ONLY)
-var _event_id
+var event : Event
+var _event_id # the id of the related event (from the quest category ONLY)
 var deliver_items = {} # items and amounts {item_id: amount} that must be brought to event tile
 var quest_giver : Feature # the settlement that gave this quest
 var return_items = {} #  items and amounts {item_id: amount} that must be brought back to settlement
@@ -47,7 +47,7 @@ func start(settlement_entity):
 	quest_giver = settlement_entity
 	
 	if _event_id != null: # if an event was specified, generate it and set correct state
-		Global.generate_event(Global.get_event_data(_event_id, Global.EventTypes.QUEST))
+		event = Global.generate_event(Global.get_event_data(_event_id, Global.EventTypes.QUEST))
 	else:
 		_status = Status.RETURN
 
@@ -64,7 +64,6 @@ func _on_feature_interacted(feature_entity : Feature):
 		if feature_entity == quest_giver:
 			print("interacted with settlement")
 			# TODO: remove all deliver items from inventory
-			_status = Status.COMPLETE
 
 
 # returns whether quest can advance progress (mainly if it has the required items)

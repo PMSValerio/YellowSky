@@ -18,8 +18,6 @@
     "animation": "ruined_settlement",
     "title": "Quest Event 2",
     "flavour_text": "This is the event for quest 1. Return the item to the settlement",
-    "item_updates": {
-      "quest_item2": 1
-    }
+    "item_updates": {}
   }
 }

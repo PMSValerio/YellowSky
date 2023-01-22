@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/fonts/headline_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/gui/menus/main/quests/quest_details.gd" type="Script" id=2]
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="QuestDetails" type="MarginContainer"]
 anchor_right = 1.0
@@ -56,7 +57,7 @@ text = "Objectives"
 [node name="ObjectivesContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 92.0
 margin_right = 1008.0
-margin_bottom = 208.0
+margin_bottom = 332.0
 custom_constants/margin_right = 16
 custom_constants/margin_top = 4
 custom_constants/margin_left = 16
@@ -66,7 +67,7 @@ custom_constants/margin_bottom = 4
 margin_left = 16.0
 margin_top = 4.0
 margin_right = 992.0
-margin_bottom = 112.0
+margin_bottom = 236.0
 custom_constants/separation = 12
 
 [node name="EventItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
@@ -79,33 +80,59 @@ margin_top = 24.0
 margin_right = 976.0
 margin_bottom = 24.0
 
-[node name="EventInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
 margin_top = 36.0
 margin_right = 976.0
-margin_bottom = 48.0
+margin_bottom = 110.0
+
+[node name="EventInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer"]
+margin_top = 31.0
+margin_right = 486.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
 text = "Investigate location"
 
+[node name="EventMap" type="Button" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer"]
+margin_left = 696.0
+margin_right = 769.0
+margin_bottom = 74.0
+size_flags_horizontal = 6
+icon = ExtResource( 4 )
+
 [node name="ReturnItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 60.0
+margin_top = 122.0
 margin_right = 976.0
-margin_bottom = 72.0
+margin_bottom = 134.0
 text = "Gather the following items:"
 
 [node name="ReturnItemsList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 84.0
+margin_top = 146.0
 margin_right = 976.0
-margin_bottom = 84.0
+margin_bottom = 146.0
 
-[node name="ReturnInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
-margin_top = 96.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer"]
+margin_top = 158.0
 margin_right = 976.0
-margin_bottom = 108.0
+margin_bottom = 232.0
+
+[node name="ReturnInvestigate" type="Label" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 31.0
+margin_right = 486.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
 text = "Return to"
 
+[node name="ReturnMap" type="Button" parent="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 696.0
+margin_right = 769.0
+margin_bottom = 74.0
+size_flags_horizontal = 6
+icon = ExtResource( 4 )
+
 [node name="RewardsMarker" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 216.0
+margin_top = 340.0
 margin_right = 1008.0
-margin_bottom = 244.0
+margin_bottom = 368.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/RewardsMarker"]
 margin_left = 8.0
@@ -116,6 +143,9 @@ text = "Rewards"
 
 [node name="ItemRewardGrid" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 212.0
-margin_top = 252.0
+margin_top = 376.0
 margin_right = 796.0
-margin_bottom = 332.0
+margin_bottom = 456.0
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer/EventMap" to="." method="_on_EventMap_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2/ReturnMap" to="." method="_on_ReturnMap_pressed"]
