@@ -6,7 +6,7 @@ var inventory = {} # internal organization goes [type][item_id] = number of said
 #All items that are not in possession still exist, but have their ammount set to 0.
 
 
-func init(init_value: int):
+func init(inventory_id: String = ""):
 	# have a dictionary for each compactable item type
 	for t in Global.Items.values(): 
 		inventory[t] = {}
@@ -17,14 +17,13 @@ func init(init_value: int):
 			if InventoryManager.item_stats[id].type == type:
 				inventory[type][id] = 0
 			
-	# TODO: Temporary initialization. Remove at later date
-	if init_value == 2:
-		for k in inventory[Global.Items.RESOURCES].keys():
-			inventory[Global.Items.RESOURCES][k] = init_value
-
-	for k in inventory[Global.Items.FOOD].keys():
-		inventory[Global.Items.FOOD][k] = init_value
-
+	# populate inventory according to pre-determined layout, in case id exists
+	if inventory_id in InventoryManager.inventory_layouts.keys():
+		var temp_invent =  InventoryManager.inventory_layouts[inventory_id] 
+		for item_id in temp_invent.keys():
+			if item_id in InventoryManager.item_stats.keys():
+				add_items(InventoryManager.item_stats[item_id].type, item_id, temp_invent[item_id])
+	
 
 # --- || Utility Funcs || ---
 

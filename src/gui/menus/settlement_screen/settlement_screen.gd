@@ -19,7 +19,7 @@ var text_in_progress = false
 var npc_text = []
 var current_dialogue_branch = 0
 var is_talking = false
-var text_file_ref = "settlements.json"
+var text_file_ref = "npc_dialogue.json"
 
 var settlement_entity : Settlement  = null # the actual facility node
 var has_set_trade = false # used to circumvent the fact that trade's "set_context" cant be set when the menu is pushed 
@@ -47,10 +47,9 @@ func toggle_text_mode(to_npc):
 
 	if to_npc:
 		is_talking = true
-		text_file_ref = "npc_dialogue.json"
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
 
-		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Name"])
+		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Name"])
 
 		update_branch_text()
 		next_line()
@@ -59,12 +58,11 @@ func toggle_text_mode(to_npc):
 			settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
 
 		is_talking = false
-		text_file_ref = "settlements.json"
 		accept_btn.visible = false
 		decline_btn.visible = false
 
-		name_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, text_file_ref, ["settlement1", "Settlement", "Name"])
-		description_box.text = Global.get_text_from_file(Global.Text.SETTLEMENTS, text_file_ref, ["settlement1", "Settlement", "Description"])
+		name_box.text = settlement_entity.settlement_type.name
+		description_box.text = settlement_entity.settlement_type.flavour_text
 		description_box.visible_characters = description_box.text.length()
 
 
@@ -97,7 +95,7 @@ func next_line():
 
 
 func update_branch_text():
-	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
+	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Branches", str(current_dialogue_branch)]).duplicate()
 
 
 func quest_update(show):
@@ -145,7 +143,7 @@ func _on_DeclineButton_pressed():
 	current_dialogue_branch += 2
 	quest_update(false)
 
-
+# clicking on text box to advance dialogue line
 func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && is_talking):
 		if text_in_progress:

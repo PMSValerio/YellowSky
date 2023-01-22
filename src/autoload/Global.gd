@@ -68,6 +68,7 @@ enum Text {
 	NPCS,
 	EVENTS,
 }
+
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
@@ -100,7 +101,8 @@ const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
-var event_data = {} # another horrible place to have this
+var settlement_types = {} # another horrible place to have this
+var event_data = {} # ditto ditto 
 
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
@@ -115,6 +117,7 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
+	_init_settlement_types()
 	_init_event_data()
 
 
@@ -125,11 +128,13 @@ func set_cam(cam : Camera2D):
 func get_cam() -> Camera2D:
 	return _cam
 
+
 func change_mouse_cursor(is_pan : bool):
 	if is_pan:
 		Input.set_custom_mouse_cursor(pan_cursor)
 	else:
 		Input.set_custom_mouse_cursor(default_cursor)
+
 
 func get_screen_size() -> Vector2:
 	return _screen_size
@@ -182,6 +187,23 @@ func _init_facility_types():
 	for fac_type in file_data.keys():
 		var facility = _build_single_facility(file_data[fac_type])
 		facility_types[facility.type_id] = facility
+
+
+func _build_single_settlement(data):
+	var settlement = SettlementType.new()
+
+	var portrait = BASE_CONFIG_ASSETS_PATH + data["portrait_texture"]
+
+	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], data["resources"])
+	return settlement
+
+
+func _init_settlement_types():
+	var config_file = "settlements.json"
+	var file_data = _config_parser.get_text_from_file(Text.SETTLEMENTS, config_file, [])
+	for settlement_type in file_data.keys():
+		var settlement = _build_single_settlement(file_data[settlement_type])
+		settlement_types[settlement.id] = settlement
 
 
 func _build_single_event(event_id, data):

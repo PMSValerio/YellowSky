@@ -36,8 +36,8 @@ func _ready():
 	# set up offer inventories
 	player_offer = Inventory.new()
 	settlement_offer = Inventory.new()
-	player_offer.init(0)
-	settlement_offer.init(0)
+	player_offer.init()
+	settlement_offer.init()
 
 	# programatically connect buttons to "on select" signals
 	for child in inventory_grid.get_children():

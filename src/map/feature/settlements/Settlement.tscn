@@ -64,3 +64,18 @@ UPDATE_Z = true
 autoplay = "play"
 anims/RESET = SubResource( 5 )
 anims/play = SubResource( 6 )
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0, 32 )
+
+[node name="ProgressBar" type="ProgressBar" parent="Node2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -5.0
+margin_right = 32.0
+margin_bottom = 5.0
+percent_visible = false
