@@ -17,7 +17,7 @@
     "settlement2": {
         "id": "settlement2",
         "name": "High End Creek",
-        "flavour_text": "[ALPHA] This is a rank 2 settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "flavour_text": "[ALPHA] This is High End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
         "npc": "npc2",
         "inventory": "inventory2",
         "portrait_texture": "settlement_portrait/settlement0.png",
@@ -32,7 +32,7 @@
     "settlement3": {
         "id": "settlement3",
         "name": "Sky End Creek",
-        "flavour_text": "[ALPHA] This is a rank 3 settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "flavour_text": "[ALPHA] This is Sky End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
         "npc": "npc3",
         "inventory": "inventory3",
         "portrait_texture": "settlement_portrait/settlement0.png",

@@ -22,16 +22,21 @@ var is_talking = false
 var text_file_ref = "npc_dialogue.json"
 
 var settlement_entity : Settlement  = null # the actual facility node
-var has_set_trade = false # used to circumvent the fact that trade's "set_context" cant be set when the menu is pushed 
 
 
 func _ready() -> void:
 	description_box.get_node("Timer").wait_time = text_speed
 	toggle_text_mode(false)
 
+	var _v = settlement_entity.connect("rank_changed", self, "_on_rank_changed")
+	_on_rank_changed()
 
-func set_context(context) -> void:
-	settlement_entity = context
+	trade_screen_ref.set_context(settlement_entity)
+
+
+func set_context(_context) -> void:
+	if _context is Settlement:
+		settlement_entity = _context
 
 
 # --- || Dialogue || ---
@@ -112,15 +117,15 @@ func quest_update(show):
 # --- || Signal Callbacks || ---
 
 
+func _on_rank_changed():
+	settlement_image.texture = settlement_entity.portrait_texture
+
+
 func _on_TalkButton_pressed():
 	toggle_text_mode(true)
 
 
 func _on_TradeButton_pressed():
-	if !has_set_trade:
-		has_set_trade = true
-		trade_screen_ref.set_context(settlement_entity)
-	
 	trade_screen_ref.visible = true
 
 

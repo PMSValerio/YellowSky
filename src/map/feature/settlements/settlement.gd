@@ -1,6 +1,8 @@
 extends Feature
 class_name Settlement
 
+signal rank_changed
+
 onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
@@ -9,30 +11,45 @@ onready var healthbar = $Node2D/ProgressBar
 var settlement_type : SettlementType = null
 var inventory : Inventory = null 
 
-var health = 0.0
-var population = 50
-var rank = 1
+var portrait_texture = null
 
+var health = 0.0
+var population = 0
+var current_npc = ""
+var rank = 0
 var resources = {}
 
 var _update_step = 0 # timer counter for update
-var _is_destroyed = true # if destroyed, health must be replenished fully before it can operate again
+var _is_destroyed = false # if destroyed, health must be replenished fully before it can operate again
 
 
 func _ready():
-	
-
 	# pick random settlement type
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num = rng.randi_range(0, len(Global.settlement_types) - 1)
-	settlement_type = Global.settlement_types[Global.settlement_types.keys()[num]]
+	initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
 
+	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
+
+
+func initialize_with_type(type):
+	settlement_type = type
 
 	inventory = Inventory.new()
 	inventory.init(settlement_type.inventory_id)
+	health = settlement_type.max_health
+	population = settlement_type.starting_population
+	current_npc = settlement_type.npc_id
+	set_rank(settlement_type.starting_rank)
+	resources = settlement_type.starting_resources
 
-	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
+
+func set_rank(new_rank):
+	rank = new_rank
+	portrait_texture = Global.settlement_portraits[int(rank)]
+	anim.play("rank" + str(rank))
+	emit_signal("rank_changed")
 
 
 func _process(delta: float) -> void:

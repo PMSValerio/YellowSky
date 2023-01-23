@@ -94,6 +94,14 @@ var item_category_names = {
 	Items.QUEST: "Quest",
 }
 
+# as of right, this applies to all settlements solely based on ranking. Could need changes later on
+var settlement_portraits = {
+	0: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"), # could be needed for destroyed settlement
+	1: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"),
+	2: preload("res://assets/gfx/config_assets/settlement_portrait/settlement2.png"),
+	3: preload("res://assets/gfx/config_assets/settlement_portrait/settlement3.png"),
+}
+
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
