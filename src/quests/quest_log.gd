@@ -13,6 +13,11 @@ func regiter_new_quest(quest_data : Quest, settlement : Feature):
 		quest_data.start(settlement)
 
 
+# remove a quest from log
+func abandon_quest(quest_id):
+	_quest_log.erase(quest_id)
+
+
 func has_quest(quest_id):
 	return _quest_log.has(quest_id)
 

@@ -1,6 +1,8 @@
 extends MarginContainer
 
 
+signal abandon(quest_id)
+
 onready var title = $PanelContainer/VBoxContainer/TitleMarker/Title
 onready var description = $PanelContainer/VBoxContainer/Description
 
@@ -89,3 +91,7 @@ func _on_EventMap_pressed() -> void:
 func _on_ReturnMap_pressed() -> void:
 	Global.get_player().set_cam_pos(quest.quest_giver.global_position)
 	EventManager.emit_signal("pop_menu")
+
+
+func _on_Abandon_pressed() -> void:
+	emit_signal("abandon", quest.quest_id)

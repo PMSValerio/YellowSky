@@ -53,3 +53,5 @@ anchor_bottom = 0.0
 margin_right = 640.0
 margin_bottom = 584.0
 rect_min_size = Vector2( 640, 0 )
+
+[connection signal="abandon" from="MarginContainer/HBoxContainer/ScrollContainer2/QuestDetails" to="." method="_on_QuestDetails_abandon"]

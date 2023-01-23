@@ -164,5 +164,22 @@ margin_top = 324.0
 margin_right = 796.0
 margin_bottom = 404.0
 
+[node name="Abandon" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_left = 440.0
+margin_top = 412.0
+margin_right = 568.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 128, 48 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Abandon"
+
+[node name="MenuTooltipProxy" type="Control" parent="PanelContainer/VBoxContainer/Abandon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+hint_tooltip = "This action cannot be undone"
+script = ExtResource( 5 )
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer/EventMap" to="." method="_on_EventMap_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ObjectivesContainer/VBoxContainer/HBoxContainer2/ReturnMap" to="." method="_on_ReturnMap_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Abandon" to="." method="_on_Abandon_pressed"]
