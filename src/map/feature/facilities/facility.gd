@@ -12,7 +12,6 @@ enum Status {
 
 onready var tooltip = $FacilityTooltip
 onready var sprite = $Sprite
-onready var warning = $Warning
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar

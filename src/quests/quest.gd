@@ -105,3 +105,12 @@ func get_dialogue(type):
 	if label == "":
 		return ""
 	return Global.get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id, label])
+
+
+func abandoned():
+	if is_instance_valid(event):
+		event.queue_free()
+	var tmp = quest_giver.warning.get_text()
+	if name in tmp:
+		quest_giver.warning.toggle(false)
+	# this method should also try to remove any QUEST items related to the quest, but, frankly that is too much work and could cause problems

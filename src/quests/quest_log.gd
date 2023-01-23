@@ -15,7 +15,9 @@ func regiter_new_quest(quest_data : Quest, settlement : Feature):
 
 # remove a quest from log
 func abandon_quest(quest_id):
-	_quest_log.erase(quest_id)
+	if has_quest(quest_id):
+		_quest_log[quest_id].abandoned()
+		_quest_log.erase(quest_id)
 
 
 func has_quest(quest_id):

@@ -89,6 +89,8 @@ func _on_EventMap_pressed() -> void:
 
 
 func _on_ReturnMap_pressed() -> void:
+	quest.quest_giver.warning.set_type(Global.Warnings.QUEST, quest.name)
+	quest.quest_giver.warning.toggle(true)
 	Global.get_player().set_cam_pos(quest.quest_giver.global_position)
 	EventManager.emit_signal("pop_menu")
 
