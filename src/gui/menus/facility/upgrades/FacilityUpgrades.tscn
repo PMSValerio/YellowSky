@@ -1,7 +1,104 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=28 format=2]
 
+[ext_resource path="res://assets/gfx/ui_elements/buttons/upgrades_buttons.png" type="Texture" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/menus/facility/upgrades/FacilityUpgrades.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -9,197 +106,231 @@ anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 1016.0
-margin_bottom = 374.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="UpgradesSection" type="HBoxContainer" parent="PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 1000.0
-margin_bottom = 358.0
+margin_right = 1016.0
+margin_bottom = 592.0
 rect_min_size = Vector2( 0, 350 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/UpgradesSection"]
-margin_right = 992.0
-margin_bottom = 350.0
+margin_right = 1008.0
+margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="ProdRate" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_right = 992.0
-margin_bottom = 88.0
+margin_right = 1008.0
+margin_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_top = 7.0
-margin_right = 73.0
-margin_bottom = 81.0
+[node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+margin_top = 28.0
+margin_right = 64.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 1 )
+texture_hover = SubResource( 1 )
+texture_disabled = SubResource( 2 )
+texture_focused = SubResource( 1 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_left = 88.0
-margin_top = 34.0
-margin_right = 444.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 79.0
+margin_top = 28.0
+margin_right = 457.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 3 )
 expand = true
 
-[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_left = 459.0
-margin_top = 7.0
-margin_right = 532.0
-margin_bottom = 81.0
+[node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+margin_left = 472.0
+margin_top = 28.0
+margin_right = 536.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 4 )
+texture_pressed = SubResource( 4 )
+texture_hover = SubResource( 4 )
+texture_disabled = SubResource( 5 )
+texture_focused = SubResource( 4 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_left = 547.0
-margin_top = 34.0
-margin_right = 904.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 551.0
+margin_top = 28.0
+margin_right = 929.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 6 )
 expand = true
 
-[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_left = 919.0
-margin_top = 7.0
-margin_right = 992.0
-margin_bottom = 81.0
+[node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
+margin_left = 944.0
+margin_top = 28.0
+margin_right = 1008.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 7 )
+texture_hover = SubResource( 7 )
+texture_disabled = SubResource( 8 )
+texture_focused = SubResource( 7 )
 
 [node name="MaxCapcity" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_top = 92.0
-margin_right = 992.0
-margin_bottom = 180.0
+margin_top = 124.0
+margin_right = 1008.0
+margin_bottom = 244.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_top = 7.0
-margin_right = 73.0
-margin_bottom = 81.0
+[node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+margin_top = 28.0
+margin_right = 64.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 9 )
+texture_pressed = SubResource( 9 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+texture_focused = SubResource( 9 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_left = 88.0
-margin_top = 34.0
-margin_right = 444.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 79.0
+margin_top = 28.0
+margin_right = 457.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 11 )
 expand = true
 
-[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_left = 459.0
-margin_top = 7.0
-margin_right = 532.0
-margin_bottom = 81.0
+[node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+margin_left = 472.0
+margin_top = 28.0
+margin_right = 536.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 12 )
+texture_pressed = SubResource( 12 )
+texture_hover = SubResource( 12 )
+texture_disabled = SubResource( 13 )
+texture_focused = SubResource( 12 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_left = 547.0
-margin_top = 34.0
-margin_right = 904.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 551.0
+margin_top = 28.0
+margin_right = 929.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 14 )
 expand = true
 
-[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_left = 919.0
-margin_top = 7.0
-margin_right = 992.0
-margin_bottom = 81.0
+[node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
+margin_left = 944.0
+margin_top = 28.0
+margin_right = 1008.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 15 )
+texture_pressed = SubResource( 15 )
+texture_hover = SubResource( 15 )
+texture_disabled = SubResource( 16 )
+texture_focused = SubResource( 15 )
 
 [node name="Durability" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_top = 184.0
-margin_right = 992.0
-margin_bottom = 272.0
+margin_top = 248.0
+margin_right = 1008.0
+margin_bottom = 368.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Button1" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_top = 7.0
-margin_right = 73.0
-margin_bottom = 81.0
+[node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+margin_top = 28.0
+margin_right = 64.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 17 )
+texture_pressed = SubResource( 17 )
+texture_hover = SubResource( 17 )
+texture_disabled = SubResource( 18 )
+texture_focused = SubResource( 17 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_left = 88.0
-margin_top = 34.0
-margin_right = 444.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 79.0
+margin_top = 28.0
+margin_right = 457.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 19 )
 expand = true
 
-[node name="Button2" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_left = 459.0
-margin_top = 7.0
-margin_right = 532.0
-margin_bottom = 81.0
+[node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+margin_left = 472.0
+margin_top = 28.0
+margin_right = 536.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 20 )
+texture_pressed = SubResource( 20 )
+texture_hover = SubResource( 20 )
+texture_disabled = SubResource( 21 )
+texture_focused = SubResource( 20 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_left = 547.0
-margin_top = 34.0
-margin_right = 904.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 64, 20 )
+margin_left = 551.0
+margin_top = 28.0
+margin_right = 929.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource( 2 )
+texture = SubResource( 22 )
 expand = true
 
-[node name="Button3" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_left = 919.0
-margin_top = 7.0
-margin_right = 992.0
-margin_bottom = 81.0
+[node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
+margin_left = 944.0
+margin_top = 28.0
+margin_right = 1008.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
-icon = ExtResource( 2 )
+texture_normal = SubResource( 23 )
+texture_pressed = SubResource( 23 )
+texture_hover = SubResource( 23 )
+texture_disabled = SubResource( 24 )
+texture_focused = SubResource( 23 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_left = 459.0
-margin_top = 276.0
-margin_right = 532.0
-margin_bottom = 350.0
+margin_left = 467.0
+margin_top = 372.0
+margin_right = 540.0
+margin_bottom = 446.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -209,80 +340,74 @@ margin_bottom = 74.0
 size_flags_horizontal = 5
 icon = ExtResource( 2 )
 
-[node name="DownSection" type="HBoxContainer" parent="."]
-margin_left = 8.0
-margin_top = 378.0
-margin_right = 1016.0
-margin_bottom = 592.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="DownSection"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
+margin_top = 450.0
 margin_right = 1008.0
-margin_bottom = 214.0
+margin_bottom = 584.0
 size_flags_horizontal = 3
 
-[node name="Descprition_Cost" type="VBoxContainer" parent="DownSection/PanelContainer"]
+[node name="Descprition_Cost" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 1000.0
-margin_bottom = 206.0
+margin_bottom = 126.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DownSection/PanelContainer/Descprition_Cost"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost"]
 margin_right = 992.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 
-[node name="Label" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer"]
 margin_top = 9.0
 margin_right = 53.0
 margin_bottom = 21.0
 text = "Cost: "
 
-[node name="UpgradeCost2" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer"]
+[node name="UpgradeCost2" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer"]
 margin_left = 57.0
 margin_top = 9.0
 margin_right = 245.0
 margin_bottom = 21.0
 text = "Cost of the upgrade"
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="DownSection/PanelContainer/Descprition_Cost"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost"]
 margin_top = 34.0
 margin_right = 992.0
-margin_bottom = 120.0
+margin_bottom = 82.0
 size_flags_vertical = 3
 custom_constants/separation = 24
 
-[node name="Label" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer2"]
 margin_right = 992.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Description:"
 
-[node name="UpDescription" type="Label" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer2"]
+[node name="UpDescription" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer2"]
 margin_top = 36.0
 margin_right = 992.0
-margin_bottom = 86.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 autowrap = true
 max_lines_visible = 5
 
-[node name="HBoxContainer3" type="VBoxContainer" parent="DownSection/PanelContainer/Descprition_Cost"]
-margin_left = 919.0
-margin_top = 124.0
+[node name="HBoxContainer3" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost"]
+margin_left = 864.0
+margin_top = 86.0
 margin_right = 992.0
-margin_bottom = 198.0
+margin_bottom = 118.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 custom_constants/separation = 24
 
-[node name="Button" type="Button" parent="DownSection/PanelContainer/Descprition_Cost/HBoxContainer3"]
-margin_right = 73.0
-margin_bottom = 74.0
+[node name="Button" type="Button" parent="PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer3"]
+margin_right = 128.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 128, 32 )
 size_flags_horizontal = 8
 size_flags_vertical = 0
-icon = ExtResource( 2 )
+text = "Confirm"
