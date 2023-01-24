@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/gui/menus/settlement_screen/resource_info.gd" type="Script" id=1]
+
+[node name="ResourceInfo" type="HBoxContainer"]
+margin_right = 300.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 300, 22 )
+script = ExtResource( 1 )
+
+[node name="TypeLabel" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 47.0
+margin_bottom = 17.0
+text = "Type:"
+
+[node name="ValueLabel" type="Label" parent="."]
+margin_left = 51.0
+margin_top = 5.0
+margin_right = 73.0
+margin_bottom = 17.0
+text = "10"
+
+[node name="SupplyButton" type="Button" parent="."]
+margin_left = 230.0
+margin_right = 300.0
+margin_bottom = 22.0
+size_flags_horizontal = 10
+text = "Supply"
+
+[connection signal="pressed" from="SupplyButton" to="." method="_on_SupplyButton_pressed"]

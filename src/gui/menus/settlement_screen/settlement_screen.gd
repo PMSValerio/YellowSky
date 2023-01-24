@@ -1,36 +1,59 @@
 extends Control
 
-onready var settlement_image = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementImageContainer/SettlementImage
-onready var name_box = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
-onready var description_box = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
-onready var talk_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/TalkButton
-onready var trade_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/TradeButton
-onready var leave_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/LeaveButton
-onready var goodbye_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/GoodbyeButton
-onready var accept_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/AcceptButton
-onready var decline_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DeclineButton
-onready var dialogue_pntr = $MainScreen/PanelContainer/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
-
+# info
+onready var settlement_image = $MainScreen/PanelContainer/HBoxContainer/InfoContainer/SettlementImageContainer/SettlementImage
+onready var name_box = $MainScreen/PanelContainer/HBoxContainer/InfoContainer/SettlementDescriptionContainer/VBoxContainer/SettlementName
+onready var description_box = $MainScreen/PanelContainer/HBoxContainer/InfoContainer/SettlementDescriptionContainer/VBoxContainer/SettlementDescription
+# main options
+onready var main_options = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions
+onready var talk_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TalkButton
+onready var stats_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/StatsButton
+onready var trade_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TradeButton
+onready var leave_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/LeaveButton
+# dialogue options
+onready var dialogue_options = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions
+onready var accept_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/AcceptButton
+onready var decline_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/DeclineButton
+onready var goodbye_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/GoodbyeButton
+onready var dialogue_pntr = $MainScreen/PanelContainer/HBoxContainer/InfoContainer/SettlementDescriptionContainer/DialoguePointer
+# stats
+onready var stats_container = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer
+onready var health_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/HealthContainer/HealthValue
+onready var population_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/PopulationContainer/PopulationValue
+onready var rank_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/RankContainer/RankValue
+onready var resource_infos = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer
+# one-offs
 onready var trade_screen_ref = $TradeScreen
+onready var resource_slider = $MainScreen/PanelContainer/ResourceSlider
 
+enum Modes {
+	MAIN,
+	DIALOGUE,
+	STATS,
+}
+
+var ui_mode_nodes = {} # matches enum Modes states with the root UI nodes associated with each state 
 
 export var text_speed = 0.01
 var text_in_progress = false
 var npc_text = []
 var current_dialogue_branch = 0
-var is_talking = false
+var current_mode = Modes.MAIN
 var text_file_ref = "npc_dialogue.json"
 
-var settlement_entity : Settlement  = null # the actual facility node
+var settlement_entity : Settlement  = null # the actual settlement node
 
 
 func _ready() -> void:
+	# set text speed at which the dialogue scrolls
 	description_box.get_node("Timer").wait_time = text_speed
-	toggle_text_mode(false)
+	
+	# set nodes on modes dictionary
+	ui_mode_nodes[Modes.MAIN] = main_options
+	ui_mode_nodes[Modes.DIALOGUE] = dialogue_options
+	ui_mode_nodes[Modes.STATS] = stats_container
 
-	var _v = settlement_entity.connect("rank_changed", self, "_on_rank_changed")
-	_on_rank_changed()
-
+	change_mode(Modes.keys()[Modes.MAIN])
 	trade_screen_ref.set_context(settlement_entity)
 
 
@@ -39,33 +62,50 @@ func set_context(_context) -> void:
 		settlement_entity = _context
 
 
+func change_mode(new_mode):
+	if new_mode in Modes:
+		var new_m = Modes[new_mode]
+
+		for mode in ui_mode_nodes.keys():
+			if new_m == mode:
+				ui_mode_nodes[mode].visible = true
+			else:
+				ui_mode_nodes[mode].visible = false
+
+		if new_m == Modes.DIALOGUE:
+			toggle_text(true)
+		elif new_m == Modes.MAIN:
+			toggle_text(false)
+			
+			if current_mode == Modes.DIALOGUE:
+				current_dialogue_branch = 0
+				settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
+
+		current_mode = new_m
+
+
 # --- || Dialogue || ---
 
 
-func toggle_text_mode(to_npc):
+func toggle_text(to_dialogue):
 
-	talk_btn.visible = !to_npc
-	trade_btn.visible = !to_npc
-	leave_btn.visible = !to_npc
-	goodbye_btn.visible = to_npc
-	dialogue_pntr.visible = to_npc
+	accept_btn.visible = false
+	decline_btn.visible = false
+	goodbye_btn.visible = to_dialogue
+	dialogue_pntr.visible = to_dialogue
 
-	if to_npc:
-		is_talking = true
+	if to_dialogue:
+		# play animation of npc fading in
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
-
+		# set name of the npc
 		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Name"])
 
 		update_branch_text()
 		next_line()
-	else:
-		if is_talking:
-			settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
-
-		is_talking = false
-		accept_btn.visible = false
-		decline_btn.visible = false
-
+	else: # to main
+		
+		# set all of info container
+		settlement_image.texture = settlement_entity.portrait_texture
 		name_box.text = settlement_entity.settlement_type.name
 		description_box.text = settlement_entity.settlement_type.flavour_text
 		description_box.visible_characters = description_box.text.length()
@@ -76,11 +116,11 @@ func next_line():
 
 		dialogue_pntr.get_node("AnimationPlayer").stop(false)
 		text_in_progress = true
+		# removes first dialogue line from npc_text, keeping the rest in case there are any
 		description_box.text = npc_text.pop_front() 
-
 		description_box.visible_characters = 0
 
-		# Scroll through letters, instead of displaying them all at once
+		# scroll through letters, instead of displaying them all at once
 		for _i in range(0, description_box.text.length()):
 			if text_in_progress:
 				description_box.visible_characters += 1
@@ -92,10 +132,11 @@ func next_line():
 
 		# Check for end string at the end of each dialogue branch to setup appropriate behaviour
 		if npc_text[0] == "Quest":
-			quest_update(true)
+			quest_update(true, 0)
 		elif npc_text[0] == "End":
 			dialogue_pntr.visible = false
 	else:
+		# may want to do seomthing in here, potentially
 		print("Finish")
 
 
@@ -103,12 +144,13 @@ func update_branch_text():
 	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Branches", str(current_dialogue_branch)]).duplicate()
 
 
-func quest_update(show):
-	accept_btn.visible = show
-	decline_btn.visible = show
-	dialogue_pntr.visible = !show
+func quest_update(show_quest_options, nmbr_to_advance_branch):
+	accept_btn.visible = show_quest_options
+	decline_btn.visible = show_quest_options
+	dialogue_pntr.visible = !show_quest_options
 
-	if !show:
+	if !show_quest_options:
+		current_dialogue_branch += nmbr_to_advance_branch
 		update_branch_text()
 
 	next_line()
@@ -117,13 +159,13 @@ func quest_update(show):
 # --- || Signal Callbacks || ---
 
 
-func _on_rank_changed():
-	settlement_image.texture = settlement_entity.portrait_texture
-
-
 func _on_TalkButton_pressed():
-	toggle_text_mode(true)
+	change_mode(Modes.keys()[Modes.DIALOGUE])
 
+
+func _on_StatsButton_pressed():
+	change_mode(Modes.keys()[Modes.STATS])
+	
 
 func _on_TradeButton_pressed():
 	trade_screen_ref.visible = true
@@ -133,26 +175,31 @@ func _on_LeaveButton_pressed():
 	EventManager.emit_signal("pop_menu")
 
 
+# Info Options
+func _on_ExitBtn_pressed():
+	change_mode(Modes.keys()[Modes.MAIN])
+
+
 # Dialogue Options
-func _on_GoodbyeButton_pressed():
-	current_dialogue_branch = 0
-	toggle_text_mode(false)
-
-
 func _on_AcceptButton_pressed():
-	current_dialogue_branch += 1
-	quest_update(false)
+	quest_update(false, 1)
 
 
 func _on_DeclineButton_pressed():
-	current_dialogue_branch += 2
-	quest_update(false)
+	quest_update(false, 2)
+
+
+func _on_GoodbyeButton_pressed():	
+	change_mode(Modes.keys()[Modes.MAIN])
+
 
 # clicking on text box to advance dialogue line
 func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
-	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && is_talking):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && current_mode == Modes.DIALOGUE):
+		# clicking while text is being displayed will instantly show the sucrrently scrolling text
 		if text_in_progress:
 			description_box.visible_characters = description_box.text.length()
 			text_in_progress = false
 		else:
+			# if the scroll was already finished, attempt to show new line
 			next_line()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/map/feature/settlements/settlement.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/entities/settlement.png" type="Texture" id=2]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=3]
 [ext_resource path="res://assets/shaders/dim_fade.gdshader" type="Shader" id=4]
+[ext_resource path="res://src/gui/Warning.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
@@ -93,6 +94,9 @@ vframes = 4
 script = ExtResource( 3 )
 BASE_SCALE = 3.0
 UPDATE_Z = true
+
+[node name="Warning" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rank1"

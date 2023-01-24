@@ -1,9 +1,14 @@
 extends Feature
 class_name Settlement
 
-signal rank_changed
+# possible status for "resource_status" 
+enum Status {
+	EMPTY,
+	OK,
+}
 
 onready var sprite = $Sprite
+onready var warning = $Warning
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar
@@ -14,13 +19,14 @@ var inventory : Inventory = null
 var portrait_texture = null
 
 var health = 0.0
+var max_health = 0.0
 var population = 0
 var current_npc = ""
-var rank = 0
+var rank = 0 # rank 0 is equivalent to the settlement being destroyed. Once destroyed, it cannot be recovered
 var resources = {}
 
 var _update_step = 0 # timer counter for update
-var _is_destroyed = false # if destroyed, health must be replenished fully before it can operate again
+var resources_status = {} # holds info regarding availability of each resource using Status enum
 
 
 func _ready():
@@ -28,28 +34,28 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num = rng.randi_range(0, len(Global.settlement_types) - 1)
-	initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
+	_initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
 
 	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 
 
-func initialize_with_type(type):
+func _initialize_with_type(type):
 	settlement_type = type
 
 	inventory = Inventory.new()
 	inventory.init(settlement_type.inventory_id)
 	health = settlement_type.max_health
+	max_health = settlement_type.max_health
 	population = settlement_type.starting_population
 	current_npc = settlement_type.npc_id
 	set_rank(settlement_type.starting_rank)
 	resources = settlement_type.starting_resources
 
-
-func set_rank(new_rank):
-	rank = new_rank
-	portrait_texture = Global.settlement_portraits[int(rank)]
-	anim.play("rank" + str(rank))
-	emit_signal("rank_changed")
+	for r in resources.keys():
+		if resources[r] > 0:
+			resources_status[r] = Status.OK
+		else:
+			resources_status[r] = Status.EMPTY
 
 
 func _process(delta: float) -> void:
@@ -66,71 +72,87 @@ func _physics_process(_delta: float) -> void:
 
 # update settlement stats
 func _tick() -> void:
-	pass
-	""" 	if !_is_destroyed:
-		# consume fuel per update
+	if rank > 0:
 		_operate_cost()
-		# update stored resource
-		for p in products.keys():
-			if products[p] < get_max_prod():
-				products[p] = min(get_max_prod(), products[p] + facility_type.production_rate)
-				if products[p] == get_max_prod():
-					print("Facility full")
-					warning.set_tooltip_text("Facility Full! [Click to dismiss]")
-					warning.set_type("full")
-					warning.toggle(true)
-	
-	healthbar_anchor.visible = sprite.visible and health < get_max_health()
-	
-	if _last_status != Status.OK and get_status() == Status.OK:
-		_play_anim("_start")
-	elif _last_status == Status.OK and get_status() != Status.OK:
-		_play_anim("_end")
-	_last_status = get_status() """
+		_update_population()
+
+		# if health is not max, dispend extra materials over time to restore health
+		if health < max_health && resources["MATERIALS"] > 0:
+			repair(settlement_type.health_regen_rate)
+			resources["MATERIALS"] -= settlement_type.health_regen_rate
+
+	healthbar_anchor.visible = sprite.visible and health < max_health
 
 
 # --- || Manage || ---
 
 
-# update state according to operation costs
-func _operate_cost():
-	pass
-	""" 	for f in fuels.keys():
-		fuels[f] = max(0, fuels[f] - facility_type.consumption_rate)
-		if fuels[f] == 0:
-			# alert facility power off
-			print("Facility switching off")
-			warning.set_tooltip_text("Facility out of Fuel! [Click to dismiss]")
-			warning.set_type("fuel")
-			warning.toggle(true) """
+func set_rank(new_rank):
+	rank = clamp(new_rank, 0, settlement_type.max_rank)
+	portrait_texture = Global.settlement_portraits[int(rank)]
+	anim.play("rank" + str(rank))
 
-func repair(_amount):
-	pass
-	""" 	var old_status = get_status()
-	health = clamp(health + amount, 0.0, get_max_health())
-	if amount < 0 and old_status != Status.WRECKED:
-		warning.set_tooltip_text("Facility Damaged! [Click to dismiss]")
+
+func _operate_cost():
+	for r in resources.keys():
+		resources[r] = max(0, resources[r] - settlement_type.base_consumption_rate * population)
+		if resources[r] == 0:
+			resources_status[r] = Status.EMPTY
+			warning.set_tooltip_text("Lacking resources! [Click to dismiss]")
+			warning.set_type("fuel")
+			warning.toggle(true)
+
+
+func _update_population():
+
+	var has_all_resources = true
+
+	for r in resources:
+		if resources[r] <= 0:
+			has_all_resources = false
+
+	if has_all_resources:
+		population = min(population * settlement_type.base_ppl_growth_rate, settlement_type.max_population)
+	else:
+		population -= settlement_type.base_ppl_loss_rate
+		population = min(population - settlement_type.base_ppl_loss_rate, 0)
+		if population <= 0:
+			set_rank(0)
+
+
+# only supports positive values
+func replenish_resource(type, amount):
+	if type in resources.keys() && amount > 0:
+		resources[type] = min(resources[type] + amount, settlement_type.max_resource) 
+		resources_status[type] = Status.OK
+		warning.toggle(false)
+
+
+func repair(amount):
+	
+	health = clamp(health + amount, 0.0, max_health)
+
+	if amount < 0 and rank > 0:
+		warning.set_tooltip_text("Settlement Damaged! [Click to dismiss]")
 		warning.set_type("damage")
 		warning.toggle(true)
+
+		if health <= 0:
+			set_rank(0)
+			warning.set_tooltip_text("Facility Destroyed! [Click to dismiss]")
+			warning.set_type("critical")
+			warning.toggle(true)
 	else:
 		warning.toggle(false)
-	if health >= get_max_health():
-		_is_destroyed = false
-	else:
-		if health <= 0.0:
-			_is_destroyed = true
-			if old_status != Status.WRECKED:
-				warning.set_tooltip_text("Facility Destroyed! [Click to dismiss]")
-				warning.set_type("critical")
-				warning.toggle(true)
-	_update_healthbar() """
+
+	_update_healthbar()
 
 
 # --- || UI || ---
 
 
 func _update_healthbar() -> void:
-	#healthbar.max_value = get_max_health()
+	healthbar.max_value = max_health
 	healthbar.value = health
 
 

@@ -9,9 +9,10 @@
         "rank" : 1,
         "population": 10,
         "resources": {
-            "FOOD" : 10, 
-            "WATER" : 10,
-            "ENERGY" : 10
+            "FOOD" : 100, 
+            "WATER" : 100,
+            "ENERGY" : 100,
+            "MATERIALS" : 100
         }
     },
     "settlement2": {
@@ -24,9 +25,10 @@
         "rank" : 2,
         "population": 20,
         "resources": {
-            "FOOD" : 20, 
-            "WATER" : 20,
-            "ENERGY" : 20
+            "FOOD" : 200, 
+            "WATER" : 200,
+            "ENERGY" : 200,
+            "MATERIALS" : 200
         }
     },
     "settlement3": {
@@ -39,9 +41,10 @@
         "rank" : 3,
         "population": 30,
         "resources": {
-            "FOOD" : 30, 
-            "WATER" : 30,
-            "ENERGY" : 30
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
         }
     }
 }
