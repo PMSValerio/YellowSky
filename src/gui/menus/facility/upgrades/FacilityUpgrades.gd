@@ -3,8 +3,8 @@ extends Control
 var _selected_upgrade_type = null
 var facility_entity : Facility = null # the actual facility node
 #Description label
-onready var description_label = $PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer2/UpDescription
-onready var cost_label = $PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer/UpgradeCost2
+onready var description_label = $PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer2/UpDescription
+onready var cost_label = $PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer/UpgradeCost2
 
 #ProdRate Buttons
 onready var pr1 = get_node("PanelContainer/UpgradesSection/VBoxContainer/ProdRate/Button1")
@@ -28,8 +28,8 @@ const d2_cost = 132
 onready var d3 = get_node("PanelContainer/UpgradesSection/VBoxContainer/Durability/Button3")
 const d3_cost = 133
 #Environmental friendly
-onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer/Enviromental")
-onready var upgrade_btn = $PanelContainer/UpgradesSection/VBoxContainer/PanelContainer/Descprition_Cost/HBoxContainer3/Button
+onready var env = get_node("PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer2/HBoxContainer/Enviromental")
+onready var upgrade_btn = $PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer3/Button
 
 func _ready():
 	_connect_buttons()
