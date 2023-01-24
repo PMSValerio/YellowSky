@@ -209,9 +209,11 @@ func get_event_data(event_id, type) -> EventData:
 	match type:
 		EventTypes.QUEST:
 			filepath = "quests.json"
+		EventTypes.GENERIC:
+			filepath = "generic.json"
 	var event = EventData.new()
 	var data = get_text_from_file(Text.EVENTS, filepath, [event_id])
-	event.init(event_id, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
+	event.init(event_id, type, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
 	return event
 
 
@@ -223,7 +225,7 @@ func get_quest_data(quest_id) -> Quest:
 	return quest
 
 
-func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
+func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true):
 	var event = event_scene.instance()
 	
 	event.cell_pos = cell_position

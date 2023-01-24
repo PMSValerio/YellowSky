@@ -224,3 +224,28 @@ func _on_disaster_damage(damage):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == facility_type.base_animation + "_start":
 		_play_anim("_on")
+
+
+# || --- SAVING --- ||
+
+func export_data() -> Dictionary:
+	var data = {}
+	
+	data["position"] = global_position
+	data["type"] = facility_type.type_id
+	data["health"] = health
+	data["products"] = products
+	data["fuels"] = fuels
+	# TODO: upgrades
+	
+	return data
+
+
+func load_data(data : Dictionary):
+	global_position = data["position"]
+	set_type(data["type"])
+	health = data["health"]
+	products = data["products"]
+	fuels = data["fuels"]
+	_last_status = get_status()
+	# TODO: upgrades
