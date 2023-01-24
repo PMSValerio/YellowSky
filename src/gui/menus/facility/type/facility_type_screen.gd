@@ -29,8 +29,8 @@ var selected_type = -1
 
 func _ready() -> void:
 	# this should probably be changed to the list of types available for the player
-	for type in Global.facility_types.values():
-		type = type as FacilityType
+	for type_key in WorldData.unlocked_facilities:
+		var type = Global.facility_types[type_key] as FacilityType
 		if type.type_id != Global.FacilityTypes.WRECKED:
 			var list_item = list_item_scene.instance()
 			list_item.set_state(type)

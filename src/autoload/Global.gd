@@ -5,6 +5,7 @@ var menu_tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
 var grid_slot_tooltip = preload("res://src/gui/menus/reusable/GridSlotTooltip.tscn")
 var default_cursor = preload("res://assets/gfx/ui_elements/pointer.png")
 var pan_cursor = preload("res://assets/gfx/ui_elements/pan_pointer.png")
+var event_scene = preload("res://src/map/feature/event/Event.tscn")
 
 
 enum Menus {
@@ -16,6 +17,18 @@ enum Menus {
 	SETTLEMENT_SCREEN,
 	TRADE_SCREEN,
 	EVENT_SCREEN,
+	EVENT_REQUIREMENTS_SCREEN,
+}
+
+enum Warnings {
+	MSQ,
+	F_DAMAGE,
+	S_DAMAGE,
+	F_CRITICAL,
+	S_CRITICAL,
+	QUEST,
+	NO_FUEL,
+	FULL,
 }
 
 enum Disasters {
@@ -30,7 +43,8 @@ enum Resources {
 	MATERIALS,
 	ENERGY,
 	FOOD, # Maybe? 
-	SEEDS 
+	SEEDS,
+	HOPE,
 }
 
 enum FacilityTypes {
@@ -66,9 +80,17 @@ enum Text {
 	FACILITIES ,
 	SETTLEMENTS,
 	NPCS,
+	QUESTS,
 	EVENTS,
 }
 
+# types of events
+enum EventTypes {
+	GENERIC,
+	QUEST,
+}
+
+# using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
 	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
@@ -217,18 +239,33 @@ func _init_settlement_types():
 		settlement_types[settlement.id] = settlement
 
 
-func _build_single_event(event_id, data):
+func get_event_data(event_id, type) -> EventData:
+	var filepath = "generic.json"
+	match type:
+		EventTypes.QUEST:
+			filepath = "quests.json"
 	var event = EventData.new()
+	var data = get_text_from_file(Text.EVENTS, filepath, [event_id])
 	event.init(event_id, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
-	
 	return event
 
 
-func _init_event_data():
-	var config_file = ["generic.json"]
+func get_quest_data(quest_id) -> Quest:
+	var quest = Quest.new()
+	var data = get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id])
 	
-	for file in config_file:
-		var events = _config_parser.get_text_from_file(Text.EVENTS, file, [])
-		for event_id in events:
-			var event_obj = _build_single_event(event_id, events[event_id])
-			event_data[event_id] = event_obj
+	quest.init(quest_id, data)
+	return quest
+
+
+func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
+	var event = event_scene.instance()
+	
+	event.cell_pos = cell_position
+	event.die_on_interact = die_on_interact
+	event.set_data(event_data)
+	
+	if send_signal:
+		EventManager.emit_signal("spawn_event_request", event)
+	
+	return event

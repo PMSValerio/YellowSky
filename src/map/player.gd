@@ -100,7 +100,7 @@ func _input(event):
 	elif event.is_action_released("ctrl_cam_pan"):
 		can_move_cam = false
 		Global.change_mouse_cursor(false)
-		_reset_cam_pos()
+		#_reset_cam_pos()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -198,7 +198,11 @@ func _reset_cam_pos():
 	if  _cam_anchor.position != init_cam_pos and not _cam_tween.is_active():
 		_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		_cam_tween.start()
-		
+
+
+func set_cam_pos(pos : Vector2) -> void:
+	_cam_anchor.global_position = pos
+
 
 # OTHER FUNCS
 func _on_World_tile_entered(interactable):

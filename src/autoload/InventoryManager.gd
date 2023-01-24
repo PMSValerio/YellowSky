@@ -34,6 +34,8 @@ func _build_items():
 	_build_item_category(config_file, true)
 	config_file = "food.json"
 	_build_item_category(config_file)
+	config_file = "quests.json"
+	_build_item_category(config_file)
 	
 
 # build a category of items
