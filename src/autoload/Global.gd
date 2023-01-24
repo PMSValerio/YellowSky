@@ -147,7 +147,6 @@ func _ready():
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
 	_init_settlement_types()
-	_init_event_data()
 
 
 func set_cam(cam : Camera2D):

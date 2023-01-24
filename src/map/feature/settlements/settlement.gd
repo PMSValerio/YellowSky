@@ -2,7 +2,6 @@ extends Feature
 class_name Settlement
 
 onready var sprite = $Sprite
-onready var warning = $Warning
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar
@@ -92,8 +91,7 @@ func _operate_cost():
 		if resources[r] == 0:
 			if !is_missing_resources:
 				is_missing_resources = true
-				warning.set_tooltip_text("Lacking resources! [Click to dismiss]")
-				warning.set_type("fuel")
+				warning.set_type(Global.Warnings.NO_FUEL, "Lacking resources!")
 				warning.toggle(true)
 
 
@@ -135,14 +133,12 @@ func repair(amount):
 		health = clamp(health + amount, 0.0, max_health)
 
 	if amount < 0 and rank > 0:
-		warning.set_tooltip_text("Settlement Damaged! [Click to dismiss]")
-		warning.set_type("damage")
+		warning.set_type(Global.Warnings.S_DAMAGE)
 		warning.toggle(true)
 
 		if health <= 0:
 			set_rank(0)
-			warning.set_tooltip_text("Settlement Destroyed! [Click to dismiss]")
-			warning.set_type("critical")
+			warning.set_type(Global.Warnings.S_CRITICAL)
 			warning.toggle(true)
 	else:
 		warning.toggle(false)
