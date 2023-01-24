@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/map/feature/settlements/settlement.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/entities/settlement.png" type="Texture" id=2]
@@ -30,6 +30,23 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "rank0"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0, 3 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -101,6 +118,7 @@ visible = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rank1"
 anims/RESET = SubResource( 5 )
+anims/rank0 = SubResource( 9 )
 anims/rank1 = SubResource( 6 )
 anims/rank2 = SubResource( 7 )
 anims/rank3 = SubResource( 8 )

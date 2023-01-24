@@ -69,7 +69,6 @@ enum Text {
 	EVENTS,
 }
 
-# using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
 	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
@@ -202,7 +201,11 @@ func _build_single_settlement(data):
 
 	var portrait = BASE_CONFIG_ASSETS_PATH + data["portrait_texture"]
 
-	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], data["resources"])
+	var resources = {}
+	for key in data["resources"].keys():
+		resources[Resources[key]] = data["resources"][key]
+
+	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], resources)
 	return settlement
 
 

@@ -10,9 +10,9 @@
         "population": 10,
         "resources": {
             "FOOD" : 100, 
-            "WATER" : 100,
+            "WATER" : 10,
             "ENERGY" : 100,
-            "MATERIALS" : 100
+            "MATERIALS" : 40
         }
     },
     "settlement2": {
@@ -23,12 +23,12 @@
         "inventory": "inventory2",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 2,
-        "population": 20,
+        "population": 50,
         "resources": {
             "FOOD" : 200, 
-            "WATER" : 200,
+            "WATER" : 20,
             "ENERGY" : 200,
-            "MATERIALS" : 200
+            "MATERIALS" : 40
         }
     },
     "settlement3": {
@@ -39,12 +39,12 @@
         "inventory": "inventory3",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 3,
-        "population": 30,
+        "population": 70,
         "resources": {
             "FOOD" : 300, 
-            "WATER" : 300,
+            "WATER" : 10,
             "ENERGY" : 300,
-            "MATERIALS" : 300
+            "MATERIALS" : 40
         }
     }
 }

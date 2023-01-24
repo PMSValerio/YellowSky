@@ -281,9 +281,8 @@ text = "*say goodbye*"
 
 [node name="StatsContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
 visible = false
-margin_top = 343.0
 margin_right = 337.0
-margin_bottom = 566.0
+margin_bottom = 278.0
 custom_constants/separation = 15
 
 [node name="ExitBtn" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
@@ -348,28 +347,29 @@ text = "1"
 [node name="ResourcesContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
 margin_top = 120.0
 margin_right = 337.0
-margin_bottom = 223.0
-custom_constants/separation = 5
+margin_bottom = 278.0
+custom_constants/separation = 10
 
 [node name="ResourceInfo" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
 margin_right = 337.0
+margin_bottom = 32.0
 
 [node name="ResourceInfo2" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
-margin_top = 27.0
+margin_top = 42.0
 margin_right = 337.0
-margin_bottom = 49.0
+margin_bottom = 74.0
 script = ExtResource( 8 )
 
 [node name="ResourceInfo3" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
-margin_top = 54.0
+margin_top = 84.0
 margin_right = 337.0
-margin_bottom = 76.0
+margin_bottom = 116.0
 script = ExtResource( 8 )
 
 [node name="ResourceInfo4" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
-margin_top = 81.0
+margin_top = 126.0
 margin_right = 337.0
-margin_bottom = 103.0
+margin_bottom = 158.0
 script = ExtResource( 8 )
 
 [node name="ResourceSlider" parent="MainScreen/PanelContainer" instance=ExtResource( 9 )]
@@ -394,3 +394,4 @@ visible = false
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/DeclineButton" to="." method="_on_DeclineButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/GoodbyeButton" to="." method="_on_GoodbyeButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[connection signal="value_chosen" from="MainScreen/PanelContainer/ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]

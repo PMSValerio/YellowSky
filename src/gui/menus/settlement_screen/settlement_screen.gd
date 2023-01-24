@@ -33,6 +33,7 @@ enum Modes {
 }
 
 var ui_mode_nodes = {} # matches enum Modes states with the root UI nodes associated with each state 
+var resource_info_nodes = {} # matches resource types with each resource info node
 
 export var text_speed = 0.01
 var text_in_progress = false
@@ -40,7 +41,7 @@ var npc_text = []
 var current_dialogue_branch = 0
 var current_mode = Modes.MAIN
 var text_file_ref = "npc_dialogue.json"
-
+var silder_resource = Global.Resources.NONE
 var settlement_entity : Settlement  = null # the actual settlement node
 
 
@@ -52,6 +53,24 @@ func _ready() -> void:
 	ui_mode_nodes[Modes.MAIN] = main_options
 	ui_mode_nodes[Modes.DIALOGUE] = dialogue_options
 	ui_mode_nodes[Modes.STATS] = stats_container
+
+	# setup info resource_infos
+	var all_infos = resource_infos.get_children()
+	for i in range(all_infos.size()):
+		resource_info_nodes[settlement_entity.resources.keys()[i]] = all_infos[i]
+		all_infos[i].init(settlement_entity.resources.keys()[i], settlement_entity)
+		all_infos[i].connect("supply_pressed", self, "_on_Supply_pressed", [settlement_entity.resources.keys()[i]])
+		
+	# setup stats
+	health_label.text = str(settlement_entity.health)
+	population_label.text = str(settlement_entity.population)
+	rank_label.text = str(settlement_entity.rank)
+
+	# disable option btns if settlement is destroyed. Interaction is still kept because it might be needed in the future
+	if settlement_entity.rank <= 0:
+		talk_btn.disabled = true
+		stats_btn.disabled = true
+		trade_btn.disabled = true
 
 	change_mode(Modes.keys()[Modes.MAIN])
 	trade_screen_ref.set_context(settlement_entity)
@@ -98,7 +117,7 @@ func toggle_text(to_dialogue):
 		# play animation of npc fading in
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
 		# set name of the npc
-		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Name"])
+		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Name"])
 
 		update_branch_text()
 		next_line()
@@ -141,7 +160,7 @@ func next_line():
 
 
 func update_branch_text():
-	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.settlement_type.npc_id, "Branches", str(current_dialogue_branch)]).duplicate()
+	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Branches", str(current_dialogue_branch)]).duplicate()
 
 
 func quest_update(show_quest_options, nmbr_to_advance_branch):
@@ -178,6 +197,17 @@ func _on_LeaveButton_pressed():
 # Info Options
 func _on_ExitBtn_pressed():
 	change_mode(Modes.keys()[Modes.MAIN])
+
+
+func _on_Supply_pressed (resource_type):
+	resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type])
+	resource_slider.visible = true
+	silder_resource = resource_type
+
+
+func _on_ResourceSlider_value_chosen(delta_value):
+	settlement_entity.replenish_resource(silder_resource, delta_value)
+	resource_info_nodes[silder_resource].update_value()
 
 
 # Dialogue Options
