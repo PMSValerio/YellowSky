@@ -59,6 +59,7 @@ func _ready() -> void:
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
+	_v = EventManager.connect("night_penalty", self, "_on_nightfall")
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
 	
 
@@ -216,6 +217,10 @@ func _on_item_used(item_data : Item) -> void:
 
 func _on_disaster_damage(damage):
 	change_health(-damage)
+
+
+func _on_nightfall():
+	pass
 
 
 func _on_push_menu(_menu, _context):

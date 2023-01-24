@@ -118,6 +118,8 @@ var item_category_names = {
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
+const DAY_DURATION = 600 # duration of a day in seconds
+const NIGHT_THRESHOLD = 30 # duration of nightfall animation in seconds
 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 

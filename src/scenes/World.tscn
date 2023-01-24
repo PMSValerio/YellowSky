@@ -174,14 +174,20 @@ __meta__ = {
 [node name="Foreground" type="CanvasLayer" parent="."]
 layer = 5
 
+[node name="NightLayer" type="Polygon2D" parent="Foreground"]
+color = Color( 0.145098, 0.0980392, 0.160784, 0 )
+polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 600, 0, 600 )
+
+[node name="Tween" type="Tween" parent="Foreground/NightLayer"]
+
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2
-layer = 6
+layer = 7
 script = ExtResource( 6 )
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 pause_mode = 2
-layer = 7
+layer = 8
 
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
