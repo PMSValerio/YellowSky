@@ -60,7 +60,7 @@ enum FacilityTypes {
 	
 	# energy
 	COAL_PLANT,
-	# WIND_FARM,
+	WIND_FARM,
 	
 	# materials
 	PARTS_WORKSHOP, # what a crappy name

@@ -21,7 +21,7 @@ func init(_event_id, _type, _animation, _title, _flavour_text, _item_updates):
 # apply all item rewards and quest updates
 func solve() -> void:
 	for item_key in item_updates:
-		var type = InventoryManager.item_stats[item_key].type
-		InventoryManager.add_item(type, item_key, item_updates[item_key])
+		var _type = InventoryManager.item_stats[item_key].type
+		InventoryManager.add_item(_type, item_key, item_updates[item_key])
 	
 	# TODO: quest updates? send signal
