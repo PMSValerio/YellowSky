@@ -221,3 +221,21 @@ func _on_disaster_damage(damage):
 func _on_push_menu(_menu, _context):
 	can_move_cam = false
 	_reset_cam_pos()
+
+
+# || --- Saving --- ||
+
+func export_data() -> Dictionary:
+	var data = {}
+	
+	data["pos"] = global_position
+	data["health"] = current_health
+	data["stamina"] = current_stamina
+	
+	return data
+
+
+func load_data(data : Dictionary):
+	global_position = data["position"]
+	set_health(data["health"])
+	set_stamina(data["stamina"])

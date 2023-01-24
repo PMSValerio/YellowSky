@@ -78,5 +78,21 @@
     "max_product": 100.0,
     "consumption_rate": 2.0,
     "production_rate": 5.0
+  },
+  "wind_farm": {
+    "type_id": "WIND_FARM",
+    "type_name": "Wind Farm",
+    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean energy.",
+    "fuel_types": [],
+    "product_types": ["ENERGY"],
+    "base_animation": "wind_farm",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/wind_farm_icon.png",
+    "build_cost" : 5.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
   }
 }

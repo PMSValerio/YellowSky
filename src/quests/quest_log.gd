@@ -24,6 +24,10 @@ func has_quest(quest_id):
 	return _quest_log.has(quest_id)
 
 
+func get_quest(quest_id):
+	return _quest_log[quest_id]
+
+
 func get_quests():
 	return _quest_log.values()
 
@@ -37,3 +41,11 @@ func get_dialogue(quest_id, type):
 func on_feature_interacted(entity):
 	for quest in _quest_log.values():
 		quest._on_feature_interacted(entity)
+
+
+func export_data() -> Dictionary:
+	return _quest_log
+
+
+func load_data(data : Dictionary):
+	_quest_log = data
