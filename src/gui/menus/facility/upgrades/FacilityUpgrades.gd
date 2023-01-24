@@ -1,6 +1,10 @@
 extends Control
 
-var _selected_upgrade_type = null
+var _selected_upgrade = {
+	'type': null,
+	'cost': null,		
+}
+
 var facility_entity : Facility = null # the actual facility node
 #Description label
 onready var description_label = $PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer2/UpDescription
@@ -54,45 +58,45 @@ func set_context(context):
 
 func _change_upgrade_info(button):
 	if button == pr1:
-		_selected_upgrade_type = Global.FacilityUpgrades.PROD_RATE
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 0))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 0))
+		_get_current_upgrade_info(Global.FacilityUpgrades.PROD_RATE, 0)
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 0))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 0))
 	elif button == pr2:
-		_selected_upgrade_type = Global.FacilityUpgrades.PROD_RATE		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 1))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 1))
+		_get_current_upgrade_info(Global.FacilityUpgrades.PROD_RATE, 1)
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 1))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 1))
 	elif button == pr3:
-		_selected_upgrade_type = Global.FacilityUpgrades.PROD_RATE		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 2))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 2))
+		_get_current_upgrade_info(Global.FacilityUpgrades.PROD_RATE, 2)	
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 2))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 2))
 	elif button == cr1:
-		_selected_upgrade_type = Global.FacilityUpgrades.CONS_RATE		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 0))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 0))
+		_get_current_upgrade_info(Global.FacilityUpgrades.CONS_RATE, 0)		
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 0))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 0))
 	elif button == cr2:
-		_selected_upgrade_type = Global.FacilityUpgrades.CONS_RATE		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 1))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 1))
+		_get_current_upgrade_info(Global.FacilityUpgrades.CONS_RATE, 1)			
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 1))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 1))
 	elif button == cr3:
-		_selected_upgrade_type = Global.FacilityUpgrades.CONS_RATE		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 2))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 2))
+		_get_current_upgrade_info(Global.FacilityUpgrades.CONS_RATE, 2)				
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 2))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 2))
 	elif button == d1:
-		_selected_upgrade_type = Global.FacilityUpgrades.INTEGRITY		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 0))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 0))
+		_get_current_upgrade_info(Global.FacilityUpgrades.INTEGRITY, 0)			
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 0))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 0))
 	elif button == d2:
-		_selected_upgrade_type = Global.FacilityUpgrades.INTEGRITY		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 1))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 1))
+		_get_current_upgrade_info(Global.FacilityUpgrades.INTEGRITY, 1)		
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 1))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 1))
 	elif button == d3:
-		_selected_upgrade_type = Global.FacilityUpgrades.INTEGRITY		
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 2))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 2))
+		_get_current_upgrade_info(Global.FacilityUpgrades.INTEGRITY, 2)	
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 2))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 2))
 	elif button == env:
-		_selected_upgrade_type = Global.FacilityUpgrades.ENV_FRIENDLY
-		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, "cost", 0))
-		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade_type, 'info_text', 0))
+		_get_current_upgrade_info(Global.FacilityUpgrades.ENV_FRIENDLY, 0)	
+		cost_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], "cost", 0))
+		description_label.text = str(Global.get_facility_upgrade_field(_selected_upgrade['type'], 'info_text', 0))
 	
 func _check_level():
 	_disable_buttons_prod_rate()
@@ -100,11 +104,22 @@ func _check_level():
 	_disable_buttons_durability()
 	_disable_buttons_env_friendly()
 	
+func _can_upgrade(cost):
+	if ResourceManager._materials >= cost:
+		return true
+	else:
+		return false		
+	
 func _upgrade():
-	if _selected_upgrade_type != null:
-		facility_entity.advance_upgrade(_selected_upgrade_type)
+	if _selected_upgrade != null && _can_upgrade(_selected_upgrade['cost']):
+		facility_entity.advance_upgrade(_selected_upgrade['type'])
+		ResourceManager.add_to_resource(Global.Resources.MATERIALS, - _selected_upgrade['cost'])
 		_check_level()
 		
+func _get_current_upgrade_info(type, level):
+	_selected_upgrade['type'] = type
+	_selected_upgrade['cost'] = Global.get_facility_upgrade_field(type, "cost", level)
+	
 func _disable_buttons_prod_rate():
 	if facility_entity.upgrades_progress[Global.FacilityUpgrades.PROD_RATE] == -1:
 		pr1.disabled = false
