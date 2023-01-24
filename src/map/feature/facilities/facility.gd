@@ -156,9 +156,17 @@ func get_upgrade_multiplier(upgrade_type) -> float:
 	return mult
 
 
+func has_eco_upgrade() -> bool:
+	return facility_type.eco_upgrade != null
+
+
 func advance_upgrade(upgrade_id) -> void:
 	if upgrade_id in Global.FacilityUpgrades.values():
 		upgrades_progress[upgrade_id] = min(upgrades_progress[upgrade_id] + 1, Global.get_facility_upgrade_field(upgrade_id, 'max_level') - 1)
+		if upgrade_id == Global.FacilityUpgrades.ENV_FRIENDLY:
+			if has_eco_upgrade():
+				set_type(facility_type.eco_upgrade)
+
 
 # --- || Operation || ---
 # function for turning facility on/off, changing visuals and other stuff

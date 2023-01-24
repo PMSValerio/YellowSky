@@ -178,7 +178,7 @@ func _build_single_facility(data):
 	var icon = BASE_CONFIG_ASSETS_PATH + data["icon_texture"]
 	for str_p in data["product_types"]:
 		prod_types.append(Resources[str_p])
-	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
+	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon, data["eco_upgrade"])
 	facility.init_stats(data["build_cost"], data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
 
