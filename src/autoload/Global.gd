@@ -34,6 +34,7 @@ enum Warnings {
 enum Disasters {
 	TEST,
 	TORNADO,
+	STORM,
 	AMOGEDDON,
 }
 
