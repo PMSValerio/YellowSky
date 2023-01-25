@@ -26,24 +26,26 @@ onready var screen_size_pan_margins = Global.get_screen_size().x / PAN_MARGIN_DI
 onready var screen_size = Global.get_screen_size()
 onready var init_cam_pos = _cam_anchor.position
 
+# movement vars
 var direction = Vector2.DOWN # direction player is facing
-
 var is_moving = false
 var is_moving_cache = false
 var total_walked_distance = 0
 var walked_distance_step = 0
 
+# cam vars
 var mouse_pos = Vector2.ZERO
 var cam_move_direction = Vector2.ZERO
-var mouse_is_on_window = false
-var mouse_exit_menu_cooldown = false
+var can_move_cam = false
 var mouse_border = {"top": false, "bottom": false, "left": false, "right": false}
 
+# stats vars
 var current_health = TOTAL_HEALTH setget set_health
 var current_stamina = TOTAL_STAMINA setget set_stamina
 var is_alive = true
 var out_of_stamina = false
 var out_of_stamina_timer = Timer.new()
+
 
 func _ready() -> void:
 	Global.set_cam(_cam)
@@ -57,15 +59,9 @@ func _ready() -> void:
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
-	_v = EventManager.connect("pop_menu", self, "_on_pop_menu")
-
-# called by the engine
-func _notification(what):
-	match what:
-		NOTIFICATION_WM_MOUSE_EXIT:
-			mouse_is_on_window = false
-		NOTIFICATION_WM_MOUSE_ENTER:
-			mouse_is_on_window = true
+	_v = EventManager.connect("night_penalty", self, "_on_nightfall")
+	_v = EventManager.connect("push_menu", self, "_on_push_menu")
+	
 
 func _physics_process(_delta: float) -> void:
 	# so that the prompt isn't affected by the scale warping, but only by the position warping
@@ -85,7 +81,7 @@ func _physics_process(_delta: float) -> void:
 	_update_visuals()
 	_update_cam()
 
-	if is_moving and not is_moving_cache and _cam_anchor.position != init_cam_pos:
+	if is_moving and not is_moving_cache:
 		_reset_cam_pos()
 
 	# decrease stamina in discrete steps
@@ -97,6 +93,17 @@ func _physics_process(_delta: float) -> void:
 			walked_distance_step = 0
 			change_stamina(-STAMINA_LOSS_RATE)
 
+
+func _input(event):
+	if event.is_action_pressed("ctrl_cam_pan"):
+		can_move_cam = true
+		Global.change_mouse_cursor(true)
+	elif event.is_action_released("ctrl_cam_pan"):
+		can_move_cam = false
+		Global.change_mouse_cursor(false)
+		#_reset_cam_pos()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		emit_signal("interact", global_position)
@@ -104,9 +111,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, null)
 	elif event.is_action_pressed("ctrl_pause"):
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
+	
 
 # CUSTOM FUNCTIONS::::::::::::::::::::::::::::::::::::::::::::
-# stats
+# STATS
 func set_health(new_val):
 	current_health = new_val
 	current_health = clamp(current_health, 0, TOTAL_HEALTH)
@@ -114,6 +122,7 @@ func set_health(new_val):
 
 	if current_health <= 0:
 		die()
+
 
 func set_stamina(new_val):
 	current_stamina = new_val
@@ -127,11 +136,14 @@ func set_stamina(new_val):
 		out_of_stamina = false
 		out_of_stamina_timer.stop()
 	
+
 func change_health(change_value):
 	set_health(current_health + change_value)
 	
+
 func change_stamina(change_value):
 	set_stamina(current_stamina + change_value)
+
 
 func die():
 	if is_alive:
@@ -140,7 +152,7 @@ func die():
 
 
 # TODO: move to state machine
-# update animation
+# UPDATE ANIMATIONS
 func _update_visuals():
 	var movement = "run" if is_moving else "idle"
 	var dir = "front"
@@ -159,40 +171,41 @@ func _update_visuals():
 		anim.play(animation)
 
 
-# cam funcs
+# CAM FUNCS
 func _update_cam():
 	mouse_pos = get_viewport().get_mouse_position()
 	cam_move_direction = Vector2.ZERO
 
 	mouse_border["top"] = mouse_pos.y < screen_size_pan_margins
-	# TODO: Find a solution to harmonize both HUD buttons and pan
-	mouse_border["bottom"] = ((mouse_pos.y > screen_size.y - screen_size_pan_margins) && (mouse_pos.x > screen_size_pan_margins + (screen_size.x/2)))
+	mouse_border["bottom"] = mouse_pos.y > screen_size.y - screen_size_pan_margins
 	mouse_border["left"] = mouse_pos.x < screen_size_pan_margins
 	mouse_border["right"] = mouse_pos.x > screen_size.x - screen_size_pan_margins
 
-	if mouse_exit_menu_cooldown:
-		if !mouse_border["top"] && !mouse_border["bottom"] && !mouse_border["left"] && !mouse_border["right"]:
-			mouse_exit_menu_cooldown = false
-	else:
-		if mouse_border["right"]:
-			cam_move_direction.x += 1
-		elif mouse_border["left"]:
-			cam_move_direction.x -= 1
-	
-		if mouse_border["bottom"]:
-			cam_move_direction.y += 1
-		elif mouse_border["top"]:
-			cam_move_direction.y -= 1
+	if mouse_border["right"]:
+		cam_move_direction.x += 1
+	elif mouse_border["left"]:
+		cam_move_direction.x -= 1
 
-		if mouse_is_on_window && not is_moving:
-			_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
-	
+	if mouse_border["bottom"]:
+		cam_move_direction.y += 1
+	elif mouse_border["top"]:
+		cam_move_direction.y -= 1
+
+	if not is_moving && can_move_cam:
+		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+		
 	
 func _reset_cam_pos():
-	_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_cam_tween.start()
+	if  _cam_anchor.position != init_cam_pos and not _cam_tween.is_active():
+		_cam_tween.interpolate_property(_cam_anchor, "position", _cam_anchor.position, init_cam_pos, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_cam_tween.start()
 
-# others
+
+func set_cam_pos(pos : Vector2) -> void:
+	_cam_anchor.global_position = pos
+
+
+# OTHER FUNCS
 func _on_World_tile_entered(interactable):
 	_prompt.visible = interactable
 
@@ -205,5 +218,29 @@ func _on_item_used(item_data : Item) -> void:
 func _on_disaster_damage(damage):
 	change_health(-damage)
 
-func _on_pop_menu():
-	mouse_exit_menu_cooldown = true
+
+func _on_nightfall():
+	pass
+
+
+func _on_push_menu(_menu, _context):
+	can_move_cam = false
+	_reset_cam_pos()
+
+
+# || --- Saving --- ||
+
+func export_data() -> Dictionary:
+	var data = {}
+	
+	data["pos"] = global_position
+	data["health"] = current_health
+	data["stamina"] = current_stamina
+	
+	return data
+
+
+func load_data(data : Dictionary):
+	global_position = data["position"]
+	set_health(data["health"])
+	set_stamina(data["stamina"])

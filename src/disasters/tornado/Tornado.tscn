@@ -435,21 +435,20 @@ __meta__ = {
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "back"
-frame = 5
+frame = 2
 playing = true
 
 [node name="Mid" type="AnimatedSprite" parent="Tornado"]
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "mid"
-frame = 2
 playing = true
 
 [node name="Fore" type="AnimatedSprite" parent="Tornado"]
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "fore"
-frame = 7
+frame = 4
 playing = true
 
 [node name="Vignette" type="Polygon2D" parent="."]

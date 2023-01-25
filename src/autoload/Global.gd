@@ -1,7 +1,12 @@
 extends Node
 
 
-var tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
+var menu_tooltip = preload("res://src/gui/menus/reusable/MenuTooltip.tscn")
+var grid_slot_tooltip = preload("res://src/gui/menus/reusable/GridSlotTooltip.tscn")
+var default_cursor = preload("res://assets/gfx/ui_elements/pointer.png")
+var pan_cursor = preload("res://assets/gfx/ui_elements/pan_pointer.png")
+var event_scene = preload("res://src/map/feature/event/Event.tscn")
+
 
 enum Menus {
 	TEST,
@@ -10,7 +15,20 @@ enum Menus {
 	FACILITY_MENU,
 	MAIN_MENU,
 	SETTLEMENT_SCREEN,
-	SETTLEMENT_DIALOGUE_SCREEN,
+	TRADE_SCREEN,
+	EVENT_SCREEN,
+	EVENT_REQUIREMENTS_SCREEN,
+}
+
+enum Warnings {
+	MSQ,
+	F_DAMAGE,
+	S_DAMAGE,
+	F_CRITICAL,
+	S_CRITICAL,
+	QUEST,
+	NO_FUEL,
+	FULL,
 }
 
 enum Disasters {
@@ -25,7 +43,8 @@ enum Resources {
 	MATERIALS,
 	ENERGY,
 	FOOD, # Maybe? 
-	SEEDS 
+	SEEDS,
+	HOPE,
 }
 
 enum FacilityTypes {
@@ -41,7 +60,7 @@ enum FacilityTypes {
 	
 	# energy
 	COAL_PLANT,
-	# WIND_FARM,
+	WIND_FARM,
 	
 	# materials
 	PARTS_WORKSHOP, # what a crappy name
@@ -70,7 +89,15 @@ enum Text {
 	NPCS,
 	QUESTS,
 	CONFIGS, # general configurations that do not fall into any specific category
+	EVENTS,
 }
+
+# types of events
+enum EventTypes {
+	GENERIC,
+	QUEST,
+}
+
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
@@ -101,6 +128,8 @@ var facility_upgrades_config = {}
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
+const DAY_DURATION = 600 # duration of a day in seconds
+const NIGHT_THRESHOLD = 30 # duration of nightfall animation in seconds
 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
@@ -130,6 +159,11 @@ func set_cam(cam : Camera2D):
 func get_cam() -> Camera2D:
 	return _cam
 
+func change_mouse_cursor(is_pan : bool):
+	if is_pan:
+		Input.set_custom_mouse_cursor(pan_cursor)
+	else:
+		Input.set_custom_mouse_cursor(default_cursor)
 
 func get_screen_size() -> Vector2:
 	return _screen_size
@@ -153,7 +187,7 @@ func get_mouse_in_perspective() -> Vector2:
 
 # in case further customizations are to be made to tooltip
 func get_tooltip():
-	return tooltip.instance()
+	return menu_tooltip.instance()
 
 
 func get_text_from_file(text_type, file_name, key_array):
@@ -189,3 +223,37 @@ func _init_facility_types():
 	for fac_type in file_data.keys():
 		var facility = _build_single_facility(file_data[fac_type])
 		facility_types[facility.type_id] = facility
+
+
+func get_event_data(event_id, type) -> EventData:
+	var filepath = "generic.json"
+	match type:
+		EventTypes.QUEST:
+			filepath = "quests.json"
+		EventTypes.GENERIC:
+			filepath = "generic.json"
+	var event = EventData.new()
+	var data = get_text_from_file(Text.EVENTS, filepath, [event_id])
+	event.init(event_id, type, data["animation"], data["title"], data["flavour_text"], data["item_updates"])
+	return event
+
+
+func get_quest_data(quest_id) -> Quest:
+	var quest = Quest.new()
+	var data = get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id])
+	
+	quest.init(quest_id, data)
+	return quest
+
+
+func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true):
+	var event = event_scene.instance()
+	
+	event.cell_pos = cell_position
+	event.die_on_interact = die_on_interact
+	event.set_data(event_data)
+	
+	if send_signal:
+		EventManager.emit_signal("spawn_event_request", event)
+	
+	return event

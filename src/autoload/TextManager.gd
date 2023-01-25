@@ -8,6 +8,8 @@ var _text_directories = {
 	Global.Text.NPCS: "res://assets/config_text/npcs/",
 	# Global.Text.NPCS: "res://assets/config_text/quests/",
 	Global.Text.CONFIGS: "res://assets/config_text/configs/",
+	Global.Text.QUESTS: "res://assets/config_text/quests/",
+	Global.Text.EVENTS: "res://assets/config_text/events/",
 }
 
 

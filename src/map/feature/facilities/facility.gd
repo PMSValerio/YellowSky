@@ -12,7 +12,6 @@ enum Status {
 
 onready var tooltip = $FacilityTooltip
 onready var sprite = $Sprite
-onready var warning = $Warning
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar
@@ -67,9 +66,7 @@ func _tick() -> void:
 			if products[p] < get_max_prod():
 				products[p] = min(get_max_prod(), products[p] + prod_rate)
 				if products[p] == get_max_prod():
-					print("Facility full")
-					warning.set_tooltip_text("Facility Full! [Click to dismiss]")
-					warning.set_type("full")
+					warning.set_type(Global.Warnings.FULL)
 					warning.toggle(true)
 	
 		if tooltip.visible:
@@ -90,9 +87,7 @@ func _operate_cost():
 		fuels[f] = max(0, fuels[f] - cons_rate)
 		if fuels[f] == 0:
 			# alert facility power off
-			print("Facility switching off")
-			warning.set_tooltip_text("Facility out of Fuel! [Click to dismiss]")
-			warning.set_type("fuel")
+			warning.set_type(Global.Warnings.NO_FUEL)
 			warning.toggle(true)
 
 
@@ -198,8 +193,7 @@ func repair(amount):
 	var old_status = get_status()
 	health = clamp(health + amount, 0.0, get_max_health())
 	if amount < 0 and old_status != Status.WRECKED:
-		warning.set_tooltip_text("Facility Damaged! [Click to dismiss]")
-		warning.set_type("damage")
+		warning.set_type(Global.Warnings.F_DAMAGE)
 		warning.toggle(true)
 	else:
 		warning.toggle(false)
@@ -209,8 +203,7 @@ func repair(amount):
 		if health <= 0.0:
 			_is_destroyed = true
 			if old_status != Status.WRECKED:
-				warning.set_tooltip_text("Facility Destroyed! [Click to dismiss]")
-				warning.set_type("critical")
+				warning.set_type(Global.Warnings.F_CRITICAL)
 				warning.toggle(true)
 	_update_healthbar()
 
@@ -258,3 +251,28 @@ func _on_disaster_damage(damage):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == facility_type.base_animation + "_start":
 		_play_anim("_on")
+
+
+# || --- SAVING --- ||
+
+func export_data() -> Dictionary:
+	var data = {}
+	
+	data["position"] = global_position
+	data["type"] = facility_type.type_id
+	data["health"] = health
+	data["products"] = products
+	data["fuels"] = fuels
+	# TODO: upgrades
+	
+	return data
+
+
+func load_data(data : Dictionary):
+	global_position = data["position"]
+	set_type(data["type"])
+	health = data["health"]
+	products = data["products"]
+	fuels = data["fuels"]
+	_last_status = get_status()
+	# TODO: upgrades
