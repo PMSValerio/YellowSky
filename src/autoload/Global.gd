@@ -52,7 +52,7 @@ enum FacilityTypes {
 	
 	# food
 	CANNERY,
-	# HYDROPONICS
+	HYDROPONICS
 	
 	# water
 	WATER_PUMP,
