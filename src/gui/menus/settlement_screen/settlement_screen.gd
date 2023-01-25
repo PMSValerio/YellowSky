@@ -25,6 +25,7 @@ onready var resource_infos = $MainScreen/PanelContainer/HBoxContainer/OptionsCon
 # one-offs
 onready var trade_screen_ref = $TradeScreen
 onready var resource_slider = $MainScreen/PanelContainer/ResourceSlider
+onready var quest_completed_screen = $MainScreen/PanelContainer/QuestCompletedSCreen
 
 enum Modes {
 	MAIN,
@@ -43,6 +44,9 @@ var current_mode = Modes.MAIN
 var text_file_ref = "npc_dialogue.json"
 var silder_resource = Global.Resources.NONE
 var settlement_entity : Settlement  = null # the actual settlement node
+
+var quest_completed = false # sanity check to guarantee that quest complete screen only appears when its supposed to 
+var show_quest_reward = false
 
 
 func _ready() -> void:
@@ -162,8 +166,9 @@ func next_line():
 			Global.TextKeywords.OPTIONS:
 				manage_quest_options(true, false)
 			Global.TextKeywords.REWARD:
-				# not sure if this keyword will be needed
-				print("reward")
+				if quest_completed:
+					quest_completed = false
+					show_quest_reward = true
 			Global.TextKeywords.END:
 				dialogue_pntr.visible = false
 			
@@ -174,8 +179,7 @@ func check_for_quest():
 			if settlement_entity.active_quest.can_advance() && settlement_entity.active_quest.get_status() == Quest.Status.RETURN:
 				# quest completed
 				npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.FINISH)
-				# TODO: settlement_entity.active_quest.complete
-				WorldData.quest_log.abandon_quest(settlement_entity.active_quest.quest_id)
+				quest_completed = true
 			else:
 				# still doesnt have the items
 				npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.UNFINISH)
@@ -185,6 +189,12 @@ func check_for_quest():
 	else:
 		# if no quest, is active, skip over keyword and continue dialogue
 		npc_text.pop_front() 
+
+
+func show_quest_completed_screen():
+	quest_completed_screen.set_context(settlement_entity.active_quest)
+	quest_completed_screen.visible = true
+	settlement_entity.active_quest.on_completion(settlement_entity)
 
 
 func manage_quest_options(show_quest_options, did_accept):
@@ -260,5 +270,11 @@ func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
 			description_box.visible_characters = description_box.text.length()
 			text_in_progress = false
 		else:
-			# if the scroll was already finished, attempt to show new line
+			# if the scroll was already finished, clicking will show new line or quest end screen
+			if show_quest_reward:
+				show_quest_reward = false
+				show_quest_completed_screen()
+				npc_text.pop_front()
+				return
+
 			next_line()

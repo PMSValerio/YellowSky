@@ -4,7 +4,9 @@
     "deliver_items": {
       "food1": 1
     },
-    "return_items": null,
+    "return_items":  {
+      "food2": 1
+    },
     "rewards": {
       "water_bottle": 2
     },
@@ -37,7 +39,7 @@
       "Not that I ever doubted you...",
       "Still, I hope those critters got what they deserved.",
       "Ah, and here's your reward!",
-      "Reward",
+      "REWARD",
       "Come back often! There might more work to be done!",
       "END"
     ]
@@ -78,7 +80,7 @@
       "Now that right there is a real beauty if I've ever seen one!", 
       "Where did you even manage to whipe out one of the original models?",
       "Either way, here's a little somthing for all your trouble!",
-      "Reward",
+      "REWARD",
       "Come again and pay us a visit will ya?",
       "END"
     ]
@@ -113,7 +115,7 @@
       "Let me just have a lil taste...",
       "Bloody hell! It does taste like real food! It tastes... fuck all!",
       "Cheers!",
-      "Reward",
+      "REWARD",
       "END"
     ]
   }

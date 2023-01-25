@@ -7,7 +7,7 @@
 [ext_resource path="res://src/gui/menus/settlement_screen/TradeScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/gfx/ui_elements/icons/ui_icons.png" type="Texture" id=6]
 [ext_resource path="res://src/gui/menus/settlement_screen/ResourceInfo.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/gui/menus/settlement_screen/resource_info.gd" type="Script" id=8]
+[ext_resource path="res://src/gui/menus/misc/RewardScreen.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Shader" id=5]
@@ -358,19 +358,16 @@ margin_bottom = 32.0
 margin_top = 42.0
 margin_right = 337.0
 margin_bottom = 74.0
-script = ExtResource( 8 )
 
 [node name="ResourceInfo3" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
 margin_top = 84.0
 margin_right = 337.0
 margin_bottom = 116.0
-script = ExtResource( 8 )
 
 [node name="ResourceInfo4" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
 margin_top = 126.0
 margin_right = 337.0
 margin_bottom = 158.0
-script = ExtResource( 8 )
 
 [node name="ResourceSlider" parent="MainScreen/PanelContainer" instance=ExtResource( 9 )]
 visible = false
@@ -381,6 +378,13 @@ margin_bottom = 368.0
 rect_min_size = Vector2( 235, 206 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="QuestCompletedSCreen" parent="MainScreen/PanelContainer" instance=ExtResource( 8 )]
+visible = false
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 944.0
+margin_bottom = 480.0
 
 [node name="TradeScreen" parent="." instance=ExtResource( 5 )]
 visible = false
