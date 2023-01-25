@@ -1,5 +1,6 @@
 extends PanelContainer
 
+onready var quest_title = $MarginContainer/VBoxContainer/QuestTitle
 onready var flavour_text = $MarginContainer/VBoxContainer/FlavourText
 onready var grid = $MarginContainer/VBoxContainer/GridContainer
 
@@ -11,6 +12,7 @@ func set_context(context):
 	if context is Quest:
 		quest_entity = context
 
+		quest_title.text = quest_entity.name
 		flavour_text.text = quest_entity.description		
 		items = quest_entity.rewards
 		grid.populate_items(items)
