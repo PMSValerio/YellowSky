@@ -19,6 +19,8 @@ var rank = 0 # rank 0 is equivalent to the settlement being destroyed. Once dest
 var max_rank = 0
 var population_for_rank_up = 0
 var resources = {}
+var quests = {} # matches quest ids with actual quest data structures
+var active_quest : Quest = null 
 
 var _update_step = 0 # timer counter for update
 var update_step_modifier = 1 # affects time between settlement ticks. INFO: It is only for debug
@@ -47,6 +49,11 @@ func _initialize_with_type(type):
 	set_rank(settlement_type.starting_rank)
 	max_rank = settlement_type.max_rank
 	resources = settlement_type.starting_resources
+
+	for id in settlement_type.quests:
+		quests[id] = Global.get_quest_data(id)
+	
+	set_next_quest()
 	population_for_rank_up = int(settlement_type.max_population / max_rank)
 
 
@@ -83,6 +90,15 @@ func set_rank(new_rank):
 	rank = clamp(new_rank, 0, settlement_type.max_rank)
 	portrait_texture = Global.settlement_portraits[int(rank)]
 	anim.play("rank" + str(rank))
+
+
+func set_next_quest():
+	active_quest = null
+	if quests.size() > 0:
+		
+		# sets and removes top quest from quests dictionary
+		active_quest = quests.values()[0]
+		quests.erase(quests.keys()[0])
 
 
 func _operate_cost():

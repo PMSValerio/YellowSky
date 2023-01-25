@@ -9,11 +9,12 @@
         "rank" : 1,
         "population": 10,
         "resources": {
-            "FOOD" : 100, 
-            "WATER" : 10,
-            "ENERGY" : 100,
-            "MATERIALS" : 40
-        }
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": ["quest1", "quest2"]
     },
     "settlement2": {
         "id": "settlement2",
@@ -25,11 +26,12 @@
         "rank" : 2,
         "population": 50,
         "resources": {
-            "FOOD" : 200, 
-            "WATER" : 20,
-            "ENERGY" : 200,
-            "MATERIALS" : 40
-        }
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": []
     },
     "settlement3": {
         "id": "settlement3",
@@ -42,9 +44,10 @@
         "population": 70,
         "resources": {
             "FOOD" : 300, 
-            "WATER" : 10,
+            "WATER" : 300,
             "ENERGY" : 300,
-            "MATERIALS" : 40
-        }
+            "MATERIALS" : 300
+        },
+        "quests": ["quest3"]
     }
 }

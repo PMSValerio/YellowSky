@@ -4,7 +4,7 @@ class_name QuestLog
 var _quest_log = {} # dictionary of all registered quests
 
 
-# receive an uninitiated quest, start it, assigning its quest giver and register it
+# receive an uninitiated quest, register it, and start it, assigning its quest giver aka settlement
 func regiter_new_quest(quest_data : Quest, settlement : Feature):
 	if quest_data.quest_id in _quest_log: # sanity check
 		print("ERROR: duplicate quest. If you see this message, you are a moron")

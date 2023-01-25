@@ -84,6 +84,14 @@ enum Text {
 	EVENTS,
 }
 
+# used to detect keywords in config files when parsing npc text for example
+enum TextKeywords {
+	QUEST, # check for quest
+	OPTIONS , # player choice in next line of text 
+	REWARD, # show quest reward
+	END, # end of dialogue, only option is to say goodbye
+}
+
 # types of events
 enum EventTypes {
 	GENERIC,
@@ -193,6 +201,9 @@ func get_text_from_file(text_type, file_name, key_array):
 	return _config_parser.get_text_from_file(text_type, file_name, key_array)
 
 
+# --- || Build Facilities || ---
+
+
 func _build_single_facility(data):
 	var facility = FacilityType.new()
 	var type = FacilityTypes[data["type_id"]]
@@ -217,6 +228,9 @@ func _init_facility_types():
 		facility_types[facility.type_id] = facility
 
 
+# --- || Build Settlements || ---
+
+
 func _build_single_settlement(data):
 	var settlement = SettlementType.new()
 
@@ -226,7 +240,7 @@ func _build_single_settlement(data):
 	for key in data["resources"].keys():
 		resources[Resources[key]] = data["resources"][key]
 
-	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], resources)
+	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], resources, data["quests"])
 	return settlement
 
 
@@ -236,6 +250,9 @@ func _init_settlement_types():
 	for settlement_type in file_data.keys():
 		var settlement = _build_single_settlement(file_data[settlement_type])
 		settlement_types[settlement.id] = settlement
+
+
+# --- || Quests & Events || ---
 
 
 func get_event_data(event_id, type) -> EventData:
@@ -257,12 +274,12 @@ func get_quest_data(quest_id) -> Quest:
 	return quest
 
 
-func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
+func generate_event(incoming_event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
 	var event = event_scene.instance()
 	
 	event.cell_pos = cell_position
 	event.die_on_interact = die_on_interact
-	event.set_data(event_data)
+	event.set_data(incoming_event_data)
 	
 	if send_signal:
 		EventManager.emit_signal("spawn_event_request", event)

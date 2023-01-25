@@ -9,6 +9,8 @@ enum Status {
 enum Dialog {
 	PROMPT,
 	ACCEPT,
+	DECLINE,
+	UNFINISH,
 	FINISH,
 }
 
@@ -42,7 +44,7 @@ func init(_quest_id, data):
 	description = data["description"]
 
 
-# activate quest and set it context specific info (quest_giver and generate event)
+# activate quest and set its context specific info (quest_giver and generate event)
 func start(settlement_entity):
 	quest_giver = settlement_entity
 	
@@ -100,11 +102,15 @@ func get_dialogue(type):
 			label = "prompt_dialogue"
 		Dialog.ACCEPT:
 			label = "accept_dialogue"
+		Dialog.DECLINE:
+			label = "decline_dialogue"
+		Dialog.UNFINISH:
+			label = "unfinish_dialogue"
 		Dialog.FINISH:
 			label = "finish_dialogue"
 	if label == "":
 		return ""
-	return Global.get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id, label])
+	return Global.get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id, label]).duplicate()
 
 
 func abandoned():
@@ -113,4 +119,6 @@ func abandoned():
 	var tmp = quest_giver.warning.get_text()
 	if name in tmp:
 		quest_giver.warning.toggle(false)
+
+	quest_giver.set_next_quest()
 	# this method should also try to remove any QUEST items related to the quest, but, frankly that is too much work and could cause problems

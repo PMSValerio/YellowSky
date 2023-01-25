@@ -1,39 +1,57 @@
 {
     "npc1" : {
         "Name" : "Rusty:", 
-        "Branches" : {
-            "0" : [
-                "Hello there mate, pleasure to meet ya!", 
-                "Feelin a wee bit adventurous, are we?", 
-                "How about a lil quest to spice up yer life ay?", 
-                "Quest"
-            ],
+        "Dialogue" : { 
             "1" : [
-                "[ALPHA] Joke's on you, quests haven't been implemented yet! Come back later.", 
-                "End"
+                "Hello there mate, pleasure to meet ya!", 
+                "Name's Rusty by the way. One manages to come up with all sorts of nickanmes out here in the wild.", 
+                "These parts are not very welcoming to strangers though.",
+                "It is known that some creatures that remain like to lurk in creaks and crevices.", 
+                "One can never be too sure...", 
+                "QUEST",
+                "Anyway, take care!",
+                "END"
             ],
             "2" : [
-                "[ALPHA] Well, they haven't been implemented yet anyways. Take care!", 
-                "End"
-            ]
-        } 
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
     },
     "npc2" : {
         "Name" : "Roofles:", 
-        "Branches" : {
-            "0" : [
-                "Ay ay, just buzz off will ya?", 
-                "End"
-            ]
-        } 
+        "Dialogue" : { 
+            "1" : [
+                "Hey! Watcha know about the young whipper snapper that was last seen in the area?",
+                "Oh, you're not from here yourself are ya? Sorry for that then, my bad.",
+                "Folks are on the edge lately. Been hearin' some strange noises coming from south.",
+                "No one knows what's causing it, and certainly no one's keen enough to find out.",
+                "Can't be nothing to worry about, that's what I tell myself at least!",
+                "QUEST",
+                "You take care though, ya hear!",
+                "END"
+            ],
+            "2" : [
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
     },
     "npc3" : {
         "Name" : "Blingo:", 
-        "Branches" : {
-            "0" : [
-                "Gday mate.", 
-                "End"
-            ]
-        } 
+        "Dialogue" : { 
+            "1" : [
+                "Is it safe?",
+                "Is it safe?",
+                "Is it safe?",
+                "QUEST",
+                "It puts the lotion on its skin and puts it in the basket...",
+                "END"
+            ],
+            "2" : [
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
     }
 }

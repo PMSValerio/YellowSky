@@ -71,10 +71,11 @@ func _ready() -> void:
 		parallax_sky.visible = false
 		map_perspective.visible = false
 	
-	# Manually instance starting features
+	# Manually instance starting features aka event, facility and settlement 
 	var ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
+	# vv I may suggest connecting the signals from the EventManager BEFORE calling generate_event vv
 	# vv why the hell is this necessary???? vv
-	_on_spawn_event_request(ev)
+	_on_spawn_event_request(ev) # this line shouldnt be necessary. awaiting confirmation to meddle with world_map...
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
@@ -84,10 +85,6 @@ func _ready() -> void:
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
 	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
-	
-	# TODO: remove
-	var quest_data = Global.get_quest_data("quest2")
-	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
 
 
 func _physics_process(_delta: float) -> void:
@@ -587,8 +584,8 @@ func _on_Player_interact(position):
 	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
-		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
+		WorldData.quest_log.on_feature_interacted(tile_entity)
 
 
 # when a feature tile enters the map

@@ -11,6 +11,7 @@ var portrait_texture = null
 var starting_rank = 1
 var starting_population = 50
 var starting_resources = {}
+var quests = [] # array of quest ids
 
 # common to all settlements for the time being
 var max_health = 100.0
@@ -23,7 +24,7 @@ var base_consumption_rate = 0.01
 var max_resource = 400.0
 
 
-func init(_id, _name, _flavour_text, _npc_id, _inventory_id, _portrait_texture_path, _rank, _population, _resources) -> void:
+func init(_id, _name, _flavour_text, _npc_id, _inventory_id, _portrait_texture_path, _rank, _population, _resources, _quests) -> void:
 	id = _id
 	name = _name
 	flavour_text = _flavour_text
@@ -33,3 +34,4 @@ func init(_id, _name, _flavour_text, _npc_id, _inventory_id, _portrait_texture_p
 	starting_rank = _rank
 	starting_population = _population
 	starting_resources = _resources
+	quests = _quests

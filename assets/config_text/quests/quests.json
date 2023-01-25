@@ -1,31 +1,87 @@
 {
   "quest1": {
     "event_id": "quest1_event",
-    "deliver_items": null,
+    "deliver_items": {
+      "food1": 1
+    },
     "return_items": null,
     "rewards": {
       "water_bottle": 2
     },
-    "name": "Quest 1",
-    "description": "This is sample text from Quest 1",
-    "prompt_dialogue": "Do you accept quest1?",
-    "accept_dialogue": "Quest1 accepted",
-    "finish_dialogue": "Quest1 complete"
+    "name": "The flying monkey men!",
+    "description": "Some strange creatures have been causing a ruckus. Find a way to calm them down.",
+    "prompt_dialogue" : [
+      "Since you are here, you might be able to help me with somethin'...",
+      "I've tripped a lot out here in the outback lately.", 
+      "I think we might be dealing with the mythical flying monkey men...", 
+      "Mind checking it out?",
+      "OPTIONS"
+    ],
+    "accept_dialogue" : [
+      "Thank you kindly stranger!", 
+      "Those critters can be quite a handful, so be careful!",
+      "END"
+    ],
+    "decline_dialogue" : [
+      "Worry not, it's not the job for everyone around these parts afterall...", 
+      "Take care still! If you change your mind, you know where to find me.",
+      "END"
+    ],
+    "unfinish_dialogue" : [
+      "So, still no luck with that quest am I right? Don't sweat it, It'll be done when it's done." , 
+      "Take care!",
+      "END"
+    ],
+    "finish_dialogue" : [
+      "You really did it!", 
+      "Not that I ever doubted you...",
+      "Still, I hope those critters got what they deserved.",
+      "Ah, and here's your reward!",
+      "Reward",
+      "Come back often! There might more work to be done!",
+      "END"
+    ]
   },
   "quest2": {
     "event_id": "quest2_event",
-    "deliver_items": {
+    "deliver_items": null,
+    "return_items": {
       "quest_item2": 1
     },
-    "return_items": null,
     "rewards": {
       "water_gallon": 3
     },
-    "name": "Quest 2",
-    "description": "This is sample text from Quest 2",
-    "prompt_dialogue": "Do you accept quest2?",
-    "accept_dialogue": "Quest2 accepted",
-    "finish_dialogue": "Quest2 complete"
+    "name": "A generator for the perpetrator.",
+    "description": "A generator is in need! It might be possible to salvage something from the countless abandoned camps out there.",
+    "prompt_dialogue" : [
+      "That reminds me...", 
+      "Our folks are really dying to get a new generator, but nowadays, that is quite a hard thing to come by!", 
+      "If you happen to salvage something of that sort during your tavels, mind bringing it back here?",
+      "OPTIONS"
+    ],
+    "accept_dialogue" : [
+      "Thank you for lending us a hand, your efforts will not be wasted!", 
+      "We will be waiting!",
+      "END"
+    ],
+    "decline_dialogue" : [
+      "That's too bad...", 
+      "We'll make do with what we have. Take care!",
+      "END"
+    ],
+    "unfinish_dialogue" : [
+      "So, still no luck with that quest am I right? Don't sweat it, It'll be done when it's done." , 
+      "Take care!",
+      "END"
+    ],
+    "finish_dialogue" : [
+      "Now that right there is a real beauty if I've ever seen one!", 
+      "Where did you even manage to whipe out one of the original models?",
+      "Either way, here's a little somthing for all your trouble!",
+      "Reward",
+      "Come again and pay us a visit will ya?",
+      "END"
+    ]
   },
   "quest3": {
     "event_id": null,
@@ -36,10 +92,29 @@
     "rewards": {
       "water_drum": 1
     },
-    "name": "Quest 3",
-    "description": "This is sample text from Quest 3",
-    "prompt_dialogue": "Do you accept quest3?",
-    "accept_dialogue": "Quest3 accepted",
-    "finish_dialogue": "Quest3 complete"
+    "name": "Need food!",
+    "description": "Not much could be gathered. The only thing that can be known for sure is that food is needed. Plenty of it.",
+    "prompt_dialogue" : [
+      "Oh!", 
+      "We need food!", 
+      "Can you bring food?",
+      "OPTIONS"
+    ],
+    "accept_dialogue" : [
+      "Thank you! Do bring food!",
+      "END"
+    ],
+    "decline_dialogue" : [
+      "Still need food...",
+      "END"
+    ],
+    "finish_dialogue" : [
+      "Oy, that's not real food now, is it?",
+      "Let me just have a lil taste...",
+      "Bloody hell! It does taste like real food! It tastes... fuck all!",
+      "Cheers!",
+      "Reward",
+      "END"
+    ]
   }
 }

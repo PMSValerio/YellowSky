@@ -38,7 +38,7 @@ var resource_info_nodes = {} # matches resource types with each resource info no
 export var text_speed = 0.01
 var text_in_progress = false
 var npc_text = []
-var current_dialogue_branch = 0
+var current_dialogue_branch = 1
 var current_mode = Modes.MAIN
 var text_file_ref = "npc_dialogue.json"
 var silder_resource = Global.Resources.NONE
@@ -61,7 +61,7 @@ func _ready() -> void:
 		all_infos[i].init(settlement_entity.resources.keys()[i], settlement_entity)
 		all_infos[i].connect("supply_pressed", self, "_on_Supply_pressed", [settlement_entity.resources.keys()[i]])
 		
-	# setup stats
+	# setup base stats
 	health_label.text = str(settlement_entity.health)
 	population_label.text = str(settlement_entity.population)
 	rank_label.text = str(settlement_entity.rank)
@@ -85,19 +85,21 @@ func change_mode(new_mode):
 	if new_mode in Modes:
 		var new_m = Modes[new_mode]
 
+		# disable all other options that dont belong to new_mode
 		for mode in ui_mode_nodes.keys():
 			if new_m == mode:
 				ui_mode_nodes[mode].visible = true
 			else:
 				ui_mode_nodes[mode].visible = false
 
+		# extra logic
 		if new_m == Modes.DIALOGUE:
-			toggle_text(true)
+			toggle_text_mode(true)
 		elif new_m == Modes.MAIN:
-			toggle_text(false)
+			toggle_text_mode(false)
 			
+			# reset other variables in case menu is changing from dialogue mode
 			if current_mode == Modes.DIALOGUE:
-				current_dialogue_branch = 0
 				settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
 
 		current_mode = new_m
@@ -106,7 +108,7 @@ func change_mode(new_mode):
 # --- || Dialogue || ---
 
 
-func toggle_text(to_dialogue):
+func toggle_text_mode(to_dialogue):
 
 	accept_btn.visible = false
 	decline_btn.visible = false
@@ -114,12 +116,10 @@ func toggle_text(to_dialogue):
 	dialogue_pntr.visible = to_dialogue
 
 	if to_dialogue:
-		# play animation of npc fading in
 		settlement_image.get_node("AnimationPlayer").play("show_npc")
-		# set name of the npc
-		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Name"])
 
-		update_branch_text()
+		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Name"])
+		npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Dialogue", str(current_dialogue_branch)]).duplicate()
 		next_line()
 	else: # to main
 		
@@ -135,6 +135,7 @@ func next_line():
 
 		dialogue_pntr.get_node("AnimationPlayer").stop(false)
 		text_in_progress = true
+		
 		# removes first dialogue line from npc_text, keeping the rest in case there are any
 		description_box.text = npc_text.pop_front() 
 		description_box.visible_characters = 0
@@ -149,28 +150,54 @@ func next_line():
 		dialogue_pntr.get_node("AnimationPlayer").play("Active")
 		text_in_progress = false
 
-		# Check for end string at the end of each dialogue branch to setup appropriate behaviour
-		if npc_text[0] == "Quest":
-			quest_update(true, 0)
-		elif npc_text[0] == "End":
-			dialogue_pntr.visible = false
+		# check for keyword
+		var keyword = -1
+		if npc_text[0] in Global.TextKeywords.keys():
+			keyword = Global.TextKeywords[npc_text[0]]
+
+		# setup appropriate behaviour based on keyword found on end string
+		match keyword:
+			Global.TextKeywords.QUEST:
+				check_for_quest()
+			Global.TextKeywords.OPTIONS:
+				manage_quest_options(true, false)
+			Global.TextKeywords.REWARD:
+				# not sure if this keyword will be needed
+				print("reward")
+			Global.TextKeywords.END:
+				dialogue_pntr.visible = false
+			
+
+func check_for_quest():
+	if settlement_entity.active_quest != null:
+		if WorldData.quest_log.has_quest(settlement_entity.active_quest.quest_id):
+			if settlement_entity.active_quest.can_advance() && settlement_entity.active_quest.get_status() == Quest.Status.RETURN:
+				# quest completed
+				npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.FINISH)
+				# TODO: settlement_entity.active_quest.complete
+				WorldData.quest_log.abandon_quest(settlement_entity.active_quest.quest_id)
+			else:
+				# still doesnt have the items
+				npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.UNFINISH)
+		else:
+			# if the settlement is not waiting for a quest, display quest prompt
+			npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.PROMPT)	
 	else:
-		# may want to do seomthing in here, potentially
-		print("Finish")
+		# if no quest, is active, skip over keyword and continue dialogue
+		npc_text.pop_front() 
 
 
-func update_branch_text():
-	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Branches", str(current_dialogue_branch)]).duplicate()
-
-
-func quest_update(show_quest_options, nmbr_to_advance_branch):
+func manage_quest_options(show_quest_options, did_accept):
 	accept_btn.visible = show_quest_options
 	decline_btn.visible = show_quest_options
 	dialogue_pntr.visible = !show_quest_options
 
 	if !show_quest_options:
-		current_dialogue_branch += nmbr_to_advance_branch
-		update_branch_text()
+		if did_accept:
+			WorldData.quest_log.regiter_new_quest(settlement_entity.active_quest, settlement_entity)
+			npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.ACCEPT)
+		else:
+			npc_text = settlement_entity.active_quest.get_dialogue(Quest.Dialog.DECLINE)
 
 	next_line()
 
@@ -200,23 +227,25 @@ func _on_ExitBtn_pressed():
 
 
 func _on_Supply_pressed (resource_type):
+	# setup slider to choose amount to supply
 	resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type])
 	resource_slider.visible = true
 	silder_resource = resource_type
 
 
 func _on_ResourceSlider_value_chosen(delta_value):
+	# actually supply resources to settlement and update menu
 	settlement_entity.replenish_resource(silder_resource, delta_value)
 	resource_info_nodes[silder_resource].update_value()
 
 
 # Dialogue Options
 func _on_AcceptButton_pressed():
-	quest_update(false, 1)
+	manage_quest_options(false, true)
 
 
 func _on_DeclineButton_pressed():
-	quest_update(false, 2)
+	manage_quest_options(false, false)
 
 
 func _on_GoodbyeButton_pressed():	
@@ -225,8 +254,8 @@ func _on_GoodbyeButton_pressed():
 
 # clicking on text box to advance dialogue line
 func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
-	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && current_mode == Modes.DIALOGUE):
-		# clicking while text is being displayed will instantly show the sucrrently scrolling text
+	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && dialogue_pntr.visible):
+		# clicking while text is being displayed will instantly show the currently scrolling text
 		if text_in_progress:
 			description_box.visible_characters = description_box.text.length()
 			text_in_progress = false
