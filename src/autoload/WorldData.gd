@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	# TODO: if tutorial is enabled, unlock only energy facility
 	unlocked_facilities.append_array([Global.FacilityTypes.COAL_PLANT, Global.FacilityTypes.PARTS_WORKSHOP, Global.FacilityTypes.WATER_PUMP, Global.FacilityTypes.CANNERY])
-	unlocked_facilities.append_array([Global.FacilityTypes.WIND_FARM])
+	#unlocked_facilities.append_array([Global.FacilityTypes.WIND_FARM])
 	
 	var _v = EventManager.connect("hope_gained", self, "_on_hope_gained")
 
@@ -26,3 +26,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_hope_gained(amount):
 	world_hope += amount
+
+
+func unlock_facility(facility_id):
+	if facility_id in Global.FacilityTypes.values() and not facility_id in unlocked_facilities:
+		unlocked_facilities.append(facility_id)
