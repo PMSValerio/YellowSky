@@ -17,6 +17,8 @@ export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 export (PackedScene) var EVENT_SCENE
 
+export (PackedScene) var RAINDROP_SCENE
+
 export var MAP_WID = 50
 export var MAP_HEI = 30
 
@@ -40,6 +42,8 @@ onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 onready var events = $Entities/Events
 
+onready var raindrops = $RainDrops
+
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
 var _mouse_hex_tile = Vector2(-1, -1)
@@ -50,6 +54,9 @@ var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be g
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
 var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
+
+var raining_period = 0.0
+var raining_timer = 0.0
 
 
 func _ready() -> void:
@@ -84,6 +91,7 @@ func _ready() -> void:
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
 	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	_v = EventManager.connect("rain", self, "_on_rain_request")
 	
 	# TODO: remove
 	var quest_data = Global.get_quest_data("quest2")
@@ -127,6 +135,31 @@ func _physics_process(_delta: float) -> void:
 			new_entity.mouse_entered()
 	
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
+	
+	if raining_period > 0:
+		_rain(_delta)
+
+
+func _rain(delta):
+	raining_timer += delta
+	if raining_timer > raining_period:
+		raining_timer = 0
+		_spawn_raindrop()
+
+
+func _spawn_raindrop():
+	var raindrop = RAINDROP_SCENE.instance()
+	var player_pos = _get_player_position()
+	var xmin = player_pos.x - 256
+	var xmax = player_pos.x + 256
+	var ymin = player_pos.y - 300
+	var ymax = player_pos.y + 100
+	
+	var xx = _rng.randf() * (xmax - xmin) + xmin
+	var yy = _rng.randf() * (ymax - ymin) + ymin
+	
+	raindrop.position = Vector2(xx, yy)
+	raindrops.add_child(raindrop)
 
 
 func generate_event_tile(event : Event):
@@ -616,3 +649,7 @@ func _on_feature_tile_left(feature : Feature):
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
+
+
+func _on_rain_request(period):
+	raining_period = period
