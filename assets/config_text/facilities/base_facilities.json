@@ -94,5 +94,53 @@
     "max_product": 100.0,
     "consumption_rate": 2.0,
     "production_rate": 5.0
+  },
+  "recycler": {
+    "type_id": "RECYCLER",
+    "type_name": "Recycling Centre",
+    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean scrap.",
+    "fuel_types": ["ENERGY"],
+    "product_types": ["MATERIALS"],
+    "base_animation": "recycler",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/recycler_icon.png",
+    "build_cost" : 5.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  },
+  "hydroponics": {
+    "type_id": "HYDROPONICS",
+    "type_name": "Hydroponics Farm",
+    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean food.",
+    "fuel_types": ["ENERGY", "WATER"],
+    "product_types": ["FOOD"],
+    "base_animation": "hydroponics",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/hydroponics_icon.png",
+    "build_cost" : 5.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
+  },
+  "purifier": {
+    "type_id": "PURIFIER",
+    "type_name": "Water Purifier",
+    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean water.",
+    "fuel_types": ["ENERGY"],
+    "product_types": ["WATER"],
+    "base_animation": "purifier",
+    "portrait_texture": "facility_portrait/facility_portrait_tmp.png",
+    "icon_texture": "facility_icon/purifier_icon.png",
+    "build_cost" : 5.0,
+    "max_health": 100.0,
+    "max_fuel": 100.0,
+    "max_product": 100.0,
+    "consumption_rate": 2.0,
+    "production_rate": 5.0
   }
 }

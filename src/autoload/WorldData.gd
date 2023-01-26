@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	# TODO: if tutorial is enabled, unlock only energy facility
 	unlocked_facilities.append_array([Global.FacilityTypes.COAL_PLANT, Global.FacilityTypes.PARTS_WORKSHOP, Global.FacilityTypes.WATER_PUMP, Global.FacilityTypes.CANNERY])
-	unlocked_facilities.append_array([Global.FacilityTypes.WIND_FARM])
+	unlocked_facilities.append_array([Global.FacilityTypes.WIND_FARM, Global.FacilityTypes.RECYCLER, Global.FacilityTypes.PURIFIER, Global.FacilityTypes.HYDROPONICS])
 	
 	var _v = EventManager.connect("hope_gained", self, "_on_hope_gained")
 
