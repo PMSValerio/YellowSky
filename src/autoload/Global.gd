@@ -35,6 +35,7 @@ enum Disasters {
 	TEST,
 	TORNADO,
 	STORM,
+	RAIN,
 	AMOGEDDON,
 }
 

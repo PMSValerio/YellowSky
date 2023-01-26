@@ -66,10 +66,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 2, 14.5, 16 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.45098, 0.219608, 0.254902, 0 ), Color( 0.45098, 0.219608, 0.254902, 0.235294 ) ]
+"values": [ Color( 0.45098, 0.219608, 0.254902, 0 ), Color( 0.45098, 0.219608, 0.254902, 0.470588 ), Color( 0.45098, 0.219608, 0.254902, 0.588235 ), Color( 0.45098, 0.219608, 0.254902, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:visible")

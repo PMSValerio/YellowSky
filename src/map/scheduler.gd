@@ -6,6 +6,7 @@ var _disaster_scenes = {
 	Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 	Global.Disasters.TORNADO: preload("res://src/disasters/tornado/Tornado.tscn"),
 	Global.Disasters.STORM: preload("res://src/disasters/thunderstorm/Storm.tscn"),
+	Global.Disasters.RAIN: preload("res://src/disasters/rainfall/Rainfall.tscn"),
 	Global.Disasters.AMOGEDDON: preload("res://src/disasters/amogeddon/Amogeddon.tscn")
 }
 
@@ -24,7 +25,7 @@ var total_elapsed_time = 0
 var days = 0
 var _elapsed = 0
 var _next_interval = -1
-var _next_disaster = Global.Disasters.STORM
+var _next_disaster = Global.Disasters.RAIN
 
 var day_timer = 0 # timer for each day
 
