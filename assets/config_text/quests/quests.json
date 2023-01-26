@@ -4,9 +4,7 @@
     "deliver_items": {
       "food1": 1
     },
-    "return_items":  {
-      "food2": 1
-    },
+    "return_items": null,
     "rewards": {
       "water_bottle": 2
     },

@@ -124,6 +124,12 @@ func toggle_text_mode(to_dialogue):
 
 		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Name"])
 		npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Dialogue", str(current_dialogue_branch)]).duplicate()
+
+		# only display quest dialogue if quest is ongoing
+		if settlement_entity.active_quest != null:
+			if WorldData.quest_log.has_quest(settlement_entity.active_quest.quest_id):
+				check_for_quest()
+
 		next_line()
 	else: # to main
 		

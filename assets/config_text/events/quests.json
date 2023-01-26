@@ -10,14 +10,14 @@
   },
   "quest1_event": {
     "animation": "ruined_settlement",
-    "title": "Quest Event 1",
-    "flavour_text": "This is the event for quest 1.",
+    "title": "Flying Monkey Men's Lair",
+    "flavour_text": "Amidst the rubble, you can see subtle movement in the distance. As soon as you step further in to investigate though, you hear a screeching noise pierce through the air. \n\nGlowing red eyes and velvety wings emerge through the scraps, as the screeches multiply and the tension rises. Not being sure how to deal with this fateful encounter, you throw some leftover food into the demonic mess of limbs and sharp smiling teeth that started to form, in hopes that something positive would come out out of the situation. \n\nAs soon as the can of food clanks into the floor, the frenzy appears to stop, and the creatures seem to make way for what it seems to be an injured specimen, that slowly but surely makes its way to the can that by now was spilling all over the floor. Eagerly, the wounded creature devours the measly food that the can contained, and while the portion wasn't much to write home about, a look of satisfaction seems to emerge on the small crooked, and now dirty, face. Seeing this, other elements of the group help raise the wounded critter up, and with a rejuvenated look, it spreads its wings wide and takes flight, with the rest of the group following close behind. Their screems echo in the distance, while the site returns to the emptiness that is so common around these parts. \n\nHaving lost some food that was not that great to begin with, you decide to leave the area.",
     "item_updates": {}
   },
   "quest2_event": {
     "animation": "ruined_settlement",
-    "title": "Quest Event 2",
-    "flavour_text": "Return the item to the settlement",
+    "title": "Abandoned C-Beam Emitter",
+    "flavour_text": "Deciding to enter through what appears to be a small door on the side of the crumbling makeshift device, light can be seen at the end of the corridor, emanating from sparks that jolt out of a curiously shaped object. Upon further inspection, and after disconnecting the power for safety measures, the strange object turns out to be a vintage model of the X series of generators produced by the long gone Macrosoft company, known for their green energy line of products back in the day. \n\nStashing the generator to the best of your abilities into your backpack, you quickly leave the dampy corridor and go back to the painful aridness of the outside world.",
     "item_updates": {
       "quest_item2": 1
     }

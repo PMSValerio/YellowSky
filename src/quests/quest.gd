@@ -74,9 +74,10 @@ func can_advance() -> bool:
 
 # remove required items from player's inventory
 func _remove_items(item_dict):
-	for item_id in item_dict:		
-		var t = InventoryManager.item_stats[item_id].type
-		InventoryManager.inventory.add_items(t, item_id, -item_dict[item_id])
+	if item_dict != null:
+		for item_id in item_dict:		
+			var t = InventoryManager.item_stats[item_id].type
+			InventoryManager.inventory.add_items(t, item_id, -item_dict[item_id])
 
 
 # check all required items

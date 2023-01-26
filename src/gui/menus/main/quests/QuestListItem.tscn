@@ -41,7 +41,9 @@ stretch_mode = 6
 [node name="Title" type="Label" parent="MarginContainer/HBoxContainer"]
 margin_left = 68.0
 margin_top = 26.0
-margin_right = 68.0
+margin_right = 168.0
 margin_bottom = 38.0
+rect_min_size = Vector2( 100, 12 )
+autowrap = true
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
