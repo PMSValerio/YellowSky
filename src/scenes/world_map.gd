@@ -86,6 +86,8 @@ func _ready() -> void:
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
 	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	
+	bg_music_player.connect("finished", self, "random_bg_music")
+	
 	# TODO: remove
 	var quest_data = Global.get_quest_data("quest2")
 	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
@@ -635,4 +637,3 @@ func random_bg_music():
 	if music_file != "":
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
-		bg_music_player.connect("finished", self, "random_bg_music")
