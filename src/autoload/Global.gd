@@ -52,11 +52,11 @@ enum FacilityTypes {
 	
 	# food
 	CANNERY,
-	# HYDROPONICS
+	HYDROPONICS
 	
 	# water
 	WATER_PUMP,
-	# PURIFIER
+	PURIFIER
 	
 	# energy
 	COAL_PLANT,
@@ -64,7 +64,7 @@ enum FacilityTypes {
 	
 	# materials
 	PARTS_WORKSHOP, # what a crappy name
-	# RECYLING CENTRE,
+	RECYCLER,
 }
 
 enum FacilityUpgrades {
