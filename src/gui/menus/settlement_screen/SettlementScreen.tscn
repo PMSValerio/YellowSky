@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement0_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_screen.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/gui/menus/settlement_screen/ResourceInfo.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/gui/menus/misc/RewardScreen.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -304,7 +305,10 @@ margin_bottom = 51.0
 [node name="HealthLabel" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/HealthContainer"]
 margin_right = 66.0
 margin_bottom = 12.0
+hint_tooltip = "Affected by disasters. Requires materials to recover."
+mouse_filter = 0
 text = "Health:"
+script = ExtResource( 10 )
 
 [node name="HealthValue" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/HealthContainer"]
 margin_left = 70.0
@@ -320,7 +324,10 @@ margin_bottom = 78.0
 [node name="PopulationLabel" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/PopulationContainer"]
 margin_right = 107.0
 margin_bottom = 12.0
+hint_tooltip = "Decerases if resources are  missing. Increases otherwise."
+mouse_filter = 0
 text = "Population:"
+script = ExtResource( 10 )
 
 [node name="PopulationValue" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/PopulationContainer"]
 margin_left = 111.0
@@ -336,7 +343,10 @@ margin_bottom = 105.0
 [node name="RankLabel" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/RankContainer"]
 margin_right = 49.0
 margin_bottom = 12.0
+hint_tooltip = "Depends on population and affects trade wares."
+mouse_filter = 0
 text = "Rank:"
+script = ExtResource( 10 )
 
 [node name="RankValue" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/RankContainer"]
 margin_left = 53.0
