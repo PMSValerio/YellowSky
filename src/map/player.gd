@@ -88,6 +88,7 @@ func _physics_process(_delta: float) -> void:
 	if is_moving:
 		total_walked_distance += _delta
 		walked_distance_step += _delta
+		_play_walking_sfx()
 
 		if walked_distance_step >= MOVE_STAMINA_THRESHOLD:
 			walked_distance_step = 0
@@ -218,6 +219,7 @@ func _on_item_used(item_data : Item) -> void:
 func _on_disaster_damage(damage):
 	change_health(-damage)
 
+<<<<<<< Updated upstream
 
 func _on_nightfall():
 	pass
@@ -244,3 +246,14 @@ func load_data(data : Dictionary):
 	global_position = data["position"]
 	set_health(data["health"])
 	set_stamina(data["stamina"])
+=======
+func _on_pop_menu():
+	mouse_exit_menu_cooldown = true
+
+func _play_walking_sfx():
+	if $Timer.time_left <= 0:
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
+		$AudioStreamPlayer2D.play()
+		$Timer.start(0.45)
+	
+>>>>>>> Stashed changes
