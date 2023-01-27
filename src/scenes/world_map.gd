@@ -591,8 +591,6 @@ func _on_Player_interact(position):
 		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
 
-<<<<<<< Updated upstream
-
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
 	var cell = _get_cell_from_position(feature.global_position)
@@ -618,7 +616,7 @@ func _on_feature_tile_left(feature : Feature):
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
-=======
+
 func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()
@@ -638,5 +636,3 @@ func random_bg_music():
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
 		bg_music_player.connect("finished", self, "random_bg_music")
-
->>>>>>> Stashed changes
