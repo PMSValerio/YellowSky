@@ -10,6 +10,8 @@ var _disaster_scenes = {
 	Global.Disasters.AMOGEDDON: preload("res://src/disasters/amogeddon/Amogeddon.tscn")
 }
 
+const TIME_UPDATE_FREQ = 50
+
 # setting reference to canvas layer for disaster
 export (NodePath) var disaster_layer_path
 # setting reference to background canvas layer
@@ -27,7 +29,7 @@ var _elapsed = 0
 var _next_interval = -1
 var _next_disaster = Global.Disasters.STORM
 
-var day_timer = 0 # timer for each day
+var day_timer = 500 # timer for each day
 
 var disaster_node = null
 
@@ -78,6 +80,10 @@ func _on_disaster_end():
 func _update_day(delta):
 	var _last = day_timer
 	day_timer += delta
+	
+	if int(day_timer) % TIME_UPDATE_FREQ:
+		EventManager.emit_signal("time_update", day_timer)
+	
 	if _last < _day_threshold and day_timer >= _day_threshold:
 		tween.interpolate_property(nighttime, "color:a", 0, 0.8, Global.NIGHT_THRESHOLD)
 		tween.start()

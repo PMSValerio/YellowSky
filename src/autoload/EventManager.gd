@@ -8,6 +8,8 @@ signal feature_tile_left(feature)
 
 signal spawn_event_request(event)
 
+signal time_update(new_time)
+
 # Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed
 signal pop_menu

@@ -7,8 +7,6 @@ signal stamina_changed(stamina_val)
 const SPEED := 96.0
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
-const TOTAL_HEALTH = 100
-const TOTAL_STAMINA = 100
 const HEALTH_LOSS_RATE = 1
 const MOVE_STAMINA_THRESHOLD = 1 # average values can be between 0.1 - 5.0
 const STAMINA_LOSS_RATE = 10
@@ -40,8 +38,8 @@ var can_move_cam = false
 var mouse_border = {"top": false, "bottom": false, "left": false, "right": false}
 
 # stats vars
-var current_health = TOTAL_HEALTH setget set_health
-var current_stamina = TOTAL_STAMINA setget set_stamina
+var current_health = Global.TOTAL_HEALTH setget set_health
+var current_stamina = Global.TOTAL_STAMINA setget set_stamina
 var is_alive = true
 var out_of_stamina = false
 var out_of_stamina_timer = Timer.new()
@@ -117,7 +115,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # STATS
 func set_health(new_val):
 	current_health = new_val
-	current_health = clamp(current_health, 0, TOTAL_HEALTH)
+	current_health = clamp(current_health, 0, Global.TOTAL_HEALTH)
 	emit_signal("health_changed", current_health)
 
 	if current_health <= 0:
@@ -126,7 +124,7 @@ func set_health(new_val):
 
 func set_stamina(new_val):
 	current_stamina = new_val
-	current_stamina = clamp(current_stamina, 0, TOTAL_STAMINA)
+	current_stamina = clamp(current_stamina, 0, Global.TOTAL_STAMINA)
 	emit_signal("stamina_changed", current_stamina)
 
 	if current_stamina <= 0:

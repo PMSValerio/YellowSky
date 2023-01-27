@@ -3,13 +3,6 @@ extends Disaster
 
 onready var rains = $Rain
 
-var raining = false
-
-
-func _physics_process(delta: float) -> void:
-	if raining:
-		pass
-
 
 func start() -> void:
 	$AnimationPlayer.play("play")
