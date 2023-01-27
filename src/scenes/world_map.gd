@@ -30,7 +30,6 @@ onready var map_perspective = $MapEffect
 onready var sky = $Sky
 onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
-onready var bg_music_player = $AudioStreamPlayer
 
 onready var tilemap = $TileMap
 onready var out_tilemap = $Background
@@ -59,9 +58,9 @@ func _ready() -> void:
 	_resize_map()
 	_generate_map()
 	MapUtils.set_dimensions(map_grid[0].size(), map_grid.size())
+
 	hex_center = MapUtils.get_hex_center(_get_player_position())
 	cache_hex_center = hex_center
-	random_bg_music()
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
@@ -591,7 +590,6 @@ func _on_Player_interact(position):
 		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
 
-<<<<<<< Updated upstream
 
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
@@ -618,25 +616,3 @@ func _on_feature_tile_left(feature : Feature):
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
-=======
-func random_bg_music():
-	var music_file
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var num = rng.randi_range(0,3)
-	print(num)
-	match num:
-		0:
-			music_file = "res://assets/sfx/ui/UI_TabChanged.wav"
-		1:
-			music_file = "res://assets/sfx/world/floating.wav"
-		2:
-			music_file = "res://assets/sfx/world/dramatic_scroller.wav"
-		3: 
-			music_file = "res://assets/sfx/world/ocean_drift.wav"
-	if music_file != "":
-		bg_music_player.stream = load(music_file)
-		bg_music_player.play()
-		bg_music_player.connect("finished", self, "random_bg_music")
-
->>>>>>> Stashed changes
