@@ -7,7 +7,12 @@ var completed_quest_counter = 0
 var failed_quest_counter = 0
 var unlocked_facilities = [] # list of facility ids the player can build
 
+# game over stats
+var days_passed = 0 # the amount of in-game days that have passed
 var world_hope = 0 # corresponds to the cumulative amount of earned hope points
+var facilities_upgraded = 0
+var settlements_lost = 0
+var green_tiles = 0
 
 
 func _ready() -> void:
