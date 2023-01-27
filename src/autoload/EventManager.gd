@@ -24,4 +24,3 @@ signal item_used(item_data)
 signal disaster_damage(damage)
 signal night_penalty()
 signal rain(period)
-signal blackout

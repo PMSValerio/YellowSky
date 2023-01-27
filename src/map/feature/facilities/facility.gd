@@ -217,6 +217,13 @@ func mouse_exited() -> void:
 	tooltip.visible = false
 
 
+func blackout():
+	if fuels.has(Global.Resources.ENERGY):
+		fuels[Global.Resources.ENERGY] = 0
+		warning.set_type(Global.Warnings.NO_FUEL)
+		warning.toggle(true)
+
+
 func _on_disaster_damage(damage):
 	repair(-damage)
 

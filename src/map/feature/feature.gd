@@ -34,8 +34,16 @@ func mouse_exited() -> void:
 	pass
 
 
+func blackout() -> void:
+	pass
+
+
 func set_discovered(discovered = true):
 	visible = discovered
+
+
+func is_discovered() -> bool:
+	return visible
 
 
 func die() -> void:

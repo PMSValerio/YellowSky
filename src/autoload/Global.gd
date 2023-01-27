@@ -136,6 +136,8 @@ var _config_parser : TextManager
 
 
 func _ready():
+	randomize()
+	
 	_config_parser = TextManager.new()
 	
 	_screen_size = get_viewport().get_visible_rect().size
