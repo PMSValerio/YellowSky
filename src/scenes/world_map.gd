@@ -85,6 +85,9 @@ func _ready() -> void:
 	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
 	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
+
+	EventManager.emit_signal("world_is_ready")
 
 
 func _physics_process(_delta: float) -> void:
@@ -195,16 +198,26 @@ func _occupy_cell(cell, occupy):
 # returns a list of all cells around a given origin cell
 func _get_cells_around(origin, radius):
 	var lst = []
-	
-	var square_rad = pow(radius, 2)
-	var index = Vector2(origin.x - radius, origin.y - radius)
-	while index.x <= origin.x + radius:
-		index.y = origin.y - radius
-		while index.y <= origin.y + radius:
-			if index.distance_squared_to(origin) <= square_rad:
-				lst.append(index)
-			index.y += 1
-		index.x += 1
+
+	if radius == 1:
+		var inverter = 1
+		if int(origin.y) % 2 == 1:
+			inverter = -1
+
+		var offsets = [Vector2(0, -1), Vector2(-1, 0), Vector2(0, 1), Vector2(1*inverter, 1), Vector2(1, 0), Vector2(1*inverter, -1)]
+		lst.append(origin)
+		for offset in offsets:
+			lst.append(Vector2(origin.x - offset.x, origin.y - offset.y))
+	else:
+		var square_rad = pow(radius, 2)
+		var index = Vector2(origin.x - radius, origin.y - radius)
+		while index.x <= origin.x + radius:
+			index.y = origin.y - radius
+			while index.y <= origin.y + radius:
+				if index.distance_squared_to(origin) <= square_rad:
+					lst.append(index)
+				index.y += 1
+			index.x += 1
 	
 	return lst
 
@@ -274,7 +287,12 @@ func _set_tilemap_cell(xx, yy, id, priorities : Array = [1.0]):
 func _set_cell_discovery(cell, _disc = true):
 	var tilemap_subtile = tilemap.get_cell_autotile_coord(cell.x, cell.y)
 	tilemap_subtile.y = 0 if _disc else 1
-	tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# 1 is the tile index of the green tile
+	if tilemap.get_cellv(cell) != 1:
+		tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# handle entities in tile in case they exist
 	var entity = map_grid[cell.x][cell.y]
 	if _is_feature(entity):
 		entity.set_discovered(_disc)
@@ -610,6 +628,36 @@ func _on_feature_tile_left(feature : Feature):
 	map_grid[cell.x][cell.y] = TileType.EMPTY
 
 
+func generate_green_tile(feature : Feature, radius : int, setup : bool):	
+	var free_neighs = _get_cells_around(_get_cell_from_position(feature.global_position), radius).duplicate()
+	var occupied_neighs = []
+	print("setup")
+	# find occupied neighs
+	for neigh in free_neighs:
+		if _is_cell_in_bounds(neigh):
+			if vacant_tiles[neigh] != 0:
+				occupied_neighs.append(neigh)	 
+		else:
+			occupied_neighs.append(neigh)
+
+	# remove occupied neighs to get free neighs
+	for ocup_neigh in occupied_neighs:
+		free_neighs.erase(ocup_neigh)
+
+	# update feature with nmbr of green tiles that can still be generated 
+	feature.green_tile_slots_left = free_neighs.size() 
+
+	if free_neighs.size() > 0 && !setup:
+		# randomly get a free neigh from the available 
+		var index = _rng.randi_range(0, free_neighs.size() - 1)
+		var cell_to_use = free_neighs[index]
+		
+		# actually change the tile		
+		tilemap.set_cellv(cell_to_use, 1, false, false, false)
+		_occupy_cell(cell_to_use, true)
+
+
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
+	

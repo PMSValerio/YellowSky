@@ -20,6 +20,7 @@ var rank = 0 # rank 0 is equivalent to the settlement being destroyed. Once dest
 var resources = {}
 var quests = {} # matches quest ids with actual quest data structures
 var active_quest : Quest = null 
+var green_tile_slots_left = 0
 
 var rng = null # used for several random based calculations
 var _update_step = 2 # timer counter for update
@@ -35,6 +36,7 @@ func _ready():
 	_initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
 
 	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
+	_v = EventManager.connect("world_is_ready", self, "setup_green_tiles_left")
 
 
 func _initialize_with_type(type):
@@ -53,6 +55,13 @@ func _initialize_with_type(type):
 		quests[id] = Global.get_quest_data(id)
 	
 	set_next_quest()
+
+	EventManager.emit_signal("generate_green_tile", self, settlement_type.seeds_tile_radius, true)
+
+	
+func setup_green_tiles_left():
+	# setup bool arg is passed to get the max number of green tiles without generating any
+	EventManager.emit_signal("generate_green_tile", self, settlement_type.seeds_tile_radius, true)
 
 
 func _process(delta: float) -> void:
@@ -179,6 +188,15 @@ func repair(amount):
 	_update_healthbar()
 
 
+func plant_seeds(seed_amount):
+	print(green_tile_slots_left)
+	var tiles_to_gen = int(seed_amount / settlement_type.seeds_per_tile)
+	tiles_to_gen = min(green_tile_slots_left, tiles_to_gen) 
+
+	for _i in range(tiles_to_gen):
+		EventManager.emit_signal("generate_green_tile", self, settlement_type.seeds_tile_radius, false)
+		
+	
 # --- || UI || ---
 
 

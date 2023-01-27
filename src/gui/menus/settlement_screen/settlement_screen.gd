@@ -43,6 +43,7 @@ var current_dialogue_branch = 1
 var current_mode = Modes.MAIN
 var text_file_ref = "npc_dialogue.json"
 var silder_resource = Global.Resources.NONE
+var is_slider_active = false
 var settlement_entity : Settlement  = null # the actual settlement node
 
 var quest_completed = false # sanity check to guarantee that quest complete screen only appears when its supposed to 
@@ -218,41 +219,67 @@ func manage_quest_options(show_quest_options, did_accept):
 	next_line()
 
 
+# --- || UI || ---
+
+
+func show_slider(resource_type):
+	if resource_type == Global.Resources.SEEDS:
+		resource_slider.set_state(ResourceManager.get_resource(resource_type), 0, ResourceManager.get_resource(resource_type), Global.resource_icons[resource_type])
+	else:
+		resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type])
+
+	resource_slider.visible = true
+	is_slider_active = true
+	silder_resource = resource_type
+
+
 # --- || Signal Callbacks || ---
 
 
 func _on_TalkButton_pressed():
-	change_mode(Modes.keys()[Modes.DIALOGUE])
+	if !is_slider_active:
+		change_mode(Modes.keys()[Modes.DIALOGUE])
 
 
 func _on_StatsButton_pressed():
-	change_mode(Modes.keys()[Modes.STATS])
+	if !is_slider_active:
+		change_mode(Modes.keys()[Modes.STATS])
 	
 
 func _on_TradeButton_pressed():
-	trade_screen_ref.visible = true
+	if !is_slider_active:
+		trade_screen_ref.visible = true
+
+
+func _on_PlantButton_pressed():
+	if !is_slider_active:
+		show_slider(Global.Resources.SEEDS)
 
 
 func _on_LeaveButton_pressed():
-	EventManager.emit_signal("pop_menu")
+	if !is_slider_active:
+		EventManager.emit_signal("pop_menu")
 
 
 # Info Options
 func _on_ExitBtn_pressed():
-	change_mode(Modes.keys()[Modes.MAIN])
+	if !is_slider_active:
+		change_mode(Modes.keys()[Modes.MAIN])
 
 
 func _on_Supply_pressed (resource_type):
-	# setup slider to choose amount to supply
-	resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type])
-	resource_slider.visible = true
-	silder_resource = resource_type
+	if !is_slider_active:
+		show_slider(resource_type)
 
 
 func _on_ResourceSlider_value_chosen(delta_value):
-	# actually supply resources to settlement and update menu
-	settlement_entity.replenish_resource(silder_resource, delta_value)
-	resource_info_nodes[silder_resource].update_value()
+	is_slider_active = false
+	if silder_resource == Global.Resources.SEEDS:
+		settlement_entity.plant_seeds(delta_value)
+	else:
+		# actually supply resources to settlement and update menu
+		settlement_entity.replenish_resource(silder_resource, delta_value)
+		resource_info_nodes[silder_resource].update_value()
 
 
 # Dialogue Options

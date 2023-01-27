@@ -224,7 +224,7 @@ margin_bottom = 456.0
 
 [node name="MainOptions" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
 margin_right = 337.0
-margin_bottom = 192.0
+margin_bottom = 241.0
 
 [node name="TalkButton" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions"]
 margin_right = 337.0
@@ -247,10 +247,17 @@ margin_bottom = 143.0
 rect_min_size = Vector2( 0, 45 )
 text = "Trade"
 
-[node name="LeaveButton" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions"]
+[node name="PlantButton" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions"]
 margin_top = 147.0
 margin_right = 337.0
 margin_bottom = 192.0
+rect_min_size = Vector2( 0, 45 )
+text = "Plant Seeds"
+
+[node name="LeaveButton" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions"]
+margin_top = 196.0
+margin_right = 337.0
+margin_bottom = 241.0
 rect_min_size = Vector2( 0, 45 )
 text = "Leave"
 
@@ -403,6 +410,7 @@ visible = false
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TalkButton" to="." method="_on_TalkButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/StatsButton" to="." method="_on_StatsButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TradeButton" to="." method="_on_TradeButton_pressed"]
+[connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/PlantButton" to="." method="_on_PlantButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/LeaveButton" to="." method="_on_LeaveButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/AcceptButton" to="." method="_on_AcceptButton_pressed"]
 [connection signal="pressed" from="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions/DeclineButton" to="." method="_on_DeclineButton_pressed"]
