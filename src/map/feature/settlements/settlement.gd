@@ -102,6 +102,10 @@ func _tick() -> void:
 # --- || Manage || ---
 
 
+func blackout() -> void:
+	repair(-get_max_health())
+
+
 # associated with natural distasters, making life harder for the settlement
 func set_panic_mode(on_off : bool):
 	is_in_panic = on_off
