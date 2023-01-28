@@ -1,8 +1,11 @@
 extends CanvasLayer
 
 
-const MIN_HOUR = 6
-const MAX_HOUR = 23
+const NIGHT_X = 216
+
+export (NodePath) var DANGER_BORDER_PATH
+
+onready var CLOCK_WID = $Control/MarginContainer/AllElements/PanelContainer/TextureRect.texture.atlas.get_width()
 
 onready var health_bar_ref = $Control/MarginContainer/AllElements/Bars/Health/TextureProgress
 onready var stamina_bar_ref = $Control/MarginContainer/AllElements/Bars/Stamina/TextureProgress
@@ -10,9 +13,9 @@ onready var water_counter_ref = $Control/MarginContainer/AllElements/Resources/W
 onready var materials_counter_ref = $Control/MarginContainer/AllElements/Resources/CraftMatCounter
 onready var energy_counter_ref = $Control/MarginContainer/AllElements/Resources/EnergyCounter
 #onready var seeds_counter_ref = $Control/MarginContainer/AllElements/SeedsCounter
-onready var clock = $Control/MarginContainer/AllElements/PanelContainer/Time
+onready var clock = $Control/MarginContainer/AllElements/PanelContainer/TextureRect
 
-onready var health_border = $Polygon2D
+onready var health_border = get_node(DANGER_BORDER_PATH)
 
 func _ready():
 	var _v = EventManager.connect("resource_changed", self, "on_resource_changed")
@@ -73,14 +76,15 @@ func _set_time(hours, minutes):
 	clock.text = hh + ":" + mm
 
 func _on_time_update(new_time):
-	new_time = min(Global.DAY_DURATION, new_time)
-	var tmp_max = MAX_HOUR - MIN_HOUR
+	var xx = 0
+	if new_time < Global.NIGHT_THRESHOLD:
+		var max_x = NIGHT_X - clock.rect_size.x - 1
+		var t = new_time / Global.NIGHT_THRESHOLD
+		xx = max_x * t
+	else:
+		var min_x = NIGHT_X - clock.rect_size.x
+		var max_x = CLOCK_WID - clock.rect_size.x - 1
+		var t = (new_time - Global.NIGHT_THRESHOLD) / Global.NIGHT_DURATION
+		xx = min_x + (max_x - min_x) * t
 	
-	var hour_dur = float(Global.DAY_DURATION) / float(tmp_max)
-	
-	var hh = new_time / hour_dur
-	var mm = fmod(new_time, hour_dur)
-	mm = 0 if mm < hour_dur / 2 else 30
-	
-	
-	_set_time(int(hh) + MIN_HOUR, int(mm))
+	clock.texture.region.position.x = xx

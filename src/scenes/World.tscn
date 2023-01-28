@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/shaders/sky_perspective.gdshader" type="Shader" id=11]
 [ext_resource path="res://src/scenes/normal_sky.gd" type="Script" id=12]
 [ext_resource path="res://src/map/feature/settlements/Settlement.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/shaders/vignette.gdshader" type="Shader" id=14]
 [ext_resource path="res://assets/shaders/map_perspective.gdshader" type="Shader" id=15]
 [ext_resource path="res://assets/gfx/terrain/sky_layered.png" type="Texture" id=16]
 [ext_resource path="res://src/map/OutMountain.tscn" type="PackedScene" id=17]
@@ -62,6 +63,12 @@ shader = ExtResource( 11 )
 shader_param/horizon_colour = Color( 0.35, 0.2, 0.25, 1 )
 shader_param/dim_amount = 0.3
 shader_param/horizon_y = 0.7
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = ExtResource( 14 )
+shader_param/colour = Color( 0.639216, 0.172549, 0.172549, 1 )
+shader_param/multiplier = 0.8
+shader_param/softness = 0.8
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -184,6 +191,11 @@ polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 600, 0, 600 )
 
 [node name="Tween" type="Tween" parent="Foreground/NightLayer"]
 
+[node name="Polygon2D" type="Polygon2D" parent="Foreground"]
+material = SubResource( 12 )
+color = Color( 0.639216, 0.172549, 0.172549, 1 )
+polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 600, 0, 600 )
+
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2
 layer = 7
@@ -192,6 +204,7 @@ script = ExtResource( 6 )
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 pause_mode = 2
 layer = 8
+DANGER_BORDER_PATH = NodePath("../Foreground/Polygon2D")
 
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]

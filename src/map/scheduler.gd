@@ -21,7 +21,6 @@ onready var disaster_layer = get_node(disaster_layer_path)
 onready var background_layer = get_node(background_layer_path)
 onready var nighttime = disaster_layer.get_node("NightLayer")
 onready var tween = (nighttime.get_node("Tween") as Tween)
-onready var _day_threshold = Global.DAY_DURATION - Global.NIGHT_THRESHOLD
 
 var total_elapsed_time = 0
 var days = 0
@@ -29,7 +28,7 @@ var _elapsed = 0
 var _next_interval = -1
 var _next_disaster = Global.Disasters.STORM
 
-var day_timer = 500 # timer for each day
+var day_timer = 0 # timer for each day
 
 var disaster_node = null
 
@@ -84,8 +83,8 @@ func _update_day(delta):
 	if int(day_timer) % TIME_UPDATE_FREQ:
 		EventManager.emit_signal("time_update", day_timer)
 	
-	if _last < _day_threshold and day_timer >= _day_threshold:
-		tween.interpolate_property(nighttime, "color:a", 0, 0.8, Global.NIGHT_THRESHOLD)
+	if _last < Global.NIGHT_THRESHOLD and day_timer >= Global.NIGHT_THRESHOLD:
+		tween.interpolate_property(nighttime, "color:a", 0, 0.8, Global.NIGHT_DURATION)
 		tween.start()
 	elif _last < Global.DAY_DURATION and day_timer >= Global.DAY_DURATION: # quickly go to full black in 2 seconds
 		tween.interpolate_property(nighttime, "color:a", 0.8, 1.0, 2)

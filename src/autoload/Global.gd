@@ -121,7 +121,8 @@ const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
 const DAY_DURATION = 600 # duration of a day in seconds
-const NIGHT_THRESHOLD = 100 # duration of nightfall animation in seconds
+const NIGHT_THRESHOLD = 500 # duration of nightfall animation in seconds
+const NIGHT_DURATION = DAY_DURATION - NIGHT_THRESHOLD
 
 const TOTAL_HEALTH = 100
 const TOTAL_STAMINA = 100
