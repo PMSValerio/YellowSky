@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/map/feature/facilities/facility.gd" type="Script" id=1]
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=2]
@@ -131,6 +131,153 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1 ), Vector2( 6, 1 ), Vector2( 6, 1 ) ]
 }
 
+[sub_resource type="Animation" id=21]
+resource_name = "hydroponics_end"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 18 ), Vector2( 5, 18 ), Vector2( 4, 18 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "hydroponics_on"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 17 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "hydroponics_start"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 16 ), Vector2( 5, 16 ), Vector2( 5, 16 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "purifier_end"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 21 ), Vector2( 2, 21 ), Vector2( 2, 21 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "purifier_on"
+length = 0.15
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 20 ), Vector2( 2, 20 ), Vector2( 2, 20 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "purifier_start"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 19 ), Vector2( 1, 19 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "recycler_end"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 22 ), Vector2( 3, 22 ), Vector2( 3, 22 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "recycler_on"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 23 ), Vector2( 3, 23 ), Vector2( 3, 23 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "recycler_start"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 22 ), Vector2( 3, 22 ), Vector2( 3, 22 ) ]
+}
+
 [sub_resource type="Animation" id=16]
 resource_name = "water_pump_end"
 length = 0.9
@@ -178,6 +325,55 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 10 ), Vector2( 7, 10 ), Vector2( 7, 10 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "wind_farm_end"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 15 ), Vector2( 5, 15 ), Vector2( 5, 15 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "wind_farm_on"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 14 ), Vector2( 3, 14 ), Vector2( 3, 14 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "wind_farm_start"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 13 ), Vector2( 3, 13 ), Vector2( 3, 13 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -251,7 +447,7 @@ script = ExtResource( 1 )
 material = SubResource( 4 )
 texture = ExtResource( 3 )
 hframes = 8
-vframes = 13
+vframes = 24
 region_rect = Rect2( 0, 128, 64, 64 )
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
@@ -271,9 +467,21 @@ anims/cannery_start = SubResource( 13 )
 anims/coal_plant_end = SubResource( 7 )
 anims/coal_plant_on = SubResource( 6 )
 anims/coal_plant_start = SubResource( 2 )
+anims/hydroponics_end = SubResource( 21 )
+anims/hydroponics_on = SubResource( 22 )
+anims/hydroponics_start = SubResource( 20 )
+anims/purifier_end = SubResource( 25 )
+anims/purifier_on = SubResource( 24 )
+anims/purifier_start = SubResource( 23 )
+anims/recycler_end = SubResource( 27 )
+anims/recycler_on = SubResource( 28 )
+anims/recycler_start = SubResource( 26 )
 anims/water_pump_end = SubResource( 16 )
 anims/water_pump_on = SubResource( 15 )
 anims/water_pump_start = SubResource( 14 )
+anims/wind_farm_end = SubResource( 19 )
+anims/wind_farm_on = SubResource( 18 )
+anims/wind_farm_start = SubResource( 17 )
 anims/workshop_end = SubResource( 10 )
 anims/workshop_on = SubResource( 9 )
 anims/workshop_start = SubResource( 5 )

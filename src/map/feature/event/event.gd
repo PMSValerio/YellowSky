@@ -42,3 +42,22 @@ func toggle_warning(onoff = true):
 	else:
 		warning.set_type(Global.Warnings.QUEST, associated_quest.name)
 	warning.toggle(onoff)
+
+
+func export_data() -> Dictionary:
+	var dict = {}
+	
+	dict["position"] = global_position
+	dict["event_id"] = data.event_id
+	dict["event_type"] = data.type
+	dict["die_on_interact"] = die_on_interact
+	dict["quest_id"] = null if associated_quest == null else associated_quest.quest_id
+	
+	return dict
+
+
+func load_data(dict : Dictionary):
+	global_position = dict["posiiton"]
+	set_data(Global.get_event_data(dict["event_id"], dict["event_type"]))
+	die_on_interact = dict["die_on_interact"]
+	associated_quest = null if dict["quest_id"] == null else WorldData.quest_log.get_quest(dict["quest_id"])

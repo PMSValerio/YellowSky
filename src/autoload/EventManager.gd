@@ -26,3 +26,4 @@ signal item_used(item_data)
 
 # Disasters
 signal disaster_damage(damage)
+signal night_penalty()
