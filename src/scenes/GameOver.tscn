@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/headline_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=2]
@@ -7,6 +7,65 @@
 [sub_resource type="DynamicFont" id=1]
 size = 48
 font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/GameOver:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control/ResultsScreen:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "default"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/GameOver:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control/ResultsScreen:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="GameOver" type="Node"]
 script = ExtResource( 3 )
@@ -20,7 +79,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.145098, 0.0980392, 0.160784, 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="ResultsScreen" type="MarginContainer" parent="Control"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 256
@@ -28,19 +88,19 @@ custom_constants/margin_top = 64
 custom_constants/margin_left = 256
 custom_constants/margin_bottom = 64
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Control/ResultsScreen"]
 margin_left = 256.0
 margin_top = 64.0
 margin_right = 768.0
 margin_bottom = 536.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ResultsScreen/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 504.0
 margin_bottom = 464.0
 
-[node name="Title" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer"]
 margin_right = 496.0
 margin_bottom = 36.0
 size_flags_horizontal = 3
@@ -48,7 +108,7 @@ custom_fonts/font = SubResource( 1 )
 text = "RESULTS"
 align = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/ResultsScreen/PanelContainer/VBoxContainer"]
 margin_top = 40.0
 margin_right = 496.0
 margin_bottom = 388.0
@@ -59,7 +119,7 @@ custom_constants/margin_top = 64
 custom_constants/margin_left = 48
 custom_constants/margin_bottom = 64
 
-[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer"]
 margin_left = 48.0
 margin_top = 64.0
 margin_right = 448.0
@@ -67,7 +127,7 @@ margin_bottom = 284.0
 size_flags_vertical = 3
 columns = 2
 
-[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_right = 284.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
@@ -75,7 +135,7 @@ size_flags_vertical = 7
 custom_fonts/font = ExtResource( 1 )
 text = "Days Survived: "
 
-[node name="Days" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Days" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_left = 288.0
 margin_right = 400.0
 margin_bottom = 41.0
@@ -83,7 +143,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1
 
-[node name="Label3" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label3" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_top = 45.0
 margin_right = 284.0
 margin_bottom = 86.0
@@ -92,7 +152,7 @@ size_flags_vertical = 7
 custom_fonts/font = ExtResource( 1 )
 text = "Settlements Lost:"
 
-[node name="Settlements" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Settlements" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_left = 288.0
 margin_top = 45.0
 margin_right = 400.0
@@ -101,7 +161,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1
 
-[node name="Label2" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label2" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_top = 90.0
 margin_right = 284.0
 margin_bottom = 131.0
@@ -110,7 +170,7 @@ size_flags_vertical = 7
 custom_fonts/font = ExtResource( 1 )
 text = "Facilities Upgraded:"
 
-[node name="Facilities" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Facilities" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_left = 288.0
 margin_top = 90.0
 margin_right = 400.0
@@ -119,7 +179,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1
 
-[node name="Label5" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label5" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_top = 135.0
 margin_right = 284.0
 margin_bottom = 176.0
@@ -128,7 +188,7 @@ size_flags_vertical = 7
 custom_fonts/font = ExtResource( 1 )
 text = "Green Tiles Planted:"
 
-[node name="Green" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Green" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_left = 288.0
 margin_top = 135.0
 margin_right = 400.0
@@ -137,7 +197,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1
 
-[node name="Label4" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label4" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_top = 180.0
 margin_right = 284.0
 margin_bottom = 220.0
@@ -146,7 +206,7 @@ size_flags_vertical = 7
 custom_fonts/font = ExtResource( 1 )
 text = "Hope Level:"
 
-[node name="Hope" type="Label" parent="Control/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Hope" type="Label" parent="Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 margin_left = 288.0
 margin_top = 180.0
 margin_right = 400.0
@@ -155,7 +215,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1
 
-[node name="Button" type="Button" parent="Control/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Control/ResultsScreen/PanelContainer/VBoxContainer"]
 margin_left = 184.0
 margin_top = 392.0
 margin_right = 312.0
@@ -164,4 +224,22 @@ rect_min_size = Vector2( 128, 64 )
 size_flags_horizontal = 4
 text = "OK"
 
-[connection signal="pressed" from="Control/MarginContainer/PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[node name="GameOver" type="MarginContainer" parent="Control"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Control/GameOver"]
+margin_top = 270.0
+margin_right = 1024.0
+margin_bottom = 330.0
+custom_fonts/font = SubResource( 2 )
+text = "GAME OVER"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/default = SubResource( 4 )
+
+[connection signal="pressed" from="Control/ResultsScreen/PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
