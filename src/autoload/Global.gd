@@ -131,8 +131,6 @@ var item_category_names = {
 	Items.QUEST: "Quest",
 }
 
-var facility_upgrades_config = {}
-
 # as of right, this applies to all settlements solely based on ranking. Could need changes later on
 var settlement_portraits = {
 	0: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"), # could be needed for destroyed settlement
