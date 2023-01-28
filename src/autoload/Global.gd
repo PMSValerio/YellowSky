@@ -67,6 +67,13 @@ enum FacilityTypes {
 	RECYCLER,
 }
 
+enum FacilityUpgrades {
+	INTEGRITY,
+	CONS_RATE,
+	PROD_RATE,
+	ENV_FRIENDLY,
+}
+
 enum Items {
 	RESOURCES,
 	FOOD,
@@ -81,6 +88,7 @@ enum Text {
 	SETTLEMENTS,
 	NPCS,
 	QUESTS,
+	CONFIGS, # general configurations that do not fall into any specific category
 	EVENTS,
 }
 
@@ -115,6 +123,8 @@ var item_category_names = {
 	Items.QUEST: "Quest",
 }
 
+var facility_upgrades_config = {}
+
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
@@ -138,6 +148,8 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
+	
+	facility_upgrades_config = _config_parser.get_text_from_file(Text.CONFIGS, "facility_upgrades.json", [])
 
 
 func set_cam(cam : Camera2D):
@@ -182,6 +194,13 @@ func get_text_from_file(text_type, file_name, key_array):
 	return _config_parser.get_text_from_file(text_type, file_name, key_array)
 
 
+func get_facility_upgrade_field(upgrade_type, field_name : String, level : int = -1):
+	var upgrade_str = FacilityUpgrades.keys()[upgrade_type]
+	if level >= 0:
+		return facility_upgrades_config[upgrade_str]["data"][level][field_name]
+	return facility_upgrades_config[upgrade_str][field_name]
+
+
 func _build_single_facility(data):
 	var facility = FacilityType.new()
 	var type = FacilityTypes[data["type_id"]]
@@ -193,7 +212,7 @@ func _build_single_facility(data):
 	var icon = BASE_CONFIG_ASSETS_PATH + data["icon_texture"]
 	for str_p in data["product_types"]:
 		prod_types.append(Resources[str_p])
-	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
+	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon, data["eco_upgrade"])
 	facility.init_stats(data["build_cost"], data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
 
