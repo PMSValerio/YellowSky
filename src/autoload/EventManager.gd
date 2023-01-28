@@ -6,9 +6,13 @@ extends Node
 signal feature_tile_placed(feature)
 signal feature_tile_left(feature)
 
+signal generate_green_tile(feature)
+
 signal spawn_event_request(event)
 
 signal time_update(new_time)
+
+signal world_is_ready
 
 # Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed

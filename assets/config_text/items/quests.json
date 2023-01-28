@@ -7,7 +7,7 @@
     "value": 0,
     "stat": 0,
     "usable": false,
-    "name": "Quest Item 2",
-    "flavour_text": "This item is to be used in quest 2"
-  },
+    "name": "Generator",
+    "flavour_text": "Generator belonging to times of old. Emanates a green glow."
+  }
 }

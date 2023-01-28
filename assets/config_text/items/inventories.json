@@ -1,0 +1,16 @@
+{
+  "inventory1": {
+    "water_gallon": 3,
+    "water_bottle": 1,
+    "food2": 2
+  },
+  "inventory2": {
+    "water_bottle": 12,
+    "water_drum": 1
+  },
+  "inventory3": {
+    "food1": 4,
+    "food3": 6,
+    "water_keg": 8
+  }
+}

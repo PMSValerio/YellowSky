@@ -206,6 +206,9 @@ pause_mode = 2
 layer = 8
 DANGER_BORDER_PATH = NodePath("../Foreground/Polygon2D")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -7.429
+
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]
 [connection signal="stamina_changed" from="Entities/Player" to="HUD" method="_on_Player_stamina_changed"]

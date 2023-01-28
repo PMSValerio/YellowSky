@@ -69,6 +69,13 @@ enum FacilityTypes {
 	RECYCLER,
 }
 
+enum FacilityUpgrades {
+	INTEGRITY,
+	CONS_RATE,
+	PROD_RATE,
+	ENV_FRIENDLY,
+}
+
 enum Items {
 	RESOURCES,
 	FOOD,
@@ -83,7 +90,16 @@ enum Text {
 	SETTLEMENTS,
 	NPCS,
 	QUESTS,
+	CONFIGS, # general configurations that do not fall into any specific category
 	EVENTS,
+}
+
+# used to detect keywords in config files when parsing npc text for example
+enum TextKeywords {
+	QUEST, # check for quest
+	OPTIONS , # player choice in next line of text 
+	REWARD, # show quest reward
+	END, # end of dialogue, only option is to say goodbye
 }
 
 # types of events
@@ -118,6 +134,16 @@ var item_category_names = {
 	Items.QUEST: "Quest",
 }
 
+# as of right, this applies to all settlements solely based on ranking. Could need changes later on
+var settlement_portraits = {
+	0: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"), # could be needed for destroyed settlement
+	1: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"),
+	2: preload("res://assets/gfx/config_assets/settlement_portrait/settlement2.png"),
+	3: preload("res://assets/gfx/config_assets/settlement_portrait/settlement3.png"),
+}
+
+var facility_upgrades_config = {}
+
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
@@ -131,6 +157,8 @@ const TOTAL_STAMINA = 100
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
+var settlement_types = {} # another horrible place to have this
+var event_data = {} # ditto ditto 
 
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
@@ -147,6 +175,9 @@ func _ready():
 	
 	_screen_size = get_viewport().get_visible_rect().size
 	_init_facility_types()
+	_init_settlement_types()
+	
+	facility_upgrades_config = _config_parser.get_text_from_file(Text.CONFIGS, "facility_upgrades.json", [])
 
 
 func set_cam(cam : Camera2D):
@@ -156,11 +187,13 @@ func set_cam(cam : Camera2D):
 func get_cam() -> Camera2D:
 	return _cam
 
+
 func change_mouse_cursor(is_pan : bool):
 	if is_pan:
 		Input.set_custom_mouse_cursor(pan_cursor)
 	else:
 		Input.set_custom_mouse_cursor(default_cursor)
+
 
 func get_screen_size() -> Vector2:
 	return _screen_size
@@ -191,6 +224,16 @@ func get_text_from_file(text_type, file_name, key_array):
 	return _config_parser.get_text_from_file(text_type, file_name, key_array)
 
 
+# --- || Build Facilities || ---
+
+
+func get_facility_upgrade_field(upgrade_type, field_name : String, level : int = -1):
+	var upgrade_str = FacilityUpgrades.keys()[upgrade_type]
+	if level >= 0:
+		return facility_upgrades_config[upgrade_str]["data"][level][field_name]
+	return facility_upgrades_config[upgrade_str][field_name]
+
+
 func _build_single_facility(data):
 	var facility = FacilityType.new()
 	var type = FacilityTypes[data["type_id"]]
@@ -202,7 +245,7 @@ func _build_single_facility(data):
 	var icon = BASE_CONFIG_ASSETS_PATH + data["icon_texture"]
 	for str_p in data["product_types"]:
 		prod_types.append(Resources[str_p])
-	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon)
+	facility.init(type, data["type_name"], data["flavour_text"], fuel_types, prod_types, data["base_animation"], portrait, icon, data["eco_upgrade"])
 	facility.init_stats(data["build_cost"], data["max_health"], data["max_fuel"], data["max_product"], data["consumption_rate"], data["production_rate"])
 	return facility
 
@@ -213,6 +256,33 @@ func _init_facility_types():
 	for fac_type in file_data.keys():
 		var facility = _build_single_facility(file_data[fac_type])
 		facility_types[facility.type_id] = facility
+
+
+# --- || Build Settlements || ---
+
+
+func _build_single_settlement(data):
+	var settlement = SettlementType.new()
+
+	var portrait = BASE_CONFIG_ASSETS_PATH + data["portrait_texture"]
+
+	var resources = {}
+	for key in data["resources"].keys():
+		resources[Resources[key]] = data["resources"][key]
+
+	settlement.init(data["id"], data["name"], data["flavour_text"], data["npc"], data["inventory"], portrait, data["rank"], data["population"], resources, data["quests"])
+	return settlement
+
+
+func _init_settlement_types():
+	var config_file = "settlements.json"
+	var file_data = _config_parser.get_text_from_file(Text.SETTLEMENTS, config_file, [])
+	for settlement_type in file_data.keys():
+		var settlement = _build_single_settlement(file_data[settlement_type])
+		settlement_types[settlement.id] = settlement
+
+
+# --- || Quests & Events || ---
 
 
 func get_event_data(event_id, type) -> EventData:
@@ -236,12 +306,12 @@ func get_quest_data(quest_id) -> Quest:
 	return quest
 
 
-func generate_event(event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true):
+func generate_event(incoming_event_data : EventData, cell_position : Vector2 = Vector2(-1, -1), die_on_interact = true, send_signal = true) -> Event:
 	var event = event_scene.instance()
 	
 	event.cell_pos = cell_position
 	event.die_on_interact = die_on_interact
-	event.set_data(event_data)
+	event.set_data(incoming_event_data)
 	
 	if send_signal:
 		EventManager.emit_signal("spawn_event_request", event)
