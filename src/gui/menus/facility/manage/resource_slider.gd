@@ -7,6 +7,7 @@ onready var debouncer = $Debouncer
 
 onready var icon = $MarginContainer/VBoxContainer/HBoxContainer2/ResourceIcon
 onready var player_value_label = $MarginContainer/VBoxContainer/HBoxContainer2/GridContainer/PlayerValue
+onready var destination_label = $MarginContainer/VBoxContainer/HBoxContainer2/GridContainer/DestinationLabel
 onready var facility_value_label = $MarginContainer/VBoxContainer/HBoxContainer2/GridContainer/FacilityValue
 onready var slider = $MarginContainer/VBoxContainer/HBoxContainer/HSlider
 onready var input_box = $MarginContainer/VBoxContainer/HBoxContainer/SpinBox
@@ -24,7 +25,7 @@ var _player_balance = 0
 var _faciity_balance = 0
 
 
-func set_state(player_value, facility_value, facility_max, texture : Texture) -> void:
+func set_state(player_value, facility_value, facility_max, texture : Texture, destination : String = "Facility", slider_step : int = 1) -> void:
 	var fac_missing = facility_max - facility_value # the missing amount of the resource on the facility
 	
 	min_value = 0
@@ -37,7 +38,9 @@ func set_state(player_value, facility_value, facility_max, texture : Texture) ->
 	slider.max_value = fac_missing
 	input_box.max_value = fac_missing
 	
+	destination_label.text = destination
 	icon.texture = texture
+	slider.step = slider_step
 	
 	debounce_flag = true # manually force editable
 	_on_value_changed(min_value)

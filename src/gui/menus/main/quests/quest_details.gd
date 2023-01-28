@@ -66,12 +66,12 @@ func set_up(_quest : Quest):
 		if quest.return_items == null or quest.return_items.size() == 0:
 			return_item_label.visible = false
 			return_item_list.visible = false
-			return_investigate.text = "Return to " + "<Settlement_Name>"
+			return_investigate.text = "Return to " + quest.quest_giver.settlement_type.name
 		else:
 			return_item_label.visible = true
 			return_item_list.visible = true
 			_set_up_required_items(return_item_label, return_item_list, quest.return_items)
-			return_investigate.text = "Bring items back to " + "<Settlement_Name>"
+			return_investigate.text = "Bring items back to " + quest.quest_giver.settlement_type.name
 	else:
 		return_item_label.visible = false
 		return_item_list.visible = false

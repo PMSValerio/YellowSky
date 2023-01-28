@@ -72,25 +72,23 @@ func _ready() -> void:
 		parallax_sky.visible = false
 		map_perspective.visible = false
 	
-	# Manually instance starting features
-	var ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
-	# vv why the hell is this necessary???? vv
-	_on_spawn_event_request(ev)
+
+	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	
+	# Manually instance starting features aka event, facility and settlement 
+	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 	_discover_around(map_center)
-	
-	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
+
+	_v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
-	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
+	EventManager.emit_signal("world_is_ready")
 	
 	bg_music_player.connect("finished", self, "random_bg_music")
-	
-	# TODO: remove
-	var quest_data = Global.get_quest_data("quest2")
-	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
 
 
 func _physics_process(_delta: float) -> void:
@@ -201,16 +199,26 @@ func _occupy_cell(cell, occupy):
 # returns a list of all cells around a given origin cell
 func _get_cells_around(origin, radius):
 	var lst = []
-	
-	var square_rad = pow(radius, 2)
-	var index = Vector2(origin.x - radius, origin.y - radius)
-	while index.x <= origin.x + radius:
-		index.y = origin.y - radius
-		while index.y <= origin.y + radius:
-			if index.distance_squared_to(origin) <= square_rad:
-				lst.append(index)
-			index.y += 1
-		index.x += 1
+
+	if radius == 1:
+		var inverter = 1
+		if int(origin.y) % 2 == 1:
+			inverter = -1
+
+		var offsets = [Vector2(0, -1), Vector2(-1, 0), Vector2(0, 1), Vector2(1*inverter, 1), Vector2(1, 0), Vector2(1*inverter, -1)]
+		lst.append(origin)
+		for offset in offsets:
+			lst.append(Vector2(origin.x - offset.x, origin.y - offset.y))
+	else:
+		var square_rad = pow(radius, 2)
+		var index = Vector2(origin.x - radius, origin.y - radius)
+		while index.x <= origin.x + radius:
+			index.y = origin.y - radius
+			while index.y <= origin.y + radius:
+				if index.distance_squared_to(origin) <= square_rad:
+					lst.append(index)
+				index.y += 1
+			index.x += 1
 	
 	return lst
 
@@ -280,7 +288,12 @@ func _set_tilemap_cell(xx, yy, id, priorities : Array = [1.0]):
 func _set_cell_discovery(cell, _disc = true):
 	var tilemap_subtile = tilemap.get_cell_autotile_coord(cell.x, cell.y)
 	tilemap_subtile.y = 0 if _disc else 1
-	tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# 1 is the tile index of the green tile
+	if tilemap.get_cellv(cell) != 1:
+		tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# handle entities in tile in case they exist
 	var entity = map_grid[cell.x][cell.y]
 	if _is_feature(entity):
 		entity.set_discovered(_disc)
@@ -590,8 +603,10 @@ func _on_Player_interact(position):
 	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
-		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
+		WorldData.quest_log.on_feature_interacted(tile_entity)
+		
+		
 
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
@@ -615,9 +630,40 @@ func _on_feature_tile_left(feature : Feature):
 	map_grid[cell.x][cell.y] = TileType.EMPTY
 
 
+func generate_green_tile(feature : Feature, radius : int, setup : bool):	
+	var free_neighs = _get_cells_around(_get_cell_from_position(feature.global_position), radius).duplicate()
+	var occupied_neighs = []
+	
+	# find occupied neighs
+	for neigh in free_neighs:
+		if _is_cell_in_bounds(neigh):
+			if vacant_tiles[neigh] != 0:
+				occupied_neighs.append(neigh)	 
+		else:
+			occupied_neighs.append(neigh)
+
+	# remove occupied neighs to get free neighs
+	for ocup_neigh in occupied_neighs:
+		free_neighs.erase(ocup_neigh)
+
+	# update feature with nmbr of green tiles that can still be generated 
+	feature.green_tile_slots_left = free_neighs.size() 
+
+	if free_neighs.size() > 0 && !setup:
+		# randomly get a free neigh from the available 
+		var index = _rng.randi_range(0, free_neighs.size() - 1)
+		var cell_to_use = free_neighs[index]
+		
+		# actually change the tile		
+		tilemap.set_cellv(cell_to_use, 1, false, false, false)
+		_occupy_cell(cell_to_use, true)
+
+
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
+	
+
 
 func random_bg_music():
 	var music_file

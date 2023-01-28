@@ -2,6 +2,7 @@ extends Node
 
 
 var item_stats = {} # populated with custom item class instances for each item, for easy access
+var inventory_layouts = {} # same logic, but for premade inventories
 
 var inventory : Inventory = null
 var compact_resource_items = {} # ids of all compact resource items organised by value
@@ -18,9 +19,10 @@ func _ready():
 	compact_resource_items[Global.Resources.MATERIALS] = []
 	
 	_build_items()
+	inventory_layouts = Global.get_text_from_file(Global.Text.ITEMS, "inventories.json", [])
 
 	inventory = Inventory.new()
-	inventory.init(5)
+	inventory.init("inventory1")
 
 
 # --- || Build Funcs || ---

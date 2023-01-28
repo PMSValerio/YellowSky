@@ -67,7 +67,7 @@ margin_bottom = 12.0
 size_flags_horizontal = 3
 align = 2
 
-[node name="FacilityLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/GridContainer"]
+[node name="DestinationLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/GridContainer"]
 margin_top = 20.0
 margin_right = 80.0
 margin_bottom = 32.0

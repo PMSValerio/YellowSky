@@ -17,6 +17,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 80.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot2" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -24,6 +25,7 @@ anchor_bottom = 0.0
 margin_left = 84.0
 margin_right = 164.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot3" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -31,6 +33,7 @@ anchor_bottom = 0.0
 margin_left = 168.0
 margin_right = 248.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot4" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -38,6 +41,7 @@ anchor_bottom = 0.0
 margin_left = 252.0
 margin_right = 332.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot5" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -45,6 +49,7 @@ anchor_bottom = 0.0
 margin_left = 336.0
 margin_right = 416.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot6" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -52,6 +57,7 @@ anchor_bottom = 0.0
 margin_left = 420.0
 margin_right = 500.0
 margin_bottom = 80.0
+has_tooltip = true
 
 [node name="GridSlot7" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -59,3 +65,4 @@ anchor_bottom = 0.0
 margin_left = 504.0
 margin_right = 584.0
 margin_bottom = 80.0
+has_tooltip = true

@@ -21,6 +21,10 @@ func update_quests_list():
 		quest_list.add_child(list_item)
 	quest_details.visible = false
 
+	if WorldData.quest_log.get_quests().size() <= 0:
+		#TODO: Maybe display some text in the menu if no quests are active?
+		pass
+
 
 func _on_quest_selected(quest : Quest):
 	quest_details.visible = true
