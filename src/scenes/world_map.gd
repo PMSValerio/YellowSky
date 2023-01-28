@@ -605,8 +605,8 @@ func _on_Player_interact(position):
 	if tile_entity is Object and tile_entity.has_method("interact"):
 		tile_entity.interact()
 		WorldData.quest_log.on_feature_interacted(tile_entity)
-		tile_entity.interact()
-
+		
+		
 
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
