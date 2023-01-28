@@ -12,7 +12,7 @@ onready var decline_btn = $Margin/MainScreen/HBoxContainer/OptionsContainer/Opti
 onready var dialogue_pntr = $Margin/MainScreen/HBoxContainer/SettlementContainer/SettlementDescriptionContainer/DialoguePointer
 
 onready var trade_screen_ref = $Margin/TradeScreen
-
+onready var keyboard_sfx = $Keyboard_sfx
 
 export var text_speed = 0.01
 var text_in_progress = false
@@ -74,16 +74,17 @@ func next_line():
 		dialogue_pntr.get_node("AnimationPlayer").stop(false)
 		text_in_progress = true
 		description_box.text = npc_text.pop_front() 
-
 		description_box.visible_characters = 0
-
+		
+		keyboard_sfx.play()
 		# Scroll through letters, instead of displaying them all at once
 		for _i in range(0, description_box.text.length()):
 			if text_in_progress:
 				description_box.visible_characters += 1
 				description_box.get_node("Timer").start()
 				yield(description_box.get_node("Timer"), "timeout")
-
+		keyboard_sfx.stop()
+		
 		dialogue_pntr.get_node("AnimationPlayer").play("Active")
 		text_in_progress = false
 
@@ -94,7 +95,6 @@ func next_line():
 			dialogue_pntr.visible = false
 	else:
 		print("Finish")
-
 
 func update_branch_text():
 	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()

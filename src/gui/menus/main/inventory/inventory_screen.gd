@@ -22,11 +22,12 @@ onready var item_stats_icon = $MarginContainer/HBoxContainer/ItemDetails/PanelCo
 onready var _item_stats_margin = $MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer
 
 
-
 onready var items_per_page = item_grid.get_child_count() # item_grid should already be populated with item slots
 onready var rows = items_per_page / item_grid.columns
 
 onready var compact_submenu = $CompactSubmenu
+onready var use_sfx = $Use_sfx
+onready var open_sfx = $Backpack_sfx
 
 var _page_first_ix = 0 # the array index of the first item being shown in the current page
 var _page_last_ix = -1 # the array index of the last item being shown in the current page
@@ -36,7 +37,7 @@ var inspected_slot : GridSlot = null # item currently highlighted in details pan
 
 
 func _ready() -> void:
-	
+	open_sfx.play()
 	
 	for child in item_grid.get_children():
 		var _v = (child as GridSlot).button_node.connect("pressed", self, "_on_select_slot", [child])
@@ -155,3 +156,13 @@ func _on_Tabs_tab_changed(tab: int) -> void:
 			_on_select_category(Global.Items.LUXURY)
 		3:
 			_on_select_category(Global.Items.QUEST)
+
+func _play_use_sfx(slot_category) -> void:
+	var sound_effect = null
+	match slot_category:
+		Global.Items.RESOURCES:
+			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+		Global.Items.FOOD:
+			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+	use_sfx.stream = load(sound_effect)
+	use_sfx.play()

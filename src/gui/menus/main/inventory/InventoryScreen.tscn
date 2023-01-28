@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/gui/menus/main/inventory/CategoryTabs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/panels.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/menus/main/inventory/CompactSubmenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/gui/menus/main/inventory/GridSlot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sfx/ui/UI_Open_Inv.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/gui/menus/main/inventory/inventory_screen.gd" type="Script" id=6]
 [ext_resource path="res://assets/gfx/ui_elements/icons/icon_trade.png" type="Texture" id=7]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=8]
@@ -190,26 +191,26 @@ margin_bottom = 332.0
 
 [node name="ItemDetails" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
-margin_left = 408.0
+margin_left = 420.0
 margin_right = 1008.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
-margin_right = 600.0
+margin_right = 588.0
 margin_bottom = 28.0
 
 [node name="Name" type="Label" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer3"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 592.0
+margin_right = 580.0
 margin_bottom = 20.0
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
-margin_left = 212.0
+margin_left = 206.0
 margin_top = 32.0
-margin_right = 388.0
+margin_right = 382.0
 margin_bottom = 208.0
 size_flags_horizontal = 4
 
@@ -224,14 +225,14 @@ stretch_mode = 6
 
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
 margin_top = 212.0
-margin_right = 600.0
+margin_right = 588.0
 margin_bottom = 532.0
 size_flags_vertical = 3
 
 [node name="ItemDescription" type="Label" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 592.0
+margin_right = 580.0
 margin_bottom = 312.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
@@ -241,18 +242,18 @@ clip_text = true
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2"]
 margin_left = 8.0
 margin_top = 280.0
-margin_right = 592.0
+margin_right = 580.0
 margin_bottom = 312.0
 size_flags_horizontal = 7
 size_flags_vertical = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer"]
-margin_right = 584.0
+margin_right = 572.0
 margin_bottom = 32.0
 
 [node name="Trade" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer"]
-margin_left = 127.0
-margin_right = 163.0
+margin_left = 124.0
+margin_right = 160.0
 margin_bottom = 32.0
 size_flags_horizontal = 6
 
@@ -285,8 +286,8 @@ expand = true
 stretch_mode = 6
 
 [node name="Stat" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails/PanelContainer2/MarginContainer/HBoxContainer"]
-margin_left = 421.0
-margin_right = 457.0
+margin_left = 412.0
+margin_right = 448.0
 margin_bottom = 32.0
 size_flags_horizontal = 6
 
@@ -318,7 +319,7 @@ stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ItemDetails"]
 margin_top = 536.0
-margin_right = 600.0
+margin_right = 588.0
 margin_bottom = 584.0
 custom_constants/margin_right = 32
 custom_constants/margin_top = 8
@@ -328,13 +329,20 @@ custom_constants/margin_bottom = 8
 [node name="UseButton" type="Button" parent="MarginContainer/HBoxContainer/ItemDetails/MarginContainer"]
 margin_left = 32.0
 margin_top = 8.0
-margin_right = 568.0
+margin_right = 556.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 32 )
 text = "Use"
 
 [node name="CompactSubmenu" parent="." instance=ExtResource( 3 )]
 visible = false
+
+[node name="Use_sfx" type="AudioStreamPlayer" parent="."]
+bus = "UI"
+
+[node name="Backpack_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "UI"
 
 [connection signal="switch_tab" from="MarginContainer/HBoxContainer/GridManager/CategoryTabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ItemDetails/MarginContainer/UseButton" to="." method="_on_UseButton_pressed"]

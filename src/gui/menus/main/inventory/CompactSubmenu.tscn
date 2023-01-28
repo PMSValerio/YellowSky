@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/gui/menus/main/inventory/CompactTransactionSlot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/inventory/compact_submenu.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/menus/reusable/ExitBtn.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=7]
 
 [node name="CompactSubmenu" type="PanelContainer"]
 anchor_left = 0.5
@@ -92,5 +93,8 @@ margin_left = 336.0
 margin_top = 8.0
 margin_right = 360.0
 margin_bottom = 32.0
+
+[node name="UI_sfx" parent="." instance=ExtResource( 7 )]
+root_path = NodePath("..")
 
 [connection signal="pressed" from="ExitBtn" to="." method="_on_CancelCompactButton_pressed"]
