@@ -92,6 +92,7 @@ func _update_day(delta):
 	elif day_timer >= Global.DAY_DURATION + 3:
 		day_timer = 0.0
 		days += 1
+		WorldData.day_passed()
 		EventManager.emit_signal("night_penalty")
 		tween.interpolate_property(nighttime, "color:a", 1, 0, 2)
 		tween.start()

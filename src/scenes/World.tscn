@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/map/Mountain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/world_map.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://src/map/OutMountain.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/tileset/outter_fog.tres" type="TileSet" id=18]
 [ext_resource path="res://src/map/feature/event/Event.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/map/Green.tscn" type="PackedScene" id=20]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 15 )
@@ -77,6 +78,7 @@ OUT_MOUNTAIN_SCENE = ExtResource( 17 )
 SETTLEMENT_SCENE = ExtResource( 13 )
 FACILITY_SCENE = ExtResource( 10 )
 EVENT_SCENE = ExtResource( 19 )
+GREEN_SCENE = ExtResource( 20 )
 RAINDROP_SCENE = ExtResource( 4 )
 
 [node name="Scheduler" type="Node" parent="."]
@@ -176,6 +178,8 @@ follow_viewport_enable = true
 
 [node name="Player" parent="Entities" instance=ExtResource( 8 )]
 position = Vector2( 560, 464 )
+
+[node name="Greens" type="Node2D" parent="Entities"]
 
 [node name="Mountains" type="Node2D" parent="Entities"]
 __meta__ = {

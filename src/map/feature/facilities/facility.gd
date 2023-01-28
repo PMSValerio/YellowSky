@@ -162,6 +162,7 @@ func advance_upgrade(upgrade_id) -> void:
 			if has_eco_upgrade():
 				set_type(facility_type.eco_upgrade)
 				WorldData.unlock_facility(facility_type.eco_upgrade)
+				WorldData.facility_upgraded()
 
 
 # --- || Operation || ---
