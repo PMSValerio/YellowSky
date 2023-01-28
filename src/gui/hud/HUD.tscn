@@ -1,14 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
+[ext_resource path="res://src/gui/hud/HudHopeSeed.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_stamina.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/Digital16.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/gfx/ui_elements/clock.png" type="Texture" id=7]
-[ext_resource path="res://assets/gfx/ui_elements/icons/icon_hope.png" type="Texture" id=8]
 [ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/gfx/ui_elements/icons/icon_bag.png" type="Texture" id=10]
 [ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_health.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=2]
@@ -26,6 +25,13 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -96.0
+color = Color( 0.145098, 0.0980392, 0.160784, 0.705882 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 anchor_top = 1.0
@@ -72,26 +78,19 @@ texture = SubResource( 3 )
 
 [node name="Other" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
 margin_left = 129.0
-margin_right = 446.0
+margin_right = 413.0
 margin_bottom = 80.0
 custom_constants/separation = 20
 
-[node name="Inventory" type="Button" parent="Control/MarginContainer/AllElements/Other"]
-margin_right = 165.0
-margin_bottom = 80.0
-text = "Inventory"
-icon = ExtResource( 10 )
+[node name="Hope" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
 
-[node name="Skills" type="Button" parent="Control/MarginContainer/AllElements/Other"]
-margin_left = 185.0
-margin_right = 317.0
-margin_bottom = 80.0
-text = "Skills"
-icon = ExtResource( 8 )
+[node name="Seeds" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
+margin_left = 152.0
+margin_right = 284.0
 
 [node name="Bars" type="VBoxContainer" parent="Control/MarginContainer/AllElements"]
-margin_left = 479.0
-margin_right = 683.0
+margin_left = 446.0
+margin_right = 650.0
 margin_bottom = 80.0
 alignment = 1
 
@@ -125,7 +124,7 @@ margin_bottom = 74.0
 texture = ExtResource( 5 )
 
 [node name="Resources" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
-margin_left = 716.0
+margin_left = 683.0
 margin_right = 992.0
 margin_bottom = 80.0
 rect_clip_content = true
@@ -134,21 +133,21 @@ custom_constants/separation = 8
 alignment = 1
 
 [node name="WaterCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 7.0
+margin_left = 23.0
 margin_top = 16.0
-margin_right = 89.0
+margin_right = 105.0
 margin_bottom = 64.0
 
 [node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 97.0
+margin_left = 113.0
 margin_top = 16.0
-margin_right = 179.0
+margin_right = 195.0
 margin_bottom = 64.0
 
 [node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 187.0
+margin_left = 203.0
 margin_top = 16.0
-margin_right = 269.0
+margin_right = 285.0
 margin_bottom = 64.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
@@ -177,8 +176,6 @@ margin_top = 32.0
 margin_right = 40.0
 margin_bottom = 44.0
 text = "00"
-
-[connection signal="pressed" from="Control/MarginContainer/AllElements/Other/Inventory" to="." method="_on_Inventory_pressed"]
 
 [editable path="Control/MarginContainer/AllElements/Bars/Health"]
 [editable path="Control/MarginContainer/AllElements/Bars/Stamina"]

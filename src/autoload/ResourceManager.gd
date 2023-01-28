@@ -1,9 +1,9 @@
 extends Node
 
-var _water = 0 setget set_water
-var _materials = 0 setget set_materials 
-var _energy = 0 setget set_energy
-var _seeds = 0 setget set_seeds
+var _water = 200 setget set_water
+var _materials = 200 setget set_materials 
+var _energy = 200 setget set_energy
+var _seeds = 200 setget set_seeds
 var _hope = 0 setget set_hope
 
 
@@ -30,7 +30,7 @@ func set_seeds(new_val):
 
 func set_hope(new_val):
 	_hope = new_val
-	EventManager.emit_signal("resource_changed", Global.Resources.HOPE, _seeds)
+	EventManager.emit_signal("resource_changed", Global.Resources.HOPE, _hope)
 
 
 func add_to_resource(type, amount):
@@ -61,6 +61,8 @@ func get_resource(type) -> int:
 			return _energy
 		Global.Resources.SEEDS:
 			return _seeds
+		Global.Resources.HOPE:
+			return _hope
 	return -1
 
 

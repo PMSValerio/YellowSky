@@ -188,7 +188,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=23]
 resource_name = "play"
-length = 10.0
+length = 20.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Polygon2D:color")
 tracks/0/interp = 1
@@ -196,10 +196,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 3, 17.5, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.168627, 0.215686, 0.290196, 0 ), Color( 0.168627, 0.215686, 0.290196, 0.627451 ) ]
+"values": [ Color( 0.168627, 0.215686, 0.290196, 0 ), Color( 0.168627, 0.215686, 0.290196, 0.627451 ), Color( 0.168627, 0.215686, 0.290196, 0.627451 ), Color( 0.168627, 0.215686, 0.290196, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Rain/rain1:modulate")
@@ -259,7 +259,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 5.2, 6.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/6/type = "method"
 tracks/6/path = NodePath(".")

@@ -100,6 +100,7 @@ var resource_icons = {
 	Resources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
 	Resources.FOOD: preload("res://assets/gfx/HUD/HUD_icons/icon_stamina.png"),
 	Resources.SEEDS: preload("res://assets/gfx/ui_elements/icons/seedsIcon.png"),
+	Resources.HOPE: preload("res://assets/gfx/HUD/experimental/final/icon_hope.png"),
 }
 
 var resource_names = {

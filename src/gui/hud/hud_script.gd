@@ -12,7 +12,10 @@ onready var stamina_bar_ref = $Control/MarginContainer/AllElements/Bars/Stamina/
 onready var water_counter_ref = $Control/MarginContainer/AllElements/Resources/WaterCounter
 onready var materials_counter_ref = $Control/MarginContainer/AllElements/Resources/CraftMatCounter
 onready var energy_counter_ref = $Control/MarginContainer/AllElements/Resources/EnergyCounter
-#onready var seeds_counter_ref = $Control/MarginContainer/AllElements/SeedsCounter
+
+onready var seeds_counter_ref = $Control/MarginContainer/AllElements/Other/Seeds
+onready var hope_counter_ref = $Control/MarginContainer/AllElements/Other/Hope
+
 onready var clock = $Control/MarginContainer/AllElements/PanelContainer/TextureRect
 
 onready var health_border = get_node(DANGER_BORDER_PATH)
@@ -22,10 +25,11 @@ func _ready():
 	_v = EventManager.connect("time_update", self, "_on_time_update")
 	
 	# For testing purposes only
-	ResourceManager.add_to_resource(Global.Resources.ENERGY, 200)
-	ResourceManager.add_to_resource(Global.Resources.MATERIALS, 200)
-	ResourceManager.add_to_resource(Global.Resources.WATER, 200)
-	ResourceManager.add_to_resource(Global.Resources.SEEDS, 200)
+	ResourceManager.add_to_resource(Global.Resources.ENERGY, 0)
+	ResourceManager.add_to_resource(Global.Resources.MATERIALS, 0)
+	ResourceManager.add_to_resource(Global.Resources.WATER, 0)
+	ResourceManager.add_to_resource(Global.Resources.SEEDS, 0)
+	ResourceManager.add_to_resource(Global.Resources.HOPE, 0)
 	
 	water_counter_ref.set_resource(Global.Resources.WATER)
 	water_counter_ref.connect("action", self, "_on_resource_button_pressed", [Global.Resources.WATER])
@@ -34,7 +38,8 @@ func _ready():
 	energy_counter_ref.set_resource(Global.Resources.ENERGY)
 	energy_counter_ref.connect("action", self, "_on_resource_button_pressed", [Global.Resources.ENERGY])
 	
-#	seeds_counter_ref.set_resource(Global.Resources.SEEDS)
+	seeds_counter_ref.set_resource(Global.Resources.SEEDS)
+	hope_counter_ref.set_resource(Global.Resources.HOPE)
 
 
 func on_resource_changed(type, new_val):
@@ -45,8 +50,10 @@ func on_resource_changed(type, new_val):
 			materials_counter_ref.set_value(new_val)
 		Global.Resources.ENERGY:
 			energy_counter_ref.set_value(new_val)
-#		Global.Resources.SEEDS:
-#			seeds_counter_ref.set_value(new_val)
+		Global.Resources.SEEDS:
+			seeds_counter_ref.set_value(new_val)
+		Global.Resources.HOPE:
+			hope_counter_ref.set_value(new_val)
 
 
 func _on_Player_stamina_changed(stamina_val):
