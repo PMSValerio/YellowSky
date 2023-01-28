@@ -92,7 +92,6 @@ func _ready() -> void:
 
 	_v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
-	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	_v = EventManager.connect("rain", self, "_on_rain_request")
 	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
 	EventManager.emit_signal("world_is_ready")
