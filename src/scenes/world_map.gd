@@ -71,22 +71,20 @@ func _ready() -> void:
 		parallax_sky.visible = false
 		map_perspective.visible = false
 	
+
+	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	
 	# Manually instance starting features aka event, facility and settlement 
-	var ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
-	# vv I may suggest connecting the signals from the EventManager BEFORE calling generate_event vv
-	# vv why the hell is this necessary???? vv
-	_on_spawn_event_request(ev) # this line shouldnt be necessary. awaiting confirmation to meddle with world_map...
+	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 	_discover_around(map_center)
-	
-	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
-	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
-	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
-	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
 
+	_v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
+	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
+	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
 	EventManager.emit_signal("world_is_ready")
 
 
@@ -631,7 +629,7 @@ func _on_feature_tile_left(feature : Feature):
 func generate_green_tile(feature : Feature, radius : int, setup : bool):	
 	var free_neighs = _get_cells_around(_get_cell_from_position(feature.global_position), radius).duplicate()
 	var occupied_neighs = []
-	print("setup")
+	
 	# find occupied neighs
 	for neigh in free_neighs:
 		if _is_cell_in_bounds(neigh):

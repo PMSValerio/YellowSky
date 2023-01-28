@@ -187,7 +187,7 @@ func _on_select_slot(mouse_value, slot : GridSlot, side) -> void:
 			BUTTON_LEFT:
 				offer_current_slot(1)
 			BUTTON_MIDDLE:
-				resource_slider.set_state(slot.temp_amount, 0, slot.amount, slot.data.texture)
+				resource_slider.set_state(slot.temp_amount, 0, slot.amount, slot.data.texture, "Settlement")
 				resource_slider.visible = true
 				is_slider_active = true
 			BUTTON_RIGHT:

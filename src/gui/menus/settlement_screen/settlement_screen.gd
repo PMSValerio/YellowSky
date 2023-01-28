@@ -21,6 +21,7 @@ onready var stats_container = $MainScreen/PanelContainer/HBoxContainer/OptionsCo
 onready var health_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/HealthContainer/HealthValue
 onready var population_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/PopulationContainer/PopulationValue
 onready var rank_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/RankContainer/RankValue
+onready var green_tiles_label = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/GreenTilesContainer/GTValue
 onready var resource_infos = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer
 # one-offs
 onready var trade_screen_ref = $TradeScreen
@@ -70,6 +71,7 @@ func _ready() -> void:
 	health_label.text = str(settlement_entity.health)
 	population_label.text = str(settlement_entity.population)
 	rank_label.text = str(settlement_entity.rank)
+	green_tiles_label.text = str(settlement_entity.green_tiles) + "/" + str(settlement_entity.max_green_tiles)
 
 	# disable option btns if settlement is destroyed. Interaction is still kept because it might be needed in the future
 	if settlement_entity.rank <= 0:
@@ -224,9 +226,9 @@ func manage_quest_options(show_quest_options, did_accept):
 
 func show_slider(resource_type):
 	if resource_type == Global.Resources.SEEDS:
-		resource_slider.set_state(ResourceManager.get_resource(resource_type), 0, ResourceManager.get_resource(resource_type), Global.resource_icons[resource_type])
+		resource_slider.set_state(ResourceManager.get_resource(resource_type), 0, settlement_entity.settlement_type.seeds_per_tile * (settlement_entity.max_green_tiles - settlement_entity.green_tiles), Global.resource_icons[resource_type], "Settlement", settlement_entity.settlement_type.seeds_per_tile)
 	else:
-		resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type])
+		resource_slider.set_state(ResourceManager.get_resource(resource_type), settlement_entity.resources[resource_type], settlement_entity.settlement_type.max_resource, Global.resource_icons[resource_type], "Settlement")
 
 	resource_slider.visible = true
 	is_slider_active = true
@@ -276,6 +278,7 @@ func _on_ResourceSlider_value_chosen(delta_value):
 	is_slider_active = false
 	if silder_resource == Global.Resources.SEEDS:
 		settlement_entity.plant_seeds(delta_value)
+		green_tiles_label.text = str(settlement_entity.green_tiles) + "/" + str(settlement_entity.max_green_tiles)
 	else:
 		# actually supply resources to settlement and update menu
 		settlement_entity.replenish_resource(silder_resource, delta_value)

@@ -20,6 +20,10 @@ var rank = 0 # rank 0 is equivalent to the settlement being destroyed. Once dest
 var resources = {}
 var quests = {} # matches quest ids with actual quest data structures
 var active_quest : Quest = null 
+var is_in_panic = false
+
+var green_tiles = 0
+var max_green_tiles = 0
 var green_tile_slots_left = 0
 
 var rng = null # used for several random based calculations
@@ -62,6 +66,7 @@ func _initialize_with_type(type):
 func setup_green_tiles_left():
 	# setup bool arg is passed to get the max number of green tiles without generating any
 	EventManager.emit_signal("generate_green_tile", self, settlement_type.seeds_tile_radius, true)
+	max_green_tiles = green_tile_slots_left
 
 
 func _process(delta: float) -> void:
@@ -97,6 +102,11 @@ func _tick() -> void:
 # --- || Manage || ---
 
 
+# associated with natural distasters, making life harder for the settlement
+func set_panic_mode(on_off : bool):
+	is_in_panic = on_off
+
+
 func set_rank(new_rank):
 	rank = clamp(new_rank, 0, get_max_rank())
 	portrait_texture = Global.settlement_portraits[int(rank)]
@@ -115,6 +125,8 @@ func set_next_quest():
 func _operate_cost():
 	for r in resources.keys():
 		if settlement_type.resources_for_growth.has(r):
+			resources[r] = max(0, int(resources[r] - settlement_type.base_consumption_rate * population))
+		if r ==Global.Resources.FOOD && is_in_panic: # when acid rains are happening, food drops faster
 			resources[r] = max(0, int(resources[r] - settlement_type.base_consumption_rate * population))
 		if resources[r] == 0:
 			if !is_missing_resources:
@@ -189,10 +201,13 @@ func repair(amount):
 
 
 func plant_seeds(seed_amount):
-	print(green_tile_slots_left)
 	var tiles_to_gen = int(seed_amount / settlement_type.seeds_per_tile)
 	tiles_to_gen = min(green_tile_slots_left, tiles_to_gen) 
 
+	# already assumes the player has enough seeds
+	ResourceManager.add_to_resource(Global.Resources.SEEDS, -settlement_type.seeds_per_tile * tiles_to_gen) 
+	
+	green_tiles = min(green_tiles + tiles_to_gen, max_green_tiles) 
 	for _i in range(tiles_to_gen):
 		EventManager.emit_signal("generate_green_tile", self, settlement_type.seeds_tile_radius, false)
 		

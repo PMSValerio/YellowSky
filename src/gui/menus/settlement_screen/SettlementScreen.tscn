@@ -290,7 +290,7 @@ text = "*say goodbye*"
 [node name="StatsContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
 visible = false
 margin_right = 337.0
-margin_bottom = 278.0
+margin_bottom = 305.0
 custom_constants/separation = 15
 
 [node name="ExitBtn" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
@@ -361,10 +361,29 @@ margin_right = 64.0
 margin_bottom = 12.0
 text = "1"
 
-[node name="ResourcesContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
+[node name="GreenTilesContainer" type="HBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
 margin_top = 120.0
 margin_right = 337.0
-margin_bottom = 278.0
+margin_bottom = 132.0
+
+[node name="GTLabel" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/GreenTilesContainer"]
+margin_right = 113.0
+margin_bottom = 12.0
+hint_tooltip = "Increase world status (Hope Points)."
+mouse_filter = 0
+text = "Green Tiles:"
+script = ExtResource( 10 )
+
+[node name="GTValue" type="Label" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/GreenTilesContainer"]
+margin_left = 117.0
+margin_right = 128.0
+margin_bottom = 12.0
+text = "1"
+
+[node name="ResourcesContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
+margin_top = 147.0
+margin_right = 337.0
+margin_bottom = 305.0
 custom_constants/separation = 10
 
 [node name="ResourceInfo" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer/ResourcesContainer" instance=ExtResource( 7 )]
