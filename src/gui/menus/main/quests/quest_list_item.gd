@@ -25,13 +25,15 @@ func set_data(_data : Quest):
 	title.text = data.name
 	
 	# set icon and graphics according to status
+	var xx = 64
 	match data.get_status():
-		Quest.Status.EVENT, Quest.Status.RETURN:
-			pass
-		Quest.Status.COMPLETE:
-			pass
-		Quest.Status.FAILED:
-			pass
+		Quest.Status.EVENT:
+			if not data.can_advance():
+				xx = 0
+		Quest.Status.RETURN:
+			if data.can_advance():
+				xx = 128
+	icon.texture.region.position.x = xx
 
 
 func _on_Button_pressed() -> void:
