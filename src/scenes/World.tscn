@@ -189,8 +189,8 @@ script = ExtResource( 6 )
 pause_mode = 2
 layer = 8
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-volume_db = -7.429
+[node name="BG_MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = "BG_Music"
 
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]
 [connection signal="interact" from="Entities/Player" to="." method="_on_Player_interact"]

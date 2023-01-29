@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=2]
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://src/gui/menus/misc/event_screen.gd" type="Script" id=5]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -81,5 +82,8 @@ margin_bottom = 456.0
 rect_min_size = Vector2( 128, 48 )
 size_flags_horizontal = 4
 text = "Confirm"
+
+[node name="UI_sfx" parent="." instance=ExtResource( 6 )]
+root_path = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer")
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

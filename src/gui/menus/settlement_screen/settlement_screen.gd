@@ -13,6 +13,7 @@ onready var dialogue_pntr = $Margin/MainScreen/HBoxContainer/SettlementContainer
 
 onready var trade_screen_ref = $Margin/TradeScreen
 onready var keyboard_sfx = $Keyboard_sfx
+onready var bg_music_player = $BG_MusicPlayer
 
 export var text_speed = 0.01
 var text_in_progress = false
@@ -28,6 +29,7 @@ var has_set_trade = false # used to circumvent the fact that trade's "set_contex
 func _ready() -> void:
 	description_box.get_node("Timer").wait_time = text_speed
 	toggle_text_mode(false)
+	bg_music_player.play()
 
 
 func set_context(context) -> void:

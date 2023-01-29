@@ -121,6 +121,7 @@ func _clean_up():
 
 func _on_UseButton_pressed() -> void:
 	InventoryManager.inventory.use_item(grid_category, inspected_slot.data.id)
+	_play_use_sfx(grid_category, inspected_slot.data.subtype)
 	inspected_slot.set_amount(InventoryManager.inventory.get_item_amount(grid_category, inspected_slot.data.id))
 	if inspected_slot.amount <= 0: # if item was used up completely
 		# repopulate item grid within the same page
@@ -157,11 +158,17 @@ func _on_Tabs_tab_changed(tab: int) -> void:
 		3:
 			_on_select_category(Global.Items.QUEST)
 
-func _play_use_sfx(slot_category) -> void:
+func _play_use_sfx(slot_category, item_subtype) -> void:
 	var sound_effect = null
 	match slot_category:
 		Global.Items.RESOURCES:
-			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+			match item_subtype:
+				"1":
+					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+				"2":
+					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+				"3":
+					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
 		Global.Items.FOOD:
 			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
 	use_sfx.stream = load(sound_effect)

@@ -30,7 +30,7 @@ onready var map_perspective = $MapEffect
 onready var sky = $Sky
 onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
-onready var bg_music_player = $AudioStreamPlayer
+onready var bg_music_player = $BG_MusicPlayer
 
 onready var tilemap = $TileMap
 onready var out_tilemap = $Background

@@ -4,12 +4,14 @@ extends "res://src/gui/menus/reusable/base_outer_menu.gd"
 onready var manage_tab = $MarginContainer/PanelContainer/TabContainer/Manage
 onready var type_tab = $MarginContainer/PanelContainer/TabContainer/Type
 onready var upgrades_tab = $MarginContainer/PanelContainer/TabContainer/Upgrades
+onready var bg_music_player = $BG_MusicPlayer
 
 var _upgrades_removed = false
 
 
 func _ready() -> void:
 	set_up_facility()
+	bg_music_player.play()
 
 
 # removes and alters the tab screens accordingly

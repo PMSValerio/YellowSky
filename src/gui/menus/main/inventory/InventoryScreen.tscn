@@ -190,7 +190,6 @@ margin_right = 332.0
 margin_bottom = 332.0
 
 [node name="ItemDetails" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-visible = false
 margin_left = 420.0
 margin_right = 1008.0
 margin_bottom = 584.0
