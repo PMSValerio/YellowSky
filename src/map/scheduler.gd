@@ -1,7 +1,5 @@
 extends Node
 
-# shouldnt this be made in the Global script itself?
-# Nope, Global is accessible to everyone and not everyone needs the actual disaster scenes
 var _disaster_scenes = {
 	Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 	Global.Disasters.TORNADO: preload("res://src/disasters/tornado/Tornado.tscn"),
@@ -33,6 +31,7 @@ var day_timer = 0 # timer for each day
 var disaster_node = null
 
 var disaster_running = false
+
 
 func _process(delta: float) -> void:
 	if not disaster_running and _next_interval > 0:

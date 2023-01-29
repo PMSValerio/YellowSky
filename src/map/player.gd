@@ -5,6 +5,7 @@ signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
 const SPEED := 96.0
+const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when faced with map boundary
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
 const HEALTH_LOSS_RATE = 1
@@ -112,8 +113,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
 	
 
-# CUSTOM FUNCTIONS::::::::::::::::::::::::::::::::::::::::::::
-# STATS
+# --- || Cam Utilities || ---
+
+
 func set_health(new_val):
 	current_health = new_val
 	current_health = clamp(current_health, 0, Global.TOTAL_HEALTH)
@@ -150,8 +152,10 @@ func die():
 		print("You Died!")
 
 
+# --- || Animations || ---
+
+
 # TODO: move to state machine
-# UPDATE ANIMATIONS
 func _update_visuals():
 	var movement = "run" if is_moving else "idle"
 	var dir = "front"
@@ -170,7 +174,9 @@ func _update_visuals():
 		anim.play(animation)
 
 
-# CAM FUNCS
+# --- || Cam Utilities || ---
+
+
 func _update_cam():
 	mouse_pos = get_viewport().get_mouse_position()
 	cam_move_direction = Vector2.ZERO
@@ -191,7 +197,10 @@ func _update_cam():
 		cam_move_direction.y -= 1
 
 	if not is_moving && can_move_cam:
-		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+		var new_pos = _cam_anchor.position + cam_move_direction.normalized() * PAN_CAM_SPEED
+		new_pos.x = clamp(new_pos.x, Global.MAP_WID * -CAM_LIMIT_OFFSET, Global.MAP_WID * CAM_LIMIT_OFFSET)
+		new_pos.y = clamp(new_pos.y, Global.MAP_HEI * -CAM_LIMIT_OFFSET, Global.MAP_HEI * CAM_LIMIT_OFFSET)
+		_cam_anchor.position = new_pos
 		
 	
 func _reset_cam_pos():
@@ -204,7 +213,9 @@ func set_cam_pos(pos : Vector2) -> void:
 	_cam_anchor.global_position = pos
 
 
-# OTHER FUNCS
+# --- || Signal Callbacks || ---
+
+
 func _on_World_tile_entered(interactable):
 	_prompt.visible = interactable
 
@@ -227,7 +238,18 @@ func _on_push_menu(_menu, _context):
 	_reset_cam_pos()
 
 
+# || --- SFX --- ||
+
+
+func _play_walking_sfx():
+	if $Timer.time_left <= 0:
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
+		$AudioStreamPlayer2D.play()
+		$Timer.start(0.45)
+
+
 # || --- Saving --- ||
+
 
 func export_data() -> Dictionary:
 	var data = {}
@@ -243,12 +265,3 @@ func load_data(data : Dictionary):
 	global_position = data["position"]
 	set_health(data["health"])
 	set_stamina(data["stamina"])
-
-#func _on_pop_menu():
-#	mouse_exit_menu_cooldown = true
-
-func _play_walking_sfx():
-	if $Timer.time_left <= 0:
-		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
-		$AudioStreamPlayer2D.play()
-		$Timer.start(0.45)

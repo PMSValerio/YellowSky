@@ -135,6 +135,7 @@ var item_category_names = {
 }
 
 # as of right, this applies to all settlements solely based on ranking. Could need changes later on
+# maybe this shouldn't be in Global, but there is no other similar class just for settlements
 var settlement_portraits = {
 	0: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"), # could be needed for destroyed settlement
 	1: preload("res://assets/gfx/config_assets/settlement_portrait/settlement0.png"),
@@ -150,6 +151,9 @@ const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state 
 const DAY_DURATION = 600 # duration of a day in seconds
 const NIGHT_THRESHOLD = 500 # duration of nightfall animation in seconds
 const NIGHT_DURATION = DAY_DURATION - NIGHT_THRESHOLD
+
+const MAP_WID = 50
+const MAP_HEI = 30
 
 const TOTAL_HEALTH = 100
 const TOTAL_STAMINA = 100
