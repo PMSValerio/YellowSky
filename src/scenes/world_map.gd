@@ -80,7 +80,7 @@ func _ready() -> void:
 	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	
 	# Manually instance starting features aka event, facility and settlement 
-	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
+	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.DOWN, false)
 	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
 	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
 	
