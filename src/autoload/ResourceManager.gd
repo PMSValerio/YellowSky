@@ -11,22 +11,28 @@ func _ready():
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 
 
-# Sets
+# --- || Resource Management || ---
+
+
 func set_water(new_val):
 	_water = new_val
 	EventManager.emit_signal("resource_changed", Global.Resources.WATER, _water)
 	
+
 func set_materials(new_val):
 	_materials = new_val
 	EventManager.emit_signal("resource_changed", Global.Resources.MATERIALS, _materials)
+
 
 func set_energy(new_val):
 	_energy = new_val
 	EventManager.emit_signal("resource_changed", Global.Resources.ENERGY, _energy)
 
+
 func set_seeds(new_val):
 	_seeds = new_val
 	EventManager.emit_signal("resource_changed", Global.Resources.SEEDS, _seeds)
+
 
 func set_hope(new_val):
 	_hope = new_val
@@ -64,6 +70,9 @@ func get_resource(type) -> int:
 		Global.Resources.HOPE:
 			return _hope
 	return -1
+
+
+# --- || Signal Callbacks || ---
 
 
 # used only for decompacting resource items

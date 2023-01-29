@@ -19,9 +19,6 @@ export (PackedScene) var EVENT_SCENE
 
 export (PackedScene) var RAINDROP_SCENE
 
-export var MAP_WID = 50
-export var MAP_HEI = 30
-
 const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
 const START_RADIUS = 4 # x tile radius of open area
@@ -54,7 +51,7 @@ var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
-var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
+var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
 
 var raining_period = 0.0
 var raining_timer = 0.0
@@ -278,8 +275,8 @@ func _resize_map():
 		priorities[i] /= sum
 	
 	# fill remaining tiles if map is bigger than 20x20 cells
-	for x in range(MAP_WID):
-		for y in range(MAP_HEI):
+	for x in range(Global.MAP_WID):
+		for y in range(Global.MAP_HEI):
 			if tilemap.get_cell(x, y) == -1:
 				_set_tilemap_cell(x, y, id, priorities)
 	
@@ -289,7 +286,7 @@ func _resize_map():
 # set border tilemap cells
 func _set_border_tiles():
 	var tl = Vector2(-10, -10)
-	var br = Vector2(MAP_WID + 10, MAP_HEI + 10)
+	var br = Vector2(Global.MAP_WID + 10, Global.MAP_HEI + 10)
 	var xx = tl.x
 	var yy = tl.y
 	
@@ -297,7 +294,7 @@ func _set_border_tiles():
 	while xx < br.x:
 		yy = tl.y
 		while yy < br.y:
-			if not (xx >= 0 and xx < MAP_WID and yy >= 0 and yy < MAP_HEI):
+			if not (xx >= 0 and xx < Global.MAP_WID and yy >= 0 and yy < Global.MAP_HEI):
 				out_tilemap.set_cell(xx, yy, 0)
 			yy += 1
 		xx += 1
