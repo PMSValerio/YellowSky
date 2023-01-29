@@ -10,6 +10,7 @@ var compact_resource_items = {} # ids of all compact resource items organised by
 
 var cannery_foods = []
 var hydro_foods = []
+var spoilt_food_id = ""
 
 
 # --- || Ready || ---
@@ -83,6 +84,7 @@ func get_all_compact_ids(resource_type) -> Array:
 	return compact_resource_items[resource_type] if resource_type in compact_resource_items else []
 
 
+# to be used by facilities
 func add_food_amount(amount, fac_type) -> void:
 	var source = []
 	match fac_type:
@@ -95,3 +97,13 @@ func add_food_amount(amount, fac_type) -> void:
 		var item = item_stats[source[ix]] as Item
 		amount -= item.stat
 		inventory.add_items(item.type, item.id, 1)
+
+
+# replace on random food item with a rotten food
+func rot_food() -> void:
+	var food_items = inventory.get_all_ids_of_type(Global.Items.FOOD).duplicate()
+	if food_items.size() > 0:
+		food_items.erase(spoilt_food_id)
+		var r = randi() % food_items.size()
+		inventory.add_items(Global.Items.FOOD, food_items[r], -1)
+		inventory.add_items(Global.Items.FOOD, spoilt_food_id, 1)
