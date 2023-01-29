@@ -166,6 +166,8 @@ func advance_upgrade(upgrade_id) -> void:
 
 
 # --- || Operation || ---
+
+
 # function for turning facility on/off, changing visuals and other stuff
 func toggle_facility(on_off) -> void:
 	running = on_off
@@ -263,6 +265,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 # || --- SAVING --- ||
+
 
 func export_data() -> Dictionary:
 	var data = {}

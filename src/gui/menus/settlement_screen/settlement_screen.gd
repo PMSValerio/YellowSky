@@ -9,6 +9,7 @@ onready var main_options = $MainScreen/PanelContainer/HBoxContainer/OptionsConta
 onready var talk_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TalkButton
 onready var stats_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/StatsButton
 onready var trade_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TradeButton
+onready var plant_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/PlantButton
 onready var leave_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/LeaveButton
 # dialogue options
 onready var dialogue_options = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions
@@ -78,6 +79,7 @@ func _ready() -> void:
 		talk_btn.disabled = true
 		stats_btn.disabled = true
 		trade_btn.disabled = true
+		plant_btn.disabled = true
 
 	change_mode(Modes.keys()[Modes.MAIN])
 	trade_screen_ref.set_context(settlement_entity)

@@ -19,6 +19,7 @@ func init(_event_id, _type, _animation, _title, _flavour_text, _item_updates):
 
 
 # apply all item rewards and quest updates
+# not used
 func solve() -> void:
 	for item_key in item_updates:
 		var _type = InventoryManager.item_stats[item_key].type

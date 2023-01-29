@@ -77,10 +77,13 @@ func _on_resource_button_pressed(rec_id):
 	else:
 		EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, rec_id)
 
+
+# currently not being used
 func _set_time(hours, minutes):
 	var hh = ("0" if hours < 10 else "") + str(hours)
 	var mm = ("0" if minutes < 10 else "") + str(minutes)
 	clock.text = hh + ":" + mm
+
 
 func _on_time_update(new_time):
 	var xx = 0

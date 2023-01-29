@@ -1,13 +1,11 @@
 extends Node
 
-# shouldnt this be made in the Global script itself?
-# Nope, Global is accessible to everyone and not everyone needs the actual disaster scenes
 var _disaster_scenes = {
-	Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
+	#Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 	Global.Disasters.TORNADO: preload("res://src/disasters/tornado/Tornado.tscn"),
 	Global.Disasters.STORM: preload("res://src/disasters/thunderstorm/Storm.tscn"),
 	Global.Disasters.RAIN: preload("res://src/disasters/rainfall/Rainfall.tscn"),
-	Global.Disasters.AMOGEDDON: preload("res://src/disasters/amogeddon/Amogeddon.tscn")
+	#Global.Disasters.AMOGEDDON: preload("res://src/disasters/amogeddon/Amogeddon.tscn")
 }
 
 const TIME_UPDATE_FREQ = 50
@@ -34,6 +32,41 @@ var disaster_node = null
 
 var disaster_running = false
 
+var distributions = {
+	Global.DAY_DURATION: { # if time is before a total day, no disasters can occur
+	},
+	Global.DAY_DURATION * 2: { # from the second day, storms are frequent and acid rain is rare
+		Global.Disasters.STORM: 0.8,
+		Global.Disasters.RAIN: 0.2,
+	},
+	Global.DAY_DURATION * 3: { # third day on, tornadoes start rarely
+		Global.Disasters.RAIN: 0.6,
+		Global.Disasters.STORM: 0.3,
+		Global.Disasters.TORNADO: 0.1,
+	},
+	Global.DAY_DURATION * 4: { # from the fourth day, tornadoes are a lot more frequent
+		Global.Disasters.TORNADO: 0.5,
+		Global.Disasters.RAIN: 0.4,
+		Global.Disasters.STORM: 0.1,
+	},
+	Global.DAY_DURATION * 5: { # fifth day onwards, almost just tornadoes
+		Global.Disasters.TORNADO: 0.7,
+		Global.Disasters.RAIN: 0.3,
+	}
+}
+var intervals = {
+	Global.DAY_DURATION: Global.DAY_DURATION,
+	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.2,
+	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.1,
+	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.08,
+	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.07,
+}
+
+
+func _ready() -> void:
+	_schedule_new_disaster()
+
+
 func _process(delta: float) -> void:
 	if not disaster_running and _next_interval > 0:
 		total_elapsed_time += delta
@@ -59,17 +92,38 @@ func _process_disaster(disaster_id):
 		disaster_layer.add_child(disaster_node)
 		disaster_node.start()
 		disaster_running = true
-	print("Disaster %s started" % disaster_id)
 
 
 func _schedule_new_disaster():
 	# TODO: calculate based on total progression
 	_next_interval = 20 + (randf() * 5)
-	_next_disaster = Global.Disasters.AMOGEDDON if randf() < 0.2 else Global.Disasters.TORNADO
+#	_next_disaster = Global.Disasters.AMOGEDDON if randf() < 0.2 else Global.Disasters.TORNADO
+	var dist = {}
+	for phase in distributions:
+		_next_interval = intervals[phase]
+		dist = distributions[phase]
+		if total_elapsed_time < phase:
+			break
+	_next_disaster = _new_disaster_prob(dist)
+
+
+func _new_disaster_prob(dist):
+	if dist.size() <= 0:
+		return -1
+	var _ids = dist.keys()
+	var _probs = dist.values()
+	var chance = 1#randf()
+	var i = 0
+	while i < _probs.size(): # turn into cumulative probability
+		if i > 0:
+			_probs[i] = _probs[i-1] + _probs[i]
+		if chance <= _probs[i]:
+			break
+		i += 1
+	return _ids[i] if i < _ids.size() else _ids[i-1]
 
 
 func _on_disaster_end():
-	print("Disaster ended")
 	disaster_running = false
 	disaster_node.queue_free()
 	disaster_node = null

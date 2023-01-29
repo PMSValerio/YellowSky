@@ -102,6 +102,13 @@ func _tick() -> void:
 # --- || Manage || ---
 
 
+func blackout() -> void:
+	if resources.has(Global.Resources.ENERGY):
+		resources[Global.Resources.ENERGY] = 0
+		warning.set_type(Global.Warnings.NO_FUEL)
+		warning.toggle(true)
+
+
 # associated with natural distasters, making life harder for the settlement
 func set_panic_mode(on_off : bool):
 	is_in_panic = on_off

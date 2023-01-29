@@ -5,6 +5,7 @@ signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
 const SPEED := 96.0
+const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when faced with map boundary
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
 const HEALTH_LOSS_RATE = 1
@@ -44,6 +45,11 @@ var is_alive = true
 var out_of_stamina = false
 var out_of_stamina_timer = Timer.new()
 
+# for the acid rain
+var raining = false
+var rain_timer = 0.0
+var rain_period = 3.0 # sec
+
 
 func _ready() -> void:
 	Global.set_cam(_cam)
@@ -59,6 +65,8 @@ func _ready() -> void:
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 	_v = EventManager.connect("night_penalty", self, "_on_nightfall")
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
+	
+	_v = EventManager.connect("rain", self, "_on_rain")
 	
 
 func _physics_process(_delta: float) -> void:
@@ -91,6 +99,14 @@ func _physics_process(_delta: float) -> void:
 		if walked_distance_step >= MOVE_STAMINA_THRESHOLD:
 			walked_distance_step = 0
 			change_stamina(-STAMINA_LOSS_RATE)
+	
+	
+	# rot food if raining
+	if raining:
+		rain_timer += _delta
+		if rain_timer >= rain_period:
+			rain_timer = 0
+			InventoryManager.rot_food()
 
 
 func _input(event):
@@ -112,8 +128,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
 	
 
-# CUSTOM FUNCTIONS::::::::::::::::::::::::::::::::::::::::::::
-# STATS
+# --- || Cam Utilities || ---
+
+
 func set_health(new_val):
 	current_health = new_val
 	current_health = clamp(current_health, 0, Global.TOTAL_HEALTH)
@@ -150,8 +167,10 @@ func die():
 		print("You Died!")
 
 
+# --- || Animations || ---
+
+
 # TODO: move to state machine
-# UPDATE ANIMATIONS
 func _update_visuals():
 	var movement = "run" if is_moving else "idle"
 	var dir = "front"
@@ -170,7 +189,9 @@ func _update_visuals():
 		anim.play(animation)
 
 
-# CAM FUNCS
+# --- || Cam Utilities || ---
+
+
 func _update_cam():
 	mouse_pos = get_viewport().get_mouse_position()
 	cam_move_direction = Vector2.ZERO
@@ -191,7 +212,10 @@ func _update_cam():
 		cam_move_direction.y -= 1
 
 	if not is_moving && can_move_cam:
-		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+		var new_pos = _cam_anchor.position + cam_move_direction.normalized() * PAN_CAM_SPEED
+		new_pos.x = clamp(new_pos.x, Global.MAP_WID * -CAM_LIMIT_OFFSET, Global.MAP_WID * CAM_LIMIT_OFFSET)
+		new_pos.y = clamp(new_pos.y, Global.MAP_HEI * -CAM_LIMIT_OFFSET, Global.MAP_HEI * CAM_LIMIT_OFFSET)
+		_cam_anchor.position = new_pos
 		
 	
 func _reset_cam_pos():
@@ -204,7 +228,9 @@ func set_cam_pos(pos : Vector2) -> void:
 	_cam_anchor.global_position = pos
 
 
-# OTHER FUNCS
+# --- || Signal Callbacks || ---
+
+
 func _on_World_tile_entered(interactable):
 	_prompt.visible = interactable
 
@@ -222,12 +248,28 @@ func _on_nightfall():
 	pass
 
 
+func _on_rain(period):
+	raining = period > 0
+	rain_timer = 0
+
+
 func _on_push_menu(_menu, _context):
 	can_move_cam = false
 	_reset_cam_pos()
 
 
+# || --- SFX --- ||
+
+
+func _play_walking_sfx():
+	if $Timer.time_left <= 0:
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
+		$AudioStreamPlayer2D.play()
+		$Timer.start(0.45)
+
+
 # || --- Saving --- ||
+
 
 func export_data() -> Dictionary:
 	var data = {}
@@ -243,12 +285,3 @@ func load_data(data : Dictionary):
 	global_position = data["position"]
 	set_health(data["health"])
 	set_stamina(data["stamina"])
-
-#func _on_pop_menu():
-#	mouse_exit_menu_cooldown = true
-
-func _play_walking_sfx():
-	if $Timer.time_left <= 0:
-		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
-		$AudioStreamPlayer2D.play()
-		$Timer.start(0.45)
