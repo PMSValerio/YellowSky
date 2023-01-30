@@ -76,7 +76,7 @@ func _ready() -> void:
 	cache_hex_center = hex_center
 	random_bg_music()
 	Global.fade_in_bg_music(2)
-	EventManager.connect("pop_menu", self, "play_leave_menu_sfx")
+	var _v = EventManager.connect("pop_menu", self, "play_leave_menu_sfx")
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
@@ -88,7 +88,7 @@ func _ready() -> void:
 		map_perspective.visible = false
 	
 
-	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	
 	# Manually instance starting features aka event, facility and settlement 
 	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.UP, false)
