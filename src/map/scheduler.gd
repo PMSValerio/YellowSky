@@ -41,27 +41,27 @@ var distributions = {
 		Global.Disasters.STORM: 0.8,
 		Global.Disasters.RAIN: 0.2,
 	},
-	Global.DAY_DURATION * 3: { # third day on, tornadoes start rarely
+	Global.DAY_DURATION * 5: { # third day on, tornadoes start rarely
 		Global.Disasters.RAIN: 0.6,
 		Global.Disasters.STORM: 0.3,
 		Global.Disasters.TORNADO: 0.1,
 	},
-	Global.DAY_DURATION * 4: { # from the fourth day, tornadoes are a lot more frequent
+	Global.DAY_DURATION * 8: { # from the fourth day, tornadoes are a lot more frequent
 		Global.Disasters.TORNADO: 0.5,
 		Global.Disasters.RAIN: 0.4,
 		Global.Disasters.STORM: 0.1,
 	},
-	Global.DAY_DURATION * 5: { # fifth day onwards, almost just tornadoes
+	Global.DAY_DURATION * 10: { # fifth day onwards, almost just tornadoes
 		Global.Disasters.TORNADO: 0.7,
 		Global.Disasters.RAIN: 0.3,
 	}
 }
 var intervals = {
 	Global.DAY_DURATION: Global.DAY_DURATION,
-	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.1,
-	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.08,
-	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.06,
-	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.04,
+	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.7,
+	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.5,
+	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.3,
+	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.2,
 }
 
 
