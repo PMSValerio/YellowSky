@@ -96,8 +96,8 @@ func _on_type_select(type) -> void:
 
 
 func _on_type_confirm():
-	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values():
+	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values() && ResourceManager.get_resource(Global.Resources.MATERIALS) >= selected_type.build_cost:
 		ResourceManager.add_to_resource(Global.Resources.MATERIALS, -selected_type.build_cost)
 		facility_entity.set_type(selected_type.type_id)
 		facility_entity.repair(facility_entity.get_max_health())
-	emit_signal("type_chosen")
+		emit_signal("type_chosen")

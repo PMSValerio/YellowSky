@@ -26,7 +26,7 @@ func _ready():
 	inventory_layouts = Global.get_text_from_file(Global.Text.ITEMS, "inventories.json", [])
 
 	inventory = Inventory.new()
-	inventory.init("inventory1")
+	inventory.init()
 
 
 # --- || Build Funcs || ---
@@ -39,6 +39,8 @@ func _build_items():
 	config_file = "food.json"
 	_build_item_category(config_file, Global.Items.FOOD)
 	config_file = "quests.json"
+	_build_item_category(config_file)
+	config_file = "luxuries.json"
 	_build_item_category(config_file)
 	
 

@@ -1,0 +1,46 @@
+{
+  "drugdust": {
+    "item_id": "drugdust",
+    "type": "LUXURY",
+    "subtype": "",
+    "texture": "items/luxuries/drugdust.png",
+    "value": 100,
+    "stat": 0,
+    "usable": false,
+    "name": "Wastelander's Delight",
+    "flavour_text": "A hallucinogenic powder made from plants found in the desert, as well as scorpion venom. Some people will do anything to escape the grim reality they find themselves in. Not you, though."
+  },
+  "dirtymag": {
+    "item_id": "dirtymag",
+    "type": "LUXURY",
+    "subtype": "",
+    "texture": "items/luxuries/dirtymag.png",
+    "value": 250,
+    "stat": 0,
+    "usable": false,
+    "name": "Dirty Magazines",
+    "flavour_text": "The pleasures of the flesh are alive and well, provided someone is either attractive enough, or has a bargaining chip... For everyone else, there's images printed on paper, and crushing loneliness. You don't see the appeal, but there's no accounting for taste."
+  },
+  "smokes": {
+    "item_id": "smokes",
+    "type": "LUXURY",
+    "subtype": "",
+    "texture": "items/luxuries/smokes.png",
+    "value": 500,
+    "stat": 0,
+    "usable": false,
+    "name": "Pack of Smokes",
+    "flavour_text": "Cigarettes used to be the most widespread vice available to mankind, but the plant they are made from has long been extinct. If you know where to look, however, you can get a taste of society as it used to be."
+  },
+  "ammo": {
+    "item_id": "ammo",
+    "type": "LUXURY",
+    "subtype": "",
+    "texture": "items/luxuries/ammo.png",
+    "value": 1000,
+    "stat": 0,
+    "usable": false,
+    "name": "Live Ammunition",
+    "flavour_text": "Weapons manufacturing plants are far few and in between, controlled by warlords and great settlements known as citadels. Lonely travelers such as yourself know to steer clear of these places, as the penalty for trespassing is either slavery or death. On occasion, some of the ordnance produced by these factories gets lost in transport, or smuggled out... Needless to say, guns and explosives are the ultimate deterrent following the collapse of society."
+  }
+}

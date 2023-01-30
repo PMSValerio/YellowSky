@@ -63,8 +63,9 @@ var intervals = {
 }
 
 
-func _ready() -> void:
+func _ready():
 	_schedule_new_disaster()
+	var _v = EventManager.connect("attempt_sleep", self, "_skip_day")
 
 
 func _process(delta: float) -> void:
@@ -81,7 +82,8 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
-		_next_interval = 1
+		#_next_interval = 1
+		_skip_day()
 
 
 func _process_disaster(disaster_id):
@@ -137,13 +139,15 @@ func _update_day(delta):
 	if int(day_timer) % TIME_UPDATE_FREQ:
 		EventManager.emit_signal("time_update", day_timer)
 	
-	if _last < Global.NIGHT_THRESHOLD and day_timer >= Global.NIGHT_THRESHOLD:
+	if _last < Global.NIGHT_THRESHOLD and day_timer >= Global.NIGHT_THRESHOLD: # start nightfall
+		EventManager.emit_signal("start_nightfall")
 		tween.interpolate_property(nighttime, "color:a", 0, 0.8, Global.NIGHT_DURATION)
 		tween.start()
 	elif _last < Global.DAY_DURATION and day_timer >= Global.DAY_DURATION: # quickly go to full black in 2 seconds
+		EventManager.emit_signal("start_deep_nightfall")
 		tween.interpolate_property(nighttime, "color:a", 0.8, 1.0, 2)
 		tween.start()
-	elif day_timer >= Global.DAY_DURATION + 3:
+	elif day_timer >= Global.DAY_DURATION + 3: # reset to day
 		day_timer = 0.0
 		days += 1
 		WorldData.day_passed()
@@ -155,6 +159,6 @@ func _update_day(delta):
 func _skip_day():
 	day_timer = 0.0
 	days += 1
-	tween.stop_all()
+	tween.remove_all()
 	tween.interpolate_property(nighttime, "color:a", nighttime.color.a, 0, 2)
 	tween.start()

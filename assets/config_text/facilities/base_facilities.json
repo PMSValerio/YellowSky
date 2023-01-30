@@ -30,8 +30,8 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 0.0,
+    "production_rate": 3.0
   },
   "parts_workshop": {
     "type_id": "PARTS_WORKSHOP",

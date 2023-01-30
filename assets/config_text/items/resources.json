@@ -42,5 +42,16 @@
     "usable": true,
     "name": "Water Drum",
     "flavour_text": "A large oil drum, cleaned out and filled with fresh water. Oil is so rare that it can't be found in drums anymore.\nUse to obtain 100 liters of water."
+  },
+  "scrap_pile": {
+    "item_id": "scrap_pile",
+    "type": "RESOURCES",
+    "subtype": "MATERIALS",
+    "texture": "items/resources/water/water_drum.png",
+    "value": 25,
+    "stat": 200,
+    "usable": true,
+    "name": "Pile of Scrap",
+    "flavour_text": "A large pile of scrap."
   }
 }

@@ -22,7 +22,7 @@ export (PackedScene) var RAINDROP_SCENE
 
 const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
-const START_RADIUS = 4 # x tile radius of open area
+const START_RADIUS = 5 # x tile radius of open area
 const DISCOVER_RANGE = 4 # range at which tiles are discovered
 const FEATURE_SPACING = 3 # minimum space between features on generation
 
@@ -56,6 +56,7 @@ var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be g
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
 var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
+var start_settlement_offset = Vector2(1, -4)
 
 var raining_period = 0.0
 var raining_timer = 0.0
@@ -84,9 +85,9 @@ func _ready() -> void:
 	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
 	
 	# Manually instance starting features aka event, facility and settlement 
-	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.DOWN, false)
-	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
-	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
+	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.UP, false)
+	_instance_map_scene(map_center + Vector2(-1, -4), TileType.FACILITY)
+	_instance_map_scene(map_center + start_settlement_offset, TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 	_discover_around(map_center)
@@ -616,7 +617,11 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				map_grid[cell.x][cell.y] = mountain
 		TileType.SETTLEMENT:
 			if SETTLEMENT_SCENE != null:
+
+	
 				var settlement = SETTLEMENT_SCENE.instance()
+				if cell == map_center + start_settlement_offset:
+					settlement.is_start_settle = true
 				settlement.global_position = real_position
 				settlement.set_discovered(false)
 				settlements.add_child(settlement)
@@ -723,12 +728,14 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		var _v = get_tree().change_scene("res://src/scenes/GameOver.tscn")
 
 
+# this should not be in world_map
 func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num = rng.randi_range(0,3)
-	print(num)
+	
+	num = 1 # for Debug
 	match num:
 		0:
 			music_file = "res://assets/sfx/ui/UI_TabChanged.wav"
