@@ -134,10 +134,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="YellowSky"
+config/name="Yellow Sky"
 run/main_scene="res://src/scenes/TitleScreen.tscn"
 run/low_processor_mode=true
-config/icon="res://icon.png"
+config/icon="res://assets/gfx/HUD/windowIcon.png"
 
 [autoload]
 

@@ -7,8 +7,8 @@
     "value": 10,
     "stat": 1,
     "usable": true,
-    "name": "Bottle of Water",
-    "flavour_text": "A plastic bottle filled with fresh water.\n\nUse to obtain 1 liter of water."
+    "name": "Flask of Water",
+    "flavour_text": "A metal flask filled with fresh water."
   },
   "water_gallon": {
     "item_id": "water_gallon",
@@ -19,7 +19,7 @@
     "stat": 10,
     "usable": true,
     "name": "Gallon of Water",
-    "flavour_text": "An old plastic gallon jug, filled to the brim with fresh water.\n\nUse to obtain 10 liters of water."
+    "flavour_text": "An old plastic gallon jug, filled to the brim with fresh water."
   },
   "water_keg": {
     "item_id": "water_keg",
@@ -29,8 +29,8 @@
     "value": 20,
     "stat": 50,
     "usable": true,
-    "name": "Keg o' Water",
-    "flavour_text": "A metal keg which once held beer, but now holds water.\n\nUse to obtain 50 liters of water.\n\nBreweries are far few and in between out in the wasteland, given there's barely any grain left. Distillieries and bathtub operations, on the other hand, are plentiful."
+    "name": "Keg of Water",
+    "flavour_text": "A metal keg which once held beer, but now holds water.\n\nBreweries are far few and in between out in the wasteland, given there's barely any grain left. Distillieries and basement operations, on the other hand, are plentiful."
   },
   "water_drum": {
     "item_id": "water_drum",
@@ -41,17 +41,39 @@
     "stat": 100,
     "usable": true,
     "name": "Water Drum",
-    "flavour_text": "A large oil drum, cleaned out and filled with fresh water. Oil is so rare that it can't be found in drums anymore.\nUse to obtain 100 liters of water."
+    "flavour_text": "A large oil drum, cleaned out and filled with fresh water. \n\nOil is so rare that it can't be found in the usual places anymore."
+  },
+  "bits_bolts": {
+    "item_id": "bits_bolts",
+    "type": "RESOURCES",
+    "subtype": "MATERIALS",
+    "texture": "items/resources/scrap/bits_n_bolts.png",
+    "value": 10,
+    "stat": 1,
+    "usable": true,
+    "name": "Bits and Bolts",
+    "flavour_text": "A small assortment of metal parts."
+  },
+  "discarded_parts": {
+    "item_id": "discarded_parts",
+    "type": "RESOURCES",
+    "subtype": "MATERIALS",
+    "texture": "items/resources/scrap/discard_parts.png",
+    "value": 10,
+    "stat": 1,
+    "usable": true,
+    "name": "Discarded Parts",
+    "flavour_text": "Small components of what might have once been a large machine."
   },
   "scrap_pile": {
     "item_id": "scrap_pile",
     "type": "RESOURCES",
     "subtype": "MATERIALS",
-    "texture": "items/resources/water/water_drum.png",
+    "texture": "items/resources/scrap/pile_of_scrap.png",
     "value": 25,
-    "stat": 200,
+    "stat": 100,
     "usable": true,
     "name": "Pile of Scrap",
-    "flavour_text": "A large pile of scrap."
+    "flavour_text": "A big pile of sheet metal, reusable parts, and strange gadgets."
   }
 }
