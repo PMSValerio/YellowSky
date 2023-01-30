@@ -712,6 +712,17 @@ func _on_rain_request(period):
 	raining_period = period
 
 
+func _on_Player_died() -> void:
+	get_tree().paused = true
+	game_anim.play("end_game")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "end_game":
+		get_tree().paused = false
+		var _v = get_tree().change_scene("res://src/scenes/GameOver.tscn")
+
+
 func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()

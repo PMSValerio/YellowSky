@@ -26,4 +26,4 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_Button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene("res://src/scenes/TitleScreen.tscn")

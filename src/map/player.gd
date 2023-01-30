@@ -4,6 +4,8 @@ signal interact(position)
 signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
+signal died
+
 const SPEED := 96.0
 const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when faced with map boundary
 const PAN_MARGIN_DIVISION_RATE = 10
@@ -164,7 +166,7 @@ func change_stamina(change_value):
 func die():
 	if is_alive:
 		is_alive = false
-		print("You Died!")
+		emit_signal("died")
 
 
 # --- || Animations || ---
