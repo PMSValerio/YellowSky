@@ -645,8 +645,8 @@ anims/RESET = SubResource( 15 )
 anims/end_game = SubResource( 17 )
 anims/start_game = SubResource( 16 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-volume_db = -7.429
+[node name="BG_MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = "BG_Music"
 
 [connection signal="died" from="Entities/Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="Entities/Player" to="HUD" method="_on_Player_health_changed"]

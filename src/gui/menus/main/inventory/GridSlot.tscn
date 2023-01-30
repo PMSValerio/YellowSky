@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/gui/menus/main/inventory/grid_slot.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/buttons/grid_item_buttons.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/menus/main/inventory/grid_slot_button.gd" type="Script" id=3]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
@@ -62,3 +63,6 @@ margin_bottom = 80.0
 rect_min_size = Vector2( 64, 64 )
 mouse_filter = 2
 color = Color( 0.0666667, 0.0666667, 0.0666667, 0.619608 )
+
+[node name="UI_sfx" parent="." instance=ExtResource( 4 )]
+root_path = NodePath("..")

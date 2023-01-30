@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/gui/menus/reusable/BaseOuterMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/inventory/InventoryScreen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/gui/menus/main/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://src/gui/menus/main/quests/QuestsScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sfx/world/Facility_bg_music.wav" type="AudioStream" id=6]
 
 [node name="BaseOuterMenu" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -58,3 +60,11 @@ margin_right = 78.0
 margin_bottom = 7.0
 text = "Coming Soon"
 align = 1
+
+[node name="UI_sfx" parent="." index="2" instance=ExtResource( 5 )]
+root_path = NodePath("../MarginContainer/PanelContainer")
+
+[node name="bg_music" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 6 )
+volume_db = -10.0
+bus = "UI"

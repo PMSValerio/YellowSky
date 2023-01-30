@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Settlement_bg_music.wav-e283adec5d7f858f4d66daf6bf401552.sample"
+
+[deps]
+
+source_file="res://assets/sfx/world/Settlement_bg_music.wav"
+dest_files=[ "res://.import/Settlement_bg_music.wav-e283adec5d7f858f4d66daf6bf401552.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

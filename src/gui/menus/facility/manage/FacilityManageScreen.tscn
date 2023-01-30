@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/facility/manage/StatDetails.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/status_indicators.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=6]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 10
@@ -123,15 +124,15 @@ autowrap = true
 
 [node name="AbandonedPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
-margin_left = 338.0
-margin_right = 671.0
+margin_left = 340.0
+margin_right = 658.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="Rebuild" type="Button" parent="MarginContainer/HBoxContainer/AbandonedPanel"]
-margin_left = 102.0
+margin_left = 95.0
 margin_top = 244.0
-margin_right = 230.0
+margin_right = 223.0
 margin_bottom = 340.0
 rect_min_size = Vector2( 128, 96 )
 size_flags_horizontal = 4
@@ -306,6 +307,9 @@ margin_left = -144.0
 margin_top = -113.0
 margin_right = 144.0
 margin_bottom = 113.0
+
+[node name="UI_sfx" parent="." instance=ExtResource( 7 )]
+root_path = NodePath("../MarginContainer/HBoxContainer")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/AbandonedPanel/Rebuild" to="." method="_on_Rebuild_pressed"]
 [connection signal="value_chosen" from="ResourceSlider" to="." method="_on_ResourceSlider_value_chosen"]

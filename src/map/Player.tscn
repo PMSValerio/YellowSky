@@ -220,7 +220,7 @@ anims/run_right = SubResource( 6 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
-volume_db = -9.905
+volume_db = -30.006
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

@@ -5,7 +5,8 @@
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://src/gui/menus/misc/event_screen.gd" type="Script" id=5]
-[ext_resource path="res://src/gui/menus/reusable/DialoguePointer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/gui/menus/reusable/DialoguePointer.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -82,7 +83,7 @@ clip_text = true
 
 [node name="Timer" type="Timer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer/Text"]
 
-[node name="DialoguePointer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer" instance=ExtResource( 6 )]
+[node name="DialoguePointer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer" instance=ExtResource( 7 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -106,6 +107,9 @@ margin_bottom = 456.0
 rect_min_size = Vector2( 128, 48 )
 size_flags_horizontal = 4
 text = "Confirm"
+
+[node name="UI_sfx" parent="." instance=ExtResource( 6 )]
+root_path = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer")
 
 [connection signal="gui_input" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer" to="." method="_on_FalvourTextContainer_gui_input"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

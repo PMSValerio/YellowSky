@@ -321,3 +321,41 @@ func generate_event(incoming_event_data : EventData, cell_position : Vector2 = V
 		EventManager.emit_signal("spawn_event_request", event)
 	
 	return event
+	
+func fade_between_audio(audio1, audio2, duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	var bus2 = AudioServer.get_bus_index("Disasters")
+	audio2.play()
+	AudioServer.set_bus_volume_db(bus2, -80) # set audio2 initial volume
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, -25 + t * (-80.0 - (-25)) ) # set audio1 volume
+		AudioServer.set_bus_volume_db(bus2, (-80.0 + t * 55.0)) # set audio2 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+		if fade_time >= duration:
+			break
+	audio1.set_stream_paused(true)
+	
+
+			
+func play_paused_audio(audio1, duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	var bus2 = AudioServer.get_bus_index("Disasters")
+	audio1.set_stream_paused(false)
+	AudioServer.set_bus_volume_db(bus1, -80.0) # set audio initial volume
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, (-80.0 + t * 55.0)) # set audio1 volume
+		AudioServer.set_bus_volume_db(bus2, -25 + t * (-80.0 - (-25)) ) # set audio2 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+
+
+
+
+
+
+

@@ -30,7 +30,6 @@ onready var map_perspective = $MapEffect
 onready var sky = $Sky
 onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
-onready var bg_music_player = $AudioStreamPlayer
 
 onready var tilemap = $TileMap
 onready var out_tilemap = $Background
@@ -46,6 +45,8 @@ onready var raindrops = $RainDrops
 
 onready var game_anim = $OverHUD/AnimationPlayer
 
+onready var bg_music_player = $BG_MusicPlayer
+
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
 var _mouse_hex_tile = Vector2(-1, -1)
@@ -55,6 +56,7 @@ var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
+var paused_time
 var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
 var start_settlement_offset = Vector2(1, -4)
 
@@ -165,7 +167,6 @@ func _spawn_raindrop():
 	
 	raindrop.position = Vector2(xx, yy)
 	raindrops.add_child(raindrop)
-
 
 func generate_event_tile(event : Event):
 	var pos_cell = event.cell_pos
@@ -634,9 +635,7 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
 
-
 # || --- SIGNALS --- ||
-
 
 # callback function when player presses interact button
 func _on_Player_interact(position):
@@ -730,6 +729,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 # this should not be in world_map
 func random_bg_music():
+	#var last_music_played = ""
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -738,13 +738,15 @@ func random_bg_music():
 	num = 1 # for Debug
 	match num:
 		0:
-			music_file = "res://assets/sfx/ui/UI_TabChanged.wav"
+			music_file = "res://assets/sfx/world/desert_monolith.wav"
 		1:
 			music_file = "res://assets/sfx/world/floating.wav"
 		2:
 			music_file = "res://assets/sfx/world/dramatic_scroller.wav"
 		3: 
 			music_file = "res://assets/sfx/world/ocean_drift.wav"
-	if music_file != "":
+		4:
+			music_file = "res://assets/sfx/world/desert_shimmer.wav"
+	if music_file != "" :
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
