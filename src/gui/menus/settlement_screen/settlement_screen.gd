@@ -165,17 +165,17 @@ func next_line():
 		description_box.text = npc_text.pop_front() 
 		description_box.visible_characters = 0
 		
+		var parsed_string = description_box.text.replace(" ","")
+
 		keyboard_sfx.play()
 		# scroll through letters, instead of displaying them all at once
-		for _i in range(0, description_box.text.length()):
+		for _i in range(parsed_string.length()):
 			if text_in_progress:
 				description_box.visible_characters += 1
 				description_box.get_node("Timer").start()
 				yield(description_box.get_node("Timer"), "timeout")
-		keyboard_sfx.stop()
-		
-		dialogue_pntr.get_node("AnimationPlayer").play("Active")
 
+		keyboard_sfx.stop()
 		dialogue_pntr.play()
 		text_in_progress = false
 

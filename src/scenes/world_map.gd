@@ -145,8 +145,6 @@ func _physics_process(_delta: float) -> void:
 		if _is_feature(new_entity):
 			new_entity.mouse_entered()
 	
-	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
-	
 	if raining_period > 0:
 		_rain(_delta)
 

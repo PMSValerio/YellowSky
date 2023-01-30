@@ -78,19 +78,20 @@ texture = SubResource( 3 )
 
 [node name="Other" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
 margin_left = 129.0
-margin_right = 413.0
+margin_right = 381.0
 margin_bottom = 80.0
 custom_constants/separation = 20
 
 [node name="Hope" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
+margin_right = 116.0
 
 [node name="Seeds" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
-margin_left = 152.0
-margin_right = 284.0
+margin_left = 136.0
+margin_right = 252.0
 
 [node name="Bars" type="VBoxContainer" parent="Control/MarginContainer/AllElements"]
-margin_left = 446.0
-margin_right = 650.0
+margin_left = 414.0
+margin_right = 618.0
 margin_bottom = 80.0
 alignment = 1
 
@@ -124,7 +125,7 @@ margin_bottom = 74.0
 texture = ExtResource( 5 )
 
 [node name="Resources" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
-margin_left = 683.0
+margin_left = 651.0
 margin_right = 992.0
 margin_bottom = 80.0
 rect_clip_content = true
@@ -133,21 +134,21 @@ custom_constants/separation = 8
 alignment = 1
 
 [node name="WaterCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 23.0
+margin_left = 39.0
 margin_top = 16.0
-margin_right = 105.0
+margin_right = 121.0
 margin_bottom = 64.0
 
 [node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 113.0
+margin_left = 129.0
 margin_top = 16.0
-margin_right = 195.0
+margin_right = 211.0
 margin_bottom = 64.0
 
 [node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
-margin_left = 203.0
+margin_left = 219.0
 margin_top = 16.0
-margin_right = 285.0
+margin_right = 301.0
 margin_bottom = 64.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
@@ -159,23 +160,6 @@ margin_left = -2.0
 margin_top = -96.0
 margin_right = 2.0
 margin_bottom = 2.0
-
-[node name="Label" type="Label" parent="Control"]
-margin_right = 40.0
-margin_bottom = 12.0
-text = "00"
-
-[node name="Label2" type="Label" parent="Control"]
-margin_top = 16.0
-margin_right = 40.0
-margin_bottom = 28.0
-text = "00"
-
-[node name="Label3" type="Label" parent="Control"]
-margin_top = 32.0
-margin_right = 40.0
-margin_bottom = 44.0
-text = "00"
 
 [editable path="Control/MarginContainer/AllElements/Bars/Health"]
 [editable path="Control/MarginContainer/AllElements/Bars/Stamina"]
