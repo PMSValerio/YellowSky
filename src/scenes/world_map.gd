@@ -16,6 +16,7 @@ export (PackedScene) var OUT_MOUNTAIN_SCENE
 export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 export (PackedScene) var EVENT_SCENE
+export (PackedScene) var GREEN_SCENE
 
 export (PackedScene) var RAINDROP_SCENE
 
@@ -39,8 +40,11 @@ onready var mountains = $Entities/Mountains
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 onready var events = $Entities/Events
+onready var greens = $Entities/Greens
 
 onready var raindrops = $RainDrops
+
+onready var game_anim = $OverHUD/AnimationPlayer
 
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
@@ -95,6 +99,8 @@ func _ready() -> void:
 	EventManager.emit_signal("world_is_ready")
 	
 	bg_music_player.connect("finished", self, "random_bg_music")
+	
+	game_anim.play("start_game")
 
 
 func _physics_process(_delta: float) -> void:
@@ -666,7 +672,8 @@ func _on_feature_tile_left(feature : Feature):
 
 
 func generate_green_tile(feature : Feature, radius : int, setup : bool):	
-	var free_neighs = _get_cells_around(_get_cell_from_position(feature.global_position), radius).duplicate()
+	var cell_pos = _get_cell_from_position(feature.global_position)
+	var free_neighs = _get_cells_around(cell_pos, radius).duplicate()
 	var occupied_neighs = []
 	
 	# find occupied neighs
@@ -692,6 +699,13 @@ func generate_green_tile(feature : Feature, radius : int, setup : bool):
 		# actually change the tile		
 		tilemap.set_cellv(cell_to_use, 1, false, false, false)
 		_occupy_cell(cell_to_use, true)
+		WorldData.green_planted()
+		if cell_to_use != cell_pos: # don't spawn a green tile on top of settlement
+			var green = GREEN_SCENE.instance()
+			var world_pos = tilemap.map_to_world(cell_to_use)
+			var real_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+			green.global_position = real_position
+			greens.add_child(green)
 
 
 # process a request to generate a new event tile
@@ -701,6 +715,17 @@ func _on_spawn_event_request(event):
 
 func _on_rain_request(period):
 	raining_period = period
+
+
+func _on_Player_died() -> void:
+	get_tree().paused = true
+	game_anim.play("end_game")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "end_game":
+		get_tree().paused = false
+		var _v = get_tree().change_scene("res://src/scenes/GameOver.tscn")
 
 
 # this should not be in world_map

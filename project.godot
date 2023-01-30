@@ -135,7 +135,7 @@ _global_script_class_icons={
 [application]
 
 config/name="YellowSky"
-run/main_scene="res://src/scenes/World.tscn"
+run/main_scene="res://src/scenes/TitleScreen.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
 

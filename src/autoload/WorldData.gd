@@ -37,3 +37,19 @@ func _on_hope_gained(amount):
 func unlock_facility(facility_id):
 	if facility_id in Global.FacilityTypes.values() and not facility_id in unlocked_facilities:
 		unlocked_facilities.append(facility_id)
+
+
+func day_passed():
+	days_passed += 1
+
+
+func settlement_destroyed():
+	settlements_lost += 1
+
+
+func facility_upgraded():
+	facilities_upgraded += 1
+
+
+func green_planted():
+	green_tiles += 1
