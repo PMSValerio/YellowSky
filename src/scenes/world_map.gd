@@ -44,6 +44,8 @@ onready var greens = $Entities/Greens
 
 onready var raindrops = $RainDrops
 
+onready var game_anim = $OverHUD/AnimationPlayer
+
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
 var _mouse_hex_tile = Vector2(-1, -1)
@@ -96,6 +98,8 @@ func _ready() -> void:
 	EventManager.emit_signal("world_is_ready")
 	
 	bg_music_player.connect("finished", self, "random_bg_music")
+	
+	game_anim.play("start_game")
 
 
 func _physics_process(_delta: float) -> void:
