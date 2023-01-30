@@ -276,7 +276,7 @@ func fade_between_audio(audio1, audio2, duration):
 	
 
 			
-func play_paused_audio(audio1, audio2, duration):
+func play_paused_audio(audio1, duration):
 	var fade_time = 0
 	var bus1 = AudioServer.get_bus_index("BG_Music")
 	var bus2 = AudioServer.get_bus_index("Disasters")
