@@ -114,7 +114,7 @@ func change_mode(new_mode):
 			
 			# reset other variables in case menu is changing from dialogue mode
 			if current_mode == Modes.DIALOGUE:
-				settlement_image.get_node("AnimationPlayer").play_backwards("show_npc")
+				settlement_image.get_node("AnimationPlayer").play_backwards("show_npc" + str(settlement_entity.rank))
 
 		current_mode = new_m
 
@@ -130,7 +130,7 @@ func toggle_text_mode(to_dialogue):
 	dialogue_pntr.visible = to_dialogue
 
 	if to_dialogue:
-		settlement_image.get_node("AnimationPlayer").play("show_npc")
+		settlement_image.get_node("AnimationPlayer").play("show_npc" + str(settlement_entity.rank))
 
 		name_box.text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Name"])
 		npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, [settlement_entity.current_npc, "Dialogue", str(current_dialogue_branch)]).duplicate()

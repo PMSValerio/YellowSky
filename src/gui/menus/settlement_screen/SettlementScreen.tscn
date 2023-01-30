@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement0_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_screen.gd" type="Script" id=2]
+[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement3_with_npc.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=4]
 [ext_resource path="res://src/gui/menus/settlement_screen/TradeScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/gfx/ui_elements/icons/ui_icons.png" type="Texture" id=6]
@@ -10,6 +11,8 @@
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=10]
 [ext_resource path="res://src/gui/menus/reusable/DialoguePointer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement2_with_npc.png" type="Texture" id=12]
+[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement0.png" type="Texture" id=13]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -43,9 +46,21 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/target_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
 
-[sub_resource type="Animation" id=9]
-resource_name = "show_npc"
+[sub_resource type="Animation" id=13]
+resource_name = "show_npc0"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/fade_weight")
@@ -58,6 +73,102 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/target_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 13 ), ExtResource( 13 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "show_npc1"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fade_weight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/target_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 1 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "show_npc2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fade_weight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/target_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 12 ), ExtResource( 12 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "show_npc3"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fade_weight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/target_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 3 ) ]
 }
 
 [sub_resource type="StyleBoxTexture" id=10]
@@ -129,7 +240,10 @@ stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainScreen/PanelContainer/HBoxContainer/InfoContainer/SettlementImageContainer/SettlementImage"]
 anims/RESET = SubResource( 8 )
-anims/show_npc = SubResource( 9 )
+anims/show_npc0 = SubResource( 13 )
+anims/show_npc1 = SubResource( 9 )
+anims/show_npc2 = SubResource( 14 )
+anims/show_npc3 = SubResource( 15 )
 
 [node name="SettlementDescriptionContainer" type="PanelContainer" parent="MainScreen/PanelContainer/HBoxContainer/InfoContainer"]
 margin_top = 350.0
