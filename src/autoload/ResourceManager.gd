@@ -1,9 +1,9 @@
 extends Node
 
-var _water = 200 setget set_water
-var _materials = 200 setget set_materials 
-var _energy = 200 setget set_energy
-var _seeds = 200 setget set_seeds
+var _water = 0 setget set_water
+var _materials = 0 setget set_materials 
+var _energy = 0 setget set_energy
+var _seeds = 0 setget set_seeds
 var _hope = 0 setget set_hope
 
 

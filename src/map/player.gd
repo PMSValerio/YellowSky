@@ -5,12 +5,13 @@ signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
 const SPEED := 96.0
-const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when faced with map boundary
-const PAN_MARGIN_DIVISION_RATE = 10
+const CAM_LIMIT_OFFSET = 25 # adjusts the position at which the cam rests when faced with map boundary
+const PAN_MARGIN_DIVISION_RATE = 10 # adjusts how close to the screen edge the mouse cursor must be to start panning the camera
 const PAN_CAM_SPEED = 5
-const HEALTH_LOSS_RATE = 1
-const MOVE_STAMINA_THRESHOLD = 1 # average values can be between 0.1 - 5.0
-const STAMINA_LOSS_RATE = 10
+const HEALTH_LOSS_RATE = 0.5
+const HEALTH_RECOVER_RATE = 2
+const MOVE_STAMINA_THRESHOLD = 0.3 # average values can be between 0.1 - 5.0
+const STAMINA_LOSS_RATE = 1.2
 
 onready var _cam_anchor = $CameraAnchor
 onready var _cam = $CameraAnchor/Camera2D
@@ -42,8 +43,13 @@ var mouse_border = {"top": false, "bottom": false, "left": false, "right": false
 var current_health = Global.TOTAL_HEALTH setget set_health
 var current_stamina = Global.TOTAL_STAMINA setget set_stamina
 var is_alive = true
-var out_of_stamina = false
 var out_of_stamina_timer = Timer.new()
+var recover_health_timer = Timer.new()
+
+# for the acid rain
+var raining = false
+var rain_timer = 0.0
+var rain_period = 3.0 # sec
 
 
 func _ready() -> void:
@@ -55,11 +61,21 @@ func _ready() -> void:
 	out_of_stamina_timer.wait_time = 0.2
 	out_of_stamina_timer.one_shot = false
 	add_child(out_of_stamina_timer)
+
+	# set recover_health_timer
+	recover_health_timer.connect("timeout", self, "change_health", [HEALTH_RECOVER_RATE])
+	recover_health_timer.wait_time = 0.2
+	recover_health_timer.one_shot = false
+	add_child(recover_health_timer)
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 	_v = EventManager.connect("night_penalty", self, "_on_nightfall")
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
+	_v = EventManager.connect("attempt_sleep", self, "change_stamina", [Global.TOTAL_STAMINA/2.0])
+	_v = EventManager.connect("night_penalty", self, "change_health", [-Global.TOTAL_HEALTH*0.7])
+	
+	_v = EventManager.connect("rain", self, "_on_rain")
 	
 
 func _physics_process(_delta: float) -> void:
@@ -92,6 +108,14 @@ func _physics_process(_delta: float) -> void:
 		if walked_distance_step >= MOVE_STAMINA_THRESHOLD:
 			walked_distance_step = 0
 			change_stamina(-STAMINA_LOSS_RATE)
+	
+	
+	# rot food if raining
+	if raining:
+		rain_timer += _delta
+		if rain_timer >= rain_period:
+			rain_timer = 0
+			InventoryManager.rot_food()
 
 
 func _input(event):
@@ -113,7 +137,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
 	
 
-# --- || Cam Utilities || ---
+# --- || Stats || ---
 
 
 func set_health(new_val):
@@ -121,7 +145,9 @@ func set_health(new_val):
 	current_health = clamp(current_health, 0, Global.TOTAL_HEALTH)
 	emit_signal("health_changed", current_health)
 
-	if current_health <= 0:
+	if current_health >= Global.TOTAL_HEALTH:
+		recover_health_timer.stop()
+	elif current_health <= 0:
 		die()
 
 
@@ -131,11 +157,14 @@ func set_stamina(new_val):
 	emit_signal("stamina_changed", current_stamina)
 
 	if current_stamina <= 0:
-		out_of_stamina = true
 		out_of_stamina_timer.start()
 	else:
-		out_of_stamina = false
 		out_of_stamina_timer.stop()
+
+		if current_stamina < Global.TOTAL_STAMINA:
+			recover_health_timer.stop()
+		elif current_stamina >= Global.TOTAL_STAMINA && current_health < Global.TOTAL_HEALTH:
+			recover_health_timer.start()
 	
 
 func change_health(change_value):
@@ -231,6 +260,11 @@ func _on_disaster_damage(damage):
 
 func _on_nightfall():
 	pass
+
+
+func _on_rain(period):
+	raining = period > 0
+	rain_timer = 0
 
 
 func _on_push_menu(_menu, _context):

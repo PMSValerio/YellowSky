@@ -133,7 +133,10 @@ func _deposit_fuel(amount, resource):
 # update both facility and player resources
 func _collect_products(resource):
 	if facility_entity != null:
-		ResourceManager.add_to_resource(resource, facility_entity.products[resource])
+		if resource == Global.Resources.FOOD:
+			InventoryManager.add_food_amount(facility_entity.products[resource], facility_entity.facility_type.type_id)
+		else:
+			ResourceManager.add_to_resource(resource, facility_entity.products[resource])
 		facility_entity.collect(resource)
 		prod_stats_dict[resource].set_x_out_of_y(facility_entity.products[resource], facility_entity.get_max_prod())
 		_update_status()

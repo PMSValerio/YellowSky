@@ -13,7 +13,7 @@
   "food2": {
     "item_id": "food2",
     "type": "FOOD",
-    "subtype": "",
+    "subtype": "CANNERY",
     "texture": "items/resources/water/water_bottle.png",
     "value": 50,
     "stat": 25,
@@ -24,10 +24,10 @@
   "food3": {
     "item_id": "food3",
     "type": "FOOD",
-    "subtype": "",
+    "subtype": "HYDROPONICS",
     "texture": "items/resources/water/water_bottle.png",
     "value": 50,
-    "stat": 40,
+    "stat": 50,
     "usable": true,
     "name": "Dried Meat",
     "flavour_text": "It's hard to tell what animal this meat came from, but beggars can't be choosers.\n\nRestores 40 Stamina."
