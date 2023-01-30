@@ -56,7 +56,6 @@ var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
-var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
 var paused_time
 var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
 var start_settlement_offset = Vector2(1, -4)
@@ -734,7 +733,6 @@ func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(0,4)
 	var num = rng.randi_range(0,3)
 	
 	num = 1 # for Debug

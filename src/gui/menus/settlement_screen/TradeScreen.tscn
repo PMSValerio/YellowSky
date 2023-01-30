@@ -592,7 +592,7 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 
 [node name="UI_sfx" parent="." instance=ExtResource( 7 )]
-root_path = NodePath("../MarginContainer/VBoxContainer")
+root_path = NodePath("../PanelContainer/MarginContainer/VBoxContainer")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/HBoxContainer/PlayerButton" to="." method="_on_PlayerButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton" to="." method="_on_TradeButton_pressed"]

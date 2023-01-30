@@ -30,7 +30,6 @@ onready var trade_screen_ref = $TradeScreen
 onready var resource_slider = $MainScreen/PanelContainer/ResourceSlider
 onready var quest_completed_screen = $MainScreen/PanelContainer/QuestCompletedSCreen
 
-onready var trade_screen_ref = $Margin/TradeScreen
 onready var keyboard_sfx = $Keyboard_sfx
 onready var bg_music_player = $BG_MusicPlayer
 
