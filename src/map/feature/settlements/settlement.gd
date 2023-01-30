@@ -116,7 +116,10 @@ func set_discovered(discovered = true):
 
 
 func blackout() -> void:
-	repair(-get_max_health())
+	if resources.has(Global.Resources.ENERGY):
+		resources[Global.Resources.ENERGY] = 0
+		warning.set_type(Global.Warnings.NO_FUEL)
+		warning.toggle(true)
 
 
 # --- || Manage || ---

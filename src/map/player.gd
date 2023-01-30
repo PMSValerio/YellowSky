@@ -46,6 +46,11 @@ var is_alive = true
 var out_of_stamina_timer = Timer.new()
 var recover_health_timer = Timer.new()
 
+# for the acid rain
+var raining = false
+var rain_timer = 0.0
+var rain_period = 3.0 # sec
+
 
 func _ready() -> void:
 	Global.set_cam(_cam)
@@ -69,6 +74,8 @@ func _ready() -> void:
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
 	_v = EventManager.connect("attempt_sleep", self, "change_stamina", [Global.TOTAL_STAMINA/2.0])
 	_v = EventManager.connect("night_penalty", self, "change_health", [-Global.TOTAL_HEALTH*0.7])
+	
+	_v = EventManager.connect("rain", self, "_on_rain")
 	
 
 func _physics_process(_delta: float) -> void:
@@ -101,6 +108,14 @@ func _physics_process(_delta: float) -> void:
 		if walked_distance_step >= MOVE_STAMINA_THRESHOLD:
 			walked_distance_step = 0
 			change_stamina(-STAMINA_LOSS_RATE)
+	
+	
+	# rot food if raining
+	if raining:
+		rain_timer += _delta
+		if rain_timer >= rain_period:
+			rain_timer = 0
+			InventoryManager.rot_food()
 
 
 func _input(event):
@@ -245,6 +260,11 @@ func _on_disaster_damage(damage):
 
 func _on_nightfall():
 	pass
+
+
+func _on_rain(period):
+	raining = period > 0
+	rain_timer = 0
 
 
 func _on_push_menu(_menu, _context):

@@ -24,34 +24,33 @@ margin_right = 1016.0
 margin_bottom = 592.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 364.0
+margin_right = 404.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 scroll_horizontal_enabled = false
 
 [node name="QuestList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer"]
-margin_right = 364.0
+margin_right = 404.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PanelContainer" parent="MarginContainer/HBoxContainer/ScrollContainer/QuestList" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_right = 364.0
+margin_right = 404.0
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 368.0
+margin_left = 408.0
 margin_right = 1008.0
 margin_bottom = 584.0
+rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 scroll_horizontal_enabled = false
 
 [node name="QuestDetails" parent="MarginContainer/HBoxContainer/ScrollContainer2" instance=ExtResource( 3 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 640.0
+margin_right = 600.0
 margin_bottom = 584.0
-rect_min_size = Vector2( 640, 0 )
 
 [connection signal="abandon" from="MarginContainer/HBoxContainer/ScrollContainer2/QuestDetails" to="." method="_on_QuestDetails_abandon"]

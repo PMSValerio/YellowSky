@@ -31,6 +31,8 @@ func _set_up_required_items(item_label, node_list, item_dict):
 		var required_amount = item_dict[it]
 		if current_amount < required_amount: # if the item amounts match mark them as complete
 			all_match = false
+			item_label.remove_color_override("font_color")
+			label.remove_color_override("font_color")
 		else:
 			item_label.add_color_override("font_color", Color(0.2,0.2,0.2))
 			label.add_color_override("font_color", Color(0.2,0.2,0.2))
@@ -46,15 +48,20 @@ func set_up(_quest : Quest):
 	title.text = quest.name
 	description.text = quest.description
 	
-	if quest.deliver_items == null or quest.deliver_items.size() == 0:
-		event_item_label.visible = false
-		event_item_list.visible = false
-		event_investigate.text = "Investigate location"
+	if quest.event != null:
+		event_investigate_container.visible = true
+		if quest.deliver_items == null or quest.deliver_items.size() == 0:
+			event_item_label.visible = false
+			event_item_list.visible = false
+			event_investigate.text = "Investigate location"
+		else:
+			event_item_label.visible = true
+			event_item_list.visible = true
+			_set_up_required_items(event_item_label, event_item_list, quest.deliver_items)
+			event_investigate.text = "Deliver items to location"
 	else:
-		event_item_label.visible = true
-		event_item_list.visible = true
-		_set_up_required_items(event_item_label, event_item_list, quest.deliver_items)
-		event_investigate.text = "Deliver items to location"
+		event_investigate_container.visible = false
+		event_item_label.visible = false
 	
 	if quest.get_status() == Quest.Status.RETURN:
 		event_investigate.add_color_override("font_color", Color(0.2,0.2,0.2))
@@ -73,6 +80,8 @@ func set_up(_quest : Quest):
 			_set_up_required_items(return_item_label, return_item_list, quest.return_items)
 			return_investigate.text = "Bring items back to " + quest.quest_giver.settlement_type.name
 	else:
+		event_investigate.remove_color_override("font_color")
+		
 		return_item_label.visible = false
 		return_item_list.visible = false
 		return_investigate.visible = false
