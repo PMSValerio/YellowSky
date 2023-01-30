@@ -16,13 +16,13 @@ export (PackedScene) var OUT_MOUNTAIN_SCENE
 export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 export (PackedScene) var EVENT_SCENE
+export (PackedScene) var GREEN_SCENE
 
-export var MAP_WID = 50
-export var MAP_HEI = 30
+export (PackedScene) var RAINDROP_SCENE
 
 const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
-const START_RADIUS = 4 # x tile radius of open area
+const START_RADIUS = 5 # x tile radius of open area
 const DISCOVER_RANGE = 4 # range at which tiles are discovered
 const FEATURE_SPACING = 3 # minimum space between features on generation
 
@@ -39,6 +39,11 @@ onready var mountains = $Entities/Mountains
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 onready var events = $Entities/Events
+onready var greens = $Entities/Greens
+
+onready var raindrops = $RainDrops
+
+onready var game_anim = $OverHUD/AnimationPlayer
 
 onready var bg_music_player = $BG_MusicPlayer
 
@@ -53,6 +58,12 @@ var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be g
 var discovered = [] # map cells not obscured by fog of war (true or false)
 var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
 var paused_time
+var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
+var start_settlement_offset = Vector2(1, -4)
+
+var raining_period = 0.0
+var raining_timer = 0.0
+
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -73,23 +84,26 @@ func _ready() -> void:
 		parallax_sky.visible = false
 		map_perspective.visible = false
 	
-	# Manually instance starting features
-	var ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.QUEST), map_center + Vector2.DOWN, false)
-	# vv why the hell is this necessary???? vv
-	_on_spawn_event_request(ev)
-	_instance_map_scene(map_center + Vector2(-2, 0), TileType.FACILITY)
-	_instance_map_scene(map_center + Vector2(1, -3), TileType.SETTLEMENT)
+
+	var _v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	
+	# Manually instance starting features aka event, facility and settlement 
+	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.UP, false)
+	_instance_map_scene(map_center + Vector2(-1, -4), TileType.FACILITY)
+	_instance_map_scene(map_center + start_settlement_offset, TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
 	_discover_around(map_center)
-	
-	var _v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
+
+	_v = EventManager.connect("feature_tile_placed", self, "_on_feature_tile_placed")
 	_v = EventManager.connect("feature_tile_left", self, "_on_feature_tile_left")
-	_v = EventManager.connect("spawn_event_request", self, "_on_spawn_event_request")
+	_v = EventManager.connect("rain", self, "_on_rain_request")
+	_v = EventManager.connect("generate_green_tile", self, "generate_green_tile")
+	EventManager.emit_signal("world_is_ready")
 	
-	# TODO: remove
-	var quest_data = Global.get_quest_data("quest2")
-	WorldData.quest_log.regiter_new_quest(quest_data, settlements.get_child(settlements.get_child_count()-1))
+	bg_music_player.connect("finished", self, "random_bg_music")
+	
+	game_anim.play("start_game")
 
 
 func _physics_process(_delta: float) -> void:
@@ -129,6 +143,31 @@ func _physics_process(_delta: float) -> void:
 			new_entity.mouse_entered()
 	
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
+	
+	if raining_period > 0:
+		_rain(_delta)
+
+
+func _rain(delta):
+	raining_timer += delta
+	if raining_timer > raining_period:
+		raining_timer = 0
+		_spawn_raindrop()
+
+
+func _spawn_raindrop():
+	var raindrop = RAINDROP_SCENE.instance()
+	var player_pos = _get_player_position()
+	var xmin = player_pos.x - 256
+	var xmax = player_pos.x + 256
+	var ymin = player_pos.y - 300
+	var ymax = player_pos.y + 100
+	
+	var xx = _rng.randf() * (xmax - xmin) + xmin
+	var yy = _rng.randf() * (ymax - ymin) + ymin
+	
+	raindrop.position = Vector2(xx, yy)
+	raindrops.add_child(raindrop)
 
 func generate_event_tile(event : Event):
 	var pos_cell = event.cell_pos
@@ -199,16 +238,26 @@ func _occupy_cell(cell, occupy):
 # returns a list of all cells around a given origin cell
 func _get_cells_around(origin, radius):
 	var lst = []
-	
-	var square_rad = pow(radius, 2)
-	var index = Vector2(origin.x - radius, origin.y - radius)
-	while index.x <= origin.x + radius:
-		index.y = origin.y - radius
-		while index.y <= origin.y + radius:
-			if index.distance_squared_to(origin) <= square_rad:
-				lst.append(index)
-			index.y += 1
-		index.x += 1
+
+	if radius == 1:
+		var inverter = 1
+		if int(origin.y) % 2 == 1:
+			inverter = -1
+
+		var offsets = [Vector2(0, -1), Vector2(-1, 0), Vector2(0, 1), Vector2(1*inverter, 1), Vector2(1, 0), Vector2(1*inverter, -1)]
+		lst.append(origin)
+		for offset in offsets:
+			lst.append(Vector2(origin.x - offset.x, origin.y - offset.y))
+	else:
+		var square_rad = pow(radius, 2)
+		var index = Vector2(origin.x - radius, origin.y - radius)
+		while index.x <= origin.x + radius:
+			index.y = origin.y - radius
+			while index.y <= origin.y + radius:
+				if index.distance_squared_to(origin) <= square_rad:
+					lst.append(index)
+				index.y += 1
+			index.x += 1
 	
 	return lst
 
@@ -235,8 +284,8 @@ func _resize_map():
 		priorities[i] /= sum
 	
 	# fill remaining tiles if map is bigger than 20x20 cells
-	for x in range(MAP_WID):
-		for y in range(MAP_HEI):
+	for x in range(Global.MAP_WID):
+		for y in range(Global.MAP_HEI):
 			if tilemap.get_cell(x, y) == -1:
 				_set_tilemap_cell(x, y, id, priorities)
 	
@@ -246,7 +295,7 @@ func _resize_map():
 # set border tilemap cells
 func _set_border_tiles():
 	var tl = Vector2(-10, -10)
-	var br = Vector2(MAP_WID + 10, MAP_HEI + 10)
+	var br = Vector2(Global.MAP_WID + 10, Global.MAP_HEI + 10)
 	var xx = tl.x
 	var yy = tl.y
 	
@@ -254,7 +303,7 @@ func _set_border_tiles():
 	while xx < br.x:
 		yy = tl.y
 		while yy < br.y:
-			if not (xx >= 0 and xx < MAP_WID and yy >= 0 and yy < MAP_HEI):
+			if not (xx >= 0 and xx < Global.MAP_WID and yy >= 0 and yy < Global.MAP_HEI):
 				out_tilemap.set_cell(xx, yy, 0)
 			yy += 1
 		xx += 1
@@ -278,7 +327,12 @@ func _set_tilemap_cell(xx, yy, id, priorities : Array = [1.0]):
 func _set_cell_discovery(cell, _disc = true):
 	var tilemap_subtile = tilemap.get_cell_autotile_coord(cell.x, cell.y)
 	tilemap_subtile.y = 0 if _disc else 1
-	tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# 1 is the tile index of the green tile
+	if tilemap.get_cellv(cell) != 1:
+		tilemap.set_cellv(cell, 0, false, false, false, tilemap_subtile)
+
+	# handle entities in tile in case they exist
 	var entity = map_grid[cell.x][cell.y]
 	if _is_feature(entity):
 		entity.set_discovered(_disc)
@@ -565,7 +619,11 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				map_grid[cell.x][cell.y] = mountain
 		TileType.SETTLEMENT:
 			if SETTLEMENT_SCENE != null:
+
+	
 				var settlement = SETTLEMENT_SCENE.instance()
+				if cell == map_center + start_settlement_offset:
+					settlement.is_start_settle = true
 				settlement.global_position = real_position
 				settlement.set_discovered(false)
 				settlements.add_child(settlement)
@@ -586,8 +644,10 @@ func _on_Player_interact(position):
 	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
 	if tile_entity is Object and tile_entity.has_method("interact"):
-		WorldData.quest_log.on_feature_interacted(tile_entity)
 		tile_entity.interact()
+		WorldData.quest_log.on_feature_interacted(tile_entity)
+		
+		
 
 # when a feature tile enters the map
 func _on_feature_tile_placed(feature : Feature):
@@ -611,16 +671,73 @@ func _on_feature_tile_left(feature : Feature):
 	map_grid[cell.x][cell.y] = TileType.EMPTY
 
 
+func generate_green_tile(feature : Feature, radius : int, setup : bool):	
+	var cell_pos = _get_cell_from_position(feature.global_position)
+	var free_neighs = _get_cells_around(cell_pos, radius).duplicate()
+	var occupied_neighs = []
+	
+	# find occupied neighs
+	for neigh in free_neighs:
+		if _is_cell_in_bounds(neigh):
+			if vacant_tiles[neigh] != 0:
+				occupied_neighs.append(neigh)	 
+		else:
+			occupied_neighs.append(neigh)
+
+	# remove occupied neighs to get free neighs
+	for ocup_neigh in occupied_neighs:
+		free_neighs.erase(ocup_neigh)
+
+	# update feature with nmbr of green tiles that can still be generated 
+	feature.green_tile_slots_left = free_neighs.size() 
+
+	if free_neighs.size() > 0 && !setup:
+		# randomly get a free neigh from the available 
+		var index = _rng.randi_range(0, free_neighs.size() - 1)
+		var cell_to_use = free_neighs[index]
+		
+		# actually change the tile		
+		tilemap.set_cellv(cell_to_use, 1, false, false, false)
+		_occupy_cell(cell_to_use, true)
+		WorldData.green_planted()
+		if cell_to_use != cell_pos: # don't spawn a green tile on top of settlement
+			var green = GREEN_SCENE.instance()
+			var world_pos = tilemap.map_to_world(cell_to_use)
+			var real_position = world_pos + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
+			green.global_position = real_position
+			greens.add_child(green)
+
+
 # process a request to generate a new event tile
 func _on_spawn_event_request(event):
 	generate_event_tile(event)
 
+
+func _on_rain_request(period):
+	raining_period = period
+
+
+func _on_Player_died() -> void:
+	get_tree().paused = true
+	game_anim.play("end_game")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "end_game":
+		get_tree().paused = false
+		var _v = get_tree().change_scene("res://src/scenes/GameOver.tscn")
+
+
+# this should not be in world_map
 func random_bg_music():
 	#var last_music_played = ""
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num = rng.randi_range(0,4)
+	var num = rng.randi_range(0,3)
+	
+	num = 1 # for Debug
 	match num:
 		0:
 			music_file = "res://assets/sfx/world/desert_monolith.wav"
@@ -635,4 +752,3 @@ func random_bg_music():
 	if music_file != "" :
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
-		bg_music_player.connect("finished", self, "random_bg_music")

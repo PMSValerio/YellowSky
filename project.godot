@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/map/feature/settlements/settlement.gd"
 }, {
+"base": "Reference",
+"class": "SettlementType",
+"language": "GDScript",
+"path": "res://src/type_objects/settlement_type.gd"
+}, {
 "base": "VBoxContainer",
 "class": "StatDetails",
 "language": "GDScript",
@@ -122,6 +127,7 @@ _global_script_class_icons={
 "QuestLog": "",
 "ResourceButton": "",
 "Settlement": "",
+"SettlementType": "",
 "StatDetails": "",
 "TextManager": ""
 }
@@ -129,7 +135,7 @@ _global_script_class_icons={
 [application]
 
 config/name="YellowSky"
-run/main_scene="res://src/scenes/World.tscn"
+run/main_scene="res://src/scenes/TitleScreen.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
 

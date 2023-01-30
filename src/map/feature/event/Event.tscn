@@ -20,15 +20,15 @@ shader_param/height = 0.0
 [sub_resource type="Animation" id=2]
 resource_name = "ruined_settlement"
 
-[node name="Event" type="Node2D"]
+[node name="Event" type="Node2D" groups=["events"]]
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 1 )
 texture = ExtResource( 5 )
 hframes = 4
-vframes = 2
-frame = 4
+vframes = 4
+frame = 12
 script = ExtResource( 2 )
 BASE_SCALE = 3.0
 UPDATE_Z = true

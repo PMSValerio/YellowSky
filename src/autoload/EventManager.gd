@@ -6,7 +6,13 @@ extends Node
 signal feature_tile_placed(feature)
 signal feature_tile_left(feature)
 
+signal generate_green_tile(feature)
+
 signal spawn_event_request(event)
+
+signal time_update(new_time)
+
+signal world_is_ready
 
 # Menu Navigation
 signal push_menu(menu, context) # context is entirely dependent on the menu that was pushed
@@ -20,6 +26,12 @@ signal hope_gained(amount)
 # Inventory
 signal item_used(item_data)
 
+# Settlement
+signal attempt_sleep()
+
 # Disasters
 signal disaster_damage(damage)
+signal start_nightfall()
+signal start_deep_nightfall()
 signal night_penalty()
+signal rain(period)

@@ -1,53 +1,86 @@
 {
-    "settlement1" : {
-        "NPC" : {
-            "Name" : "Rusty:", 
-            "Branches" : {
-                "0" : [
-                    "Hello there mate, pleasure to meet ya!", 
-                    "Feelin a wee bit adventurous, are we?", 
-                    "How about a lil quest to spice up yer life ay?", 
-                    "Quest"
-                ],
-                "1" : [
-                    "[ALPHA] Joke's on you, quests haven't been implemented yet! Come back later.", 
-                    "End"
-                ],
-                "2" : [
-                    "[ALPHA] Well, they haven't been implemented yet anyways. Take care!", 
-                    "End"
-                ]
-            } 
-        },
-        "Player" : {
-            "Branches" : {
-                "0" : [
-                    "How are you?", 
-                    "Do you need anything?", 
-                    "Buzz off!"
-                ],
-                "1" : ["Gald to hear it."], 
-                "2" : ["I can get you food."],
-                "3" : [
-                    "(Kill)", 
-                    "(Leave peacefully)"
-                ]
-            } 
-        }
+    "npc_start" : {
+        "Name" : "Smiling Jack:", 
+        "Dialogue" : { 
+            "1" : [
+                "Oh hi there! You don't happen to come from the south do you?", 
+                "I saw the storm that ravaged those parts with my own eye, and let me tell you, I wasn't expecting any visitors from down under!", 
+                "You naturally seem a bit lost... Not to worry though, make yourself at home.",
+                "Life around here goes by pretty slow, one can't afford to diddle-daddle in this wasteland afterall.", 
+                "You can always comeback and have a chat if you'd like, as well as barter with the townsfolks and see if you can grab yourself a deal.", 
+                "Don't just go around being a leech though! If you decide to hang around these parts, its only natural for you to help gather some resources.",
+                "The power plant nearby recently broke down, and our stored energy won't last much longer...",
+                "In case you decide to brave the wilderness, you are bound to find other folks trying to hang on as best as they can I'm sure.",
+                "Don't be a stranger, pay them a visit and say hi. Specially if night starts to fall!",
+                "Nights can get breezy around here, so most settlements will probably shelter you around nightfall.",
+                "In any case, don't you go out there dying on me, ya hear!",
+                "END"
+            ],
+            "2" : [
+                "Hello again!", 
+                "Are you managing to handle yourself out here?", 
+                "Food doesn't come around very often, but it's important to keep yourself somewhat sharp.",
+                "In case you get yourself injured, be sure to be well fed and try not to move too much.", 
+                "Overall though, if you protect others, others will protect you, even if some of the folk out there happen to be quite excentrique!", 
+                "You never know when someone will pay a pretty penny for some odd job...",
+                "And remember, if you are wandering about, don't forget to pay us a visit!",
+                "END"
+            ]
+        }   
     },
-    "settlement2" : {
-        "NPC" : {
-            "Name" : "Live Guy:", 
-            "Branches" : {
-                "0" : "Hello!",
-                "1" : "Im good."
-            } 
-        },
-        "Player" : {
-            "Branches" : {
-                "0" : "Hello!",
-                "1" : "Im good."
-            } 
-        }
+    "npc1" : {
+        "Name" : "Rusty:", 
+        "Dialogue" : { 
+            "1" : [
+                "Hello there mate, pleasure to meet ya!", 
+                "Name's Rusty by the way. One manages to come up with all sorts of nickanmes out here in the wild.", 
+                "These parts are not very welcoming to strangers though.",
+                "It is known that some creatures that remain like to lurk in creaks and crevices.", 
+                "One can never be too sure...", 
+                "QUEST",
+                "Anyway, take care!",
+                "END"
+            ],
+            "2" : [
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
+    },
+    "npc2" : {
+        "Name" : "Roofles:", 
+        "Dialogue" : { 
+            "1" : [
+                "Hey! Watcha know about the young whipper snapper that was last seen in the area?",
+                "Oh, you're not from here yourself are ya? Sorry for that then, my bad.",
+                "Folks are on the edge lately. Been hearin' some strange noises coming from south.",
+                "No one knows what's causing it, and certainly no one's keen enough to find out.",
+                "Can't be nothing to worry about, that's what I tell myself at least!",
+                "QUEST",
+                "You take care though, ya hear!",
+                "END"
+            ],
+            "2" : [
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
+    },
+    "npc3" : {
+        "Name" : "Blingo:", 
+        "Dialogue" : { 
+            "1" : [
+                "Is it safe?",
+                "Is it safe?",
+                "Is it safe?",
+                "QUEST",
+                "It puts the lotion on its skin and puts it in the basket...",
+                "END"
+            ],
+            "2" : [
+                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "END"
+            ] 
+        }   
     }
 }

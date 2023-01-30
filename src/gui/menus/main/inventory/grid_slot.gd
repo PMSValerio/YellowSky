@@ -8,12 +8,13 @@ onready var toggle_node := $Button/ColorRect
 
 
 export var is_for_trade = false
+export var has_tooltip = false 
 
 var data : Item = null
 var amount : int = -1
 var temp_amount : int = -1
 var is_selected = false setget set_is_selected
-var has_tooltip = false setget set_has_tooltip
+
 
 signal button_pressed(left_or_right_mouse)
 
@@ -27,8 +28,8 @@ func _ready():
 
 func set_up_for_trade():
 	is_for_trade = true
-	button_node.button_mask = BUTTON_MASK_LEFT | BUTTON_MASK_RIGHT | BUTTON_MASK_MIDDLE
-
+	has_tooltip = true
+	
 
 func _on_button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
@@ -43,16 +44,22 @@ func populate_data(item_data : Item, item_amount : int) -> void:
 	data = item_data
 	button_node.data = data
 	set_amount(item_amount)
-	set_has_tooltip(true)
+	set_tooltip(true)
 
 
 func clear_data() -> void:
+
+	if is_for_trade:
+		button_node.button_mask = BUTTON_MASK_LEFT | BUTTON_MASK_RIGHT | BUTTON_MASK_MIDDLE
+	else:
+		button_node.button_mask = BUTTON_MASK_LEFT
+
 	texture_node.texture = null
 	data = null
 	button_node.data = null
 	amount = -1
 	label_node.text = ""
-	set_has_tooltip(false)
+	set_tooltip(false)
 
 
 func set_amount(item_amount) -> void:
@@ -86,10 +93,8 @@ func set_is_selected(new_value):
 	toggle_node.visible = is_selected
 
 
-func set_has_tooltip(new_value):
-	if is_for_trade:
-		has_tooltip = new_value
-		if has_tooltip:
-			button_node.hint_tooltip = "This will be replaced by custom grid_slot_tooltip, report if it doesn't."
-		else:
-			button_node.hint_tooltip = ""
+func set_tooltip(enable):
+	if enable && has_tooltip:
+		button_node.hint_tooltip = "This will be replaced by custom grid_slot_tooltip, report if it doesn't."
+	else:
+		button_node.hint_tooltip = ""

@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/gui/hud/HudHopeSeed.gd" type="Script" id=1]
+
+[node name="Hope" type="PanelContainer"]
+margin_right = 132.0
+margin_bottom = 80.0
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 124.0
+margin_bottom = 72.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_top = 26.0
+margin_right = 32.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 3
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_left = 52.0
+margin_right = 116.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )

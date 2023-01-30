@@ -1,14 +1,70 @@
 {
-    "settlement1" : {
-        "Settlement" : {
-            "Name" : "Low End Creek", 
-            "Description" : "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well."
-        }
+    "settlement_start": {
+        "id": "settlement_start",
+        "name": "Low End Creek",
+        "flavour_text": "Known for their luck avoiding all sorts of distasters and catastrophes, the folks that live here have an hardy attitude to them. Low End Creek is also known for its abandoned facility close by.",
+        "npc": "npc_start",
+        "inventory": "inventory_start",
+        "portrait_texture": "settlement_portrait/settlement0.png",
+        "rank" : 1,
+        "population": 10,
+        "resources": {
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": []
     },
-    "settlement2" : {
-        "Settlement" : {
-            "Name" : "High End Creek", 
-            "Description" : "Settlement description template2" 
-        }
+    "settlement1": {
+        "id": "settlement1",
+        "name": "Lower End Creek",
+        "flavour_text": "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "npc": "npc1",
+        "inventory": "inventory1",
+        "portrait_texture": "settlement_portrait/settlement0.png",
+        "rank" : 1,
+        "population": 10,
+        "resources": {
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": []
+    },
+    "settlement2": {
+        "id": "settlement2",
+        "name": "High End Creek",
+        "flavour_text": "[ALPHA] This is High End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "npc": "npc2",
+        "inventory": "inventory2",
+        "portrait_texture": "settlement_portrait/settlement0.png",
+        "rank" : 2,
+        "population": 50,
+        "resources": {
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": ["quest1", "quest2"]
+    },
+    "settlement3": {
+        "id": "settlement3",
+        "name": "Sky End Creek",
+        "flavour_text": "[ALPHA] This is Sky End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "npc": "npc3",
+        "inventory": "inventory3",
+        "portrait_texture": "settlement_portrait/settlement0.png",
+        "rank" : 3,
+        "population": 70,
+        "resources": {
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": ["quest3"]
     }
 }

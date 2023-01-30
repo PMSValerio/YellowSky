@@ -9,6 +9,8 @@ enum Status {
 enum Dialog {
 	PROMPT,
 	ACCEPT,
+	DECLINE,
+	UNFINISH,
 	FINISH,
 }
 
@@ -19,11 +21,10 @@ var _event_id # the id of the related event (from the quest category ONLY)
 var deliver_items = {} # items and amounts {item_id: amount} that must be brought to event tile
 var quest_giver : Feature # the settlement that gave this quest
 var return_items = {} #  items and amounts {item_id: amount} that must be brought back to settlement
+var rewards = {} # the dict of item ids that this quest rewards and amounts
 
 var name = ""
 var description = ""
-
-var rewards = {} # the dict of item ids that this quest rewards and amounts
 
 var _status = Status.EVENT
 
@@ -35,14 +36,13 @@ func init(_quest_id, data):
 	_event_id = data["event_id"]
 	deliver_items = data["deliver_items"]
 	return_items = data["return_items"]
-	
 	rewards = data["rewards"]
 	
 	name = data["name"]
 	description = data["description"]
 
 
-# activate quest and set it context specific info (quest_giver and generate event)
+# activate quest and set its context specific info (quest_giver and generate event)
 func start(settlement_entity):
 	quest_giver = settlement_entity
 	
@@ -55,19 +55,12 @@ func start(settlement_entity):
 
 
 func _on_feature_interacted(feature_entity : Feature):
-	if not can_advance():
-		return
 	if _status == Status.EVENT: # if current goal is to visit event
 		if feature_entity is Event and feature_entity.data.event_id == _event_id:
-			# TODO: remove all deliver items from inventory
+			# remove all deliver items from inventory
 			if can_advance():
+				_remove_items(deliver_items)
 				_status = Status.RETURN
-				print("interacted with event")
-	elif _status == Status.RETURN: # if current goal is to return to settlement
-		if feature_entity == quest_giver:
-			if can_advance():
-				print("interacted with settlement")
-				# TODO: remove all deliver items from inventory
 
 
 # returns whether quest can advance progress (mainly if it has the required items)
@@ -77,6 +70,14 @@ func can_advance() -> bool:
 	elif _status == Status.RETURN:
 		return return_items == null or _check_items(return_items)
 	return false
+
+
+# remove required items from player's inventory
+func _remove_items(item_dict):
+	if item_dict != null:
+		for item_id in item_dict:		
+			var t = InventoryManager.item_stats[item_id].type
+			InventoryManager.inventory.add_items(t, item_id, -item_dict[item_id])
 
 
 # check all required items
@@ -100,11 +101,21 @@ func get_dialogue(type):
 			label = "prompt_dialogue"
 		Dialog.ACCEPT:
 			label = "accept_dialogue"
+		Dialog.DECLINE:
+			label = "decline_dialogue"
+		Dialog.UNFINISH:
+			label = "unfinish_dialogue"
 		Dialog.FINISH:
 			label = "finish_dialogue"
 	if label == "":
 		return ""
-	return Global.get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id, label])
+	return Global.get_text_from_file(Global.Text.QUESTS, "quests.json", [quest_id, label]).duplicate()
+
+
+func on_completion(interacted_settlement):
+	if interacted_settlement == quest_giver:
+		_remove_items(return_items)
+		WorldData.quest_log.abandon_quest(quest_id)
 
 
 func abandoned():
@@ -113,4 +124,6 @@ func abandoned():
 	var tmp = quest_giver.warning.get_text()
 	if name in tmp:
 		quest_giver.warning.toggle(false)
+
+	quest_giver.set_next_quest()
 	# this method should also try to remove any QUEST items related to the quest, but, frankly that is too much work and could cause problems

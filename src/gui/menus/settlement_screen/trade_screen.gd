@@ -1,4 +1,4 @@
-extends PanelContainer
+extends MarginContainer
 
 enum Sides {
 	INVENTORY,
@@ -7,26 +7,31 @@ enum Sides {
 
 var template_grid_slot = preload("res://src/gui/menus/main/inventory/GridSlot.tscn")
 
-onready var resource_slider = $MarginContainer/ResourceSlider
-onready var inventory_grid = $MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/ScrollInventory/InventoryGrid
-onready var settlement_grid = $MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/ScrollSettlement/SettlementGrid
-onready var inventory_bar = $MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer/PlayerBar
-onready var settlement_bar = $MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer/SettlementBar
-onready var player_offer_label = $MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer/PlayerOfferLabel
-onready var settlement_offer_label = $MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer/SettlementOfferLabel
-onready var trade_button = $MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton
+onready var resource_slider = $PanelContainer/MarginContainer/ResourceSlider
+# inventory areas
+onready var inventory_grid = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/PanelContainer/ScrollInventory/InventoryGrid
+onready var settlement_grid = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettlementArea/PanelContainer/ScrollSettlement/SettlementGrid
+# trade area
+onready var trade_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton
+onready var inventory_bar = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer/PlayerBar
+onready var settlement_bar = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer/SettlementBar
+onready var player_offer_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/PlayerOffer/PlayerOfferLabel
+onready var settlement_offer_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/PanelContainer/HBoxContainer/SettlementOffer/SettlementOfferLabel
 
-var settlement_entity : Settlement  = null 
+var settlement_entity : Settlement  = null
+var player_offer : Inventory = null  
 var settlement_offer : Inventory = null 
-var player_offer : Inventory = null 
+var extra_player_slots = [] # stores slots that are added when needed
+var extra_settlement_slots = []
 
 var grids = {}
 var bars = {}
 var bar_labels = {}
 var item_sources = {}
 var item_offerings = {}
+var extra_slots = {}
 
-var slot_batch_number : int = 0 # number of slots to add when items>slots
+var slot_batch_number : int = 0 # number of slots to add when items > slots already existant
 var is_slider_active = false
 var selected_slot = null
 var selected_side = Sides.INVENTORY
@@ -36,8 +41,8 @@ func _ready():
 	# set up offer inventories
 	player_offer = Inventory.new()
 	settlement_offer = Inventory.new()
-	player_offer.init(0)
-	settlement_offer.init(0)
+	player_offer.init()
+	settlement_offer.init()
 
 	# programatically connect buttons to "on select" signals
 	for child in inventory_grid.get_children():
@@ -51,12 +56,14 @@ func _ready():
 	grids[Sides.SETTLEMENT] = settlement_grid
 	bars[Sides.INVENTORY] = inventory_bar
 	bars[Sides.SETTLEMENT] = settlement_bar
-	item_offerings[Sides.INVENTORY] = player_offer
-	item_offerings[Sides.SETTLEMENT] = settlement_offer
 	bar_labels[Sides.INVENTORY] = player_offer_label
 	bar_labels[Sides.SETTLEMENT] = settlement_offer_label
-	
+	item_offerings[Sides.INVENTORY] = player_offer
+	item_offerings[Sides.SETTLEMENT] = settlement_offer
+	extra_slots[Sides.INVENTORY] = extra_player_slots
+	extra_slots[Sides.SETTLEMENT] = extra_settlement_slots
 
+	
 func set_context(context) -> void:
 
 	settlement_entity = context
@@ -113,9 +120,8 @@ func offer_remove_all(side):
 	if item_offerings[side].get_owned_items_info().size() > 0:
 
 		_populate_item_grid(0, side)
-		change_offer_value(side, 0)
 		item_offerings[side].reset()
-		trade_button.disabled = true
+		change_offer_value(side, 0)
 	else:
 		for child in grids[side].get_children():
 			if child.data != null:
@@ -123,7 +129,8 @@ func offer_remove_all(side):
 				item_offerings[side].add_items(child.data.type, child.data.id, child.amount)
 
 		change_offer_value(side, bars[side].value + item_offerings[side].get_total_value())
-		check_trade_button()
+
+	check_trade_button()
 
 
 # check if trade is valid to enable/disable trade button
@@ -151,11 +158,12 @@ func reset():
 			for _i in slot_batch_number:
 				var new_slot : GridSlot = template_grid_slot.instance()
 				new_slot.set_up_for_trade()
+				extra_slots[side].append(new_slot)
 				grids[side].add_child(new_slot, true)
 
 			# programatically connect buttons to "on select" signals
-			for child in grids[side].get_children():
-				var _v = (child as GridSlot).connect("button_pressed", self, "_on_select_slot", [child, side]) 
+			for slot in extra_slots[side]:
+				var _v = (slot as GridSlot).connect("button_pressed", self, "_on_select_slot", [slot, side]) 
 
 			
 		_populate_item_grid(0, side)
@@ -179,7 +187,7 @@ func _on_select_slot(mouse_value, slot : GridSlot, side) -> void:
 			BUTTON_LEFT:
 				offer_current_slot(1)
 			BUTTON_MIDDLE:
-				resource_slider.set_state(slot.temp_amount, 0, slot.amount, slot.data.texture)
+				resource_slider.set_state(slot.temp_amount, 0, slot.amount, slot.data.texture, "Settlement")
 				resource_slider.visible = true
 				is_slider_active = true
 			BUTTON_RIGHT:

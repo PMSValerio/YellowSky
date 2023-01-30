@@ -1,2 +1,20 @@
 {
+    "starter": {
+        "animation": "ruined_settlement",
+        "title": "A rough start",
+        "flavour_text": "In front of you stands what used to be home, not only to you, but also to others. Even though the memories are fresh, all of it resembles more of a blur than anything else, with the single exception of the feeling of strong winds buffeting against your skin.\n\nLooking around, there's nothing left. The arid scent of the desert air fills your nostrils, as it always has, but now you can also smell something new: oil and blood. Broken machinery, remnants of houses, and corpses. Your friends, companions... All dead.\n\nRummaging through the wreckage of your former home, you find that the storm either swept away or destroyed almost everything. Calling for help is pointless. It seems you're on your own. As hope fades, the flap of an object in the wind catches your eye. Sandy brown, much like most things around these parts.\n\nLeather... A rucksack! Good. You can use this to carry whatever you find. You have a talent for finding useful parts, and quickly stash away anything that looks workable, as well as the few meagre supplies that remain.\n\n",
+        "item_updates": {
+          "food2": 3,
+          "scrap_pile": 1
+        }
+    },
+    "tutorial": {
+      "animation": "ruined_settlement",
+      "title": "Tutorial",
+      "flavour_text": "Welcome to the Yellow Sky alpha!\n\nThis game focuses on resource management and exploration of a post-apocalyptic wasteland, set 200 years in the future. Mankind ignored scientists' warnings regarding the environment, and waged war for ever dwindling resources. Nuclear fallout and chemical gases gathered in the atmosphere, dyeing the sky a perpetual, sickening yellow.\n\n90% of the world's population was wiped out, but humans are ever resilient and endure in the form of small groups and settlements.\n\nHowever, natural disasters ravage the earth at a near constant, coupled with other dangers. You are the sole survivor of one such disaster which destroyed your own settlement. It's up to you to forge ahead and do something good for the world. One person can make a difference.\n\nThe red bar represents your health, which drains when you're hungry. The yellow bar represents your stamina, which drains when you move. Eat food to restore your stamina, or you'll go hungry!\n\nThere are four resources in the game: Scrap, energy, water and seeds. Scrap is used for building, energy for powering machinery, water to produce food and seeds to spread greenery. Right now, you'll only be using scrap and energy.\n\nUse WASD to move and E to interact with objects of interest. Hovering your cursor over most things reveals tooltips.",
+      "item_updates": {
+        "food2": 3,
+        "scrap_pile": 1
+      }
+  }
 }

@@ -162,9 +162,12 @@ func advance_upgrade(upgrade_id) -> void:
 			if has_eco_upgrade():
 				set_type(facility_type.eco_upgrade)
 				WorldData.unlock_facility(facility_type.eco_upgrade)
+				WorldData.facility_upgraded()
 
 
 # --- || Operation || ---
+
+
 # function for turning facility on/off, changing visuals and other stuff
 func toggle_facility(on_off) -> void:
 	running = on_off
@@ -245,6 +248,13 @@ func mouse_exited() -> void:
 	tooltip.visible = false
 
 
+func blackout():
+	if fuels.has(Global.Resources.ENERGY):
+		fuels[Global.Resources.ENERGY] = 0
+		warning.set_type(Global.Warnings.NO_FUEL)
+		warning.toggle(true)
+
+
 func _on_disaster_damage(damage):
 	repair(-damage)
 
@@ -255,6 +265,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 # || --- SAVING --- ||
+
 
 func export_data() -> Dictionary:
 	var data = {}

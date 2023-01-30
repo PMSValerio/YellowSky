@@ -4,14 +4,16 @@ signal interact(position)
 signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
+signal died
+
 const SPEED := 96.0
-const PAN_MARGIN_DIVISION_RATE = 10
+const CAM_LIMIT_OFFSET = 25 # adjusts the position at which the cam rests when faced with map boundary
+const PAN_MARGIN_DIVISION_RATE = 10 # adjusts how close to the screen edge the mouse cursor must be to start panning the camera
 const PAN_CAM_SPEED = 5
-const TOTAL_HEALTH = 100
-const TOTAL_STAMINA = 100
-const HEALTH_LOSS_RATE = 1
-const MOVE_STAMINA_THRESHOLD = 1 # average values can be between 0.1 - 5.0
-const STAMINA_LOSS_RATE = 10
+const HEALTH_LOSS_RATE = 0.5
+const HEALTH_RECOVER_RATE = 2
+const MOVE_STAMINA_THRESHOLD = 0.3 # average values can be between 0.1 - 5.0
+const STAMINA_LOSS_RATE = 1.2
 
 onready var _cam_anchor = $CameraAnchor
 onready var _cam = $CameraAnchor/Camera2D
@@ -40,11 +42,16 @@ var can_move_cam = false
 var mouse_border = {"top": false, "bottom": false, "left": false, "right": false}
 
 # stats vars
-var current_health = TOTAL_HEALTH setget set_health
-var current_stamina = TOTAL_STAMINA setget set_stamina
+var current_health = Global.TOTAL_HEALTH setget set_health
+var current_stamina = Global.TOTAL_STAMINA setget set_stamina
 var is_alive = true
-var out_of_stamina = false
 var out_of_stamina_timer = Timer.new()
+var recover_health_timer = Timer.new()
+
+# for the acid rain
+var raining = false
+var rain_timer = 0.0
+var rain_period = 3.0 # sec
 
 
 func _ready() -> void:
@@ -56,11 +63,21 @@ func _ready() -> void:
 	out_of_stamina_timer.wait_time = 0.2
 	out_of_stamina_timer.one_shot = false
 	add_child(out_of_stamina_timer)
+
+	# set recover_health_timer
+	recover_health_timer.connect("timeout", self, "change_health", [HEALTH_RECOVER_RATE])
+	recover_health_timer.wait_time = 0.2
+	recover_health_timer.one_shot = false
+	add_child(recover_health_timer)
 	
 	var _v = EventManager.connect("item_used", self, "_on_item_used")
 	_v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 	_v = EventManager.connect("night_penalty", self, "_on_nightfall")
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
+	_v = EventManager.connect("attempt_sleep", self, "change_stamina", [Global.TOTAL_STAMINA/2.0])
+	_v = EventManager.connect("night_penalty", self, "change_health", [-Global.TOTAL_HEALTH*0.7])
+	
+	_v = EventManager.connect("rain", self, "_on_rain")
 	
 
 func _physics_process(_delta: float) -> void:
@@ -93,6 +110,14 @@ func _physics_process(_delta: float) -> void:
 		if walked_distance_step >= MOVE_STAMINA_THRESHOLD:
 			walked_distance_step = 0
 			change_stamina(-STAMINA_LOSS_RATE)
+	
+	
+	# rot food if raining
+	if raining:
+		rain_timer += _delta
+		if rain_timer >= rain_period:
+			rain_timer = 0
+			InventoryManager.rot_food()
 
 
 func _input(event):
@@ -114,28 +139,34 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
 	
 
-# CUSTOM FUNCTIONS::::::::::::::::::::::::::::::::::::::::::::
-# STATS
+# --- || Stats || ---
+
+
 func set_health(new_val):
 	current_health = new_val
-	current_health = clamp(current_health, 0, TOTAL_HEALTH)
+	current_health = clamp(current_health, 0, Global.TOTAL_HEALTH)
 	emit_signal("health_changed", current_health)
 
-	if current_health <= 0:
+	if current_health >= Global.TOTAL_HEALTH:
+		recover_health_timer.stop()
+	elif current_health <= 0:
 		die()
 
 
 func set_stamina(new_val):
 	current_stamina = new_val
-	current_stamina = clamp(current_stamina, 0, TOTAL_STAMINA)
+	current_stamina = clamp(current_stamina, 0, Global.TOTAL_STAMINA)
 	emit_signal("stamina_changed", current_stamina)
 
 	if current_stamina <= 0:
-		out_of_stamina = true
 		out_of_stamina_timer.start()
 	else:
-		out_of_stamina = false
 		out_of_stamina_timer.stop()
+
+		if current_stamina < Global.TOTAL_STAMINA:
+			recover_health_timer.stop()
+		elif current_stamina >= Global.TOTAL_STAMINA && current_health < Global.TOTAL_HEALTH:
+			recover_health_timer.start()
 	
 
 func change_health(change_value):
@@ -149,11 +180,13 @@ func change_stamina(change_value):
 func die():
 	if is_alive:
 		is_alive = false
-		print("You Died!")
+		emit_signal("died")
+
+
+# --- || Animations || ---
 
 
 # TODO: move to state machine
-# UPDATE ANIMATIONS
 func _update_visuals():
 	var movement = "run" if is_moving else "idle"
 	var dir = "front"
@@ -172,7 +205,9 @@ func _update_visuals():
 		anim.play(animation)
 
 
-# CAM FUNCS
+# --- || Cam Utilities || ---
+
+
 func _update_cam():
 	mouse_pos = get_viewport().get_mouse_position()
 	cam_move_direction = Vector2.ZERO
@@ -193,7 +228,10 @@ func _update_cam():
 		cam_move_direction.y -= 1
 
 	if not is_moving && can_move_cam:
-		_cam_anchor.position += cam_move_direction.normalized() * PAN_CAM_SPEED
+		var new_pos = _cam_anchor.position + cam_move_direction.normalized() * PAN_CAM_SPEED
+		new_pos.x = clamp(new_pos.x, Global.MAP_WID * -CAM_LIMIT_OFFSET, Global.MAP_WID * CAM_LIMIT_OFFSET)
+		new_pos.y = clamp(new_pos.y, Global.MAP_HEI * -CAM_LIMIT_OFFSET, Global.MAP_HEI * CAM_LIMIT_OFFSET)
+		_cam_anchor.position = new_pos
 		
 	
 func _reset_cam_pos():
@@ -206,7 +244,9 @@ func set_cam_pos(pos : Vector2) -> void:
 	_cam_anchor.global_position = pos
 
 
-# OTHER FUNCS
+# --- || Signal Callbacks || ---
+
+
 func _on_World_tile_entered(interactable):
 	_prompt.visible = interactable
 
@@ -224,12 +264,28 @@ func _on_nightfall():
 	pass
 
 
+func _on_rain(period):
+	raining = period > 0
+	rain_timer = 0
+
+
 func _on_push_menu(_menu, _context):
 	can_move_cam = false
 	_reset_cam_pos()
 
 
+# || --- SFX --- ||
+
+
+func _play_walking_sfx():
+	if $Timer.time_left <= 0:
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
+		$AudioStreamPlayer2D.play()
+		$Timer.start(0.45)
+
+
 # || --- Saving --- ||
+
 
 func export_data() -> Dictionary:
 	var data = {}
@@ -245,12 +301,3 @@ func load_data(data : Dictionary):
 	global_position = data["position"]
 	set_health(data["health"])
 	set_stamina(data["stamina"])
-
-#func _on_pop_menu():
-#	mouse_exit_menu_cooldown = true
-
-func _play_walking_sfx():
-	if $Timer.time_left <= 0:
-		$AudioStreamPlayer2D.pitch_scale = rand_range(0.8, 1.2)
-		$AudioStreamPlayer2D.play()
-		$Timer.start(0.45)
