@@ -58,7 +58,7 @@
     "item_id": "discarded_parts",
     "type": "RESOURCES",
     "subtype": "MATERIALS",
-    "texture": "items/resources/scrap/discard_parts.png",
+    "texture": "items/resources/scrap/discarded_parts.png",
     "value": 10,
     "stat": 1,
     "usable": true,
