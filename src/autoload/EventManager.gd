@@ -26,7 +26,7 @@ signal hope_gained(amount)
 # Inventory
 signal item_used(item_data)
 
-# Resources
+# Settlement
 signal attempt_sleep()
 
 # Disasters

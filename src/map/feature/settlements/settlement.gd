@@ -31,7 +31,7 @@ var is_start_settle = false
 
 var rng = null # used for several random based calculations
 var _update_step = 2 # timer counter for update
-var update_step_modifier = 0 # affects time between settlement ticks. INFO: It is only for debug
+var update_step_modifier = 10 # affects time between settlement ticks. INFO: It is only for debug
 var is_missing_resources = false # used to prevent warning from popping up every tick without resources
 
 
@@ -107,11 +107,19 @@ func _tick() -> void:
 	healthbar_anchor.visible = sprite.visible and health < get_max_health()
 
 
-# --- || Manage || ---
+# --- || Override || ---
+
+
+func set_discovered(discovered = true):
+	if discovered:
+		update_step_modifier = 0
 
 
 func blackout() -> void:
 	repair(-get_max_health())
+
+
+# --- || Manage || ---
 
 
 # associated with natural distasters, making life harder for the settlement

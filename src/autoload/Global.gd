@@ -147,7 +147,7 @@ var facility_upgrades_config = {}
 
 const COMPACT_LOSS = 1.2
 
-const UPDATE_FREQ = 1.0 # (sec) facilities, settlements, ... update their state every update tick
+const UPDATE_FREQ = 2.0 # (sec) facilities, settlements, ... update their state every update tick
 const DAY_DURATION = 60 # duration of a day in seconds
 const NIGHT_THRESHOLD = 40 # time at wich nightfall starts
 const NIGHT_DURATION = DAY_DURATION - NIGHT_THRESHOLD
