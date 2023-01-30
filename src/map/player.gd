@@ -5,7 +5,7 @@ signal health_changed(health_val)
 signal stamina_changed(stamina_val)
 
 const SPEED := 96.0
-const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when faced with map boundary
+const CAM_LIMIT_OFFSET = 25 # adjusts the position at which the cam rests when faced with map boundary
 const PAN_MARGIN_DIVISION_RATE = 10 # adjusts how close to the screen edge the mouse cursor must be to start panning the camera
 const PAN_CAM_SPEED = 5
 const HEALTH_LOSS_RATE = 0.5
