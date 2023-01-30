@@ -1,4 +1,33 @@
 {
+    "npc_start" : {
+        "Name" : "Smiling Jack:", 
+        "Dialogue" : { 
+            "1" : [
+                "Oh hi there! You don't happen to come from the south do you?", 
+                "I saw the storm that ravaged those parts with my own eye, and let me tell you, I wasn't expecting any visitors from down under!", 
+                "You naturally seem a bit lost... Not to worry though, make yourself at home.",
+                "Life around here goes by pretty slow, one can't afford to diddle-daddle in this wasteland afterall.", 
+                "You can always comeback and have a chat if you'd like, as well as barter with the townsfolks and see if you can grab yourself a deal.", 
+                "Don't just go around being a leech though! If you decide to hang around these parts, its only natural for you to help gather some resources.",
+                "The power plant nearby recently broke down, and our stored energy won't last much longer...",
+                "In case you decide to brave the wilderness, you are bound to find other folks trying to hang on as best as they can I'm sure.",
+                "Don't be a stranger, pay them a visit and say hi. Specially if night starts to fall!",
+                "Nights can get breezy around here, so most settlements will probably shelter you around nightfall.",
+                "In any case, don't you go out there dying on me, ya hear!",
+                "END"
+            ],
+            "2" : [
+                "Hello again!", 
+                "Are you managing to handle yourself out here?", 
+                "Food doesn't come around very often, but it's important to keep yourself somewhat sharp.",
+                "In case you get yourself injured, be sure to be well fed and try not to move too much.", 
+                "Overall though, if you protect others, others will protect you, even if some of the folk out there happen to be quite excentrique!", 
+                "You never know when someone will pay a pretty penny for some odd job...",
+                "And remember, if you are wandering about, don't forget to pay us a visit!",
+                "END"
+            ]
+        }   
+    },
     "npc1" : {
         "Name" : "Rusty:", 
         "Dialogue" : { 

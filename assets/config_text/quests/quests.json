@@ -108,6 +108,10 @@
       "Still need food...",
       "END"
     ],
+    "unfinish_dialogue" : [
+      "Where is food?! I see no food!", 
+      "END"
+    ],
     "finish_dialogue" : [
       "Oy, that's not real food now, is it?",
       "Let me just have a lil taste...",

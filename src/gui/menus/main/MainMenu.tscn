@@ -14,7 +14,10 @@ margin_top = 40.0
 margin_right = -12.0
 margin_bottom = -12.0
 
-[node name="Upgrades" type="Control" parent="MarginContainer/PanelContainer/TabContainer" index="1"]
+[node name="Quests" parent="MarginContainer/PanelContainer/TabContainer" index="1" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Upgrades" type="Control" parent="MarginContainer/PanelContainer/TabContainer" index="2"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,9 +38,6 @@ margin_bottom = 7.0
 text = "Coming Soon"
 align = 1
 
-[node name="Quests" parent="MarginContainer/PanelContainer/TabContainer" index="2" instance=ExtResource( 4 )]
-visible = false
-
 [node name="Achievements" type="Control" parent="MarginContainer/PanelContainer/TabContainer" index="3"]
 visible = false
 anchor_right = 1.0
@@ -56,5 +56,5 @@ margin_left = -78.0
 margin_top = -7.0
 margin_right = 78.0
 margin_bottom = 7.0
-text = "None (haha noob)"
+text = "Coming Soon"
 align = 1

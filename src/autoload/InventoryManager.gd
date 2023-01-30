@@ -26,7 +26,7 @@ func _ready():
 	inventory_layouts = Global.get_text_from_file(Global.Text.ITEMS, "inventories.json", [])
 
 	inventory = Inventory.new()
-	inventory.init("inventory1")
+	inventory.init()
 
 
 # --- || Build Funcs || ---

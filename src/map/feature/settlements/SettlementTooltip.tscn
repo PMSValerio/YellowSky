@@ -22,11 +22,16 @@ grow_vertical = 2
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 141.0
-margin_bottom = 84.0
+margin_bottom = 100.0
 
-[node name="PopulationContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 margin_right = 133.0
 margin_bottom = 12.0
+
+[node name="PopulationContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 16.0
+margin_right = 133.0
+margin_bottom = 28.0
 
 [node name="PopulationLabel" type="Label" parent="PanelContainer/VBoxContainer/PopulationContainer"]
 margin_right = 107.0
@@ -42,9 +47,9 @@ margin_bottom = 12.0
 text = "20"
 
 [node name="FoodContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 16.0
+margin_top = 32.0
 margin_right = 133.0
-margin_bottom = 28.0
+margin_bottom = 44.0
 
 [node name="ResourceIcon" parent="PanelContainer/VBoxContainer/FoodContainer" instance=ExtResource( 1 )]
 margin_right = 0.0
@@ -57,9 +62,9 @@ margin_bottom = 12.0
 text = "10"
 
 [node name="WaterContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 32.0
+margin_top = 48.0
 margin_right = 133.0
-margin_bottom = 44.0
+margin_bottom = 60.0
 
 [node name="ResourceIcon" parent="PanelContainer/VBoxContainer/WaterContainer" instance=ExtResource( 1 )]
 margin_right = 0.0
@@ -72,9 +77,9 @@ margin_bottom = 12.0
 text = "10"
 
 [node name="EnergyContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 48.0
+margin_top = 64.0
 margin_right = 133.0
-margin_bottom = 60.0
+margin_bottom = 76.0
 
 [node name="ResourceIcon" parent="PanelContainer/VBoxContainer/EnergyContainer" instance=ExtResource( 1 )]
 margin_right = 0.0
@@ -87,9 +92,9 @@ margin_bottom = 12.0
 text = "10"
 
 [node name="MaterialsContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 64.0
+margin_top = 80.0
 margin_right = 133.0
-margin_bottom = 76.0
+margin_bottom = 92.0
 
 [node name="ResourceIcon" parent="PanelContainer/VBoxContainer/MaterialsContainer" instance=ExtResource( 1 )]
 margin_right = 0.0

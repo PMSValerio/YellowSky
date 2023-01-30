@@ -1,7 +1,24 @@
 {
+    "settlement_start": {
+        "id": "settlement_start",
+        "name": "Low End Creek",
+        "flavour_text": "Known for their luck avoiding all sorts of distasters and catastrophes, the folks that live here have an hardy attitude to them. Low End Creek is also known for its abandoned facility close by.",
+        "npc": "npc_start",
+        "inventory": "inventory_start",
+        "portrait_texture": "settlement_portrait/settlement0.png",
+        "rank" : 1,
+        "population": 10,
+        "resources": {
+            "FOOD" : 300, 
+            "WATER" : 300,
+            "ENERGY" : 300,
+            "MATERIALS" : 300
+        },
+        "quests": []
+    },
     "settlement1": {
         "id": "settlement1",
-        "name": "Low End Creek",
+        "name": "Lower End Creek",
         "flavour_text": "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
         "npc": "npc1",
         "inventory": "inventory1",
@@ -14,7 +31,7 @@
             "ENERGY" : 300,
             "MATERIALS" : 300
         },
-        "quests": ["quest2", "quest2"]
+        "quests": []
     },
     "settlement2": {
         "id": "settlement2",
@@ -31,7 +48,7 @@
             "ENERGY" : 300,
             "MATERIALS" : 300
         },
-        "quests": []
+        "quests": ["quest1", "quest2"]
     },
     "settlement3": {
         "id": "settlement3",

@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var settle_name = $PanelContainer/VBoxContainer/NameLabel
 onready var population = $PanelContainer/VBoxContainer/PopulationContainer/PopulationValue
 onready var food = $PanelContainer/VBoxContainer/FoodContainer/FoodLabel
 onready var water = $PanelContainer/VBoxContainer/WaterContainer/WaterLabel
@@ -15,6 +16,7 @@ func _ready():
 
 
 func update_items(settlement_entity : Settlement):
+	settle_name.text = settlement_entity.settlement_type.name
 	population.text = str(settlement_entity.population)
 	food.text = str(settlement_entity.resources[Global.Resources.FOOD])
 	water.text = str(settlement_entity.resources[Global.Resources.WATER])
