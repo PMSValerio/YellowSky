@@ -323,9 +323,9 @@ func _on_DeclineButton_pressed():
 	manage_quest_options(false, false)
 
 
-func _on_GoodbyeButton_pressed():	
+func _on_GoodbyeButton_pressed():
+	keyboard_sfx.stop()
 	change_mode(Modes.keys()[Modes.MAIN])
-
 
 # clicking on text box to advance dialogue line
 func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):

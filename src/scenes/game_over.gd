@@ -19,14 +19,11 @@ func _ready() -> void:
 	
 	$AnimationPlayer.play("default")
 
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.is_pressed():
 			$Control/ResultsScreen.visible = true
 			$Control/GameOver.visible = false
-			
-
 
 func _on_Button_pressed() -> void:
 	var _v = get_tree().change_scene("res://src/scenes/TitleScreen.tscn")

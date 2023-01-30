@@ -5,7 +5,7 @@
 [ext_resource path="res://src/gui/menus/main/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://src/gui/menus/main/quests/QuestsScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/sfx/world/Facility_bg_music.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/world/Inventory_bg_music.wav" type="AudioStream" id=6]
 
 [node name="BaseOuterMenu" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -25,4 +25,4 @@ root_path = NodePath("../MarginContainer/PanelContainer")
 [node name="bg_music" type="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource( 6 )
 volume_db = -10.0
-bus = "UI"
+bus = "BG_Music"
