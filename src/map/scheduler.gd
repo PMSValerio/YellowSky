@@ -63,11 +63,8 @@ var intervals = {
 }
 
 
-func _ready() -> void:
-	_schedule_new_disaster()
-
-
 func _ready():
+	_schedule_new_disaster()
 	var _v = EventManager.connect("attempt_sleep", self, "_skip_day")
 
 

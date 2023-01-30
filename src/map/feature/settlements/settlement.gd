@@ -111,6 +111,7 @@ func _tick() -> void:
 
 
 func set_discovered(discovered = true):
+	visible = discovered
 	if discovered:
 		update_step_modifier = 0
 
