@@ -1,10 +1,11 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://assets/gfx/disasters/tornado.png" type="Texture" id=1]
 [ext_resource path="res://src/disasters/tornado/tornado.gd" type="Script" id=2]
 [ext_resource path="res://src/disasters/tornado/TornadoBack.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/shaders/vignette.gdshader" type="Shader" id=4]
 [ext_resource path="res://assets/shaders/alpha_shader.gdshader" type="Shader" id=5]
+[ext_resource path="res://assets/sfx/world/Tornado_sfx.wav" type="AudioStream" id=6]
 
 [sub_resource type="ShaderMaterial" id=38]
 shader = ExtResource( 5 )
@@ -442,6 +443,7 @@ playing = true
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "mid"
+frame = 9
 playing = true
 
 [node name="Fore" type="AnimatedSprite" parent="Tornado"]
@@ -471,5 +473,9 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 35 )
 anims/play = SubResource( 36 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "Disasters"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

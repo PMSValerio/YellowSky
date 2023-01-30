@@ -502,4 +502,7 @@ margin_right = 32.0
 margin_bottom = 5.0
 percent_visible = false
 
+[node name="special_sfx" type="AudioStreamPlayer" parent="."]
+bus = "UI"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

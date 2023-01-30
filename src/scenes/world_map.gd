@@ -30,7 +30,6 @@ onready var map_perspective = $MapEffect
 onready var sky = $Sky
 onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
-onready var bg_music_player = $BG_MusicPlayer
 
 onready var tilemap = $TileMap
 onready var out_tilemap = $Background
@@ -40,6 +39,8 @@ onready var mountains = $Entities/Mountains
 onready var settlements = $Entities/Settlements
 onready var facilities = $Entities/Facilities
 onready var events = $Entities/Events
+
+onready var bg_music_player = $BG_MusicPlayer
 
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
@@ -51,7 +52,7 @@ var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be g
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
 var map_center = Vector2(MAP_WID/2 - 1, MAP_HEI/2 - 1)
-
+var paused_time
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -128,7 +129,6 @@ func _physics_process(_delta: float) -> void:
 			new_entity.mouse_entered()
 	
 	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
-
 
 func generate_event_tile(event : Event):
 	var pos_cell = event.cell_pos
@@ -578,9 +578,7 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
 
-
 # || --- SIGNALS --- ||
-
 
 # callback function when player presses interact button
 func _on_Player_interact(position):
@@ -623,7 +621,6 @@ func random_bg_music():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num = rng.randi_range(0,4)
-	print(num)
 	match num:
 		0:
 			music_file = "res://assets/sfx/world/desert_monolith.wav"

@@ -15,6 +15,7 @@ onready var sprite = $Sprite
 onready var anim = $AnimationPlayer
 onready var healthbar_anchor = $Node2D
 onready var healthbar = $Node2D/ProgressBar
+onready var special_sfx = $special_sfx
 
 var facility_type : FacilityType = null
 
@@ -207,6 +208,7 @@ func repair(amount):
 				warning.set_type(Global.Warnings.F_CRITICAL)
 				warning.toggle(true)
 	_update_healthbar()
+	play_special_effects("repair")
 
 
 func refuel(amount, resource):
@@ -219,6 +221,7 @@ func collect(resource):
 	if resource in products.keys():
 		products[resource] = 0.0 
 		tooltip.update_items(self)
+		play_special_effects("collect")
 
 
 func _play_anim(state : String):
@@ -277,3 +280,11 @@ func load_data(data : Dictionary):
 	fuels = data["fuels"]
 	_last_status = get_status()
 	# TODO: upgrades
+
+func play_special_effects(type):
+	match type:
+		"repair":
+			special_sfx.stream = load("res://assets/sfx/ui/UI_Use_Food.wav")
+		"collect":
+			special_sfx.stream = load("res://assets/sfx/ui/UI_Use_Food.wav")
+	special_sfx.play()

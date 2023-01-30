@@ -123,15 +123,15 @@ autowrap = true
 
 [node name="AbandonedPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
-margin_left = 338.0
-margin_right = 671.0
+margin_left = 340.0
+margin_right = 658.0
 margin_bottom = 584.0
 size_flags_horizontal = 3
 
 [node name="Rebuild" type="Button" parent="MarginContainer/HBoxContainer/AbandonedPanel"]
-margin_left = 102.0
+margin_left = 95.0
 margin_top = 244.0
-margin_right = 230.0
+margin_right = 223.0
 margin_bottom = 340.0
 rect_min_size = Vector2( 128, 96 )
 size_flags_horizontal = 4
