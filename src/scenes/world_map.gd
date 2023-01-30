@@ -190,7 +190,6 @@ func generate_event_tile(event : Event):
 	events.add_child(event)
 	var cell = _get_cell_from_position(pos)
 	map_grid[cell.x][cell.y] = event
-	print(pos_cell)
 
 
 #  || --- HELPER FUNCTIONS --- ||
@@ -699,6 +698,7 @@ func generate_green_tile(feature : Feature, radius : int, setup : bool):
 		tilemap.set_cellv(cell_to_use, 1, false, false, false)
 		_occupy_cell(cell_to_use, true)
 		WorldData.green_planted()
+		ResourceManager.add_to_resource(Global.Resources.HOPE, Global.HOPE_PER_GREEN)
 		if cell_to_use != cell_pos: # don't spawn a green tile on top of settlement
 			var green = GREEN_SCENE.instance()
 			var world_pos = tilemap.map_to_world(cell_to_use)

@@ -116,6 +116,7 @@ func on_completion(interacted_settlement):
 	if interacted_settlement == quest_giver:
 		_remove_items(return_items)
 		WorldData.quest_log.abandon_quest(quest_id)
+		ResourceManager.add_to_resource(Global.Resources.HOPE, Global.HOPE_PER_QUEST)
 
 
 func abandoned():

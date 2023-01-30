@@ -158,6 +158,10 @@ const MAP_HEI = 30
 const TOTAL_HEALTH = 100
 const TOTAL_STAMINA = 100
 
+const HOPE_PER_GREEN = 1
+const HOPE_PER_QUEST = 5
+const HOPE_PER_UPGRADE = 3
+
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
 var facility_types = {} # this file is a horrible place to be doing this
