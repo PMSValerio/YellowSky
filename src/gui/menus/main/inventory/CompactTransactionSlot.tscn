@@ -6,7 +6,6 @@
 [ext_resource path="res://src/gui/menus/reusable/ResourceIcon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=5]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 14
 font_data = ExtResource( 5 )

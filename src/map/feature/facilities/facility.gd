@@ -163,6 +163,7 @@ func advance_upgrade(upgrade_id) -> void:
 				set_type(facility_type.eco_upgrade)
 				WorldData.unlock_facility(facility_type.eco_upgrade)
 				WorldData.facility_upgraded()
+				ResourceManager.add_to_resource(Global.Resources.HOPE, Global.HOPE_PER_UPGRADE)
 
 
 # --- || Operation || ---

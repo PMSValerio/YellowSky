@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/gui/menus/misc/event_requirements_screen.gd" type="Script" id=3]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -75,5 +76,8 @@ rect_min_size = Vector2( 128, 48 )
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Exit"
+
+[node name="UI_sfx" parent="." instance=ExtResource( 4 )]
+root_path = NodePath("../MarginContainer/PanelContainer/MarginContainer")
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/Button" to="." method="_on_Button_pressed"]

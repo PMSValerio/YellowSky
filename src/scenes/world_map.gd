@@ -30,7 +30,6 @@ onready var map_perspective = $MapEffect
 onready var sky = $Sky
 onready var parallax_sky = $ParallaxSky
 onready var entities = $Entities
-onready var bg_music_player = $AudioStreamPlayer
 
 onready var tilemap = $TileMap
 onready var out_tilemap = $Background
@@ -46,6 +45,8 @@ onready var raindrops = $RainDrops
 
 onready var game_anim = $OverHUD/AnimationPlayer
 
+onready var bg_music_player = $BG_MusicPlayer
+
 var hex_center = Vector2.ZERO
 var cache_hex_center = Vector2.ZERO
 var _mouse_hex_tile = Vector2(-1, -1)
@@ -55,12 +56,15 @@ var map_grid = [] # map grid with references to all game entities
 var vacant_tiles = {} # dict of all empty tiles, on which feature tiles can be generated
 						# each entry is an int value corresponding to the amount of features occupying it (or surrounding)
 var discovered = [] # map cells not obscured by fog of war (true or false)
+var paused_time
 var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
 var start_settlement_offset = Vector2(1, -4)
 
 var raining_period = 0.0
 var raining_timer = 0.0
 
+var first_time = true
+var last_choice = null
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -71,6 +75,8 @@ func _ready() -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())
 	cache_hex_center = hex_center
 	random_bg_music()
+	Global.fade_in_bg_music(2)
+	EventManager.connect("pop_menu", self, "play_leave_menu_sfx")
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
@@ -139,8 +145,6 @@ func _physics_process(_delta: float) -> void:
 		if _is_feature(new_entity):
 			new_entity.mouse_entered()
 	
-	$HUD/Control/Label.text = str(_get_cell_from_position(_get_player_position()))
-	
 	if raining_period > 0:
 		_rain(_delta)
 
@@ -166,7 +170,6 @@ func _spawn_raindrop():
 	raindrop.position = Vector2(xx, yy)
 	raindrops.add_child(raindrop)
 
-
 func generate_event_tile(event : Event):
 	var pos_cell = event.cell_pos
 	
@@ -189,7 +192,6 @@ func generate_event_tile(event : Event):
 	events.add_child(event)
 	var cell = _get_cell_from_position(pos)
 	map_grid[cell.x][cell.y] = event
-	print(pos_cell)
 
 
 #  || --- HELPER FUNCTIONS --- ||
@@ -634,9 +636,7 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
 
-
 # || --- SIGNALS --- ||
-
 
 # callback function when player presses interact button
 func _on_Player_interact(position):
@@ -700,6 +700,7 @@ func generate_green_tile(feature : Feature, radius : int, setup : bool):
 		tilemap.set_cellv(cell_to_use, 1, false, false, false)
 		_occupy_cell(cell_to_use, true)
 		WorldData.green_planted()
+		ResourceManager.add_to_resource(Global.Resources.HOPE, Global.HOPE_PER_GREEN)
 		if cell_to_use != cell_pos: # don't spawn a green tile on top of settlement
 			var green = GREEN_SCENE.instance()
 			var world_pos = tilemap.map_to_world(cell_to_use)
@@ -718,6 +719,8 @@ func _on_rain_request(period):
 
 
 func _on_Player_died() -> void:
+	Global.fade_out_bg_music(2)
+	$death_sfx.play()
 	get_tree().paused = true
 	game_anim.play("end_game")
 
@@ -730,21 +733,36 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 # this should not be in world_map
 func random_bg_music():
+	#var last_music_played = ""
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(0,3)
+	var num
+	var r = range(0,4)
+	r.erase(last_choice)
 	
-	num = 1 # for Debug
+	if first_time:
+		num = 1
+		first_time = false
+	else:
+		num = r[randi() % r.size()]
+		#num = rng.randi_range(0,4)
+	last_choice = num
 	match num:
 		0:
-			music_file = "res://assets/sfx/ui/UI_TabChanged.wav"
+			music_file = "res://assets/sfx/world/desert_monolith.wav"
 		1:
 			music_file = "res://assets/sfx/world/floating.wav"
 		2:
 			music_file = "res://assets/sfx/world/dramatic_scroller.wav"
 		3: 
 			music_file = "res://assets/sfx/world/ocean_drift.wav"
-	if music_file != "":
+		4:
+			music_file = "res://assets/sfx/world/desert_shimmer.wav"
+	if music_file != "" :
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
+
+func play_leave_menu_sfx():
+	$Close_menus_sfx.play()
+

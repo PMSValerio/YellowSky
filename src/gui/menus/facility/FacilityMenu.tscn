@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/gui/menus/facility/manage/FacilityManageScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/reusable/BaseOuterMenu.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/gui/menus/facility/type/FacilityTypeScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/gui/menus/facility/upgrades/FacilityUpgrades.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sfx/world/Facility_bg_music.wav" type="AudioStream" id=7]
 
 [node name="BaseOuterMenu" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
@@ -22,8 +23,13 @@ visible = false
 [node name="Upgrades" parent="MarginContainer/PanelContainer/TabContainer" index="2" instance=ExtResource( 5 )]
 visible = false
 
-[node name="Node2D" parent="MarginContainer/PanelContainer" index="2" instance=ExtResource( 6 )]
+[node name="UI_sfx" parent="MarginContainer/PanelContainer" index="2" instance=ExtResource( 6 )]
 root_path = NodePath("..")
+
+[node name="BG_MusicPlayer" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource( 7 )
+volume_db = -10.0
+bus = "BG_Music"
 
 [connection signal="want_rebuild" from="MarginContainer/PanelContainer/TabContainer/Manage" to="." method="_on_Manage_want_rebuild"]
 [connection signal="type_chosen" from="MarginContainer/PanelContainer/TabContainer/Type" to="." method="_on_Type_type_chosen"]

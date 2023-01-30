@@ -5,6 +5,7 @@ onready var title = $MarginContainer/PanelContainer/MarginContainer/VBoxContaine
 onready var flavour_text = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer/Text
 onready var dialogue_pntr = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer/DialoguePointer
 onready var grid = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer
+onready var keyboard_sfx = $Keyboard_sfx
 
 var event_entity : Event = null
 var _readied
@@ -20,6 +21,7 @@ var parsed_string = ""
 
 
 func _ready() -> void:
+	$BG_music_player.play()
 	_readied = true
 	set_context(event_entity)
 
@@ -49,6 +51,7 @@ func next_line():
 	_text_in_progress = true
 	
 	# scroll through letters, instead of displaying them all at once
+	keyboard_sfx.play()
 	for _i in range(_stop_index - _total_index):
 		if _text_in_progress: 
 			flavour_text.visible_characters += 1
@@ -56,7 +59,8 @@ func next_line():
 			yield(flavour_text.get_node("Timer"), "timeout")
 		else:
 			flavour_text.visible_characters = _stop_index
-
+	keyboard_sfx.stop()
+	
 	_total_index = _stop_index
 	# magic numbers are due to the fact that parsed string still has the "/n/n"s, but only the n's, i.e. 2 per paragraph
 	_stop_index = (parsed_string.find("\n\n", _stop_index + (paragraph_num * 2))) - (paragraph_num * 2)

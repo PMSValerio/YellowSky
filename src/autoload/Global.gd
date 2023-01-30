@@ -148,8 +148,8 @@ var facility_upgrades_config = {}
 const COMPACT_LOSS = 1.2
 
 const UPDATE_FREQ = 2.0 # (sec) facilities, settlements, ... update their state every update tick
-const DAY_DURATION = 60 # duration of a day in seconds
-const NIGHT_THRESHOLD = 40 # time at wich nightfall starts
+const DAY_DURATION = 180 # duration of a day in seconds
+const NIGHT_THRESHOLD = 150 # time at wich nightfall starts
 const NIGHT_DURATION = DAY_DURATION - NIGHT_THRESHOLD
 
 const MAP_WID = 50
@@ -157,6 +157,10 @@ const MAP_HEI = 30
 
 const TOTAL_HEALTH = 100
 const TOTAL_STAMINA = 100
+
+const HOPE_PER_GREEN = 1
+const HOPE_PER_QUEST = 5
+const HOPE_PER_UPGRADE = 3
 
 const BASE_CONFIG_ASSETS_PATH = "res://assets/gfx/config_assets/"
 
@@ -321,3 +325,54 @@ func generate_event(incoming_event_data : EventData, cell_position : Vector2 = V
 		EventManager.emit_signal("spawn_event_request", event)
 	
 	return event
+	
+func fade_between_audio(audio1, audio2, duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	var bus2 = AudioServer.get_bus_index("Disasters")
+	audio2.play()
+	AudioServer.set_bus_volume_db(bus2, -80) # set audio2 initial volume
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, -25 + t * (-80.0 - (-25)) ) # set audio1 volume
+		AudioServer.set_bus_volume_db(bus2, (-80.0 + t * 55.0)) # set audio2 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+		if fade_time >= duration:
+			break
+	audio1.set_stream_paused(true)
+
+			
+func play_paused_audio(audio1, duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	var bus2 = AudioServer.get_bus_index("Disasters")
+	audio1.set_stream_paused(false)
+	AudioServer.set_bus_volume_db(bus1, -80.0) # set audio initial volume
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, (-80.0 + t * 55.0)) # set audio1 volume
+		AudioServer.set_bus_volume_db(bus2, -25 + t * (-80.0 - (-25)) ) # set audio2 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+
+func fade_in_bg_music(duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, (-80.0 + t * 55.0)) # set audio1 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+
+func fade_out_bg_music(duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, -25 + t * (-80.0 - (-25))) # set audio1 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
+
+
+

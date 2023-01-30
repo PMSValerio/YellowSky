@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/headline_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/scenes/game_over.gd" type="Script" id=3]
+[ext_resource path="res://assets/sfx/world/Ending_bg_music.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -241,5 +243,12 @@ valign = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/default = SubResource( 4 )
+
+[node name="BG_music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "BG_Music"
+
+[node name="UI_sfx" parent="." instance=ExtResource( 5 )]
+root_path = NodePath("../Control/ResultsScreen")
 
 [connection signal="pressed" from="Control/ResultsScreen/PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

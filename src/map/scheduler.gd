@@ -1,5 +1,7 @@
 extends Node
 
+onready var world_bg_music = get_node("/root/World/BG_MusicPlayer")
+
 var _disaster_scenes = {
 	#Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 	Global.Disasters.TORNADO: preload("res://src/disasters/tornado/Tornado.tscn"),
@@ -24,7 +26,7 @@ var total_elapsed_time = 0
 var days = 0
 var _elapsed = 0
 var _next_interval = -1
-var _next_disaster = Global.Disasters.RAIN
+var _next_disaster = Global.Disasters.STORM
 
 var day_timer = 0 # timer for each day
 
@@ -39,27 +41,27 @@ var distributions = {
 		Global.Disasters.STORM: 0.8,
 		Global.Disasters.RAIN: 0.2,
 	},
-	Global.DAY_DURATION * 3: { # third day on, tornadoes start rarely
+	Global.DAY_DURATION * 5: { # third day on, tornadoes start rarely
 		Global.Disasters.RAIN: 0.6,
 		Global.Disasters.STORM: 0.3,
 		Global.Disasters.TORNADO: 0.1,
 	},
-	Global.DAY_DURATION * 4: { # from the fourth day, tornadoes are a lot more frequent
+	Global.DAY_DURATION * 8: { # from the fourth day, tornadoes are a lot more frequent
 		Global.Disasters.TORNADO: 0.5,
 		Global.Disasters.RAIN: 0.4,
 		Global.Disasters.STORM: 0.1,
 	},
-	Global.DAY_DURATION * 5: { # fifth day onwards, almost just tornadoes
+	Global.DAY_DURATION * 10: { # fifth day onwards, almost just tornadoes
 		Global.Disasters.TORNADO: 0.7,
 		Global.Disasters.RAIN: 0.3,
 	}
 }
 var intervals = {
 	Global.DAY_DURATION: Global.DAY_DURATION,
-	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.2,
-	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.1,
-	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.08,
-	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.07,
+	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.7,
+	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.5,
+	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.3,
+	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.2,
 }
 
 
@@ -80,10 +82,10 @@ func _process(delta: float) -> void:
 	_update_day(delta)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug"):
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("debug"):
 		#_next_interval = 1
-		_skip_day()
+		#_skip_day()
 
 
 func _process_disaster(disaster_id):
@@ -94,6 +96,8 @@ func _process_disaster(disaster_id):
 		disaster_layer.add_child(disaster_node)
 		disaster_node.start()
 		disaster_running = true
+	else:
+		_schedule_new_disaster() # try again
 
 
 func _schedule_new_disaster():
@@ -114,7 +118,7 @@ func _new_disaster_prob(dist):
 		return -1
 	var _ids = dist.keys()
 	var _probs = dist.values()
-	var chance = 1#randf()
+	var chance = randf()
 	var i = 0
 	while i < _probs.size(): # turn into cumulative probability
 		if i > 0:
@@ -129,7 +133,9 @@ func _on_disaster_end():
 	disaster_running = false
 	disaster_node.queue_free()
 	disaster_node = null
+	Global.play_paused_audio(world_bg_music, 1.5)
 	_schedule_new_disaster()
+	
 
 
 func _update_day(delta):

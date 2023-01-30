@@ -30,6 +30,9 @@ onready var trade_screen_ref = $TradeScreen
 onready var resource_slider = $MainScreen/PanelContainer/ResourceSlider
 onready var quest_completed_screen = $MainScreen/PanelContainer/QuestCompletedSCreen
 
+onready var keyboard_sfx = $Keyboard_sfx
+onready var bg_music_player = $BG_MusicPlayer
+
 enum Modes {
 	MAIN,
 	DIALOGUE,
@@ -56,6 +59,8 @@ var show_quest_reward = false
 func _ready() -> void:
 	# set text speed at which the dialogue scrolls
 	description_box.get_node("Timer").wait_time = text_speed
+	toggle_text_mode(false)
+	bg_music_player.play()
 	
 	# set nodes on modes dictionary
 	ui_mode_nodes[Modes.MAIN] = main_options
@@ -159,14 +164,18 @@ func next_line():
 		# removes first dialogue line from npc_text, keeping the rest in case there are any
 		description_box.text = npc_text.pop_front() 
 		description_box.visible_characters = 0
+		
+		var parsed_string = description_box.text.replace(" ","")
 
+		keyboard_sfx.play()
 		# scroll through letters, instead of displaying them all at once
-		for _i in range(0, description_box.text.length()):
+		for _i in range(parsed_string.length()):
 			if text_in_progress:
 				description_box.visible_characters += 1
 				description_box.get_node("Timer").start()
 				yield(description_box.get_node("Timer"), "timeout")
 
+		keyboard_sfx.stop()
 		dialogue_pntr.play()
 		text_in_progress = false
 
@@ -207,6 +216,10 @@ func check_for_quest():
 	else:
 		# if no quest, is active, skip over keyword and continue dialogue
 		npc_text.pop_front() 
+
+
+func update_branch_text():
+	npc_text = Global.get_text_from_file(Global.Text.NPCS, text_file_ref, ["settlement1", "NPC", "Branches", str(current_dialogue_branch)]).duplicate()
 
 
 func show_quest_completed_screen():
