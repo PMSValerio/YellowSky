@@ -341,7 +341,6 @@ func fade_between_audio(audio1, audio2, duration):
 		if fade_time >= duration:
 			break
 	audio1.set_stream_paused(true)
-	
 
 			
 func play_paused_audio(audio1, duration):
@@ -357,9 +356,23 @@ func play_paused_audio(audio1, duration):
 		yield(get_tree().create_timer(0.01), "timeout")
 		fade_time += 0.01
 
+func fade_in_bg_music(duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, (-80.0 + t * 55.0)) # set audio1 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
 
-
-
+func fade_out_bg_music(duration):
+	var fade_time = 0
+	var bus1 = AudioServer.get_bus_index("BG_Music")
+	while fade_time < duration:
+		var t = fade_time / duration
+		AudioServer.set_bus_volume_db(bus1, -25 + t * (-80.0 - (-25))) # set audio1 volume
+		yield(get_tree().create_timer(0.01), "timeout")
+		fade_time += 0.01
 
 
 

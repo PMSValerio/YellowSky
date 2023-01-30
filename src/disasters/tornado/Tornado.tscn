@@ -443,7 +443,7 @@ playing = true
 use_parent_material = true
 frames = SubResource( 11 )
 animation = "mid"
-frame = 5
+frame = 2
 playing = true
 
 [node name="Fore" type="AnimatedSprite" parent="Tornado"]

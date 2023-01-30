@@ -18,5 +18,4 @@ func background_out():
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	back.queue_free()
 	back = null
-	Global.play_paused_audio(world_bg_music, 1.5)
 	emit_signal("disaster_end")

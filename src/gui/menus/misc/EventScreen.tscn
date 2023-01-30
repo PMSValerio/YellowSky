@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://src/gui/menus/misc/event_screen.gd" type="Script" id=5]
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/gui/menus/reusable/DialoguePointer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sfx/ui/UI_Keyboard_Typing.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/world/Events_bg_music.wav" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -110,6 +112,15 @@ text = "Confirm"
 
 [node name="UI_sfx" parent="." instance=ExtResource( 6 )]
 root_path = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer")
+
+[node name="Keyboard_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -5.0
+bus = "UI"
+
+[node name="BG_music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+bus = "BG_Music"
 
 [connection signal="gui_input" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/FalvourTextContainer" to="." method="_on_FalvourTextContainer_gui_input"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

@@ -3,10 +3,12 @@ extends Disaster
 
 var candidates = []
 
+onready var sfx = $sfx
+onready var world_bg_music = get_node("/root/World/BG_MusicPlayer")
 
 func _ready() -> void:
 	back.connect("anim_end", self, "_on_back_anim_end")
-	
+	Global.fade_between_audio(world_bg_music, sfx, 2)
 	var facilities = get_tree().get_nodes_in_group("facilities")
 	for fac in facilities:
 		if fac.is_discovered():
@@ -36,7 +38,6 @@ func _on_back_anim_end(_start):
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	back.end()
-
 
 func lightning():
 	var amount = randi() % 5 + 1

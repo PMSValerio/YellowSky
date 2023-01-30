@@ -166,7 +166,6 @@ func next_line():
 		description_box.visible_characters = 0
 		
 		keyboard_sfx.play()
-
 		# scroll through letters, instead of displaying them all at once
 		for _i in range(0, description_box.text.length()):
 			if text_in_progress:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/disasters/rainfall/rainfall.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/disasters/rainfall.png" type="Texture" id=2]
+[ext_resource path="res://assets/sfx/world/Rainfall_sfx.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -375,5 +376,9 @@ frame = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 22 )
 anims/play = SubResource( 23 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Disasters"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

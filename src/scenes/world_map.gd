@@ -63,6 +63,8 @@ var start_settlement_offset = Vector2(1, -4)
 var raining_period = 0.0
 var raining_timer = 0.0
 
+var first_time = true
+var last_choice = null
 
 func _ready() -> void:
 	MapUtils.set_ref_tilemap($TileMap)
@@ -73,6 +75,8 @@ func _ready() -> void:
 	hex_center = MapUtils.get_hex_center(_get_player_position())
 	cache_hex_center = hex_center
 	random_bg_music()
+	Global.fade_in_bg_music(2)
+	EventManager.connect("pop_menu", self, "play_leave_menu_sfx")
 	
 	if MapUtils.is_enabled():
 		sky.visible = true
@@ -717,6 +721,8 @@ func _on_rain_request(period):
 
 
 func _on_Player_died() -> void:
+	Global.fade_out_bg_music(2)
+	$death_sfx.play()
 	get_tree().paused = true
 	game_anim.play("end_game")
 
@@ -733,9 +739,17 @@ func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(0,3)
+	var num
+	var r = range(0,4)
+	r.erase(last_choice)
 	
-	num = 1 # for Debug
+	if first_time:
+		num = 1
+		first_time = false
+	else:
+		num = r[randi() % r.size()]
+		#num = rng.randi_range(0,4)
+	last_choice = num
 	match num:
 		0:
 			music_file = "res://assets/sfx/world/desert_monolith.wav"
@@ -750,3 +764,7 @@ func random_bg_music():
 	if music_file != "" :
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
+
+func play_leave_menu_sfx():
+	$Close_menus_sfx.play()
+

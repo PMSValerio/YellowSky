@@ -532,7 +532,7 @@ text = "*say goodbye*"
 
 [node name="Keyboard_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
-volume_db = 3.0
+volume_db = -5.0
 bus = "UI"
 
 [node name="UI_sfx" parent="." instance=ExtResource( 15 )]

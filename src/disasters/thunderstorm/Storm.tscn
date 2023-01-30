@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/disasters/thunderstorm/StormBack.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/disasters/thunderstorm/storm.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/disasters/thunderstorm.png" type="Texture" id=3]
+[ext_resource path="res://assets/sfx/world/ThunderStorm_sfx.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -151,5 +152,9 @@ polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 600, 0, 600 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
 anims/play = SubResource( 2 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Disasters"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

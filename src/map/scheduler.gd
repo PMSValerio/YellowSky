@@ -1,5 +1,7 @@
 extends Node
 
+onready var world_bg_music = get_node("/root/World/BG_MusicPlayer")
+
 var _disaster_scenes = {
 	#Global.Disasters.TEST: preload("res://src/disasters/TestDisaster.tscn"),
 	Global.Disasters.TORNADO: preload("res://src/disasters/tornado/Tornado.tscn"),
@@ -24,7 +26,7 @@ var total_elapsed_time = 0
 var days = 0
 var _elapsed = 0
 var _next_interval = -1
-var _next_disaster = Global.Disasters.RAIN
+var _next_disaster = Global.Disasters.STORM
 
 var day_timer = 0 # timer for each day
 
@@ -80,10 +82,10 @@ func _process(delta: float) -> void:
 	_update_day(delta)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug"):
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("debug"):
 		#_next_interval = 1
-		_skip_day()
+		#_skip_day()
 
 
 func _process_disaster(disaster_id):
@@ -129,7 +131,9 @@ func _on_disaster_end():
 	disaster_running = false
 	disaster_node.queue_free()
 	disaster_node = null
+	Global.play_paused_audio(world_bg_music, 1.5)
 	_schedule_new_disaster()
+	
 
 
 func _update_day(delta):

@@ -6,9 +6,11 @@ onready var facilities = $Control/ResultsScreen/PanelContainer/VBoxContainer/Mar
 onready var settlements = $Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Settlements
 onready var green_tiles = $Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Green
 onready var hope = $Control/ResultsScreen/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Hope
-
+onready var bg_music = $BG_music_player
 
 func _ready() -> void:
+	bg_music.play()
+	Global.fade_in_bg_music(2)
 	days.text = str(WorldData.days_passed)
 	facilities.text = str(WorldData.facilities_upgraded)
 	settlements.text = str(WorldData.settlements_lost)
@@ -23,7 +25,10 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == BUTTON_LEFT and event.is_pressed():
 			$Control/ResultsScreen.visible = true
 			$Control/GameOver.visible = false
+			
 
 
 func _on_Button_pressed() -> void:
 	var _v = get_tree().change_scene("res://src/scenes/TitleScreen.tscn")
+
+

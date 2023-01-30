@@ -162,14 +162,13 @@ func _play_use_sfx(slot_category, item_subtype) -> void:
 	var sound_effect = null
 	match slot_category:
 		Global.Items.RESOURCES:
-			print(item_subtype)
 			match item_subtype:
 				1: #WATER
-					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+					sound_effect = "res://assets/sfx/ui/UI_Use_Water.wav"
 				2: #MATERIALS
-					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+					sound_effect = "res://assets/sfx/ui/UI_Use_Materials.wav"
 				3: #ENERGY
-					sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
+					sound_effect = "res://assets/sfx/ui/UI_Use_Energy.wav"
 		Global.Items.FOOD:
 			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
 	use_sfx.stream = load(sound_effect)
