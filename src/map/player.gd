@@ -151,6 +151,8 @@ func set_health(new_val):
 		recover_health_timer.stop()
 	elif current_health <= 0:
 		die()
+	elif current_stamina >= Global.TOTAL_STAMINA:
+		recover_health_timer.start()
 
 
 func set_stamina(new_val):

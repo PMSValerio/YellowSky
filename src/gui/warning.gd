@@ -1,10 +1,10 @@
 extends Node2D
 
 
-onready var border_left = 32
-onready var border_right = MapUtils.screen_wid - 32
-onready var border_up = (1-MapUtils.HORIZON_Y) * MapUtils.screen_hei - 32
-onready var border_down = MapUtils.screen_hei - 96 - 32
+#onready var border_left = 32
+#onready var border_right = MapUtils.screen_wid - 32
+#onready var border_up = (1-MapUtils.HORIZON_Y) * MapUtils.screen_hei - 32
+#onready var border_down = MapUtils.screen_hei - 96 - 32
 
 var rect = Rect2(0, 0, 40, 40)
 var mouse_in = false
@@ -37,6 +37,10 @@ func _input(event: InputEvent) -> void:
 func _physics_process(_delta: float) -> void:
 	var tilemap = MapUtils.get_ref_tilemap()
 	var pos = tilemap.get_viewport_transform() * (tilemap.get_global_transform() * global_position)
+	var border_left = OS.window_size.x * 0.05
+	var border_right = OS.window_size.x * 0.95
+	var border_up = (1-MapUtils.HORIZON_Y) * OS.window_size.y - OS.window_size.x * 0.05
+	var border_down = OS.window_size.y * 0.75
 	pos.x = clamp(pos.x, border_left, border_right)
 	pos.y = clamp(pos.y, border_up, border_down)
 	$Anchor.global_position = tilemap.get_global_transform().affine_inverse() * (tilemap.get_viewport_transform().affine_inverse() * pos)

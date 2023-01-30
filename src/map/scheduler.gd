@@ -56,10 +56,10 @@ var distributions = {
 }
 var intervals = {
 	Global.DAY_DURATION: Global.DAY_DURATION,
-	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.2,
-	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.1,
-	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.08,
-	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.07,
+	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.1,
+	Global.DAY_DURATION * 3: Global.DAY_DURATION * 0.08,
+	Global.DAY_DURATION * 4: Global.DAY_DURATION * 0.06,
+	Global.DAY_DURATION * 5: Global.DAY_DURATION * 0.04,
 }
 
 
@@ -94,6 +94,8 @@ func _process_disaster(disaster_id):
 		disaster_layer.add_child(disaster_node)
 		disaster_node.start()
 		disaster_running = true
+	else:
+		_schedule_new_disaster() # try again
 
 
 func _schedule_new_disaster():
@@ -114,7 +116,7 @@ func _new_disaster_prob(dist):
 		return -1
 	var _ids = dist.keys()
 	var _probs = dist.values()
-	var chance = 1#randf()
+	var chance = randf()
 	var i = 0
 	while i < _probs.size(): # turn into cumulative probability
 		if i > 0:
