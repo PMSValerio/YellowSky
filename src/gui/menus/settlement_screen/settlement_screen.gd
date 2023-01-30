@@ -10,6 +10,7 @@ onready var talk_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer
 onready var stats_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/StatsButton
 onready var trade_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/TradeButton
 onready var plant_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/PlantButton
+onready var sleep_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/SleepButton
 onready var leave_btn = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/MainOptions/LeaveButton
 # dialogue options
 onready var dialogue_options = $MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions
@@ -74,12 +75,16 @@ func _ready() -> void:
 	rank_label.text = str(settlement_entity.rank)
 	green_tiles_label.text = str(settlement_entity.green_tiles) + "/" + str(settlement_entity.max_green_tiles)
 
+	#setup sleep button
+	sleep_btn.disabled = !settlement_entity.can_sleep
+
 	# disable option btns if settlement is destroyed. Interaction is still kept because it might be needed in the future
 	if settlement_entity.rank <= 0:
 		talk_btn.disabled = true
 		stats_btn.disabled = true
 		trade_btn.disabled = true
 		plant_btn.disabled = true
+		sleep_btn.disabled = true
 
 	change_mode(Modes.keys()[Modes.MAIN])
 	trade_screen_ref.set_context(settlement_entity)
@@ -148,7 +153,7 @@ func toggle_text_mode(to_dialogue):
 func next_line():
 	if npc_text.size() > 1:
 
-		dialogue_pntr.get_node("AnimationPlayer").stop(false)
+		dialogue_pntr.pause()
 		text_in_progress = true
 		
 		# removes first dialogue line from npc_text, keeping the rest in case there are any
@@ -162,7 +167,7 @@ func next_line():
 				description_box.get_node("Timer").start()
 				yield(description_box.get_node("Timer"), "timeout")
 
-		dialogue_pntr.get_node("AnimationPlayer").play("Active")
+		dialogue_pntr.play()
 		text_in_progress = false
 
 		# check for keyword
@@ -182,6 +187,8 @@ func next_line():
 					show_quest_reward = true
 			Global.TextKeywords.END:
 				dialogue_pntr.visible = false
+				if settlement_entity.is_start_settle:
+					current_dialogue_branch = 2
 			
 
 func check_for_quest():
@@ -258,6 +265,13 @@ func _on_TradeButton_pressed():
 func _on_PlantButton_pressed():
 	if !is_slider_active:
 		show_slider(Global.Resources.SEEDS)
+
+
+func _on_SleepButton_pressed():
+	if !is_slider_active:
+		EventManager.emit_signal("attempt_sleep")
+		settlement_entity.can_sleep = false
+		EventManager.emit_signal("pop_menu")
 
 
 func _on_LeaveButton_pressed():

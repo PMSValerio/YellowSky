@@ -21,10 +21,13 @@ var resources = {}
 var quests = {} # matches quest ids with actual quest data structures
 var active_quest : Quest = null 
 var is_in_panic = false
+var can_sleep = false
 
 var green_tiles = 0
 var max_green_tiles = 0
 var green_tile_slots_left = 0
+
+var is_start_settle = false
 
 var rng = null # used for several random based calculations
 var _update_step = 2 # timer counter for update
@@ -36,11 +39,16 @@ func _ready():
 	# pick random settlement type
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(0, len(Global.settlement_types) - 1)
-	_initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
+	var num = rng.randi_range(1, len(Global.settlement_types) - 1)
+	if is_start_settle:
+		_initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[0]])
+	else:
+		_initialize_with_type(Global.settlement_types[Global.settlement_types.keys()[num]])
 
 	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 	_v = EventManager.connect("world_is_ready", self, "setup_green_tiles_left")
+	_v = EventManager.connect("start_nightfall", self, "_toggle_can_sleep", [true])
+	_v = EventManager.connect("start_deep_nightfall", self, "_toggle_can_sleep", [false])
 
 
 func _initialize_with_type(type):
@@ -260,3 +268,7 @@ func mouse_exited() -> void:
 
 func _on_disaster_damage(damage):
 	repair(-damage)
+
+
+func _toggle_can_sleep(enable_disable):
+	can_sleep = enable_disable

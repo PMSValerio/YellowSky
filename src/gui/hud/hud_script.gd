@@ -59,16 +59,20 @@ func on_resource_changed(type, new_val):
 func _on_Player_stamina_changed(stamina_val):
 	stamina_bar_ref.value = stamina_val
 
+
 func _on_Player_health_changed(health_val):
 	health_bar_ref.value = health_val
 	var value = 0.8 * health_val / Global.TOTAL_HEALTH
 	health_border.material.set_shader_param("multiplier", value)
 
+
 func _on_Inventory_pressed():
 	EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, null)
 
+
 func _on_Skills_pressed():
 	EventManager.emit_signal("push_menu", Global.Menus.TEST, null)
+
 
 func _on_resource_button_pressed(rec_id):
 	var gui = get_parent().get_node("GUI") # this is very very bad code, don't do this at home

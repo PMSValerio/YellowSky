@@ -9,8 +9,8 @@ const CAM_LIMIT_OFFSET = 26 # adjusts the position at which the cam rests when f
 const PAN_MARGIN_DIVISION_RATE = 10
 const PAN_CAM_SPEED = 5
 const HEALTH_LOSS_RATE = 1
-const MOVE_STAMINA_THRESHOLD = 1 # average values can be between 0.1 - 5.0
-const STAMINA_LOSS_RATE = 10
+const MOVE_STAMINA_THRESHOLD = 0.3 # average values can be between 0.1 - 5.0
+const STAMINA_LOSS_RATE = 1
 
 onready var _cam_anchor = $CameraAnchor
 onready var _cam = $CameraAnchor/Camera2D
@@ -113,7 +113,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		EventManager.emit_signal("push_menu", Global.Menus.PAUSE_SCREEN, null)
 	
 
-# --- || Cam Utilities || ---
+# --- || Stats || ---
 
 
 func set_health(new_val):
@@ -132,7 +132,7 @@ func set_stamina(new_val):
 
 	if current_stamina <= 0:
 		out_of_stamina = true
-		out_of_stamina_timer.start()
+		#out_of_stamina_timer.start()
 	else:
 		out_of_stamina = false
 		out_of_stamina_timer.stop()
