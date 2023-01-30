@@ -115,7 +115,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 230.0
 margin_bottom = 105.0
-hint_tooltip = "Maximum Amount of damage the Facility can sustain"
+hint_tooltip = "Maximum amount of damage the facility can sustain"
 script = ExtResource( 3 )
 
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer/TypeDetail/HBoxContainer/VBoxContainer2"]

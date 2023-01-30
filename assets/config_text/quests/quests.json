@@ -2,7 +2,7 @@
   "quest1": {
     "event_id": "quest1_event",
     "deliver_items": {
-      "food1": 1
+      "grasses": 1
     },
     "return_items": null,
     "rewards": {
@@ -23,7 +23,7 @@
       "END"
     ],
     "decline_dialogue" : [
-      "Worry not, it's not the job for everyone around these parts afterall...", 
+      "Worry not, it's not the job for everyone around these parts after all...", 
       "Take care still! If you change your mind, you know where to find me.",
       "END"
     ],

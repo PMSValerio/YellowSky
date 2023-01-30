@@ -4,21 +4,21 @@
     "max_level": 3,
     "data": [
       {
-        "cost": 200,
-        "multiplier": 2.0,
-        "info_text": "Sample text here for Integrity lv1",
+        "cost": 100,
+        "multiplier": 1.75,
+        "info_text": "Reinforced walls, metal bolts to affix machinery to the floor, better cable management to keep things in place in case disasters strike.\n\nRaises Integrity to 175.",
         "base_icon_subimage": 0
       },
       {
-        "cost": 210,
-        "multiplier": 3.0,
-        "info_text": "Sample text here for Integrity lv2",
+        "cost": 250,
+        "multiplier": 2.0,
+        "info_text": "Windbreaker fencing, bulkhead walls, plexiglass windows. A simple facility quickly turns into a fortress.\n\nRaises Integrity to 200.",
         "base_icon_subimage": 1
       },
       {
-        "cost": 220,
-        "multiplier": 4.0,
-        "info_text": "Sample text here for Integrity lv3",
+        "cost": 500,
+        "multiplier": 2.5,
+        "info_text": "Your ingenuity and tech skills come together to create a waste powered shield generator. Only massive amounts of punishment can breach this facility now.\n\nRaises Integrity to 250.",
         "base_icon_subimage": 2
       }
     ]
@@ -30,19 +30,19 @@
       {
         "cost": 100,
         "multiplier": 0.8,
-        "info_text": "Sample text here for Consumption Rate lv1",
+        "info_text": "Routine maintenance and overall optimization goes a long way towards cutting down on energy consumption.\n\nLowers Fuel Consumption rate by 20%.",
         "base_icon_subimage": 0
       },
       {
-        "cost": 110,
+        "cost": 250,
         "multiplier": 0.6,
-        "info_text": "Sample text here for Consumption Rate lv2",
+        "info_text": ".\n\nLowers Fuel Consumption rate by 40%.",
         "base_icon_subimage": 1
       },
       {
-        "cost": 120,
+        "cost": 500,
         "multiplier": 0.4,
-        "info_text": "Sample text here for Consumption Rate lv3",
+        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nLowers Fuel Consumption rate by 60%.",
         "base_icon_subimage": 2
       }
     ]
@@ -54,19 +54,19 @@
       {
         "cost": 100,
         "multiplier": 2.0,
-        "info_text": "Sample text here for Production Rate lv1",
+        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 100%.",
         "base_icon_subimage": 0
       },
       {
-        "cost": 110,
+        "cost": 250,
         "multiplier": 3.0,
-        "info_text": "Sample text here for Production Rate lv2",
+        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 200%.",
         "base_icon_subimage": 1
       },
       {
-        "cost": 220,
+        "cost": 500,
         "multiplier": 4.0,
-        "info_text": "Sample text here for Production Rate lv3",
+        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 400%.",
         "base_icon_subimage": 2
       }
     ]
@@ -76,9 +76,9 @@
     "max_level": 1,
     "data": [
       {
-        "cost": 500,
+        "cost": 2000,
         "multiplier": 2.0,
-        "info_text": "Sample text here for Enviromental Friendly Upgrade",
+        "info_text": "Rebuild this facility from the ground up into a sustainable version of itself with a low environmental impact.",
         "base_icon_subimage": 0
       }
     ]
