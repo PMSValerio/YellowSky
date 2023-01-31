@@ -1,19 +1,40 @@
 {
   "inventory_start": {
-    "cannedmeat" : 1
+    "mre": 3,
+    "grasses": 4,
+    "water_bottle": 6,
+    "water_gallon": 3,
+    "discarded_parts": 2,
+    "drugdust": 1
   },
   "inventory1": {
-    "water_gallon": 3,
-    "water_bottle": 1,
-    "food2": 2
+    "mre": 1,
+    "grasses": 2,
+    "bugs": 2,
+    "jerky": 1,
+    "keg_o_water": 3,
+    "choice_components": 3,
+    "fuel_cell": 3,
+    "bag_of_seeds": 1,
+    "smokes": 1,
+    "dirtymag": 2,
+    "drugdust": 2
   },
   "inventory2": {
-    "water_bottle": 12,
-    "water_drum": 1
+    "mre": 9,
+    "bugs": 9,
+    "jerky": 7,
+    "saplings": 3,
+    "gallon_of_water": 1,
+    "discarded_parts": 2,
+    "fuel_array": 1
   },
   "inventory3": {
-    "food1": 4,
-    "food3": 6,
-    "water_keg": 8
+    "dirtymag": 69,
+    "drugdust": 69,
+    "smokes": 69,
+    "ammo": 999,
+    "berry_bush": 1,
+    "jerky": 26
   }
 }

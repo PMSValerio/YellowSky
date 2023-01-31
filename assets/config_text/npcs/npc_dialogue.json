@@ -3,27 +3,30 @@
         "Name" : "Smiling Jack:", 
         "Dialogue" : { 
             "1" : [
-                "Oh hi there! You don't happen to come from the south do you?", 
-                "I saw the storm that ravaged those parts with my own eye, and let me tell you, I wasn't expecting any visitors from down under!", 
-                "You naturally seem a bit lost... Not to worry though, make yourself at home.",
-                "Life around here goes by pretty slow, one can't afford to diddle-daddle in this wasteland afterall.", 
-                "You can always comeback and have a chat if you'd like, as well as barter with the townsfolks and see if you can grab yourself a deal.", 
-                "Don't just go around being a leech though! If you decide to hang around these parts, its only natural for you to help gather some resources.",
-                "The power plant nearby recently broke down, and our stored energy won't last much longer...",
-                "In case you decide to brave the wilderness, you are bound to find other folks trying to hang on as best as they can I'm sure.",
-                "Don't be a stranger, pay them a visit and say hi. Specially if night starts to fall!",
-                "Nights can get breezy around here, so most settlements will probably shelter you around nightfall.",
-                "In any case, don't you go out there dying on me, ya hear!",
+                "Ho there, stranger! You don't happen to come from the south do you?", 
+                "I saw the storm that ravaged those parts with my own eye, and let me tell you, I wasn't expecting any survivors to come by. Or to even, you know, be!", 
+                "I can't imagine what you're going through... Not to worry though, make yourself at home.",
+                "Life around here goes by pretty slow, one can't afford to dilly-dally out here after all.", 
+                "You can always come back and have a chat if you'd like, maybe trade with the locals and see if you can grab yourself a deal.", 
+                "Don't just go around being a leech though! If you decide to hang around these parts, help out and gather some resources.",
+                "The coal plant nearby recently broke down, and our energy stores are running awful low...",
+                "In case you decide to brave the wilderness, you'll find other likeminded folk I'm sure.",
+                "Don't be a stranger, pay them a visit and say hi. Especially if night starts to fall!",
+                "I'm sure you already know, but there's a cold snap every night. Most settlements don't want anyone to freeze to death, so take shelter and bundle up.",
+                "Be safe, ya hear? No dying.",
                 "END"
             ],
             "2" : [
                 "Hello again!", 
-                "Are you managing to handle yourself out here?", 
-                "Food doesn't come around very often, but it's important to keep yourself somewhat sharp.",
-                "In case you get yourself injured, be sure to be well fed and try not to move too much.", 
-                "Overall though, if you protect others, others will protect you, even if some of the folk out there happen to be quite excentrique!", 
-                "You never know when someone will pay a pretty penny for some odd job...",
-                "And remember, if you are wandering about, don't forget to pay us a visit!",
+                "Hm? Seeds? To grow plants with, you mean?",
+                "I'd be hard pressed to try and grow anything out here myself, but you look resourceful.",
+                "Stranger things have happened in the desert, I'm sure someone may be holding onto some seeds.",
+                "By the way, don't forget to keep food handy, the wasteland's huge! In a pinch, I guess you could eat the bitter yellow grass. Blegh.", "I'd rather have the old military cracker crap that comes in those green tins, myself. Never goes bad!",
+                "If you ain't picky, most bugs are a great source of protein, too.",
+                "Say, if you get hurt out there, make sure you're on a full stomach and try not to move too much.", 
+                "Be kind to others. You got bad apples, same as it always has been, but I like to believe most people are kind. Even if some of the folk happen to be... Eccentric!", 
+                "On that note, always be a good listener. Never know when something good might pop by.",
+                "Oh, I'm rambling again. I'll leave you be, friend. Don't be a stranger.",
                 "END"
             ]
         }   
@@ -32,53 +35,55 @@
         "Name" : "Rusty:", 
         "Dialogue" : { 
             "1" : [
-                "Hello there mate, pleasure to meet ya!", 
-                "Name's Rusty by the way. One manages to come up with all sorts of nickanmes out here in the wild.", 
-                "These parts are not very welcoming to strangers though.",
-                "It is known that some creatures that remain like to lurk in creaks and crevices.", 
-                "One can never be too sure...", 
+                "Eyy bud, how goes? Name's Rusty. Like the metal!", 
+                "You're a ways from home, yeah? Shit's spicy around here, keep your eyes open and your cheeks unclapped.",
+                "And watch your six, there's nasty critters about. I've seen 'em myself.", 
+                "Whoa, didn't mean to scare ya? Just... High alert, and all that. There's a kid missing, everyone's on edge.",
+                "To be honest with ya, I'm kinda expecting the worst...",
                 "QUEST",
-                "Anyway, take care!",
+                "Anyway, see ya around!",
                 "END"
             ],
             "2" : [
-                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "There's something bad in the air, bud. Watch yourself.",
                 "END"
             ] 
         }   
     },
     "npc2" : {
-        "Name" : "Roofles:", 
+        "Name" : "Father Cannoli:", 
         "Dialogue" : { 
             "1" : [
-                "Hey! Watcha know about the young whipper snapper that was last seen in the area?",
-                "Oh, you're not from here yourself are ya? Sorry for that then, my bad.",
-                "Folks are on the edge lately. Been hearin' some strange noises coming from south.",
-                "No one knows what's causing it, and certainly no one's keen enough to find out.",
-                "Can't be nothing to worry about, that's what I tell myself at least!",
+                "Greetings, young one. Welcome to our humble settlement.",
+                "You must have travelled far. Come, break bread with us, but please part with some of your valuables in exchange for food.",
+                "Rumor has it a group of marauders from the citadel across the great like have come to sow violence.",
+                "Scouting parties from nearby settlements have gone to investigate, but the miscreants always manage to give them the slip.",
+                "Do not allow yourself to be led to dark places, young one. There are far better paths in life.",
                 "QUEST",
-                "You take care though, ya hear!",
+                "Walk with purpose.",
                 "END"
             ],
             "2" : [
-                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "I do not like the look of the skies. Dark portents ahead.",
                 "END"
             ] 
         }   
     },
     "npc3" : {
-        "Name" : "Blingo:", 
+        "Name" : "DA DOG:", 
         "Dialogue" : { 
             "1" : [
-                "Is it safe?",
-                "Is it safe?",
-                "Is it safe?",
+                "AWOOOOOOOOOOOOO. WE BE BUSSIN' OUT HERE IN THE MUTHAFUCKIN' DESERT, BROSKI.",
+                "YOU WANT THE GOOD SHIT? I GOT THE GOOD SHIT, DUDE.",
+                "BUT IT'LL COST YA, OH YEAH.",
+                "PUSSYLAND IS FULL OF THIRSTY FUCKS, GO FIGURE. WE GOT ALL THE SHIT WE NEED TO DO OUR OWN THING, BUT WATER'S ALWAYS LOW, BRAH. L-O-W WITH A CAPITAL Z, YOU KNOW?",
+                "SO DUMP ALL YOUR SWEET SWEET PISS ON ME AND THE HOMIES. WATER, YOU KNOW. NOT ACTUAL PISS. NOT INTO THAT.",
                 "QUEST",
-                "It puts the lotion on its skin and puts it in the basket...",
+                "AIGHT WE DONE, FUCK OUTTA HERE.",
                 "END"
             ],
             "2" : [
-                "Possible 2nd dialogue option associated with this npc, maybe triggered due to the state of the settlement, or the outside world or something.",
+                "HOLY SHITBALLS, SHIT DO BE ABOUT TO GO DOWN.",
                 "END"
             ] 
         }   

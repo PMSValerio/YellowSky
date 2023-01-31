@@ -2,7 +2,7 @@
   "wrecked": {
     "type_id": "WRECKED",
     "type_name": "Wrecked Facility",
-    "flavour_text": "An abandoned warehouse, ravaged by time. Leftover scraps of metal and machinery suggest it was once a factory of some sort.\n[ALPHA] This is a facility, which allows production (and consumption) of your resources to produce different resources, or useful items.",
+    "flavour_text": "An abandoned warehouse, ravaged by time. Leftover scraps of metal and machinery suggest it was once a factory of some sort.",
     "fuel_types": [],
     "product_types": [],
     "base_animation": "wrecked",
@@ -19,7 +19,7 @@
   "coal_plant": {
     "type_id": "COAL_PLANT",
     "type_name": "Coal Plant",
-    "flavour_text": "A facility housing many makeshift furnaces that burn coal to produce energy.\n\n[ALPHA] Pick this facility if you want to produce energy.",
+    "flavour_text": "A facility housing makeshift furnaces that burn coal to produce energy. Fossil fuels caused society to collapse due to their scarcity, resulting in their now ironic abundance.",
     "fuel_types": [],
     "product_types": ["ENERGY"],
     "base_animation": "coal_plant",
@@ -31,12 +31,12 @@
     "max_fuel": 100.0,
     "max_product": 100.0,
     "consumption_rate": 0.0,
-    "production_rate": 3.0
+    "production_rate": 6.0
   },
   "parts_workshop": {
     "type_id": "PARTS_WORKSHOP",
     "type_name": "Parts Workshop",
-    "flavour_text": "A factory featuring an assembly line for mass production of mechanical parts.\n\n[ALPHA] Pick this facility if you want to produce scrap.",
+    "flavour_text": "A workshop full of lathes, assembly lines and other ammenities for the production of mechanical parts.",
     "fuel_types": ["ENERGY"],
     "product_types": ["MATERIALS"],
     "base_animation": "workshop",
@@ -47,13 +47,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   },
   "cannery": {
     "type_id": "CANNERY",
     "type_name": "Cannery",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce food.",
+    "flavour_text": "A factory full of machines that somehow produce canned food by just adding water. The smell produced by this facility is incredibly foul, to the point where it wards off wild animals.",
     "fuel_types": ["ENERGY", "WATER"],
     "product_types": ["FOOD"],
     "base_animation": "cannery",
@@ -64,13 +64,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   },
   "water_pump": {
     "type_id": "WATER_PUMP",
-    "type_name": "Water Pump",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce water.",
+    "type_name": "Groundwater Extractor",
+    "flavour_text": "A repurposed oil rig connected to a large tank, able to draw large amounts of water from deep under the desert sand.",
     "fuel_types": ["ENERGY"],
     "product_types": ["WATER"],
     "base_animation": "water_pump",
@@ -81,13 +81,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   },
   "wind_farm": {
     "type_id": "WIND_FARM",
     "type_name": "Wind Farm",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean energy.",
+    "flavour_text": "A series of fan turbines which convert the might of the desert winds into free, clean energy.",
     "fuel_types": [],
     "product_types": ["ENERGY"],
     "base_animation": "wind_farm",
@@ -98,13 +98,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 0.0,
+    "production_rate": 6.0
   },
   "recycler": {
     "type_id": "RECYCLER",
     "type_name": "Recycling Centre",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean scrap.",
+    "flavour_text": "The machinery in this facility grinds up wasted materials and scrap and converts it all into brand new, useful parts.",
     "fuel_types": ["ENERGY"],
     "product_types": ["MATERIALS"],
     "base_animation": "recycler",
@@ -115,13 +115,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   },
   "hydroponics": {
     "type_id": "HYDROPONICS",
     "type_name": "Hydroponics Farm",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean food.",
+    "flavour_text": "Taking apart those disgusting meat substitute machines was worse than you could have ever imagined, but all the spare piping and extra space allowed you to use the water intake to grow crops instead.",
     "fuel_types": ["ENERGY", "WATER"],
     "product_types": ["FOOD"],
     "base_animation": "hydroponics",
@@ -132,13 +132,13 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   },
   "purifier": {
     "type_id": "PURIFIER",
-    "type_name": "Water Purifier",
-    "flavour_text": "[ALPHA] Pick this facility if you want to produce clean water.",
+    "type_name": "Water Purification Plant",
+    "flavour_text": "Thanks to some retrofitting, improvisation and clever engineering, the machinery in this facility draws moisture from the air and filters it into pure, distilled water. You make it drinkable by adding a pinch of salt.",
     "fuel_types": ["ENERGY"],
     "product_types": ["WATER"],
     "base_animation": "purifier",
@@ -149,7 +149,7 @@
     "max_health": 100.0,
     "max_fuel": 100.0,
     "max_product": 100.0,
-    "consumption_rate": 2.0,
-    "production_rate": 5.0
+    "consumption_rate": 3.0,
+    "production_rate": 6.0
   }
 }

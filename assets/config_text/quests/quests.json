@@ -1,44 +1,45 @@
 {
   "quest1": {
     "event_id": "quest1_event",
-    "deliver_items": {
-      "grasses": 1
+    "deliver_items": null,
+    "return_items": {
+      "quest_item2": 1
     },
-    "return_items": null,
     "rewards": {
-      "water_bottle": 2
+      "saplings": 2,
+      "mre": 3,
+      "drugdust": 1,
+      "water_keg": 1,
+      "choice_components": 2
+
     },
-    "name": "The flying monkey men!",
-    "description": "Some strange creatures have been causing a ruckus. Find a way to calm them down.",
+    "name": "Missing Child",
+    "description": "A child went missing from Camp Crag. It's very unlikely they are unscathed, but you feel you should try to help.",
     "prompt_dialogue" : [
-      "Since you are here, you might be able to help me with somethin'...",
-      "I've tripped a lot out here in the outback lately.", 
-      "I think we might be dealing with the mythical flying monkey men...", 
-      "Mind checking it out?",
+      "Hey... I know we just met and all, but uh. Folks round here are real worried about the kid.", 
+      "If ya see anything out of the usual, or a kid with a little red doll, then uh. Yeah. Bring 'em back, would ya?", 
+      "We'll share what we have, of course. Not askin' ya to do it for free.",
       "OPTIONS"
     ],
     "accept_dialogue" : [
-      "Thank you kindly stranger!", 
-      "Those critters can be quite a handful, so be careful!",
+      "Ya got my thanks, bud. Be careful out there, ya hear?", ,
       "END"
     ],
     "decline_dialogue" : [
-      "Worry not, it's not the job for everyone around these parts after all...", 
-      "Take care still! If you change your mind, you know where to find me.",
+      "Eh. Yeah. It's a big ask, I know.", 
+      "Hope the kid's safe.",
       "END"
     ],
     "unfinish_dialogue" : [
-      "So, still no luck with that quest am I right? Don't sweat it, It'll be done when it's done." , 
-      "Take care!",
+      "Still lookin'? Appreciate ya, bud.",
       "END"
     ],
     "finish_dialogue" : [
-      "You really did it!", 
-      "Not that I ever doubted you...",
-      "Still, I hope those critters got what they deserved.",
-      "Ah, and here's your reward!",
+      "... Fuck me. I... I made this doll for the kid. They lost their parents years back, ya know?", 
+      "This is gonna be hard news to break to the camp. I uh...",
+      "Nah. Nah. I gotta keep my chin up and my people motivated. Thank ya kindly, bud. I mean it.",
       "REWARD",
-      "Come back often! There might more work to be done!",
+      "Come again soon. Or stick around. Mi casa, su casa.",
       "END"
     ]
   },
@@ -46,78 +47,98 @@
     "event_id": "quest2_event",
     "deliver_items": null,
     "return_items": {
-      "quest_item2": 1
+      "quest_item3": 1
     },
     "rewards": {
-      "water_gallon": 3
+      "seed_bag": 3,
+      "mre": 3,
+      "power_pack": 2,
+      "discarded_parts": 2,
+      "water_gallon": 2
     },
-    "name": "A generator for the perpetrator.",
-    "description": "A generator is in need! It might be possible to salvage something from the countless abandoned camps out there.",
+    "name": "The Citadel Marauders",
+    "description": "Marauders from the citadel across the lake have been spotted in the area, likely planning a raid. Investigate with caution.",
     "prompt_dialogue" : [
-      "That reminds me...", 
-      "Our folks are really dying to get a new generator, but nowadays, that is quite a hard thing to come by!", 
-      "If you happen to salvage something of that sort during your tavels, mind bringing it back here?",
+      "Ah, but if you would hear my words...", 
+      "If you so happen to run afoul of the marauders, keep your distance.", 
+      "Still, if you are able to glean anything... Anything at all would suffice. We need information to carefully plan ahead and safeguard ourselves.",
       "OPTIONS"
     ],
     "accept_dialogue" : [
-      "Thank you for lending us a hand, your efforts will not be wasted!", 
-      "We will be waiting!",
+      "Thank you for lending us a hand, young one. Please, be cautious.", 
+      "I will dream of your safety.",
       "END"
     ],
     "decline_dialogue" : [
-      "That's too bad...", 
-      "We'll make do with what we have. Take care!",
+      "An understandable decision. Putting yourself in harm's way is a daunting task.", 
+      "I am still glad you chose to hear my plight. Be at ease.",
       "END"
     ],
     "unfinish_dialogue" : [
-      "So, still no luck with that quest am I right? Don't sweat it, It'll be done when it's done." , 
-      "Take care!",
+      "Have you discovered anything?", 
+      "Answers lie out there. Do not lose heart.",
       "END"
     ],
     "finish_dialogue" : [
-      "Now that right there is a real beauty if I've ever seen one!", 
-      "Where did you even manage to whipe out one of the original models?",
-      "Either way, here's a little somthing for all your trouble!",
+      "Ah, where did you find all of this?", 
+      "Really? A camp, so brazenly set up in the nearing regions? This is troublesome indeed.",
+      "The full might of a citadel is not something any of the neighboring settlements are prepared for. Regardless...",
+      "We will make do with what we have, and prepare for the worst.",
+      "Here is something for your troubles.",
       "REWARD",
-      "Come again and pay us a visit will ya?",
+      "Again, I cannot thank you enough.",
       "END"
     ]
   },
   "quest3": {
-    "event_id": null,
+    "event_id": "quest3_event",
     "deliver_items": null,
     "return_items": {
-      "water_bottle": 1
+      "quest_item4": 1
     },
     "rewards": {
-      "water_drum": 1
+      "berry_bush": 1,
+      "ammo": 1,
+      "dirtymag": 3,
+      "jerky": 5
     },
-    "name": "Need food!",
-    "description": "Not much could be gathered. The only thing that can be known for sure is that food is needed. Plenty of it.",
+    "name": "The Cursed Laptop",
+    "description": "A man's quest for 'THE GOOD SHIT'.",
     "prompt_dialogue" : [
-      "Oh!", 
-      "We need food!", 
-      "Can you bring food?",
+      "OH, RIGHT, UHHH.", 
+      "SO THERE'S A LEGEND GOIN' AROUND. ABOUT SOME DUDE WHOSE LAPTOP WAS FUCKIN' CURSED. HE WENT MISSING DOWN SOME CLIFFS OR SOME SHIT.", 
+      "NOBODY KNOWS WHAT THE FUCK IS UP WITH THAT, BUT I DO. DA DOG KNOWS THINGS, KEMOSABE.",
+      "THE LAPTOP...",
+      "IS FULL...",
+      "OF TITTY PICS. BIG HONKABADONKADONKS. FFFFAT. FFFUCKIN' MIIIIILKIES. KNOW WHAT I'M SAYIN'?",
+      "I KNOW IT. I JUST KNOW IT. IF YOU SEE SOME SUS CLIFFS, GET DOWN THAT SHIT AND LOOK FOR THE THING.",
+      "I'MMA MAKE IT WORTH YOUR TIME. SERIOUSLY. WHADDYA SAY?",
       "OPTIONS"
     ],
     "accept_dialogue" : [
-      "Thank you! Do bring food!",
+      "YESSSSSS. GO FORTH, MY LOYAL MINION.", 
+      "GET. ME. THAT. LAPTOP.",
       "END"
     ],
     "decline_dialogue" : [
-      "Still need food...",
+      "OH COME ON, FUCK THAT SHIT. HELP A HOMIE OUT.", 
+      "SERIOUSLY, GIVE IT A THINK. I'LL WAIT.",
       "END"
     ],
     "unfinish_dialogue" : [
-      "Where is food?! I see no food!", 
+      "DID YOU FIND IT? DID YOU? DID YOU? DID YOU?" , 
+      "WELL GO FUCKIN' FIND IT THEN!",
       "END"
     ],
     "finish_dialogue" : [
-      "Oy, that's not real food now, is it?",
-      "Let me just have a lil taste...",
-      "Bloody hell! It does taste like real food! It tastes... fuck all!",
+      "HOLY.", 
+      "FUCKING.",
+      "POOPIE.",
+      "YOU HAVE NO IDEA HOW MUCH I WANTED THIS SHIT TO BE REAL. GIVE IT HERE. OH MAN OH MAN OH MAN--",
+      "WHAT THE FUCK IS THIS SHIT? WHERE'S THE GOOD STUFF? THIS IS ALL NERD SHIT. FUCK OUTTA HERE.",
+      "NAH BUT FOR REAL YOU DID ME A SOLID. SHIT SUCKS BUT IT IS WHAT IT IS. HERE YOU GO, DA DOG KEEPS HIS PROMISES.",
       "REWARD",
-      "Cheers!",
+      "NOW GET THE FUCK OUTTA MY FACE. NOT TOO FAST, THOUGH, YOU'RE DOPE.",
       "END"
     ]
   }

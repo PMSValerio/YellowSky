@@ -3,11 +3,33 @@
     "item_id": "quest_item2",
     "type": "QUEST",
     "subtype": "",
-    "texture": "items/resources/water/water_bottle.png",
+    "texture": "items/quest/doll.png",
     "value": 0,
     "stat": 0,
     "usable": false,
-    "name": "Generator",
-    "flavour_text": "Generator belonging to times of old. Emanates a green glow."
+    "name": "Bloodied Doll",
+    "flavour_text": "A small children's toy, caked in dried bloodstains. Gazing upon its beady eyes fills you with a sad nostalgia."
+  },
+  "quest_item3": {
+    "item_id": "quest_item3",
+    "type": "QUEST",
+    "subtype": "",
+    "texture": "items/quest/backpack.png",
+    "value": 0,
+    "stat": 0,
+    "usable": false,
+    "name": "Scuffed Backpack",
+    "flavour_text": "A backpack filled with stolen supplies and a map to what is presumably a hideout. Someone's going to get fired for this. Or shot at."
+  },
+"quest_item4": {
+  "item_id": "quest_item4",
+  "type": "QUEST",
+  "subtype": "",
+  "texture": "items/quest/laptop.png",
+  "value": 0,
+  "stat": 0,
+  "usable": false,
+  "name": "'Cursed' Laptop",
+  "flavour_text": "An old laptop found on a dead guy. Full of extremely cursed computer code. What even is a 'list comprehension'?"
   }
 }

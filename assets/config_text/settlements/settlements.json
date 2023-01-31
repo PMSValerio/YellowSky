@@ -2,64 +2,64 @@
     "settlement_start": {
         "id": "settlement_start",
         "name": "Low End Creek",
-        "flavour_text": "Known for their luck avoiding all sorts of distasters and catastrophes, the folks that live here have an hardy attitude to them. Low End Creek is also known for its abandoned facility close by.",
+        "flavour_text": "Known for their luck avoiding all sorts of disasters and catastrophes, the folks that live here have a hardy attitude to them. Low End Creek is also known for its proximity to an old coal plant.",
         "npc": "npc_start",
         "inventory": "inventory_start",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 1,
-        "population": 10,
+        "population": 12,
         "resources": {
             "WATER" : 100,
-            "ENERGY" : 10,
+            "ENERGY" : 30,
             "MATERIALS" : 100
         },
         "quests": []
     },
     "settlement1": {
         "id": "settlement1",
-        "name": "Lower End Creek",
-        "flavour_text": "[ALPHA] This is a settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "name": "Camp Crag",
+        "flavour_text": "Nestled near the mountains, Camp Crag is known as a friendly place for travelers and traders. Though otherwise unremarkable, it stands as a reminder that there are good people even in the wasteland.",
         "npc": "npc1",
         "inventory": "inventory1",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 1,
-        "population": 10,
+        "population": 20,
         "resources": {
-            "WATER" : 100,
-            "ENERGY" : 100,
-            "MATERIALS" : 100
+            "WATER" : 150,
+            "ENERGY" : 180,
+            "MATERIALS" : 200
         },
         "quests": ["quest1"]
     },
     "settlement2": {
         "id": "settlement2",
-        "name": "High End Creek",
-        "flavour_text": "[ALPHA] This is High End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "name": "The Peaceful Church of St. Armistice",
+        "flavour_text": "Despite the name, this settlement is not really a church, nor is St. Armistice a real saint. Rather, the name comes from the fact the large majority of the inhabitants are highly religious and fiercely opposed to all violence. It's not uncommon for attackers of the settlement to be given food and supplies in exchange for protection. This method has never failed them, though their supplies tend to run pitiably low.",
         "npc": "npc2",
         "inventory": "inventory2",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 2,
         "population": 50,
         "resources": {
-            "WATER" : 100,
-            "ENERGY" : 100,
+            "WATER" : 200,
+            "ENERGY" : 300,
             "MATERIALS" : 100
         },
         "quests": ["quest2"]
     },
     "settlement3": {
         "id": "settlement3",
-        "name": "Sky End Creek",
-        "flavour_text": "[ALPHA] This is Sky End Creek settlement, where you can talk to people, trade for items and find quests. In the future, you'll be able to steal from them and donate resources as well.",
+        "name": "PUSSYLAND",
+        "flavour_text": "This crudely named place is one of the largest settlements in this part of the wasteland. Full of rebels, thrillseekers and deviants, it could be considered a citadel if not for the complete state of anarchy in the settlement and a lack of anything but an all-consuming urge to 'PARTY FUCKING HARD'.",
         "npc": "npc3",
         "inventory": "inventory3",
         "portrait_texture": "settlement_portrait/settlement0.png",
         "rank" : 3,
-        "population": 70,
+        "population": 110,
         "resources": {
-            "WATER" : 100,
-            "ENERGY" : 100,
-            "MATERIALS" : 100
+            "WATER" : 190,
+            "ENERGY" : 666,
+            "MATERIALS" : 666
         },
         "quests": ["quest3"]
     }
