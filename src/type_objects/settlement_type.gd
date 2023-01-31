@@ -24,7 +24,7 @@ var base_ppl_growth_rate = 1.01 # people prosper if all resource requirements ar
 var base_ppl_loss_rate = 1 # people are lost if at least one resource is missing
 var death_probability = 5 # people are lost if at least one resource is missing
 var base_consumption_rate = 0.01
-var resources_for_growth =[Global.Resources.FOOD, Global.Resources.WATER, Global.Resources.ENERGY] # not ideal I know
+var resources_for_growth =[Global.Resources.WATER, Global.Resources.ENERGY] # not ideal I know
 var seeds_tile_radius = 1 # settlement can only gen green tiles if there are still tiles left in radius
 var seeds_per_tile = 10 # seeds needed to gen 1 green tile
 

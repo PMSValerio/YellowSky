@@ -98,6 +98,12 @@ func _on_type_select(type) -> void:
 func _on_type_confirm():
 	if facility_entity != null and selected_type.type_id in Global.FacilityTypes.values() && ResourceManager.get_resource(Global.Resources.MATERIALS) >= selected_type.build_cost:
 		ResourceManager.add_to_resource(Global.Resources.MATERIALS, -selected_type.build_cost)
+		if selected_type.type_id == Global.FacilityTypes.COAL_PLANT:
+			WorldData.unlock_facility(Global.FacilityTypes.PARTS_WORKSHOP)
+		elif selected_type.type_id == Global.FacilityTypes.PARTS_WORKSHOP:
+			WorldData.unlock_facility(Global.FacilityTypes.WATER_PUMP)
+		elif selected_type.type_id == Global.FacilityTypes.WATER_PUMP:
+			WorldData.unlock_facility(Global.FacilityTypes.CANNERY)
 		facility_entity.set_type(selected_type.type_id)
 		facility_entity.repair(facility_entity.get_max_health())
 		emit_signal("type_chosen")
