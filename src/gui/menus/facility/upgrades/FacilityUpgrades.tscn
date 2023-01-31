@@ -133,15 +133,15 @@ size_flags_horizontal = 3
 
 [node name="ProdRate" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
 margin_right = 1008.0
-margin_bottom = 146.0
+margin_bottom = 158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
 [node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 64.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 1 )
@@ -152,9 +152,9 @@ texture_focused = SubResource( 1 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 79.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 457.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -163,9 +163,9 @@ expand = true
 
 [node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 472.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 536.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 4 )
@@ -176,9 +176,9 @@ texture_focused = SubResource( 4 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 551.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 929.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -187,9 +187,9 @@ expand = true
 
 [node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/ProdRate"]
 margin_left = 944.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 1008.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 7 )
@@ -199,17 +199,17 @@ texture_disabled = SubResource( 8 )
 texture_focused = SubResource( 7 )
 
 [node name="MaxCapcity" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_top = 150.0
+margin_top = 162.0
 margin_right = 1008.0
-margin_bottom = 296.0
+margin_bottom = 320.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
 [node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 64.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 9 )
@@ -220,9 +220,9 @@ texture_focused = SubResource( 9 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 79.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 457.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -231,9 +231,9 @@ expand = true
 
 [node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 472.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 536.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 12 )
@@ -244,9 +244,9 @@ texture_focused = SubResource( 12 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 551.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 929.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -255,9 +255,9 @@ expand = true
 
 [node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/MaxCapcity"]
 margin_left = 944.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 1008.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 15 )
@@ -267,17 +267,17 @@ texture_disabled = SubResource( 16 )
 texture_focused = SubResource( 15 )
 
 [node name="Durability" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_top = 300.0
+margin_top = 324.0
 margin_right = 1008.0
-margin_bottom = 446.0
+margin_bottom = 482.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
 [node name="Button1" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 64.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 17 )
@@ -288,9 +288,9 @@ texture_focused = SubResource( 17 )
 
 [node name="Separador1" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 79.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 457.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -299,9 +299,9 @@ expand = true
 
 [node name="Button2" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 472.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 536.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 20 )
@@ -312,9 +312,9 @@ texture_focused = SubResource( 20 )
 
 [node name="Separador2" type="TextureRect" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 551.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 929.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -323,9 +323,9 @@ expand = true
 
 [node name="Button3" type="TextureButton" parent="PanelContainer/UpgradesSection/VBoxContainer/Durability"]
 margin_left = 944.0
-margin_top = 41.0
+margin_top = 47.0
 margin_right = 1008.0
-margin_bottom = 105.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_vertical = 4
 texture_normal = SubResource( 23 )
@@ -335,20 +335,20 @@ texture_disabled = SubResource( 24 )
 texture_focused = SubResource( 23 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer"]
-margin_top = 450.0
+margin_top = 486.0
 margin_right = 1008.0
 margin_bottom = 584.0
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2"]
 margin_right = 824.0
-margin_bottom = 134.0
+margin_bottom = 98.0
 size_flags_horizontal = 3
 
 [node name="Descprition_Cost" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 816.0
-margin_bottom = 126.0
+margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -372,30 +372,22 @@ margin_bottom = 21.0
 [node name="HBoxContainer2" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost"]
 margin_top = 34.0
 margin_right = 808.0
-margin_bottom = 82.0
+margin_bottom = 46.0
 size_flags_vertical = 3
 custom_constants/separation = 24
 
-[node name="Label" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer2"]
+[node name="UpDescription" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer2"]
 margin_right = 808.0
 margin_bottom = 12.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Description:"
-
-[node name="UpDescription" type="Label" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost/HBoxContainer2"]
-margin_top = 36.0
-margin_right = 808.0
-margin_bottom = 48.0
 size_flags_vertical = 3
 autowrap = true
 max_lines_visible = 5
 
 [node name="HBoxContainer3" type="VBoxContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer/Descprition_Cost"]
 margin_left = 680.0
-margin_top = 86.0
+margin_top = 50.0
 margin_right = 808.0
-margin_bottom = 118.0
+margin_bottom = 82.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 custom_constants/separation = 24
@@ -411,13 +403,13 @@ text = "Confirm"
 [node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2"]
 margin_left = 828.0
 margin_right = 1008.0
-margin_bottom = 134.0
+margin_bottom = 98.0
 
 [node name="HBoxContainer" type="MarginContainer" parent="PanelContainer/UpgradesSection/VBoxContainer/HBoxContainer2/PanelContainer2"]
 margin_left = 8.0
-margin_top = 35.0
+margin_top = 17.0
 margin_right = 172.0
-margin_bottom = 99.0
+margin_bottom = 81.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/margin_right = 50
