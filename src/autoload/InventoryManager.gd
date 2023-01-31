@@ -10,7 +10,7 @@ var compact_resource_items = {} # ids of all compact resource items organised by
 
 var cannery_foods = []
 var hydro_foods = []
-var spoilt_food_id = ""
+var spoilt_food_id = "ruinedfood"
 
 
 # --- || Ready || ---
