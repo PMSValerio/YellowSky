@@ -738,7 +738,7 @@ func random_bg_music():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var num
-	var r = range(0,4)
+	var r = range(0,3)
 	r.erase(last_choice)
 	
 	if first_time:
@@ -746,18 +746,15 @@ func random_bg_music():
 		first_time = false
 	else:
 		num = r[randi() % r.size()]
-		#num = rng.randi_range(0,4)
 	last_choice = num
 	match num:
 		0:
 			music_file = "res://assets/sfx/world/desert_monolith.wav"
 		1:
 			music_file = "res://assets/sfx/world/floating.wav"
-		2:
-			music_file = "res://assets/sfx/world/dramatic_scroller.wav"
-		3: 
+		2: 
 			music_file = "res://assets/sfx/world/ocean_drift.wav"
-		4:
+		3:
 			music_file = "res://assets/sfx/world/desert_shimmer.wav"
 	if music_file != "" :
 		bg_music_player.stream = load(music_file)

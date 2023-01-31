@@ -6,7 +6,7 @@
 [ext_resource path="res://src/gui/menus/facility/type/FacilityTypeScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/gui/menus/facility/upgrades/FacilityUpgrades.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/sfx/world/Facility_bg_music.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/world/dramatic_scroller.wav" type="AudioStream" id=7]
 
 [node name="BaseOuterMenu" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
@@ -28,7 +28,6 @@ root_path = NodePath("..")
 
 [node name="BG_MusicPlayer" type="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource( 7 )
-volume_db = -10.0
 bus = "BG_Music"
 
 [connection signal="want_rebuild" from="MarginContainer/PanelContainer/TabContainer/Manage" to="." method="_on_Manage_want_rebuild"]

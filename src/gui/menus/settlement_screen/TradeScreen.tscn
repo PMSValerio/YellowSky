@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/gfx/ui_elements/icons/ui_icons.png" type="Texture" id=1]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/gfx/ui_elements/icons/middle_mouse_icon.png" type="Texture" id=9]
+[ext_resource path="res://assets/sfx/ui/UI_Click.wav" type="AudioStream" id=10]
 
 [sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 1 )
@@ -592,7 +593,11 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 
 [node name="UI_sfx" parent="." instance=ExtResource( 7 )]
-root_path = NodePath("../PanelContainer/MarginContainer/VBoxContainer")
+root_path = NodePath("../PanelContainer/MarginContainer")
+
+[node name="trade_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+bus = "UI"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerArea/HBoxContainer/PlayerButton" to="." method="_on_PlayerButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TradeArea/TradeButton" to="." method="_on_TradeButton_pressed"]

@@ -210,6 +210,7 @@ func _on_SettlementButton_pressed():
 
 
 func _on_TradeButton_pressed():
+	$trade_sfx.play()
 	if !is_slider_active:
 		# duplicated code can be cleaned up, but becomes more cumbersome and unreadable
 		for i in settlement_offer.get_owned_items_info():
