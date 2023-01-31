@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/gfx/ui_elements/icons/waterIcon.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/hud/hud_counter.gd" type="Script" id=2]
+[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=3]
 
 [node name="Counter" type="MarginContainer"]
 margin_right = 104.0
@@ -49,5 +50,8 @@ size_flags_horizontal = 3
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
+
+[node name="UI_sfx" parent="." instance=ExtResource( 3 )]
+root_path = NodePath("..")
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

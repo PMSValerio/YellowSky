@@ -95,6 +95,6 @@ margin_right = 360.0
 margin_bottom = 32.0
 
 [node name="UI_sfx" parent="." instance=ExtResource( 7 )]
-root_path = NodePath("..")
+root_path = NodePath("../VBoxContainer")
 
 [connection signal="pressed" from="ExitBtn" to="." method="_on_CancelCompactButton_pressed"]
