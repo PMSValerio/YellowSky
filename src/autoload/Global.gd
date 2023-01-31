@@ -125,6 +125,7 @@ var resource_names = {
 	Resources.MATERIALS: "Materials",
 	Resources.ENERGY: "Energy",
 	Resources.FOOD: "Food",
+	Resources.SEEDS: "Seeds",
 }
 
 var item_category_names = {

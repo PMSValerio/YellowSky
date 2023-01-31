@@ -30,13 +30,13 @@
       {
         "cost": 100,
         "multiplier": 0.8,
-        "info_text": "Routine maintenance and overall optimization goes a long way towards cutting down on energy consumption.\n\nLowers Fuel Consumption rate by 20%.",
+        "info_text": "Routine maintenance and optimization goes a long way towards cutting down on energy consumption.\n\nLowers Fuel Consumption rate by 20%.",
         "base_icon_subimage": 0
       },
       {
         "cost": 250,
         "multiplier": 0.6,
-        "info_text": ".\n\nLowers Fuel Consumption rate by 40%.",
+        "info_text": "Clever manipulation of energy converters allows you to get more bang for your buck.\n\nLowers Fuel Consumption rate by 40%.",
         "base_icon_subimage": 1
       },
       {
@@ -54,19 +54,19 @@
       {
         "cost": 100,
         "multiplier": 2.0,
-        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 100%.",
+        "info_text": "A few tweaks in the machinery force the facility into outputting a bit more than usual.\n\nIncreases Production Rate by 100%.",
         "base_icon_subimage": 0
       },
       {
         "cost": 250,
         "multiplier": 3.0,
-        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 200%.",
+        "info_text": "Additional supply lines and faster conveyor belts.\n\nIncreases Production Rate by 200%.",
         "base_icon_subimage": 1
       },
       {
         "cost": 500,
         "multiplier": 4.0,
-        "info_text": "After a lot of head-scratching and planning, you develop a recursive system that makes use of wasted energy. Said energy is then cycled back into the system.\n\nIncreases Production Rate by 400%.",
+        "info_text": "Whether out of boredom, necessity or both, you spend the better part of your day developing a Rube Goldberg machine inside the facility. The insane contraption somehow results in a massive increase in productivity.\n\nIncreases Production Rate by 400%.",
         "base_icon_subimage": 2
       }
     ]

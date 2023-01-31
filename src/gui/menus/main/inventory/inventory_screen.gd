@@ -169,6 +169,8 @@ func _play_use_sfx(slot_category, item_subtype) -> void:
 					sound_effect = "res://assets/sfx/ui/UI_Use_Materials.wav"
 				3: #ENERGY
 					sound_effect = "res://assets/sfx/ui/UI_Use_Energy.wav"
+				5: #SEEDS
+					sound_effect = "res://assets/sfx/ui/UI_Open_Inv.wav"
 		Global.Items.FOOD:
 			sound_effect = "res://assets/sfx/ui/UI_Use_Food.wav"
 	use_sfx.stream = load(sound_effect)

@@ -15,33 +15,33 @@
     "type": "RESOURCES",
     "subtype": "WATER",
     "texture": "items/resources/water/gallon_of_water.png",
-    "value": 15,
+    "value": 20,
     "stat": 10,
     "usable": true,
     "name": "Gallon of Water",
-    "flavour_text": "An old plastic gallon jug, filled to the brim with fresh water."
+    "flavour_text": "An old plastic gallon jug, filled with fresh water."
   },
   "water_keg": {
     "item_id": "water_keg",
     "type": "RESOURCES",
     "subtype": "WATER",
     "texture": "items/resources/water/keg_o_water.png",
-    "value": 20,
+    "value": 30,
     "stat": 50,
     "usable": true,
     "name": "Keg of Water",
-    "flavour_text": "A metal keg which once held beer, but now holds water.\n\nBreweries are far few and in between out in the wasteland, given there's barely any grain left. Distillieries and basement operations, on the other hand, are plentiful."
+    "flavour_text": "A metal keg which once held alcohol, but now holds fresh water."
   },
   "water_drum": {
     "item_id": "water_drum",
     "type": "RESOURCES",
     "subtype": "WATER",
     "texture": "items/resources/water/water_drum.png",
-    "value": 25,
+    "value": 40,
     "stat": 100,
     "usable": true,
     "name": "Water Drum",
-    "flavour_text": "A large oil drum, cleaned out and filled with fresh water. \n\nOil is so rare that it can't be found in the usual places anymore."
+    "flavour_text": "A large oil drum, cleaned out and filled with fresh water."
   },
   "bits_bolts": {
     "item_id": "bits_bolts",
@@ -59,11 +59,22 @@
     "type": "RESOURCES",
     "subtype": "MATERIALS",
     "texture": "items/resources/scrap/discarded_parts.png",
-    "value": 10,
-    "stat": 1,
+    "value": 20,
+    "stat": 10,
     "usable": true,
     "name": "Discarded Parts",
     "flavour_text": "Small components of what might have once been a large machine."
+  },
+  "choice_components": {
+    "item_id": "choice_components",
+    "type": "RESOURCES",
+    "subtype": "MATERIALS",
+    "texture": "items/resources/scrap/choice_components.png",
+    "value": 30,
+    "stat": 50,
+    "usable": true,
+    "name": "Choice Components",
+    "flavour_text": "Microcontrollers, solenoid valves, plastic tubing and other things that are either hard to find or almost impossible to build from scratch."
   },
   "scrap_pile": {
     "item_id": "scrap_pile",
@@ -75,5 +86,93 @@
     "usable": true,
     "name": "Pile of Scrap",
     "flavour_text": "A big pile of sheet metal, reusable parts, and strange gadgets."
+  },
+  "small_battery": {
+    "item_id": "small_battery",
+    "type": "RESOURCES",
+    "subtype": "ENERGY",
+    "texture": "items/resources/energy/improvised_battery.png",
+    "value": 10,
+    "stat": 1,
+    "usable": true,
+    "name": "Small Battery",
+    "flavour_text": "A small battery that contains a minuscule amount of energy."
+  },
+  "power_pack": {
+    "item_id": "power_pack",
+    "type": "RESOURCES",
+    "subtype": "ENERGY",
+    "texture": "items/resources/energy/power_pack.png",
+    "value": 20,
+    "stat": 10,
+    "usable": true,
+    "name": "Power Pack",
+    "flavour_text": "A large, portable battery that carries a decent amount of energy."
+  },
+  "fuel_cell": {
+    "item_id": "fuel_cell",
+    "type": "RESOURCES",
+    "subtype": "ENERGY",
+    "texture": "items/resources/energy/fuel_cell.png",
+    "value": 30,
+    "stat": 50,
+    "usable": true,
+    "name": "Fuel Cell",
+    "flavour_text": "A metallic cyllinder that radiates a violet glow. Safe, unless you spend a lot of time near it. Contains a great amount of energy."
+  },
+  "fuel_array": {
+    "item_id": "fuel_array",
+    "type": "RESOURCES",
+    "subtype": "ENERGY",
+    "texture": "items/resources/energy/fuel_array.png",
+    "value": 25,
+    "stat": 100,
+    "usable": true,
+    "name": "Pile of Scrap",
+    "flavour_text": "Many fuel cells working in tandem. Much of the energy contained within is dispersed into the air, but the benefits far outweigh the downsides. Your only reliable way of manually transporting massive amounts of energy across the wasteland."
+  },  
+    "unknown_seed": {
+      "item_id": "unknown_seed",
+      "type": "RESOURCES",
+      "subtype": "SEEDS",
+      "texture": "items/resources/seeds/unknown_seed.png",
+      "value": 0,
+      "stat": 1,
+      "usable": true,
+      "name": "Unknown Seed",
+      "flavour_text": "An intact seed from an unknown plant. Full of potential."
+    },
+    "saplings": {
+      "item_id": "saplings",
+      "type": "RESOURCES",
+      "subtype": "SEEDS",
+      "texture": "items/resources/seeds/saplings.png",
+      "value": 0,
+      "stat": 10,
+      "usable": true,
+      "name": "Saplings in Dirt",
+      "flavour_text": "A chunk of dirt with numerous little saplings growing from it. This is life, and must be properly nurtured to grow even more."
+    },
+    "seed_bag": {
+      "item_id": "seed_bag",
+      "type": "RESOURCES",
+      "subtype": "SEEDS",
+      "texture": "items/resources/seeds/bag_of_seeds.png",
+      "value": 0,
+      "stat": 50,
+      "usable": true,
+      "name": "Bag of Seeds",
+      "flavour_text": "This is from before the war. The seeds inside are dried up, but maybe with some water and soil, you could make something happen."
+    },
+    "berry_bush": {
+      "item_id": "berry_bush",
+      "type": "RESOURCES",
+      "subtype": "SEEDS",
+      "texture": "items/resources/seeds/berrybush.png",
+      "value": 0,
+      "stat": 100,
+      "usable": true,
+      "name": "Berry Bush",
+      "flavour_text": "A bright green bush with many vibrant, and sadly inedible, red berries growing from it."
   }
 }

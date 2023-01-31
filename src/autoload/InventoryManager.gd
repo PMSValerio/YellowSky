@@ -21,6 +21,7 @@ func _ready():
 	compact_resource_items[Global.Resources.WATER] = []
 	compact_resource_items[Global.Resources.ENERGY] = []
 	compact_resource_items[Global.Resources.MATERIALS] = []
+	compact_resource_items[Global.Resources.SEEDS] = []
 	
 	_build_items()
 	inventory_layouts = Global.get_text_from_file(Global.Text.ITEMS, "inventories.json", [])
