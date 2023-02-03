@@ -90,7 +90,6 @@ enum Text {
 	SETTLEMENTS,
 	NPCS,
 	QUESTS,
-	CONFIGS, # general configurations that do not fall into any specific category
 	EVENTS,
 }
 
@@ -186,7 +185,7 @@ func _ready():
 	_init_facility_types()
 	_init_settlement_types()
 	
-	facility_upgrades_config = _config_parser.get_text_from_file(Text.CONFIGS, "facility_upgrades.json", [])
+	facility_upgrades_config = _config_parser.get_text_from_file(Text.FACILITIES, "facility_upgrades.json", [])
 
 
 func set_cam(cam : Camera2D):
