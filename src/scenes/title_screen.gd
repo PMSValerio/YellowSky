@@ -12,13 +12,16 @@ var pressed = false
 
 var in_title = false
 
+
 func _ready():
 	bg_music.play()
 	Global.fade_in_bg_music(1.5)
 
+
 func _physics_process(delta: float) -> void:
 	layer1.motion_offset.x -= speed1 * delta
 	layer2.motion_offset.x -= speed2 * delta
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -32,6 +35,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				$AnimationPlayer.advance($AnimationPlayer.current_animation_length)
 	
+
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	if _anim_name == "opening":
 		$AnimationPlayer.play("start_title")
@@ -39,8 +43,4 @@ func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 		in_title = true
 	elif _anim_name == "start_game":
 		var _v = get_tree().change_scene("res://src/scenes/World.tscn")
-		
-
-
-
-
+	

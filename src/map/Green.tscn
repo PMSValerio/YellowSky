@@ -1,11 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/map/perspective_sprite.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/entities/greenery.png" type="Texture" id=2]
+[ext_resource path="res://assets/shaders/dim_fade.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/dim_lowlim = 0.6
+shader_param/dim_highlim = 0.65
+shader_param/dim_colour = Color( 0.35, 0.2, 0.25, 1 )
+shader_param/alpha_lowlim = 0.675
+shader_param/alpha_highlim = 0.7
+shader_param/enable = true
+shader_param/height = 0.0
 
 [node name="Green" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 BASE_SCALE = 3.0

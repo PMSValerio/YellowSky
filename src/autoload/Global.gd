@@ -171,6 +171,8 @@ var event_data = {} # ditto ditto
 var _cam = null setget set_cam, get_cam
 var _screen_size = Vector2.ZERO
 var _player = null setget set_player, get_player
+
+# currently not being used
 var _warped_mouse_pos = Vector2.ZERO
 
 var _config_parser : TextManager

@@ -138,3 +138,25 @@ func get_warped_mouse_position() -> Vector2:
 	screen_pos.y = (1.0 - screen_pos.y) * screen_size.y
 	
 	return screen_pos
+	
+
+""" 	
+	I hereby award you this medal, for all the math that allows conversions between screen space and
+	warped space, significantly contributing to the advancement of the game development scene as a whole:
+	_________________
+	|@@@@|     |####|
+	|@@@@|     |####|
+	|@@@@|     |####|
+	`@@@@|     |####'
+	 `@@@|     |###'
+	  `@@|_____|##'
+		   (O)
+		.-'''''-.
+	  .'  * * *  `.
+	 :  *       *  :
+	: ~ A S C I I ~ :
+	: ~ A W A R D ~ :
+	 :  *       *  :
+	  `.  * * *  .'
+		`-.....-' 
+"""

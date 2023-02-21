@@ -17,12 +17,11 @@ export (PackedScene) var SETTLEMENT_SCENE
 export (PackedScene) var FACILITY_SCENE
 export (PackedScene) var EVENT_SCENE
 export (PackedScene) var GREEN_SCENE
-
 export (PackedScene) var RAINDROP_SCENE
 
 const FEATURE_TILES_COUNT = 25 # number of feature tiles to be distributed in the map
 const SETTLEMENT_FACILITY_RATIO = 0.4 # settlement to facility ratio
-const START_RADIUS = 5 # x tile radius of open area
+const START_RADIUS = 5 # tile radius of open area
 const DISCOVER_RANGE = 4 # range at which tiles are discovered
 const FEATURE_SPACING = 3 # minimum space between features on generation
 
@@ -42,9 +41,7 @@ onready var events = $Entities/Events
 onready var greens = $Entities/Greens
 
 onready var raindrops = $RainDrops
-
 onready var game_anim = $OverHUD/AnimationPlayer
-
 onready var bg_music_player = $BG_MusicPlayer
 
 var hex_center = Vector2.ZERO
@@ -59,15 +56,18 @@ var discovered = [] # map cells not obscured by fog of war (true or false)
 var paused_time
 var map_center = Vector2(Global.MAP_WID/2.0 - 1, Global.MAP_HEI/2.0 - 1)
 var start_settlement_offset = Vector2(1, -4)
+var start_facility_offset = Vector2(-2, 0)
 
 var raining_period = 0.0
 var raining_timer = 0.0
 
+# music related, and therefore, temporary
 var first_time = true
 var last_choice = null
 
+
 func _ready() -> void:
-	MapUtils.set_ref_tilemap($TileMap)
+	MapUtils.set_ref_tilemap(tilemap)
 	_rng.randomize()
 	_resize_map()
 	_generate_map()
@@ -92,7 +92,7 @@ func _ready() -> void:
 	
 	# Manually instance starting features aka event, facility and settlement 
 	var _ev = Global.generate_event(Global.get_event_data("starter", Global.EventTypes.GENERIC), map_center + Vector2.UP, false)
-	_instance_map_scene(map_center + Vector2(-1, -4), TileType.FACILITY)
+	_instance_map_scene(map_center + start_settlement_offset + start_facility_offset, TileType.FACILITY)
 	_instance_map_scene(map_center + start_settlement_offset, TileType.SETTLEMENT)
 	
 	Global.get_player().global_position = tilemap.map_to_world(map_center) + Vector2(tilemap.cell_size.x / 2, tilemap.cell_size.y * 2/3)
@@ -124,7 +124,7 @@ func _physics_process(_delta: float) -> void:
 		player._on_World_tile_entered(interactable)
 		_discover_around(hex_tile)
 	
-	# find the tile being hovered
+	# find the tile being hovered in order to display tooltips on feature tiles when needed
 	var last_mouse_tile = _mouse_hex_tile
 	var screen_pos = MapUtils.get_warped_mouse_position()
 	# the transform must be manually tailored, because the viewport's transform takes into account the whole window space
@@ -619,11 +619,12 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				map_grid[cell.x][cell.y] = mountain
 		TileType.SETTLEMENT:
 			if SETTLEMENT_SCENE != null:
-
-	
 				var settlement = SETTLEMENT_SCENE.instance()
+
+				# TODO: this rough code should be only temporary
 				if cell == map_center + start_settlement_offset:
 					settlement.is_start_settle = true
+
 				settlement.global_position = real_position
 				settlement.set_discovered(false)
 				settlements.add_child(settlement)
@@ -636,13 +637,14 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 				facilities.add_child(facility)
 				map_grid[cell.x][cell.y] = facility
 
+
 # || --- SIGNALS --- ||
 
 # callback function when player presses interact button
 func _on_Player_interact(position):
 	var hex_tile = _get_cell_from_position(position)
-	
 	var tile_entity = map_grid[hex_tile.x][hex_tile.y]
+
 	if tile_entity is Object and tile_entity.has_method("interact"):
 		tile_entity.interact()
 		WorldData.quest_log.on_feature_interacted(tile_entity)
@@ -733,7 +735,6 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 # this should not be in world_map
 func random_bg_music():
-	#var last_music_played = ""
 	var music_file
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -760,6 +761,6 @@ func random_bg_music():
 		bg_music_player.stream = load(music_file)
 		bg_music_player.play()
 
+
 func play_leave_menu_sfx():
 	$Close_menus_sfx.play()
-

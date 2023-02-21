@@ -18,10 +18,7 @@ const STAMINA_LOSS_RATE = 1.2
 onready var _cam_anchor = $CameraAnchor
 onready var _cam = $CameraAnchor/Camera2D
 onready var _cam_tween = $CameraAnchor/Tween
-onready var _prompt_anchor = $Node2D
-onready var _prompt = $Node2D/InteractPrompt
-
-onready var sprite = $Sprite
+onready var _prompt = $Sprite/InteractPrompt
 onready var anim = $AnimationPlayer
 
 onready var screen_size_pan_margins = Global.get_screen_size().x / PAN_MARGIN_DIVISION_RATE
@@ -76,14 +73,10 @@ func _ready() -> void:
 	_v = EventManager.connect("push_menu", self, "_on_push_menu")
 	_v = EventManager.connect("attempt_sleep", self, "change_stamina", [Global.TOTAL_STAMINA/2.0])
 	_v = EventManager.connect("night_penalty", self, "change_health", [-Global.TOTAL_HEALTH*0.7])
-	
 	_v = EventManager.connect("rain", self, "_on_rain")
 	
 
 func _physics_process(_delta: float) -> void:
-	# so that the prompt isn't affected by the scale warping, but only by the position warping
-	_prompt_anchor.position = sprite.position + Vector2(0, -32) * sprite.scale
-	
 	var move_direction = Vector2(
 		Input.get_action_strength("mov_right") - Input.get_action_strength("mov_left"),
 		Input.get_action_strength("mov_down") - Input.get_action_strength("mov_up")
