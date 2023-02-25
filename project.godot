@@ -135,8 +135,10 @@ _global_script_class_icons={
 [application]
 
 config/name="Yellow Sky"
+config/description="Yellow Sky is a single-player post-apocalyptic strategy game focused on resource-management and survival, played through the lens of a more traditionally inclined RPG/Adventure game."
 run/main_scene="res://src/scenes/World.tscn"
-run/low_processor_mode=true
+boot_splash/show_image=false
+boot_splash/bg_color=Color( 0.145098, 0.0980392, 0.160784, 1 )
 config/icon="res://assets/gfx/HUD/windowIcon.png"
 
 [autoload]
@@ -150,6 +152,7 @@ WorldData="*res://src/autoload/WorldData.gd"
 
 [display]
 
+window/size/resizable=false
 mouse_cursor/custom_image="res://assets/gfx/ui_elements/pointer.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
