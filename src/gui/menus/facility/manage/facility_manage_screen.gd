@@ -95,13 +95,14 @@ func set_context(context):
 func _update_status():
 	var status = facility_entity.get_status()
 	
+	# TODO: shoudlnt this be done in the status icon itself? The manage screen just passes the status.
 	match status:
 		Facility.Status.OK:
 			status_indicator.play("ok")
 			status_tooltip.hint_tooltip = "Facility is in working condition"
 		Facility.Status.WRECKED:
 			status_indicator.play("wrecked")
-			status_tooltip.hint_tooltip = "Facility destroyed, repairs required"
+			status_tooltip.hint_tooltip = "Facility destroyed, full repair required"
 		Facility.Status.NO_FUEL:
 			status_indicator.play("no_fuel")
 			status_tooltip.hint_tooltip = "Not enough fuel to work"
@@ -149,6 +150,7 @@ func _toggle_on_off(onoff):
 
 
 # || --- Callbacks --- ||
+
 
 func _on_Repair_pressed() -> void:
 	var amount = facility_entity.get_max_health() - facility_entity.health

@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement0_with_npc.png" type="Texture" id=1]
+[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement1_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_screen.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement3_with_npc.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=4]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/sfx/ui/UI_Keyboard_Typing.wav" type="AudioStream" id=14]
 [ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sfx/world/Settlement_bg_music.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement1.png" type="Texture" id=17]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -33,7 +34,6 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=6]
 shader = SubResource( 5 )
 shader_param/fade_weight = 0.0
-shader_param/target_texture = ExtResource( 1 )
 
 [sub_resource type="Animation" id=8]
 length = 0.001
@@ -59,7 +59,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 1 ) ]
+"values": [ null ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -237,7 +237,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 537.0
 margin_bottom = 332.0
-texture = ExtResource( 6 )
+texture = ExtResource( 17 )
 expand = true
 stretch_mode = 6
 

@@ -32,6 +32,5 @@ signal attempt_sleep()
 # Disasters
 signal disaster_damage(damage)
 signal start_nightfall()
-signal start_deep_nightfall()
 signal night_penalty()
 signal rain(period)

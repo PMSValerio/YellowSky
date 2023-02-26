@@ -48,7 +48,7 @@ func _ready():
 	var _v = EventManager.connect("disaster_damage", self, "_on_disaster_damage")
 	_v = EventManager.connect("world_is_ready", self, "setup_green_tiles_left")
 	_v = EventManager.connect("start_nightfall", self, "_toggle_can_sleep", [true])
-	_v = EventManager.connect("start_deep_nightfall", self, "_toggle_can_sleep", [false])
+	_v = EventManager.connect("night_penalty", self, "_toggle_can_sleep", [false])
 
 
 func _initialize_with_type(type):
@@ -104,7 +104,7 @@ func _tick() -> void:
 		if tooltip.visible:
 			tooltip.update_items(self)
 
-	healthbar_anchor.visible = sprite.visible and health < get_max_health()
+		healthbar_anchor.visible = sprite.visible and health < get_max_health()
 
 
 # --- || Override || ---

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/facility/manage/StatDetails.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/gui/menus/facility/manage/facility_screen.gd" type="Script" id=3]
+[ext_resource path="res://src/gui/menus/facility/manage/facility_manage_screen.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/status_indicators.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=6]

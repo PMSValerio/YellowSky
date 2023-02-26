@@ -42,6 +42,7 @@ func get_item_amount(type, id) -> int:
 		return inventory[type][id]
 	return -1
 
+
 # returns array with all info on items that have more than 0 ammount. 
 # returned array has the following structure: [[type, id, ammount], [type, id, ammount], ...]
 func get_owned_items_info() -> Array:
@@ -76,6 +77,7 @@ func use_item(type, item_id):
 	if type in inventory and item_id in inventory[type] and inventory[type][item_id] > 0 and InventoryManager.item_stats[item_id].usable:
 		inventory[type][item_id] -= 1
 		EventManager.emit_signal("item_used", InventoryManager.item_stats[item_id])
+
 
 # supports positive/negative values to add/remove
 func add_items(type, item_id, ammount=1):

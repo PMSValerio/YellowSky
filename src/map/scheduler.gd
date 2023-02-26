@@ -29,9 +29,7 @@ var _next_interval = -1
 var _next_disaster = Global.Disasters.STORM
 
 var day_timer = 0 # timer for each day
-
 var disaster_node = null
-
 var disaster_running = false
 
 var distributions = {
@@ -56,6 +54,7 @@ var distributions = {
 		Global.Disasters.RAIN: 0.3,
 	}
 }
+
 var intervals = {
 	Global.DAY_DURATION: Global.DAY_DURATION,
 	Global.DAY_DURATION * 2: Global.DAY_DURATION * 0.7,
@@ -82,10 +81,10 @@ func _process(delta: float) -> void:
 	_update_day(delta)
 
 
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("debug"):
-		#_next_interval = 1
-		#_skip_day()
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		_next_interval = 1
+		_process_disaster(Global.Disasters.TORNADO)
 
 
 func _process_disaster(disaster_id):
@@ -103,13 +102,15 @@ func _process_disaster(disaster_id):
 func _schedule_new_disaster():
 	# TODO: calculate based on total progression
 	_next_interval = 20 + (randf() * 5)
-#	_next_disaster = Global.Disasters.AMOGEDDON if randf() < 0.2 else Global.Disasters.TORNADO
+
+	#_next_disaster = Global.Disasters.AMOGEDDON if randf() < 0.2 else Global.Disasters.TORNADO
 	var dist = {}
 	for phase in distributions:
 		_next_interval = intervals[phase]
 		dist = distributions[phase]
 		if total_elapsed_time < phase:
 			break
+
 	_next_disaster = _new_disaster_prob(dist)
 
 
@@ -135,7 +136,6 @@ func _on_disaster_end():
 	disaster_node = null
 	Global.play_paused_audio(world_bg_music, 1.5)
 	_schedule_new_disaster()
-	
 
 
 func _update_day(delta):
@@ -150,7 +150,6 @@ func _update_day(delta):
 		tween.interpolate_property(nighttime, "color:a", 0, 0.8, Global.NIGHT_DURATION)
 		tween.start()
 	elif _last < Global.DAY_DURATION and day_timer >= Global.DAY_DURATION: # quickly go to full black in 2 seconds
-		EventManager.emit_signal("start_deep_nightfall")
 		tween.interpolate_property(nighttime, "color:a", 0.8, 1.0, 2)
 		tween.start()
 	elif day_timer >= Global.DAY_DURATION + 3: # reset to day
