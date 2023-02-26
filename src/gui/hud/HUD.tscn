@@ -1,17 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/hud/HudHopeSeed.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_stamina.png" type="Texture" id=5]
-[ext_resource path="res://assets/fonts/Digital16.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/gfx/ui_elements/clock.png" type="Texture" id=7]
 [ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_health.png" type="Texture" id=11]
-
-[sub_resource type="DynamicFont" id=2]
-font_data = ExtResource( 6 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 7 )
@@ -53,22 +49,11 @@ grow_vertical = 0
 size_flags_horizontal = 3
 custom_constants/separation = 33
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/AllElements"]
+[node name="Clock" type="PanelContainer" parent="Control/MarginContainer/AllElements"]
 margin_right = 96.0
 margin_bottom = 80.0
 
-[node name="Time" type="Label" parent="Control/MarginContainer/AllElements/PanelContainer"]
-visible = false
-margin_left = 8.0
-margin_top = 31.0
-margin_right = 88.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 80, 0 )
-custom_fonts/font = SubResource( 2 )
-text = "00:00"
-align = 1
-
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/AllElements/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/AllElements/Clock"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 88.0

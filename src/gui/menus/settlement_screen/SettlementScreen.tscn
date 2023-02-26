@@ -303,7 +303,6 @@ margin_right = 345.0
 margin_bottom = 456.0
 
 [node name="MainOptions" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
-visible = false
 margin_right = 337.0
 margin_bottom = 290.0
 
@@ -351,9 +350,8 @@ text = "Leave"
 
 [node name="DialogueOptions" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
 visible = false
-margin_top = 196.0
 margin_right = 337.0
-margin_bottom = 339.0
+margin_bottom = 143.0
 
 [node name="AcceptButton" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/DialogueOptions"]
 margin_right = 337.0
@@ -376,6 +374,7 @@ rect_min_size = Vector2( 0, 45 )
 text = "*say goodbye*"
 
 [node name="StatsContainer" type="VBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options"]
+visible = false
 margin_right = 337.0
 margin_bottom = 263.0
 custom_constants/separation = 15

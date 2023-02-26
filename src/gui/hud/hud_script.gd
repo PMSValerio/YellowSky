@@ -5,7 +5,7 @@ const NIGHT_X = 216
 
 export (NodePath) var DANGER_BORDER_PATH
 
-onready var CLOCK_WID = $Control/MarginContainer/AllElements/PanelContainer/TextureRect.texture.atlas.get_width()
+onready var CLOCK_WID = $Control/MarginContainer/AllElements/Clock/TextureRect.texture.atlas.get_width()
 
 onready var health_bar_ref = $Control/MarginContainer/AllElements/Bars/Health/TextureProgress
 onready var stamina_bar_ref = $Control/MarginContainer/AllElements/Bars/Stamina/TextureProgress
@@ -16,7 +16,7 @@ onready var energy_counter_ref = $Control/MarginContainer/AllElements/Resources/
 onready var seeds_counter_ref = $Control/MarginContainer/AllElements/Other/Seeds
 onready var hope_counter_ref = $Control/MarginContainer/AllElements/Other/Hope
 
-onready var clock = $Control/MarginContainer/AllElements/PanelContainer/TextureRect
+onready var clock = $Control/MarginContainer/AllElements/Clock/TextureRect
 
 onready var health_border = get_node(DANGER_BORDER_PATH)
 
@@ -80,13 +80,6 @@ func _on_resource_button_pressed(rec_id):
 		EventManager.emit_signal("change_compact_resource", rec_id)
 	else:
 		EventManager.emit_signal("push_menu", Global.Menus.MAIN_MENU, rec_id)
-
-
-# currently not being used
-func _set_time(hours, minutes):
-	var hh = ("0" if hours < 10 else "") + str(hours)
-	var mm = ("0" if minutes < 10 else "") + str(minutes)
-	clock.text = hh + ":" + mm
 
 
 func _on_time_update(new_time):

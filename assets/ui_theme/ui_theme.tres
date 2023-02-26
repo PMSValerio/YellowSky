@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=2]
+[gd_resource type="Theme" load_steps=26 format=2]
 
 [ext_resource path="res://assets/fonts/base_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui_styles/inner_panel.tres" type="StyleBox" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/gfx/ui_elements/range/slider.png" type="Texture" id=9]
 [ext_resource path="res://assets/gfx/ui_elements/range/slider_bar_9p.png" type="Texture" id=10]
 [ext_resource path="res://assets/gfx/ui_elements/range/slider_bar_fill.png" type="Texture" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=14]
 
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 6 )
@@ -103,6 +105,7 @@ expand_margin_bottom = 3.0
 
 [resource]
 default_font = ExtResource( 1 )
+Button/styles/disabled = SubResource( 14 )
 Button/styles/hover = SubResource( 5 )
 Button/styles/normal = SubResource( 6 )
 Button/styles/pressed = SubResource( 7 )
