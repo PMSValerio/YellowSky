@@ -170,6 +170,7 @@ func _spawn_raindrop():
 	raindrop.position = Vector2(xx, yy)
 	raindrops.add_child(raindrop)
 
+
 func generate_event_tile(event : Event):
 	var pos_cell = event.cell_pos
 	
@@ -263,6 +264,7 @@ func _get_cells_around(origin, radius):
 
 
 # || --- TILEMAP MANIPULATION --- ||
+
 
 # resize map as needed
 func _resize_map():
@@ -640,6 +642,7 @@ func _instance_map_scene(cell : Vector2, scene_type : int):
 
 # || --- SIGNALS --- ||
 
+
 # callback function when player presses interact button
 func _on_Player_interact(position):
 	var hex_tile = _get_cell_from_position(position)
@@ -733,7 +736,9 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		var _v = get_tree().change_scene("res://src/scenes/GameOver.tscn")
 
 
-# this should not be in world_map
+# || --- MUSIC --- || this should not be in world_map
+
+
 func random_bg_music():
 	var music_file
 	var rng = RandomNumberGenerator.new()

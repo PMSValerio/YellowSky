@@ -81,6 +81,7 @@ func _physics_process(_delta: float) -> void:
 		Input.get_action_strength("mov_right") - Input.get_action_strength("mov_left"),
 		Input.get_action_strength("mov_down") - Input.get_action_strength("mov_up")
 	).normalized()
+	
 	var _v = move_and_slide(SPEED * move_direction)
 	if move_direction.length() != 0: # only update direction if moving
 		direction = move_direction
