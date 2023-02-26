@@ -1,15 +1,15 @@
 extends Node
 
 
-onready var layer1 = $ParallaxBackground/Layer1
-onready var layer2 = $ParallaxBackground/Layer2
-onready var bg_music = $BG_music_player
+onready var back_clouds = $ParallaxBackground/BackClouds
+onready var front_clouds = $ParallaxBackground/FrontClouds
+onready var bg_music = $BG_music
 onready var start_sfx = $Start_sfx
+onready var animation_player = $AnimationPlayer
 
-var speed1 = 16
-var speed2 = 8
+var speed1 = 8
+var speed2 = 16
 var pressed = false
-
 var in_title = false
 
 
@@ -19,8 +19,8 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	layer1.motion_offset.x -= speed1 * delta
-	layer2.motion_offset.x -= speed2 * delta
+	back_clouds.motion_offset.x -= speed1 * delta
+	front_clouds.motion_offset.x -= speed2 * delta
 
 
 func _input(event: InputEvent) -> void:
@@ -29,18 +29,19 @@ func _input(event: InputEvent) -> void:
 			if in_title:
 				if not pressed:
 					start_sfx.play()
-					$AnimationPlayer.play("start_game")
+					animation_player.play("start_game")
 					Global.fade_out_bg_music(2)
 					pressed = true
 			else:
-				$AnimationPlayer.advance($AnimationPlayer.current_animation_length)
-	
+				animation_player.advance(animation_player.current_animation_length)
+
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	if _anim_name == "opening":
-		$AnimationPlayer.play("start_title")
+		animation_player.play("start_title")
 	elif _anim_name == "start_title":
 		in_title = true
+		animation_player.play("idle_menu")
 	elif _anim_name == "start_game":
 		var _v = get_tree().change_scene("res://src/scenes/World.tscn")
 	
