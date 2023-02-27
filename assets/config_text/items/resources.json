@@ -168,7 +168,7 @@
       "item_id": "berry_bush",
       "type": "RESOURCES",
       "subtype": "SEEDS",
-      "texture": "items/resources/seeds/berrybush.png",
+      "texture": "items/resources/seeds/berry_bush.png",
       "value": 0,
       "stat": 100,
       "usable": true,

@@ -1,10 +1,11 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/gui/menus/main/inventory/compact_transaction_slot.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/ui_elements/icons/icon_trade.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/ui_elements/icons/trade_icon.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/menus/reusable/menu_tooltip_proxy.gd" type="Script" id=3]
 [ext_resource path="res://src/gui/menus/reusable/ResourceIcon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/fonts/dogicapixelbold.ttf" type="DynamicFontData" id=5]
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 14

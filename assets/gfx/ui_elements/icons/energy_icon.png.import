@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/waterIcon.png-92eeb01d86273b9f0867342b7f0709d5.stex"
+path="res://.import/energy_icon.png-cc0e87df73863ad4dc59a68bdb639288.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/ui_elements/icons/waterIcon.png"
-dest_files=[ "res://.import/waterIcon.png-92eeb01d86273b9f0867342b7f0709d5.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/energy_icon.png"
+dest_files=[ "res://.import/energy_icon.png-cc0e87df73863ad4dc59a68bdb639288.stex" ]
 
 [params]
 

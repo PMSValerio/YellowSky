@@ -110,12 +110,12 @@ enum EventTypes {
 # using "FacilityResources" instead of Resources? Doubt. Not sure on best course of action.
 var resource_icons = {
 	Resources.NONE: null,
-	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/waterIcon.png"),
-	Resources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/craftMatIcons.png"),
-	Resources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energyIcon.png"),
-	Resources.FOOD: preload("res://assets/gfx/ui_elements/icons/icon_stamina.png"),
-	Resources.SEEDS: preload("res://assets/gfx/ui_elements/icons/seedsIcon.png"),
-	Resources.HOPE: preload("res://assets/gfx/ui_elements/icons/icon_hope.png"),
+	Resources.WATER: preload("res://assets/gfx/ui_elements/icons/water_icon.png"),
+	Resources.MATERIALS: preload("res://assets/gfx/ui_elements/icons/materials_icon.png"),
+	Resources.ENERGY: preload("res://assets/gfx/ui_elements/icons/energy_icon.png"),
+	Resources.FOOD: preload("res://assets/gfx/ui_elements/icons/stamina_icon.png"),
+	Resources.SEEDS: preload("res://assets/gfx/ui_elements/icons/seeds_icon.png"),
+	Resources.HOPE: preload("res://assets/gfx/ui_elements/icons/hope_icon.png"),
 }
 
 var resource_names = {

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_trade.png-46a21aee2f866358f1bd7ba72987a2e1.stex"
+path="res://.import/ruined_food.png-566e9a57bcadf651cacd5aa3554568ed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/ui_elements/icons/icon_trade.png"
-dest_files=[ "res://.import/icon_trade.png-46a21aee2f866358f1bd7ba72987a2e1.stex" ]
+source_file="res://assets/gfx/config_assets/items/food/ruined_food.png"
+dest_files=[ "res://.import/ruined_food.png-566e9a57bcadf651cacd5aa3554568ed.stex" ]
 
 [params]
 

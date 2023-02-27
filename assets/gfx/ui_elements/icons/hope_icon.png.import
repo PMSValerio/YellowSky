@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/freshproduce.png-524a02c1847dbb53f62d1e539ef46f75.stex"
+path="res://.import/hope_icon.png-951d7f436a2c30f2122da04504050d27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/config_assets/items/food/freshproduce.png"
-dest_files=[ "res://.import/freshproduce.png-524a02c1847dbb53f62d1e539ef46f75.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/hope_icon.png"
+dest_files=[ "res://.import/hope_icon.png-951d7f436a2c30f2122da04504050d27.stex" ]
 
 [params]
 

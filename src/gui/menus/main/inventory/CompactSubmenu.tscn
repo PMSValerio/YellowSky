@@ -2,9 +2,9 @@
 
 [ext_resource path="res://src/gui/menus/main/inventory/CompactTransactionSlot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/gui/menus/main/inventory/compact_submenu.gd" type="Script" id=2]
-[ext_resource path="res://assets/gfx/ui_elements/icons/waterIcon.png" type="Texture" id=3]
-[ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=4]
-[ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/water_icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/ui_elements/icons/energy_icon.png" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/ui_elements/icons/materials_icon.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/menus/reusable/ExitBtn.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/autoload/UiSfxManager.tscn" type="PackedScene" id=7]
 

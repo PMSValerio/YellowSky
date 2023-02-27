@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cannedmeat.png-a10e54722aa3601939d6f981541c2122.stex"
+path="res://.import/drug_dust.png-9d0ed0351f29c5b65931998225a67f9c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/config_assets/items/food/cannedmeat.png"
-dest_files=[ "res://.import/cannedmeat.png-a10e54722aa3601939d6f981541c2122.stex" ]
+source_file="res://assets/gfx/config_assets/items/luxuries/drug_dust.png"
+dest_files=[ "res://.import/drug_dust.png-9d0ed0351f29c5b65931998225a67f9c.stex" ]
 
 [params]
 

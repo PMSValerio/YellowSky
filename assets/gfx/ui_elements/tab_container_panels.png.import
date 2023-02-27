@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ruinedfood.png-3981735ba798033b46961eadb55f07f2.stex"
+path="res://.import/tab_container_panels.png-f3fed3e3825e4d7b172017b0a5f369e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/config_assets/items/food/ruinedfood.png"
-dest_files=[ "res://.import/ruinedfood.png-3981735ba798033b46961eadb55f07f2.stex" ]
+source_file="res://assets/gfx/ui_elements/tab_container_panels.png"
+dest_files=[ "res://.import/tab_container_panels.png-f3fed3e3825e4d7b172017b0a5f369e0.stex" ]
 
 [params]
 

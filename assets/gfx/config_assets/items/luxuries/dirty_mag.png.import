@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/drugdust.png-ee372216ae9d78ba556439b0078dae99.stex"
+path="res://.import/dirty_mag.png-ce2b39a7d37692475ff5c2464a78d693.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/config_assets/items/luxuries/drugdust.png"
-dest_files=[ "res://.import/drugdust.png-ee372216ae9d78ba556439b0078dae99.stex" ]
+source_file="res://assets/gfx/config_assets/items/luxuries/dirty_mag.png"
+dest_files=[ "res://.import/dirty_mag.png-ce2b39a7d37692475ff5c2464a78d693.stex" ]
 
 [params]
 
