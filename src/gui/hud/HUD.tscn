@@ -1,13 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
 [ext_resource path="res://src/gui/hud/HudHopeSeed.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_stamina.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_health.png" type="Texture" id=5]
 [ext_resource path="res://assets/gfx/ui_elements/clock.png" type="Texture" id=7]
 [ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/gfx/HUD/HUD_icons/icon_health.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 7 )
@@ -91,7 +90,7 @@ margin_right = 204.0
 margin_bottom = 38.0
 
 [node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Health" index="0"]
-texture = ExtResource( 11 )
+texture = ExtResource( 5 )
 
 [node name="TextureProgress" parent="Control/MarginContainer/AllElements/Bars/Health" index="1"]
 texture_progress = ExtResource( 2 )
@@ -105,9 +104,6 @@ margin_left = 0.0
 margin_top = 42.0
 margin_right = 204.0
 margin_bottom = 74.0
-
-[node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Stamina" index="0"]
-texture = ExtResource( 5 )
 
 [node name="Resources" type="HBoxContainer" parent="Control/MarginContainer/AllElements"]
 margin_left = 651.0

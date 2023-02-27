@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_talk.png-12536447c4fcfe0cdbfa0060ab85cb4f.stex"
+path="res://.import/icon_stamina.png-ed0fa9506f0fd01872daf271919ee98a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/HUD/HUD_icons/icon_talk.png"
-dest_files=[ "res://.import/icon_talk.png-12536447c4fcfe0cdbfa0060ab85cb4f.stex" ]
+source_file="res://assets/gfx/ui_elements/icons/icon_stamina.png"
+dest_files=[ "res://.import/icon_stamina.png-ed0fa9506f0fd01872daf271919ee98a.stex" ]
 
 [params]
 

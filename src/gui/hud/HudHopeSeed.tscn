@@ -15,7 +15,7 @@ margin_bottom = 72.0
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 margin_top = 26.0
-margin_right = 32.0
+margin_right = 48.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 32, 0 )
 size_flags_horizontal = 3
