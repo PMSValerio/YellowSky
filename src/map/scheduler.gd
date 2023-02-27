@@ -81,10 +81,10 @@ func _process(delta: float) -> void:
 	_update_day(delta)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+""" func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
 		_next_interval = 1
-		_process_disaster(Global.Disasters.TORNADO)
+		_process_disaster(Global.Disasters.TORNADO) """
 
 
 func _process_disaster(disaster_id):
