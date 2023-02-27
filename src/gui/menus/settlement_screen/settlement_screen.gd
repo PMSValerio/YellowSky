@@ -327,6 +327,7 @@ func _on_GoodbyeButton_pressed():
 	keyboard_sfx.stop()
 	change_mode(Modes.keys()[Modes.MAIN])
 
+
 # clicking on text box to advance dialogue line
 func _on_SettlementDescriptionContainer_gui_input(event:InputEvent):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == 1 && dialogue_pntr.visible):

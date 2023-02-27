@@ -1,11 +1,11 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement1_with_npc.png" type="Texture" id=1]
 [ext_resource path="res://src/gui/menus/settlement_screen/settlement_screen.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/config_assets/settlement_portrait/settlement3_with_npc.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui_styles/outer_panel.tres" type="StyleBox" id=4]
 [ext_resource path="res://src/gui/menus/settlement_screen/TradeScreen.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/gfx/ui_elements/icons/ui_icons.png" type="Texture" id=6]
+[ext_resource path="res://src/gui/menus/reusable/ExitBtn.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/gui/menus/settlement_screen/ResourceInfo.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/gui/menus/misc/RewardScreen.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/gui/menus/facility/manage/ResourceSlider.tscn" type="PackedScene" id=9]
@@ -173,18 +173,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ), ExtResource( 3 ) ]
 }
-
-[sub_resource type="StyleBoxTexture" id=10]
-texture = ExtResource( 6 )
-region_rect = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="StyleBoxTexture" id=11]
-texture = ExtResource( 6 )
-region_rect = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="StyleBoxTexture" id=12]
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="SettlementScreen" type="Control"]
 anchor_right = 1.0
@@ -379,16 +367,11 @@ margin_right = 337.0
 margin_bottom = 263.0
 custom_constants/separation = 15
 
-[node name="ExitBtn" type="Button" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
+[node name="ExitBtn" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer" instance=ExtResource( 6 )]
 margin_left = 313.0
+margin_top = 0.0
 margin_right = 337.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-size_flags_horizontal = 8
-size_flags_vertical = 0
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/normal = SubResource( 12 )
 
 [node name="HealthContainer" type="HBoxContainer" parent="MainScreen/PanelContainer/HBoxContainer/OptionsContainer/Options/StatsContainer"]
 margin_top = 39.0
