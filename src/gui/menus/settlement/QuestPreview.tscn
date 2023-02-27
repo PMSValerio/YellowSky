@@ -2,7 +2,8 @@
 
 [ext_resource path="res://assets/fonts/headline_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/gui/menus/settlement_screen/quest_preview.gd" type="Script" id=3]
+[ext_resource path="res://src/gui/menus/settlement/quest_preview.gd" type="Script" id=3]
+
 
 [node name="QuestPreview" type="Control"]
 anchor_right = 1.0

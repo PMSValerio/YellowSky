@@ -5,10 +5,11 @@
 [ext_resource path="res://src/gui/menus/reusable/ItemRewardGrid.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts/dogicapixel.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://src/gui/menus/misc/event_screen.gd" type="Script" id=5]
-[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/autoload/UiSfxManager.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/gui/menus/reusable/DialoguePointer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/sfx/ui/UI_Keyboard_Typing.wav" type="AudioStream" id=8]
 [ext_resource path="res://assets/sfx/world/Events_bg_music.wav" type="AudioStream" id=9]
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 32

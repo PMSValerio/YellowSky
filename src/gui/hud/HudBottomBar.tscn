@@ -1,20 +1,20 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/gui/hud/hud_script.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=2]
-[ext_resource path="res://src/gui/hud/HudHopeSeed.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/gfx/ui_elements/icons/icon_health.png" type="Texture" id=5]
-[ext_resource path="res://assets/gfx/ui_elements/clock.png" type="Texture" id=7]
-[ext_resource path="res://src/gui/hud/HudBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/gui/hud/HudCounter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gfx/ui_elements/clock.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/ui_elements/range/health_bar_fill.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/ui_elements/icons/icon_health.png" type="Texture" id=4]
+[ext_resource path="res://src/gui/hud/hud_bottom_bar.gd" type="Script" id=5]
+[ext_resource path="res://src/gui/hud/HudAltCounter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/gui/hud/HudProgressBar.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 80, 64 )
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
-script = ExtResource( 1 )
+script = ExtResource( 5 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -66,10 +66,10 @@ margin_right = 381.0
 margin_bottom = 80.0
 custom_constants/separation = 20
 
-[node name="Hope" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
+[node name="Hope" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 6 )]
 margin_right = 116.0
 
-[node name="Seeds" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 3 )]
+[node name="Seeds" parent="Control/MarginContainer/AllElements/Other" instance=ExtResource( 6 )]
 margin_left = 136.0
 margin_right = 252.0
 
@@ -79,7 +79,7 @@ margin_right = 618.0
 margin_bottom = 80.0
 alignment = 1
 
-[node name="Health" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 9 )]
+[node name="Health" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 7 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -90,12 +90,12 @@ margin_right = 204.0
 margin_bottom = 38.0
 
 [node name="TextureRect" parent="Control/MarginContainer/AllElements/Bars/Health" index="0"]
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="TextureProgress" parent="Control/MarginContainer/AllElements/Bars/Health" index="1"]
-texture_progress = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
 
-[node name="Stamina" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 9 )]
+[node name="Stamina" parent="Control/MarginContainer/AllElements/Bars" instance=ExtResource( 7 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -114,19 +114,19 @@ size_flags_horizontal = 3
 custom_constants/separation = 8
 alignment = 1
 
-[node name="WaterCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+[node name="WaterCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 1 )]
 margin_left = 39.0
 margin_top = 16.0
 margin_right = 121.0
 margin_bottom = 64.0
 
-[node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+[node name="CraftMatCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 1 )]
 margin_left = 129.0
 margin_top = 16.0
 margin_right = 211.0
 margin_bottom = 64.0
 
-[node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 4 )]
+[node name="EnergyCounter" parent="Control/MarginContainer/AllElements/Resources" instance=ExtResource( 1 )]
 margin_left = 219.0
 margin_top = 16.0
 margin_right = 301.0

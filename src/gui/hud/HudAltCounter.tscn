@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/gui/hud/HudHopeSeed.gd" type="Script" id=1]
+[ext_resource path="res://src/gui/hud/hud_alt_counter.gd" type="Script" id=1]
 
 [node name="Hope" type="PanelContainer"]
 margin_right = 132.0

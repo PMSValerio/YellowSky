@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/gfx/ui_elements/buttons/upgrades_buttons.png" type="Texture" id=1]
-[ext_resource path="res://src/gui/menus/facility/upgrades/FacilityUpgrades.gd" type="Script" id=3]
-[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/gui/menus/facility/upgrades/facility_upgrades_screen.gd" type="Script" id=2]
+[ext_resource path="res://src/autoload/UiSfxManager.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -111,7 +111,7 @@ region = Rect2( 64, 256, 64, 64 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
@@ -426,5 +426,5 @@ texture_hover = SubResource( 25 )
 texture_disabled = SubResource( 26 )
 texture_focused = SubResource( 25 )
 
-[node name="SFX_Player" parent="PanelContainer/UpgradesSection" instance=ExtResource( 4 )]
+[node name="SFX_Player" parent="PanelContainer/UpgradesSection" instance=ExtResource( 3 )]
 root_path = NodePath("../VBoxContainer")

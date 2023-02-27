@@ -6,7 +6,8 @@
 [ext_resource path="res://assets/gfx/ui_elements/icons/energyIcon.png" type="Texture" id=4]
 [ext_resource path="res://assets/gfx/ui_elements/icons/craftMatIcons.png" type="Texture" id=5]
 [ext_resource path="res://src/gui/menus/reusable/ExitBtn.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/autoload/UiSfxManager.tscn" type="PackedScene" id=7]
+
 
 [node name="CompactSubmenu" type="PanelContainer"]
 anchor_left = 0.5

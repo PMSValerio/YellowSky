@@ -4,8 +4,9 @@
 [ext_resource path="res://src/gui/menus/main/inventory/InventoryScreen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/gui/menus/main/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://src/gui/menus/main/quests/QuestsScreen.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/autoload/UI_sfx.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/autoload/UiSfxManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sfx/world/Inventory_bg_music.wav" type="AudioStream" id=6]
+
 
 [node name="BaseOuterMenu" instance=ExtResource( 1 )]
 script = ExtResource( 3 )

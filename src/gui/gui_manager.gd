@@ -3,12 +3,10 @@ extends CanvasLayer
 
 # preloaded menu scenes
 var _menus = {
-	Global.Menus.TEST: preload("res://src/gui/menus/TestUI.tscn"),
 	Global.Menus.PAUSE_SCREEN: preload("res://src/gui/menus/pause/PauseScreen.tscn"),
-	Global.Menus.FACILITY_MENU: preload("res://src/gui/menus/facility/FacilityMenu.tscn"),
 	Global.Menus.MAIN_MENU: preload("res://src/gui/menus/main/MainMenu.tscn"),
-	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement_screen/SettlementScreen.tscn"),
-	Global.Menus.TRADE_SCREEN: preload("res://src/gui/menus/settlement_screen/TradeScreen.tscn"),
+	Global.Menus.FACILITY_MENU: preload("res://src/gui/menus/facility/FacilityMenu.tscn"),
+	Global.Menus.SETTLEMENT_SCREEN: preload("res://src/gui/menus/settlement/SettlementScreen.tscn"),
 	Global.Menus.EVENT_SCREEN: preload("res://src/gui/menus/misc/EventScreen.tscn"),
 	Global.Menus.EVENT_REQUIREMENTS_SCREEN: preload("res://src/gui/menus/misc/EventRequirementsScreen.tscn")
 }

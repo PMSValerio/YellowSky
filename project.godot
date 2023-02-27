@@ -84,11 +84,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/quests/quest_log.gd"
 }, {
-"base": "PanelContainer",
-"class": "ResourceButton",
-"language": "GDScript",
-"path": "res://src/gui/menus/main/inventory/resoure_button.gd"
-}, {
 "base": "Feature",
 "class": "Settlement",
 "language": "GDScript",
@@ -125,7 +120,6 @@ _global_script_class_icons={
 "PerspectiveSprite": "",
 "Quest": "",
 "QuestLog": "",
-"ResourceButton": "",
 "Settlement": "",
 "SettlementType": "",
 "StatDetails": "",
